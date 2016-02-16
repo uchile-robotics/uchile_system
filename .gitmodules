@@ -1,0 +1,3 @@
+[submodule "hooks"]
+	path = hooks
+	url = https://bitbucket.org/uchile-robotics-die/git_hooks.git
