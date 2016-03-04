@@ -1,5 +1,37 @@
 # README #
 
+
+## AUN NO ESTÁ LISTO !!!!
+
+
+## .
+
+
+## BASURA abajo
+
+
+LEEME
+
+
+1.- Copy ./bender.sh  to  ~/bender.sh and modify it with your current settings.
+
+2.-  Set the following in file '~/.bashrc':
+
+# BENDER ROS INDIGO SETUP
+source ~/bender.sh
+export EDITOR="gedit" ;
+
+
+3.- bash_aliases contiene el c'odigo para modificar el prompt
+ del bash, para que muestre la rama actual y si est'a sucia.
+
+  Para habilitarlo, basta copiarlo a: ~/.bash_aliases
+  Notar que es un archivo oculto!.
+
+
+---------------------------------------------------
+
+
 BenderCode-Indigo contiene el código fuente del Robot Bender,
 proyecto del laboratorio de robótica de la Universidad
 de Chile, FCFM, Depto. de Ingeniería Eléctrica.
