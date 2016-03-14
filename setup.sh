@@ -6,9 +6,11 @@
 # paths
 export BENDER_SYSTEM="$BENDER_WS"/bender_system
 
-# mail
+# contact
+export BENDER_SYSTEM_ADMIN="<mpavez> - matias pavez"
 export BENDER_EMAIL_CONTACT="bender.contacto@gmail.com"
 export BENDER_EMAIL_DEVELOP="bender.devel@gmail.com"
+
 
 # git hooks
 export GITHOOKS_PATH="$BENDER_SYSTEM/hooks/hooks"
@@ -22,22 +24,32 @@ export ROSCONSOLE_FORMAT='[${severity}] [${node}]: ${message}'
 
 # manage network configurations
 # ----------------------------------------
-# todo: get user ip manually:
-#      $ ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1 -d'/'
 if [ "$BENDER_NET_BY_SSH" = "YES" ]; then
     . "$BENDER_SYSTEM"/env/network-defs.sh
 else
     export CATKIN_SHELL=bash
 fi
 
-if [ "$BENDER_USE_NETWORK" ]; then
+if [ "$BENDER_NET_ENABLE" = true ]; then
+    
+    echo "enbled"
     . "$BENDER_SYSTEM"/env/network-defs.sh
-elif [ "$BENDER_NET_WARN" ]; then
-    printf "\e[33m[WARNING]: The Bender Framework was launched in offline mode.
-    Maybe you should set '\$BENDER_USE_NETWORK=true' on 'bender.sh'
-    and run another shell.\e[0m\n\n"
 
-    _sound_file="$(rospack find bender_fun)"/sdatabase/sounds/network_false.wav
+elif [ "$BENDER_NET_WARN" = true ]; then
+
+    _caller_script=
+    if command -v caller >/dev/null 2>&1 ; then
+        _caller_script=" on the framework setup file ($(caller | awk '{print $2}'))"
+    fi
+    
+    printf "\e[33m[WARNING]: The Bender Framework has been launched in offline mode.
+    Maybe you should set 'BENDER_NET_ENABLE=true'%s
+    and run another shell.
+
+    If you want to stop this and all network warnings, 
+    set: 'BENDER_NET_WARN=false'%s.\e[0m\n\n" "$_caller_script" "$_caller_script"
+
+    _sound_file="$BENDER_SYSTEM"/assets/network_false.wav
     if [ -f "$_sound_file" ]; then
         aplay "$_sound_file" >/dev/null 2>&1
     else

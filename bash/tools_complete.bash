@@ -61,11 +61,10 @@ _bendercomplete_bender_cd()
     fi
 }
 complete -F "_bendercomplete_bender_cd" "bender_cd" "cdb"
-
+complete -F "_bendercomplete_bender_cd" "bender_ws"
 
 
 # other tool complete
-complete -F "_bendercomplete_NOT_COMPLETE" "bender_ws"
 complete -F "_bendercomplete_NOT_COMPLETE" "bender_printenv"
 complete -F "_bendercomplete_NOT_COMPLETE" "bender_refresh_bash"
 complete -F "_bendercomplete_NOT_COMPLETE" "bender_git_show_untracked"

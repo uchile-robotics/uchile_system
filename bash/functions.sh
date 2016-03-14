@@ -1,11 +1,25 @@
 #!/bin/sh
 
+_bender_admin_goodbye () 
+{
+    cat <<EOF
+
+  Have some feedback?, please contact us at <$BENDER_EMAIL_DEVELOP>,
+  Or just contact $BENDER_SYSTEM_ADMIN.
+
+  kindly,
+  - bender system admin -
+
+EOF
+}
+
 _bender_check_installed ()
 {
     ## this only works on bash!!.
     ## 
     if [ -z "$1" ]; then
         echo "_bender_check_installed requires 1 argument: <executable_name>"
+        _bender_admin_goodbye
         return 1
     fi
 
@@ -26,6 +40,7 @@ _bender_check_installed_and_exit ()
     ## 
     if [ -z "$1" ]; then
         echo "_bender_check_installed_and_exit requires 1 argument: <executable_name>"
+        _bender_admin_goodbye
         exit 1
     fi
 
@@ -41,6 +56,7 @@ _bender_check_var_isset ()
 {
     if [ -z "$1" ]; then
         echo "_bender_check_var_isset requires 1 argument: <var_name>"
+        _bender_admin_goodbye
         exit 1
     fi
 
@@ -62,10 +78,12 @@ _bender_check_file_ext ()
 {
     if [ -z "$1" ]; then
         echo "_bender_check_var_isset requires 2 arguments: <filename> <ext>"
+        _bender_admin_goodbye
         exit 1
     fi
     if [ -z "$2" ]; then
         echo "_bender_check_var_isset requires 2 arguments: <filename> <ext>"
+        _bender_admin_goodbye
         exit 1
     fi
 
@@ -111,6 +129,7 @@ _bender_get_filepath ()
 {
     if [ -z "$1" ]; then
         echo "_bender_get_filepath requires 1 argument: <filename>"
+        _bender_admin_goodbye
         exit 1
     fi
     local _filename="$1"
@@ -135,6 +154,7 @@ _bender_get_file_noextname ()
 {
     if [ -z "$1" ]; then
         echo "_bender_get_filebasename requires 1 argument: <filename>"
+        _bender_admin_goodbye
         exit 1
     fi
     local _filename="$1"
@@ -144,6 +164,25 @@ _bender_get_file_noextname ()
     # response
     echo "$_name"
 }
+
+
+_bender_check_user_confirmation ()
+{
+    local answer
+    printf "Are you sure you want to do this? [y/N]: "
+    read answer
+    if echo "$answer" | grep -iq "^y" ;then
+        return 0
+    else
+        return 1
+    fi
+}
+
+_bender_get_active_ip ()
+{
+    ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | sed 's/\/.*//'
+}
+
 
 # # tests
 # _bender_get_file_noextname "/usr/bin/foo"

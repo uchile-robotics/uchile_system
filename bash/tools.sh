@@ -3,28 +3,43 @@
 ##############################################################################################
 #   OVERVIEW
 ##############################################################################################
-# bender_find_string  -   finds string within bender src space
-# bender_cd           -   
-
-
+# bender_find_string        - finds string within bender src space
+# bender_cd                 - cd to a bender framework directory
+# cdb                       - the same as bender_cd but faster to type 
+# bender_ws                 - opens a window on a bender framework directory 
+# bender_printenv           - prints all BENDER_* environment variables
+# bender_refresh_bash       - executes bash to resource the bender framework
+# bender_git_show_untracked - lists currently untracked files
+# bender_git_show_ignored   - lists currently ignored files
 
 ##############################################################################################
 #   shell utilities
 ##############################################################################################
 
-alias bender_ws='nautilus $BENDER_WS'
+# prints all BENDER_* environment variables and its values
 alias bender_printenv='printenv | grep "BENDER_.*="'
+
+## bender_refresh_bash
+# executes bash to resource the bender framework.
+#
+# this is for testing purposes only!. Do not use it
+# when environment variables have changed. Open a new
+# terminal session instead.
 alias bender_refresh_bash='exec bash'
+
+# lists currently untracked files
 alias bender_git_show_untracked='git ls-files --others'
+
+# lists currently ignored files
 alias bender_git_show_ignored='git check-ignore -v *'
+
+# the same as bender_cd but faster to type 
 alias cdb='bender_cd'
 
 ## bender_find_string
 # see also: bender_find_string --help 
 bender_find_string ()
 {
-    # TODO: consider filenames
-
     local string path user_path opt show_help curpath
 
     path=""
@@ -106,6 +121,8 @@ Options:
 
     By default the lookup is executed on system-base-soft-high.
 EOF
+
+        _bender_admin_goodbye
         return 1
     fi
     
@@ -114,12 +131,19 @@ EOF
     user_path=$(pwd)
 
     for curpath in $path; do
-        echo "$curpath"
 
-        echo "[INFO]: Looking for '$string' on path: $curpath"
+        echo "$curpath"
         cd "$curpath"
+
+
+        echo "[INFO]: Working on path: $curpath"
+        # inside files
+        echo "[INFO]: - Looking for pattern '$string' inside files:"
         grep -rInH --exclude-dir="\.git" "$string" .
 
+        # in filenames 
+        echo "[INFO]: - Looking for pattern '$string' in filenames:"
+        find . -name "$string" -print -o -path "*/.git" -prune
     done
 
     cd "$user_path"
@@ -198,11 +222,94 @@ Options:
     Available package options correspond to ROS packages named 'bender_*'.
     
     If no option is given, then the directory will be the one 
-    addressed by the \$BENDER_WS environemnt variable.
+    addressed by the \$BENDER_WS environment variable.
 
 EOF
+        _bender_admin_goodbye
+        return 1
     fi
 
     cd "$path"
+    return 0
+}
+
+## bender_ws
+# see also: bender_ws --help
+bender_ws ()
+{
+    local user_path show_help path
+    path=""
+
+    user_path="$1"
+
+    if [ "$#" = "0" ]; then
+        path="$BENDER_WS"
+
+    elif [ "$#" = "1" ]; then
+
+        case "$user_path" in
+
+            "system"    ) path="$BENDER_SYSTEM" ;;
+            "base"      ) path="$BENDER_WS/base_ws/src" ;;            
+            "soft"      ) path="$BENDER_WS/soft_ws/src" ;;
+            "high"      ) path="$BENDER_WS/high_ws/src" ;;
+            "graveyard" ) path="$BENDER_WS/bender_code_graveyard" ;;
+            "forks"     ) path="$BENDER_WS/forks_ws/src" ;;
+            "install"   ) path="$BENDER_WS/install" ;;
+            "embedded"  ) path="$BENDER_WS/bender_embedded" ;;
+
+             "-h" | "--help" ) show_help=true ;;
+
+            -* | --* )
+                echo "Unknown option: $user_path"
+                show_help=true ;;
+
+            # unknown --> package
+            * )
+                pkg_name="$user_path"
+                for pkg in $BENDER_PACKAGES; do
+                    if [ "$pkg" = "$pkg_name" ]; then
+                        path=$(rospack find "$pkg_name")
+                        nautilus "$path"
+                        return 0
+                    fi
+                done
+                echo "Bender package named '$pkg_name' doesn't not exists. Try with 'roscd' command."
+                show_help=true
+        esac
+    else
+        show_help=true
+    fi
+
+    if [ "$show_help" = true ]; then
+        cat <<EOF
+Synopsis:                
+    bender_ws [<workspace>|<package>|-h|--help]
+
+Description:
+    It opens a nautilus window on the the selected workspace or ROS package.
+
+Options:
+    Available workspace options are:
+        - base     : 'nautilus' on base_ws
+        - soft     : 'nautilus' on soft_ws
+        - high     : 'nautilus' on high_ws
+        - system   : 'nautilus' on bender_system
+        - graveyard: 'nautilus' on bender_code_graveyard
+        - forks    : 'nautilus' on forks_ws
+        - install  : 'nautilus' on the install folder at <bender_ws>/install
+        - embedded : 'nautilus' on bender_embedded
+    
+    Available package options correspond to ROS packages named 'bender_*'.
+    
+    If no option is given, then the directory will be the one 
+    addressed by the \$BENDER_WS environment variable.
+
+EOF
+        _bender_admin_goodbye
+        return 1
+    fi
+
+    nautilus "$path"
     return 0
 }

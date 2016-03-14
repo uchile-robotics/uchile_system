@@ -31,6 +31,7 @@ _bender_make_common() {
             - bender_make_RelWithDebInfo
             - bender_make_Release
 EOF
+        _bender_admin_goodbye
         cd "$OLDPWD"
         return
 
@@ -91,6 +92,11 @@ _bender_system_reset_ws ()
 bender_system_repair_ws_overlay ()
 {
     local user_path
+
+    if ! _bender_check_user_confirmation ; then
+        return 0
+    fi
+
     user_path=$(pwd)
 
     # ROS

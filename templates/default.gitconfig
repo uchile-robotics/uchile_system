@@ -1,0 +1,88 @@
+# This is a user-defined git configuration file
+# '#' or ';' indicates a comment
+#
+#
+# author: matias.pavez.b@gmail.com
+#
+
+; ; ; ; ; ; ; ; ; ; ; ; MODIFY THIS ; ; ; ; ; ; ; ; ; ; ; ; ; ;
+[user]
+	name = Chuck Norris
+	email = chuck.norris@punchmail.com
+; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ;
+
+
+[core]
+	# - - - - - - - - - - - - - - - - - - - - - - - - 
+	#  Do NOT modify the EOL checking it's important 
+	# to be safe against hard-to-find bugs
+	# (this should be a repo config!, not an user one)
+	; check for linux line endings
+	autocrlf = input
+	safecrlf = true
+	# - - - - - - - - - - - - - - - - - - - - - - - - 
+
+	; editor for commits 
+	# NOTE: there is a bug with 'gedit' !, the commits 
+	# will only work if no other gedit window is around
+	editor = gedit
+	;editor = vi
+
+
+# - - - - - - Git Aliases - - - - - - - -
+[alias]
+
+	; common commands
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+
+	; a very nice log
+	hist = log --graph --date=relative --pretty=format:'%Cred%h%Creset - %Cgreen(%cr)%Creset %s%d %C(bold blue)<%an>%Creset'
+
+	; show type of file (hash code)
+	type = cat-file -t
+
+	; show file (hash code) content
+	dump = cat-file -p
+
+
+# - - - - - - Git Commands Coloring - - - - - - -
+; default coloring
+[color]
+	ui = auto
+	diff = auto
+	status = auto
+	branch = auto
+
+; git branch coloring
+[color "branch"]
+	current = yellow reverse
+	local = yellow 
+	remote = green
+	plain = normal
+
+; git status coloring
+[color "status"]
+	header = normal
+	added = green
+	changed = yellow
+	untracked = red
+	branch = blue bold
+	nobranch = red
+	unmerged = magenta bold
+
+; git diff coloring
+[color "diff"]
+	plain = normal
+	meta = yellow
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	commit = yellow
+	whitespace = normal red
+
+
+# colors: [ normal  black  red  green  yellow  blue  magenta  cyan  white ]
+# attrs:  [ bold (negrita)  dim(?) ul(underline)  blink(no en terminal)  reverse(background) ]

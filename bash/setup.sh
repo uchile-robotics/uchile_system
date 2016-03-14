@@ -18,12 +18,13 @@ export BENDER_PACKAGES="$(printf "%s\n%s\n%s" "$BENDER_PACKAGES_BASE" "$BENDER_P
 ##############################################################################################
 #   bender system tools
 ##############################################################################################
+# the source order is important!, at least functions.sh must be placed first.
 
 # sh utilities named with "_bender_" preffix
 . "$BENDER_SYSTEM"/bash/functions.sh
 
 # utilities for building with cmake and ROS
-#. "$BENDER_SYSTEM"/bash/make_tools.sh
+. "$BENDER_SYSTEM"/bash/make_tools.sh
 
 # utilities useful when working on bash/sh
 . "$BENDER_SYSTEM"/bash/tools.sh
@@ -37,7 +38,7 @@ if [ "$CATKIN_SHELL" = "bash" ]; then
     . "$BENDER_SYSTEM"/bash/complete.bash
 
     # tools autocompletion
-    #. "$BENDER_SYSTEM"/bash/make_tools_complete.bash
+    . "$BENDER_SYSTEM"/bash/make_tools_complete.bash
     . "$BENDER_SYSTEM"/bash/tools_complete.bash
 
 fi
