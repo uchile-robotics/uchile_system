@@ -1,0 +1,25 @@
+<launch>
+
+	<!-- Use $BENDER_ENV_LOADER environment variable -->
+	<!-- 
+	timeout (10[s]):
+		- Number of seconds before a roslaunch on this machine is considered as having failed to launch.
+		- Increase for slower connections.
+		- Needing to change this parameter is generally a symptom that your overall ROS graph will have communication issues.
+	password:
+		- SSH password. It is highly recommended that you configure SSH keys and SSH agent instead so you can login with certificates instead.
+		- See http://elweb.co/como-crear-los-keys-para-ssh-login-automatico/
+	-->
+
+	<!-- default path for env-loader script -->
+	<arg name="default-env-loader" value="~/bender_workspace/config/environment/env.sh"/>
+
+	<!-- bender -->
+	<machine name="bender-chest"      address="192.168.0.10" user="benderchest"  password="bender" env-loader="$(arg default-env-loader)" timeout="15"/>
+	<machine name="bender-vision"     address="192.168.0.20" user="bendervision" password="bender" env-loader="$(arg default-env-loader)" timeout="15"/>
+	<machine name="bender-navigation" address="192.168.0.30" user="benderbase"   password="bender" env-loader="$(arg default-env-loader)" timeout="15"/>
+
+	<!-- other machines -->
+	<!-- <machine name="my-pc" address="192.168.1.162" user="me" password="" env-loader="$(arg default-env-loader)" timeout="15"/> -->
+
+</launch>
