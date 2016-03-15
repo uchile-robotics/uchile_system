@@ -28,13 +28,13 @@ _bender_installer_check_rosindigo ()
     dpkg -s ros-indigo-ros-base >/dev/null 2>/dev/null
     local rc="$?"
     if [ "$rc" = "1" ]; then
-        echo "ros-indigo-ros-base is not installed."
+        printf "ros-indigo-ros-base is not installed."
         return 1
     fi
     
     # ROS setup.bash exists?
     if [ ! -e /opt/ros/indigo/setup.bash ]; then
-        echo "File not found: /opt/ros/indigo/setup.bash"
+        printf "File not found: /opt/ros/indigo/setup.bash"
         return 1
     fi
 
@@ -68,7 +68,7 @@ _bender_installer_reset_ws ()
 
 # ROS is installed
 if ! _bender_installer_check_rosindigo; then
-    echo "Please, install ROS Indigo before proceeding."
+    printf "Please, install ROS Indigo before proceeding."
     exit 1
 fi
 
@@ -101,7 +101,7 @@ while true; do
         else
 
             if [ ! -d "$framework_path" ]; then
-                printf "Sorry, $framework_path is a regular file, must be a directory."
+                printf "Sorry, %s is a regular file, must be a directory." "$framework_path"
                 continue
             fi
         fi
@@ -138,7 +138,7 @@ while true; do
 
     # path is not a directory
     if [ -e "$_user_path" ]; then
-        echo " - Sorry, but $_user_path is a file."
+        printf " - Sorry, but %s is a file." "$_user_path"
         continue
     fi
 
@@ -147,7 +147,7 @@ while true; do
     if echo "$_answer" | grep -iq "^y" ;then
         mkdir -p "$_user_path"                      # create folder
         _user_path="$(readlink -f "$_user_path")"   # full path (after folder creation!)
-        echo " - creating folder: $_user_path ..."
+        printf " - creating folder: %s ..." "$_user_path"
         framework_path="$_user_path"
         unset _answer
         break
@@ -156,7 +156,7 @@ while true; do
 
 done
 unset _user_path
-echo "Using path: $framework_path"
+printf "Using path: %s" "$framework_path"
 
 
 
@@ -207,11 +207,11 @@ _bender_installer_get_repository ()
     # determine repository existence
     _clone_repo=true
     if [ -d "$_repo_path" ]; then
-        echo "repo already exists"
+        printf "repo already exists"
 
         # .git exists
         if [ -e "$_repo_path"/.git ]; then
-            echo ".git folder already exists "
+            printf ".git folder already exists "
             _clone_repo=false
         fi
     fi
@@ -236,16 +236,16 @@ _bender_installer_get_repository ()
                 _username=""
                 _use_username=false
             else
-                echo "Using username: $_username"
+                printf "Using username: %s" "$_username"
                 _use_username=true
             fi
         fi
 
         # use previous username
         if [ -z "$_username" ]; then
-            echo "Cloning repository '$_repo_name' into: $_repo_path."
+            printf "Cloning repository '%s' into: %s." "$_repo_name" "$_repo_path"
         else
-            echo "Cloning repository '$_repo_name' for user: '$_username' into: $_repo_path."
+            printf "Cloning repository '%s' for user: '%s' into: %s." "$_repo_name" "$_username" "$_repo_path"
             _repo_url="$(echo "$_repo_url" | sed "s/bitbucket.org/$_username@bitbucket.org/")"
         fi
         git clone --recursive "$_repo_url" "$_repo_path"
@@ -257,7 +257,7 @@ _bender_installer_get_repository ()
         cd "$user_path"
 
     else
-        echo "Repository '$_repo_name' already exists on $_repo_path. The clone will not be performed."
+        printf "Repository '%s' already exists on %s. The clone will not be performed." "$_repo_name" "$_repo_path"
     fi
 }
 
