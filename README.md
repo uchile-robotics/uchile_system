@@ -7,8 +7,14 @@
 
 ## Instalación del sistema
 
+
+
+
 ```
 #!/bin/bash
+
+# requisitos para los git hooks
+sudo apt-get install python-flake8 shellcheck libxml2-utils python-yaml cppcheck
 
 # directorio "sano"
 cd "$HOME"
