@@ -22,8 +22,11 @@ chmod +x bender_framework_install.bash
 # obtener repos y hacer workspaces
 ./bender_framework_install
 
-
 # hacer source
 echo 'source "$HOME"/bender.sh' >> .bashrc
+
+# para ROS también se recomienda setear la siguiente variable
+echo 'export EDITOR="gedit"' >> .bashrc
+
 
 ```
