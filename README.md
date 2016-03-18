@@ -19,7 +19,7 @@ sudo apt-get install python-flake8 shellcheck libxml2-utils python-yaml cppcheck
 # directorio "sano"
 cd "$HOME"
 
-# Obtener script de instalación
+# Obtener script de instalación (usar credenciales de bitbucket)
 curl --user <username>:<pass> -G https://bitbucket.org/uchile-robotics-die/bender_system/raw/master/bash/bender_ws_installer.bash -d raw > bender_ws_installer.bash
 
 # darle permisos de ejecución
