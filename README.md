@@ -34,5 +34,4 @@ echo 'source "$HOME"/bender.sh' >> .bashrc
 # para ROS también se recomienda setear la siguiente variable
 echo 'export EDITOR="gedit"' >> .bashrc
 
-
 ```
