@@ -34,3 +34,20 @@ echo -e '\nsource "$HOME"/bender.sh' >> .bashrc
 echo 'export EDITOR="gedit"' >> .bashrc
 
 ```
+
+## Instalación de `bender_base`
+
+```
+#!/bin/bash
+
+# Abrir workspace
+bender_cd base
+
+# Instalar dependencias
+rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+
+# Compilar
+cd ..
+catkin_make
+
+```
