@@ -35,7 +35,7 @@ echo 'export EDITOR="gedit"' >> .bashrc
 
 ```
 
-## Instalación de `bender_base`
+## Instalación de `base_ws`
 
 ```
 #!/bin/bash
