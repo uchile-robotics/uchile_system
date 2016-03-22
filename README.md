@@ -34,8 +34,27 @@ echo -e '\nsource "$HOME"/bender.sh' >> .bashrc
 echo 'export EDITOR="gedit"' >> .bashrc
 
 ```
+## Compilación de workspaces
 
-## Instalación de `base_ws`
+En esta fase es importante el orden de compilación.
+
+### Instalación de `base_forks`
+
+```
+#!/bin/bash
+
+# Abrir workspace
+bender_cd forks
+
+# Instalar dependencias
+rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+
+# Compilar
+cd ..
+catkin_make
+
+```
+### Instalación de `base_ws`
 
 ```
 #!/bin/bash
