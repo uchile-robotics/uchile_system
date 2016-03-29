@@ -69,4 +69,9 @@ rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 cd ..
 catkin_make
 
+# Descargar meshes para bender_description
+bender_cd bender_description
+./scripts/install.sh
+
+
 ```
