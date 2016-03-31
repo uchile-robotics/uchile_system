@@ -13,7 +13,7 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 #!/bin/bash
 
 # Requisitos para los git hooks
-sudo apt-get install python-flake8 shellcheck libxml2-utils python-yaml cppcheck curl
+sudo apt-get install python-flake8 shellcheck libxml2-utils python-yaml cppcheck curl pv python-rosinstall openssl
 
 # directorio "sano"
 cd "$HOME"
@@ -32,6 +32,9 @@ echo -e '\nsource "$HOME"/bender.sh' >> .bashrc
 
 # Se recomienda setear la siguiente variable
 echo 'export EDITOR="gedit"' >> .bashrc
+
+sudo rosdep init
+rosdep update
 
 ```
 ## Compilación de workspaces
