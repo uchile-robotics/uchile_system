@@ -37,6 +37,9 @@ sudo rosdep init
 rosdep update
 
 ```
+
+Al terminar la instalación debes reabrir el terminal o ejecutar `$ source "$HOME"/bender.sh`.
+
 ## Compilación de workspaces
 
 En esta fase es importante el orden de compilación.
@@ -75,6 +78,5 @@ catkin_make
 # Descargar meshes para bender_description
 bender_cd bender_description
 ./scripts/install.sh
-
 
 ```
