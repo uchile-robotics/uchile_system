@@ -17,7 +17,10 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 sudo apt-get install python-flake8 shellcheck libxml2-utils python-yaml cppcheck
 
 # instalación
-sudo apt-get install curl pv python-rosinstall openssl
+sudo apt-get install curl openssl pv python-rosinstall 
+
+
+## Instalación
 
 # directorio "sano"
 cd "$HOME"
@@ -31,6 +34,8 @@ chmod +x bender_ws_installer.bash
 # Obtener repositorios y crear workspaces
 ./bender_ws_installer.bash
 
+
+## Habilitar workspace para uso en consola
 # Hacer source
 echo -e '\nsource "$HOME"/bender.sh' >> .bashrc
 
