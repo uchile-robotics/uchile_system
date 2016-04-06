@@ -22,7 +22,7 @@ sudo apt-get install curl openssl pv python-rosinstall
 
 ## Instalación
 
-# directorio "sano"
+# directorio "sano" y con permisos de escritura.
 cd "$HOME"
 
 # Obtener script de instalación (usar credenciales de bitbucket)
@@ -36,8 +36,11 @@ chmod +x bender_ws_installer.bash
 
 
 ## Habilitar workspace para uso en consola
+
+cd "$HOME"
+
 # Hacer source
-echo -e '\nsource "$HOME"/bender.sh' >> .bashrc
+echo 'source "$HOME"/bender.sh' >> .bashrc
 
 # Se recomienda setear la siguiente variable
 echo 'export EDITOR="gedit"' >> .bashrc
