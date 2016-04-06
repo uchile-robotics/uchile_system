@@ -12,8 +12,12 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 ```
 #!/bin/bash
 
-# Requisitos para los git hooks
-sudo apt-get install python-flake8 shellcheck libxml2-utils python-yaml cppcheck curl pv python-rosinstall openssl
+## Pre-requisitos
+# para los git hooks
+sudo apt-get install python-flake8 shellcheck libxml2-utils python-yaml cppcheck
+
+# instalación
+sudo apt-get install curl pv python-rosinstall openssl
 
 # directorio "sano"
 cd "$HOME"
