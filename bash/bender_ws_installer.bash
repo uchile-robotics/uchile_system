@@ -420,7 +420,8 @@ _bender_installer_enable_hook "$framework_path"/high_ws/src/.git/hooks
 
 ## bender_code_graveyard
 ## ---------------------------------------------------
-_bender_installer_enable_hook "$framework_path"/bender_code_graveyard/.git/hooks
+# no queremos hooks en el graveyard!, es codigo que no vale la pena arreglar
+#_bender_installer_enable_hook "$framework_path"/bender_code_graveyard/.git/hooks
 
 ## bender_embedded
 ## ---------------------------------------------------
