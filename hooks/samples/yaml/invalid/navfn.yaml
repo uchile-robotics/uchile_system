@@ -1,0 +1,25 @@
+
+/bender/nav/move_base:
+ base_global_planner: "navfn/NavfnROS"
+
+# ---- global planner ----
+NavfnROS:
+
+ # Specifies whether or not to allow navfn to create plans that traverse unknown space.
+ # NOTE: if you are using a layered costmap_2d costmap with a voxel or obstacle layer, you
+ # must also set the track_unknown_space param for that layer to be true, or it will convert
+ # all your unknown space to free space (which navfn will then happily go right through). 
+ allow_unknown: false
+
+
+ # Specifies whether or not to visualize the potential area computed by navfn via a PointCloud2.
+ visualize_potential: false
+
+ # Default
+
+ # Size of an optional window to restrict NavFn to work in a small window of a large costmap. 
+ # planner_window_x: 0.0
+ # planner_window_y: 0.0
+
+ # Tolerance on the goal point for the planner.
+  default_tolerance: 1.5

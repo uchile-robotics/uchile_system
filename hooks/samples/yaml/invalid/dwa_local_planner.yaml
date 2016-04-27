@@ -1,0 +1,63 @@
+
+/bender/nav/move_base:
+ base_local_planner: "dwa_local_planner/DWAPlannerROS"
+
+# ----- Local planner -----
+DWAPlannerROS:
+
+ # Robot Configuration Parameters
+ # - - - - - - - - - - - - - - - -
+ # HINTS:
+ # - check that: min_vel_x*sim_time < 2*xy_goal_tolerance
+
+ # accel limits
+ acc_lim_x: 0.34
+ acc_lim_y: 0
+ : : : :acc_lim_th: 1.64
+
+ # vel limits
+ max_trans_vel: 0.4
+ min_trans_vel: 0.15
+ max_vel_x: 0.4
+ min_vel_x: -0.1
+ max_vel_y: 0
+ min_vel_y: 0
+ max_rot_vel: 0.4
+ min_rot_vel: 0.2
+
+ # Goal Tolerance Parameters
+ # - - - - - - - - - - - - - - -
+ # small values, because we expect that the goal server will check for this
+ yaw_goal_tolerance: 0.05
+ xy_goal_tolerance: 0.05
+ latch_xy_goal_tolerance: true # el goal server funciona latcheado... primero XY y luego theta.
+
+ # Forward Simulation Parameters
+ # - - - - - - - - - - - - - - - -
+ sim_time: 2.0
+ sim_granularity: 0.02
+ # angular_sim_granularity: 0.02 # (default: the same as sim_granularity)
+ vx_samples: 4
+ vy_samples: 0
+ vtheta_samples: 20
+ # controller_frequency: 20.0    # (default: loaded from a parent namespace)
+ penalize_negative_x: true
+
+ # Trajectory Scoring Parameters
+ # - - - - - - - - - - - - - - - -
+ path_distance_bias: 32 # path weight
+ goal_distance_bias: 24 # local goal weight (also increases speed)
+ occdist_scale: 0.09    # obstacle avoidance weight
+
+ forward_point_distance: 0.325 #  The distance from the center point of the robot to place an additional scoring point.
+ stop_time_buffer: 0.2 # The amount of time that the robot must stop before a collision in order for a trajectory to be considered valid in seconds.
+ scaling_speed: 0.25   # The absolute value of the veolicty at which to start scaling the robot's footprint
+ max_scaling_factor: 0.2 # he maximum factor to scale the robot's footprint by
+
+ # Oscillation Prevention Parameters
+ # - - - - - - - - - - - - - - - -
+ oscillation_reset_dist: 0.05 # How far the robot must travel in meters before oscillation flags are reset
+
+ # Global Plan Parameters
+ # - - - - - - - - - - - - - - - -
+ prune_plan: true # eat up the plan as the robot moves along the path

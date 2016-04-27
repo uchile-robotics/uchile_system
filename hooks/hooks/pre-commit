@@ -1,0 +1,73 @@
+#!/bin/sh
+#
+# by mpavez at matias.pavez.b@gmail.com 
+#
+#
+
+# THIS FILE IS THE MAIN ENTRY POINT TO THE PRE-COMMIT HOOK FRAMEWORK
+#  
+# - To enable this hook, you must copy it to the hooks folder the your 
+#   git repository and give it execution permissions
+#
+#       # (for a normal repo)
+#       $ cp pre-commit <my-repo>/.git/hooks
+#       $ chmod +x <my-repo>/.git/hooks/pre-commit
+#
+#
+#       # (for a submodule repo)
+#       $ cp pre-commit <my-repo>/.git/modules/<submodule>/hooks
+#       $ chmod +x <my-repo>/.git/hooks/pre-commit
+#
+#
+#
+# HOOK REQUIREMENTS:
+#
+# this hook requires the GITHOOKS_PATH env variable to be set.
+# GITHOOKS_PATH contains the FULL path to the hooks folder of this repository.
+#
+#       $ export GITHOOKS_PATH="/home/<user>/repositories/git_hooks/hooks"
+#
+# note: no trailling slashes! in the name
+# note: if you try: 'ls $GITHOOKS_PATH' you should see this files like: pre-commit.sh
+
+
+# (debugging)
+#echo "----- IN PRE-COMMIT HOOK ----"
+#echo "GITHOOKS_PATH: $GITHOOKS_PATH".
+
+if [ -z ${GITHOOKS_PATH+x} ]; then
+
+	cat <<-EOF
+		[WARN]: GITHOOKS_PATH environment variable is not set.
+		Git pre-commit hooks will not be executed.
+
+		If you want to enable them, please set GITHOOKS_PATH properly:
+		> export GITHOOKS_PATH="/home/<user>/repositories/git_hooks/hooks"
+
+		GITHOOKS_PATH contains the FULL path to the 'hooks' folder of 'git_hooks' repository.
+	EOF
+
+	exit 0
+
+else
+
+	if [ ! -f "$GITHOOKS_PATH"/pre-commit.sh ]; then
+	
+		cat <<-EOF
+			[ERROR]: Failed to find file: GITHOOKS_PATH/pre-commit.sh.
+			
+			GITHOOKS_PATH expanded to: "$GITHOOKS_PATH"
+
+			The commit will be aborted.
+
+			If you want to enable them, please set GITHOOKS_PATH properly:
+			> export GITHOOKS_PATH="/home/<user>/repositories/git_hooks/hooks"
+
+			GITHOOKS_PATH contains the FULL path to the 'hooks' folder of 'git_hooks' repository.
+		EOF
+
+		exit 1
+	fi
+
+	. "$GITHOOKS_PATH"/pre-commit.sh
+fi

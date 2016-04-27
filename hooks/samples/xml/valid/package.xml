@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<package>
+  <name>bender_macros</name>
+  <version>0.0.0</version>
+  <description>The bender_macros package</description>
+  <maintainer email="matias@todo.todo">matias</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>actionlib</build_depend>
+  <build_depend>actionlib_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>smach</build_depend>
+  <build_depend>smach_ros</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>bender_msgs</build_depend>
+  <build_depend>bender_srvs</build_depend>
+  <build_depend>bender_core</build_depend>
+  <build_depend>bender_config</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>bender_vision</build_depend>
+  <build_depend>bender_nav</build_depend>
+  <build_depend>bender_sensors</build_depend>
+  <build_depend>bender_joy</build_depend>
+  <build_depend>bender_fun</build_depend>
+  <build_depend>bender_speech</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>bender_laser</build_depend>
+  
+  <run_depend>bender_laser</run_depend>  
+  <run_depend>tf</run_depend>  
+  <run_depend>bender_speech</run_depend>
+  <run_depend>bender_fun</run_depend>
+  <run_depend>bender_joy</run_depend>
+  <run_depend>bender_sensors</run_depend>
+  <run_depend>bender_nav</run_depend>
+  <run_depend>bender_vision</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>bender_config</run_depend>
+  <run_depend>actionlib</run_depend>
+  <run_depend>actionlib_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>smach</run_depend>
+  <run_depend>smach_ros</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>std_srvs</run_depend>
+  <run_depend>bender_msgs</run_depend>
+  <run_depend>bender_srvs</run_depend>
+  <run_depend>bender_core</run_depend>
+
+
+  <export>
+  </export>
+</package>
