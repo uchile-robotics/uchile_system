@@ -36,6 +36,35 @@ alias bender_git_show_ignored='git check-ignore -v *'
 # the same as bender_cd but faster to type 
 alias cdb='bender_cd'
 
+
+bender_open_config () {
+
+    local _conf _editor
+    _conf="$HOME"/bender.sh
+
+    # check file existence
+    if [ ! -e "$_conf" ]; then
+        printf "User configuration file not found: %s\n" "$_conf"
+        return 1
+    fi
+
+    # check if EDITOR variable is unset
+    _editor=$EDITOR
+    if ! _bender_check_var_isset "EDITOR"; then
+        printf "EDITOR env variable is unset. Using 'cat'\n"
+        _editor="cat"
+    fi
+
+    # check editor is installed
+    if ! _bender_check_installed "$_editor"; then
+        printf "Sorry, but '%s' is not installed. Using 'cat'\n" "$_editor"
+        _editor="cat"
+    fi
+
+    printf " - opening user config file '%s' with '%s'\n" "$_conf" "$_editor"    
+    "$_editor" "$_conf" &
+}
+
 ## bender_find_string
 # see also: bender_find_string --help 
 bender_find_string ()

@@ -24,7 +24,7 @@ _bender_check_installed ()
     fi
 
     local name="$1"
-    printf "Checking existense of: '%s' ...... " "$name"
+    printf " - checking existense of: '%s' ...... " "$name"
     if ! hash "$name" 2>/dev/null; then
         printf " NOT INSTALLED.\n"
         return 1
@@ -52,6 +52,8 @@ _bender_check_installed_and_exit ()
     return 0
 }
 
+# returns 1 if var is unset
+# returns 0 otherwise
 _bender_check_var_isset ()
 {
     if [ -z "$1" ]; then
@@ -77,12 +79,12 @@ _bender_check_var_isset ()
 _bender_check_file_ext ()
 {
     if [ -z "$1" ]; then
-        echo "_bender_check_var_isset requires 2 arguments: <filename> <ext>"
+        echo "_bender_check_file_ext requires 2 arguments: <filename> <ext>"
         _bender_admin_goodbye
         exit 1
     fi
     if [ -z "$2" ]; then
-        echo "_bender_check_var_isset requires 2 arguments: <filename> <ext>"
+        echo "_bender_check_file_ext requires 2 arguments: <filename> <ext>"
         _bender_admin_goodbye
         exit 1
     fi
