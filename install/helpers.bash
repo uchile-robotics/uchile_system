@@ -185,6 +185,120 @@ _bender_installer_reset_ws ()
     cd "$user_path"
 }
 
+# cleans password occurrences on a git url for the given file.
+# - only works on repositories were the username is set up
+# - requires the filename: e.g: .git/config, .git/logs/HEAD
+# - requires the asociated username: myuser
+_bender_intaller_clean_url_pass_from_file () {
+
+    local _username _filename
+    _username="$1"
+    _filename="$2"
+
+    # check arguments
+    if [ -z "$1" ]; then
+        printf " - [ERROR]: _bender_installer_clean_repo_password requires 2 arguments: _username _filename\n"
+        return 1
+    fi
+    if [ -z "$2" ]; then
+        printf " - [ERROR]: _bender_installer_clean_repo_password requires 2 arguments: _username _filename\n"
+        return 1
+    fi
+
+    # check file existence
+    if [ ! -e "$_filename" ]; then
+        printf " - [ERROR]: attemped to clean a nonexistent file: %s\n" "$_filename"
+        return 1
+    fi
+
+    #echo " - [DEBUG]: cleaning file: $_filename for user $_username"
+    sed --in-place "s/$_username:.*@/$_username@/" "$_filename"
+    return 0
+}
+
+# cleans password occurrences from .git module folder, for the given username
+# - only works on repositories were the username is set up
+# - requires the module path. e.g: .git/module/my_module
+# - requires the asociated username: myuser
+_bender_intaller_clean_url_pass_from_module () {
+
+    local _username _modulepath _headspath
+    _username="$1"
+    _modulepath="$2"
+
+    # check arguments
+    if [ -z "$1" ]; then
+        printf " - [ERROR]: _bender_installer_clean_repo_password requires 2 arguments: _username and _modulepath\n"
+        return 1
+    fi
+    if [ -z "$2" ]; then
+        printf " - [ERROR]: _bender_installer_clean_repo_password requires 2 arguments: _username and _modulepath\n"
+        return 1
+    fi
+
+    # check directory existence
+    if [ ! -d "$_modulepath" ]; then
+        printf " - [ERROR]: attemped to clean a nonexistent module directory\n"
+        return 1
+    fi
+
+    #echo " - [DEBUG]: cleaning module on path: $_modulepath for user $_username"
+
+    # clean repo reference + 1 line for each submodule
+    _bender_intaller_clean_url_pass_from_file "$_username" "$_modulepath/config"
+    _bender_intaller_clean_url_pass_from_file "$_username" "$_modulepath/logs/HEAD"
+    _bender_intaller_clean_url_pass_from_file "$_username" "$_modulepath/logs/refs/remotes/origin/HEAD"
+
+    _headspath="$_modulepath/logs/refs/heads"
+    if [ ! -d "$_headspath" ]; then
+        return 0
+    fi
+
+    for _branch in $(ls $_headspath)
+    do
+        #echo " - [DEBUG]: branch: $_branch"
+        _bender_intaller_clean_url_pass_from_file "$_username" "$_headspath/$_branch"
+    done
+
+    return 0
+}
+
+# cleans password occurrences from .git folder, for the given username
+# - only works on repositories were the username is set up
+# - assumes it is located in a repository. e.g: echo $pwd  --> "~/my_repo/"
+# - requires the asociated username
+_bender_installer_clean_repo_password () {
+
+    local _username _module
+    _username="$1"
+
+    if [ -z "$1" ]; then
+        printf " - [ERROR]: _bender_installer_clean_repo_password requires 1 argument: _username\n"
+        return 1
+    fi
+
+    # check repository existence
+    if [ ! -e ".git/" ]; then
+        printf " - [ERROR]: attemped to clean repository, but current path does not points to one\n"
+        return 1
+    fi
+
+    # clean repo references
+    _bender_intaller_clean_url_pass_from_module "$_username" ".git"
+    
+    # no modules, then return
+    if [ ! -d ".git/modules" ]; then
+        return 0
+    fi
+
+    # clean modules
+    for _module in $(ls .git/modules)
+    do
+        _bender_intaller_clean_url_pass_from_module "$_username" ".git/modules/$_module"
+    done
+
+    return 0
+}
 
 ## clones a repository from the given location
 # requires the following:
@@ -227,6 +341,7 @@ _bender_installer_get_repository ()
 
  
     # clone using previous username
+    _repo_url_clean="$_repo_url"
     if [ "$use_credentials" = "true" ]; then
         _repo_url="$(echo "$_repo_url" | sed "s/bitbucket.org/$_username:$_password@bitbucket.org/")"
     fi
@@ -237,7 +352,7 @@ _bender_installer_get_repository ()
     local _rc="$?"
     if [ "$_rc" = "128" ] || [ ! -d "$_repo_path" ] ; then
         printf "\n"
-        printf "UPS.. The clone process failed for: %s\n" "$_repo_url"
+        printf "UPS.. The clone process failed for: %s\n" "$_repo_url_clean"
         printf "Maybe you should run this script again and mind your credentials!\n"
         printf "\n"
         rm -rf "$_repo_path"
@@ -255,8 +370,11 @@ _bender_installer_get_repository ()
     # check submodules
     _gitmodules="$_repo_path"/.gitmodules
     if [ ! -e "$_gitmodules" ]; then
-        cd "$_user_path"
         printf " - no submodules were found for this repo\n"
+        if [ "$use_credentials" = "true" ]; then
+            _bender_installer_clean_repo_password "$_username"
+        fi
+        cd "$_user_path"
         return 0
     fi
     printf " - found some submodules.\n"
@@ -272,7 +390,8 @@ _bender_installer_get_repository ()
     # update
     printf " - (git submodule init)\n"
     printf " - - - > \n"
-    git submodule init
+    # --quiet: we dont want to display the user password from the repo url!
+    git submodule --quiet init
     printf "< - - - \n\n"
     printf " - (git submodule update)\n"
     printf " - - - > \n"
@@ -285,6 +404,10 @@ _bender_installer_get_repository ()
         mv "$_gitmodules"_bkp "$_gitmodules"
     fi
 
+    # clean git state
+    if [ "$use_credentials" = "true" ]; then
+        _bender_installer_clean_repo_password "$_username"
+    fi
     cd "$_user_path"
 
     return 0
