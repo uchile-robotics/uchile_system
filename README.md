@@ -42,7 +42,7 @@ chmod +x bender_ws_installer.bash
 ./bender_ws_installer.bash
 
 # limpiar
-rm -rf tmp_repo
+rm -rf ~/tmp_repo
 
 
 ## Habilitar workspace para uso en consola
