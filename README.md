@@ -18,11 +18,14 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 # ver: http://wiki.ros.org/indigo/Installation/Ubuntu
 sudo apt-get install ros-indigo-ros-base
 
-# para los git hooks
-sudo apt-get install python-flake8 shellcheck libxml2-utils python-yaml cppcheck
+# para los git y git-hooks
+sudo apt-get install git python-flake8 shellcheck libxml2-utils python-yaml cppcheck
 
 # instalación
-sudo apt-get install curl openssl pv python-rosinstall 
+sudo apt-get install curl openssl pv python-rosinstall
+
+# conectividad
+sudo apt-get install openssh-client openssh-server
 
 
 
