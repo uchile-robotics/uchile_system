@@ -1,29 +1,32 @@
 #!/bin/bash
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##################################################################################
+## PROMT para GIT
+# 
+# prompt adaptado para uso en repositorios git
+# al estar en un repo, muestra la rama actual en rojo o verde:
+#
+# - si no se está en un repositorio (o si se está en .git/), muestra:
+#   > user@pc-name:~/path/to/foo $
+#
+# - si se está en un repo limpio, en la rama "zork". El branch se ve en verde
+#   > user@pc-name:~/path/to/foo/repo (zork) $
+#
+# - si se está en un repo sucio, en la rama "zork". El branch se ve en rojo
+#   > user@pc-name:~/path/to/foo/repo {zork} $
+# 
 # Adaptado de:
 # http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt
 #
-# En la misma página salen más muuuuchos más colores y como agregar la hora
-# - - - - - - parameters - - - - - 
-PathShort="\w"
-Green="\[\033[0;32m\]"        # Green
-White="\[\033[0;37m\]"        # White
-IRed="\[\033[0;91m\]"         # High Intensty Red
-Color_Off="\[\033[0m\]"       # Text Color Reset
-
-# export prompt
-export PS1='\u@\h:'$White$PathShort$Color_Off'$(git branch &>/dev/null;\
+export PS1='\u@\h:'"\[\033[0;37m\]\w\[\033[0m\]"'$(git status &>/dev/null;\
 if [ $? -eq 0 ]; then \
   echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
   if [ "$?" -eq "0" ]; then \
-    # @4 - Clean repository - nothing to commit
-    echo "'$Green'"$(__git_ps1 " (%s)"); \
+    echo "\[\033[0;32m\]"$(__git_ps1 " (%s)"); \
   else \
-    # @5 - Changes to working tree
-    echo "'$IRed'"$(__git_ps1 " {%s}"); \
-  fi) '$Color_Off'\$ "; \
+    echo "\[\033[0;91m\]"$(__git_ps1 " {%s}"); \
+  fi) \[\033[0m\]\$ "; \
 else \
-  # @2 - Prompt when not in GIT repo
-  echo "'$Color_Off'\$ "; \
+  echo "\[\033[0m\]\$ "; \
 fi)'
+
