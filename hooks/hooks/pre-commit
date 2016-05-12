@@ -6,7 +6,7 @@
 
 # THIS FILE IS THE MAIN ENTRY POINT TO THE PRE-COMMIT HOOK FRAMEWORK
 #  
-# - To enable this hook, you must copy it to the hooks folder the your 
+# - To enable this hook, you must copy it to the hooks folder of your 
 #   git repository and give it execution permissions
 #
 #       # (for a normal repo)
@@ -23,9 +23,9 @@
 # HOOK REQUIREMENTS:
 #
 # this hook requires the GITHOOKS_PATH env variable to be set.
-# GITHOOKS_PATH contains the FULL path to the hooks folder of this repository.
+# GITHOOKS_PATH contains the FULL path to the hooks folder of bender_system repository.
 #
-#       $ export GITHOOKS_PATH="/home/<user>/repositories/git_hooks/hooks"
+#       $ export GITHOOKS_PATH="/home/<bender_ws>/bender_system/hooks/hooks"
 #
 # note: no trailling slashes! in the name
 # note: if you try: 'ls $GITHOOKS_PATH' you should see this files like: pre-commit.sh
@@ -42,9 +42,9 @@ if [ -z ${GITHOOKS_PATH+x} ]; then
 		Git pre-commit hooks will not be executed.
 
 		If you want to enable them, please set GITHOOKS_PATH properly:
-		> export GITHOOKS_PATH="/home/<user>/repositories/git_hooks/hooks"
+		> export GITHOOKS_PATH="/home/<bender_ws>/bender_system/hooks/hooks"
 
-		GITHOOKS_PATH contains the FULL path to the 'hooks' folder of 'git_hooks' repository.
+		GITHOOKS_PATH contains the FULL path to the 'hooks/hooks' folder of 'bender_system' repository.
 	EOF
 
 	exit 0
@@ -61,9 +61,9 @@ else
 			The commit will be aborted.
 
 			If you want to enable them, please set GITHOOKS_PATH properly:
-			> export GITHOOKS_PATH="/home/<user>/repositories/git_hooks/hooks"
+			> export GITHOOKS_PATH="/home/<bender_ws>/bender_system/hooks/hooks"
 
-			GITHOOKS_PATH contains the FULL path to the 'hooks' folder of 'git_hooks' repository.
+			GITHOOKS_PATH contains the FULL path to the 'hooks' folder of 'bender_system' repository.
 		EOF
 
 		exit 1
