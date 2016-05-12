@@ -75,6 +75,11 @@ cp -bfS.bkp "$BENDER_SYSTEM"/templates/bash_aliases ~/.bash_aliases
 # variable utilizada por "rosed" y algunos utilitarios de bender.
 echo 'export EDITOR="gedit"' >> ~/.bashrc
 
+# En orden:
+# - agrega opción "abrir terminal" al click derecho
+# - shell más moderno. permite subdivisiones en cada pestaña.
+sudo apt-get install nautilus-open-terminal terminator
+ 
 ```
 
 
