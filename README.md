@@ -78,7 +78,8 @@ echo 'export EDITOR="gedit"' >> ~/.bashrc
 # En orden:
 # - agrega opción "abrir terminal" al click derecho
 # - shell más moderno. permite subdivisiones en cada pestaña.
-sudo apt-get install nautilus-open-terminal terminator
+# - utilitario gráfico para git
+sudo apt-get install nautilus-open-terminal terminator gitk
  
 ```
 
