@@ -32,7 +32,6 @@ fi
 
 if [ "$BENDER_NET_ENABLE" = true ]; then
     
-    echo "enbled"
     . "$BENDER_SYSTEM"/env/network-defs.sh
 
 elif [ "$BENDER_NET_WARN" = true ]; then
