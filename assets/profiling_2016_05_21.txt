@@ -1,0 +1,90 @@
+###############################################
+Profiling realizado con el comando "time"
+- reemplazar: source ~/bender.sh
+- por       : time source ~/bender.sh
+
+* prueba realizada abriendo terminales y anotando lo que se ve.
+* notar que sólo los primeros sources son lentos, por lo que los resultados
+  que se muestran corresponden a los sources tras N intentos.
+
+###################################
+
+
+TOTAL:
+real	0m0.480s
+user	0m0.296s
+sys	    0m0.056s
+
+Sólo ROS
+real	0m0.220s
+user	0m0.172s
+sys	    0m0.024s
+
+Sólo Bender (diferencia)
+real	0m0.260s
+user	0m0.123s
+sys	    0m0.032s
+
+
+
+DIFERENCIAS
+==================================================
+
+ROSPACK
+real	0m0.043s
+user	0m0.032s
+sys	    0m0.008s
+
+TOOLS (sin autocomplete)
+real	0m0.008s
+user	0m0.004s
+sys	    0m0.004s
+
+AUTOCOMPLETE
+real	0m0.016s
+user	0m0.008s
+sys	    0m0.000s
+
+SOURCING DE PACKAGES (sólo el for, sin el "source")
+real	0m0.084s
+user	0m0.004s
+sys	    0m0.004s
+
+SOURCING DE PACKAGES (sin for, sólo sources)
+real	0m0.109s
+user	0m0.084s
+sys	    0m0.016s
+
+
+ACUMULADOS
+==================================================
+
+ROSPACK
+real	0m0.263s
+user	0m0.204s
+sys	    0m0.032s
+
+TOOLS
+real	0m0.271s
+user	0m0.200s
+sys	    0m0.036s
+
+AUTOCOMPLETE
+real	0m0.287s
+user	0m0.208s
+sys	0m0.036s
+
+SOURCING FOR
+real	0m0.371s
+user	0m0.212s
+sys	    0m0.040s
+
+
+ENTONCES:
+- atacar el FOR!, no puede ser que sea TAAAN lento
+- atacar sourcing de packages... algo raro está pasando ahí.
+
+
+pruebas:
+- el "for echo ... toma 2ms
+	- tomando en cuenta que son 35 pkgs, es normal que en total tome 84ms
