@@ -4,7 +4,6 @@
 ## Overview
 
 
-
 ## Instalación del sistema
 
 Ejecutar en terminal (`Ctrl+Alt+T`)
@@ -18,11 +17,14 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 # ver: http://wiki.ros.org/indigo/Installation/Ubuntu
 sudo apt-get install ros-indigo-ros-base
 
-# para los git hooks
-sudo apt-get install python-flake8 shellcheck libxml2-utils python-yaml cppcheck
+# para los git y git-hooks
+sudo apt-get install git python-flake8 shellcheck libxml2-utils python-yaml cppcheck
 
 # instalación
-sudo apt-get install curl openssl pv python-rosinstall 
+sudo apt-get install curl openssl pv python-rosinstall
+
+# conectividad
+sudo apt-get install openssh-client openssh-server
 
 
 
@@ -42,25 +44,45 @@ chmod +x bender_ws_installer.bash
 ./bender_ws_installer.bash
 
 # limpiar
+cd "$HOME"
 rm -rf ~/tmp_repo
 
 
 ## Habilitar workspace para uso en consola
 
-cd "$HOME"
-
 # Hacer source
-echo 'source "$HOME"/bender.sh' >> .bashrc
-
-# Se recomienda setear la siguiente variable
-echo 'export EDITOR="gedit"' >> .bashrc
+echo 'source "$HOME"/bender.sh' >> ~/.bashrc
 
 sudo rosdep init
 rosdep update
 
 ```
-
 Al terminar la instalación debes reabrir el terminal o ejecutar `$ source "$HOME"/bender.sh`.
+
+
+## Configuraciones recomendadas
+
+```
+#!/bin/bash
+# configurar ~/.gitconfig global: usuario, mail, colores y aliases para comandos git.
+# - tras copiar el .gitconfig, al menos se debe configurar "name" y "email"!!!
+cp -bfS.bkp "$BENDER_SYSTEM"/templates/default.gitconfig ~/.gitconfig
+gedit ~/.gitconfig
+
+# configurar ~/.bash_aliases: esto configura el prompt PS1 para git. 
+cp -bfS.bkp "$BENDER_SYSTEM"/templates/bash_aliases ~/.bash_aliases
+
+# variable utilizada por "rosed" y algunos utilitarios de bender.
+echo 'export EDITOR="gedit"' >> ~/.bashrc
+
+# En orden:
+# - agrega opción "abrir terminal" al click derecho
+# - shell más moderno. permite subdivisiones en cada pestaña.
+# - utilitario gráfico para git
+sudo apt-get install nautilus-open-terminal terminator gitk
+ 
+```
+
 
 ## Compilación de workspaces
 
