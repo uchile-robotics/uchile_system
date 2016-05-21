@@ -29,7 +29,8 @@ export BENDER_PACKAGES="$(printf "%s\n%s\n%s" "$BENDER_PACKAGES_BASE" "$BENDER_P
 # utilities useful when working on bash/sh
 . "$BENDER_SYSTEM"/bash/tools.sh
 
-
+# utilities for doing git stuff on the whole workspace
+. "$BENDER_SYSTEM"/bash/git/gittools.sh
 
 # if using bash
 if [ "$CATKIN_SHELL" = "bash" ]; then
@@ -40,6 +41,7 @@ if [ "$CATKIN_SHELL" = "bash" ]; then
     # tools autocompletion
     . "$BENDER_SYSTEM"/bash/make_tools_complete.bash
     . "$BENDER_SYSTEM"/bash/tools_complete.bash
+    . "$BENDER_SYSTEM"/bash/git/gittools_complete.bash
 
 fi
 
