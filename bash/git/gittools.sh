@@ -81,7 +81,7 @@ _bender_git_checkout ()
                 _modified="$(git ls-files --modified | wc -l)"
                 if [ "$_modified" = "0" ]; then
 
-                    _branch_exists="$(git branch | grep -c "$_final_branch")"
+                    _branch_exists="$(git branch -a --no-color | grep -Ec "[ /]$_final_branch$")"
                     if [ ! "$_branch_exists" = "0" ]; then
                         git checkout "$_final_branch"
                     else
