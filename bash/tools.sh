@@ -184,7 +184,7 @@ EOF
 # see also: bender_cd --help
 bender_cd ()
 {
-    local user_path show_help path
+    local user_path show_help path pkg_name pkg stack_name stack
     path=""
 
     user_path="$1"
@@ -221,7 +221,17 @@ bender_cd ()
                         return 0
                     fi
                 done
-                echo "Bender package named '$pkg_name' doesn't not exists. Try with 'roscd' command."
+
+                stack_name="$user_path"
+                for stack in $BENDER_STACKS; do
+                    if [ "$stack" = "$stack_name" ]; then
+                        path=$(rosstack find "$stack_name")
+                        cd "$path"
+                        return 0
+                    fi
+                done
+
+                echo "Bender (meta)package named '$pkg_name' doesn't not exists. Try with 'roscd' command."
                 show_help=true
         esac
     else
@@ -235,7 +245,7 @@ Synopsis:
 
 Description:
     It changes the current directory to the root of the
-    selected workspace or ROS package.
+    selected workspace or ROS (meta)package.
 
 Options:
     Available workspace options are:
@@ -248,7 +258,7 @@ Options:
         - install  : 'cd' to the install folder at <bender_ws>/install
         - embedded : 'cd' to bender_embedded
     
-    Available package options correspond to ROS packages named 'bender_*'.
+    Available package options correspond to ROS (meta)packages named 'bender_*'.
     
     If no option is given, then the directory will be the one 
     addressed by the \$BENDER_WS environment variable.
@@ -266,7 +276,7 @@ EOF
 # see also: bender_ws --help
 bender_ws ()
 {
-    local user_path show_help path
+    local user_path show_help path pkg pkg_name stack stack_name
     path=""
 
     user_path="$1"
@@ -303,7 +313,17 @@ bender_ws ()
                         return 0
                     fi
                 done
-                echo "Bender package named '$pkg_name' doesn't not exists. Try with 'roscd' command."
+
+                stack_name="$user_path"
+                for stack in $BENDER_STACKS; do
+                    if [ "$stack" = "$stack_name" ]; then
+                        path=$(rosstack find "$stack_name")
+                        nautilus "$path"
+                        return 0
+                    fi
+                done
+
+                echo "Bender (meta)package named '$pkg_name' doesn't not exists. Try with 'roscd' command."
                 show_help=true
         esac
     else
@@ -316,7 +336,7 @@ Synopsis:
     bender_ws [<workspace>|<package>|-h|--help]
 
 Description:
-    It opens a nautilus window on the the selected workspace or ROS package.
+    It opens a nautilus window on the the selected workspace or ROS (meta)package.
 
 Options:
     Available workspace options are:
@@ -329,7 +349,7 @@ Options:
         - install  : 'nautilus' on the install folder at <bender_ws>/install
         - embedded : 'nautilus' on bender_embedded
     
-    Available package options correspond to ROS packages named 'bender_*'.
+    Available package options correspond to ROS (meta)packages named 'bender_*'.
     
     If no option is given, then the directory will be the one 
     addressed by the \$BENDER_WS environment variable.

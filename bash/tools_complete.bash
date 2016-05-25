@@ -47,6 +47,7 @@ _bendercomplete_bender_cd()
     opts="-h --help"
     opts="${opts} base soft high system graveyard forks install embedded"
     opts="${opts} ${BENDER_PACKAGES}"
+    opts="${opts} ${BENDER_STACKS}"
 
     # empty reply
     COMPREPLY=()
