@@ -216,6 +216,10 @@ if [ "$_FAILED" != "no" ]; then
 
    cat <<EOF
 
+ # USE WITH CAUTION!
+ to bypass this code inspection you can use:
+ > git commit --no-verify -m "..."
+
  kindly
  git admin.-
 
