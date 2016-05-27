@@ -28,7 +28,7 @@
 #       $ export GITHOOKS_PATH="/home/<bender_ws>/bender_system/hooks/hooks"
 #
 # note: no trailling slashes! in the name
-# note: if you try: 'ls $GITHOOKS_PATH' you should see this files like: pre-commit.sh
+# note: if you try: 'ls $GITHOOKS_PATH' you should see files like: pre-commit.sh
 
 
 # (debugging)
@@ -60,7 +60,7 @@ else
 
 			The commit will be aborted.
 
-			If you want to enable them, please set GITHOOKS_PATH properly:
+			To solve this, please set GITHOOKS_PATH properly:
 			> export GITHOOKS_PATH="/home/<bender_ws>/bender_system/hooks/hooks"
 
 			GITHOOKS_PATH contains the FULL path to the 'hooks' folder of 'bender_system' repository.
