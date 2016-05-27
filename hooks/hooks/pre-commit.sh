@@ -67,6 +67,7 @@ exec 1>&2
 
 
 # supported formats
+ALL_FILES=""
 PY_FILES=""
 SH_FILES=""
 BASH_FILES=""
@@ -127,6 +128,7 @@ do
 
     _fullfile="$TOP_LEVEL/$file"
 
+    ALL_FILES="$ALL_FILES $_fullfile"
     case "$_ext" in
 
         "py" ) 
@@ -178,6 +180,9 @@ _FAILED="no"
 
 # common stuff
 . "$GITHOOKS_PATH"/common.sh
+
+# git merge conflict hook
+. "$GITHOOKS_PATH"/pre-commit_merge_conflict.sh
 
 # size hook
 . "$GITHOOKS_PATH"/pre-commit_size.sh
