@@ -10,6 +10,8 @@
 # Exports:
 # - _FAILED
 
+# TODO: falla si intenta abrir un submodulo!
+return 0
 
 # check command existence
 if ! _bender_git_hooks_pymodule_exists "argparse"; then
