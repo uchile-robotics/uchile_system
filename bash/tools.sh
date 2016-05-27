@@ -226,7 +226,7 @@ bender_cd ()
                 for stack in $BENDER_STACKS; do
                     if [ "$stack" = "$stack_name" ]; then
                         path=$(rosstack find "$stack_name")
-                        cd "$path"
+                        cd "$path"/..
                         return 0
                     fi
                 done
