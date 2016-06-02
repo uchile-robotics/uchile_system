@@ -146,9 +146,9 @@ _bender_installer_ask_single_username ()
     printf "\n"
     printf " - (hints time!):\n"
     printf "   + it is highly recommended to provide your repository credentials if you\n"
-    printf "     will be the only one using this account\n"
+    printf "     will be the only one using this account (respond 'y')\n"
     printf "   + if this is a shared account, then using this feature will be a headache!\n"
-    printf "     obs: NOW you will be prompted for the credentials of each repo!\n"
+    printf "     example: respond 'N' for bender pcs !\n"
     printf "\n"
 
     read -p " - So, do you want to setup your credentials? [y/N]: " _answer
@@ -180,7 +180,7 @@ _bender_installer_reset_ws ()
     rm -rf build/
     rm -rf devel/
     rm -rf install/
-    catkin_make
+    #catkin_make
     source devel/setup.bash
     cd "$user_path"
 }
@@ -188,8 +188,8 @@ _bender_installer_reset_ws ()
 # cleans password occurrences on a git url for the given file.
 # - only works on repositories were the username is set up
 # - requires the filename: e.g: .git/config, .git/logs/HEAD
-# - requires the asociated username: myuser
-_bender_intaller_clean_url_pass_from_file () {
+# - requires the asociated username: myuser or "none", when you want to clear all
+_bender_installer_clean_url_pass_from_file () {
 
     local _username _filename
     _username="$1"
@@ -197,11 +197,11 @@ _bender_intaller_clean_url_pass_from_file () {
 
     # check arguments
     if [ -z "$1" ]; then
-        printf " - [ERROR]: _bender_installer_clean_repo_password requires 2 arguments: _username _filename\n"
+        printf " - [ERROR]: _bender_installer_clean_url_pass_from_file requires 2 arguments: _username _filename\n"
         return 1
     fi
     if [ -z "$2" ]; then
-        printf " - [ERROR]: _bender_installer_clean_repo_password requires 2 arguments: _username _filename\n"
+        printf " - [ERROR]: _bender_installer_clean_url_pass_from_file requires 2 arguments: _username _filename\n"
         return 1
     fi
 
@@ -212,15 +212,20 @@ _bender_intaller_clean_url_pass_from_file () {
     fi
 
     #echo " - [DEBUG]: cleaning file: $_filename for user $_username"
-    sed --in-place "s/$_username:.*@/$_username@/" "$_filename"
+    if [ "$_username" = "none" ]; then
+        sed --in-place "s/https:\/\/\(.*\)bitbucket.org/https:\/\/bitbucket.org/" "$_filename"
+    else
+        sed --in-place "s/$_username:.*@/$_username@/" "$_filename"
+    fi
     return 0
 }
 
 # cleans password occurrences from .git module folder, for the given username
 # - only works on repositories were the username is set up
 # - requires the module path. e.g: .git/module/my_module
-# - requires the asociated username: myuser
-_bender_intaller_clean_url_pass_from_module () {
+# - requires the asociated username: myuser or "none" when you want to clear
+#   both, the username and password.
+_bender_installer_clean_url_pass_from_module () {
 
     local _username _modulepath _headspath
     _username="$1"
@@ -228,11 +233,11 @@ _bender_intaller_clean_url_pass_from_module () {
 
     # check arguments
     if [ -z "$1" ]; then
-        printf " - [ERROR]: _bender_installer_clean_repo_password requires 2 arguments: _username and _modulepath\n"
+        printf " - [ERROR]: _bender_installer_clean_url_pass_from_module requires 2 arguments: _username and _modulepath\n"
         return 1
     fi
     if [ -z "$2" ]; then
-        printf " - [ERROR]: _bender_installer_clean_repo_password requires 2 arguments: _username and _modulepath\n"
+        printf " - [ERROR]: _bender_installer_clean_url_pass_from_module requires 2 arguments: _username and _modulepath\n"
         return 1
     fi
 
@@ -245,9 +250,9 @@ _bender_intaller_clean_url_pass_from_module () {
     #echo " - [DEBUG]: cleaning module on path: $_modulepath for user $_username"
 
     # clean repo reference + 1 line for each submodule
-    _bender_intaller_clean_url_pass_from_file "$_username" "$_modulepath/config"
-    _bender_intaller_clean_url_pass_from_file "$_username" "$_modulepath/logs/HEAD"
-    _bender_intaller_clean_url_pass_from_file "$_username" "$_modulepath/logs/refs/remotes/origin/HEAD"
+    _bender_installer_clean_url_pass_from_file "$_username" "$_modulepath/config"
+    _bender_installer_clean_url_pass_from_file "$_username" "$_modulepath/logs/HEAD"
+    _bender_installer_clean_url_pass_from_file "$_username" "$_modulepath/logs/refs/remotes/origin/HEAD"
 
     _headspath="$_modulepath/logs/refs/heads"
     if [ ! -d "$_headspath" ]; then
@@ -257,7 +262,7 @@ _bender_intaller_clean_url_pass_from_module () {
     for _branch in $(ls $_headspath)
     do
         #echo " - [DEBUG]: branch: $_branch"
-        _bender_intaller_clean_url_pass_from_file "$_username" "$_headspath/$_branch"
+        _bender_installer_clean_url_pass_from_file "$_username" "$_headspath/$_branch"
     done
 
     return 0
@@ -266,7 +271,9 @@ _bender_intaller_clean_url_pass_from_module () {
 # cleans password occurrences from .git folder, for the given username
 # - only works on repositories were the username is set up
 # - assumes it is located in a repository. e.g: echo $pwd  --> "~/my_repo/"
-# - requires the asociated username
+# - requires:
+#    - the asociated username
+#    - or "none" when you want to clear both, the username and password
 _bender_installer_clean_repo_password () {
 
     local _username _module
@@ -284,7 +291,7 @@ _bender_installer_clean_repo_password () {
     fi
 
     # clean repo references
-    _bender_intaller_clean_url_pass_from_module "$_username" ".git"
+    _bender_installer_clean_url_pass_from_module "$_username" ".git"
     
     # no modules, then return
     if [ ! -d ".git/modules" ]; then
@@ -294,7 +301,7 @@ _bender_installer_clean_repo_password () {
     # clean modules
     for _module in $(ls .git/modules)
     do
-        _bender_intaller_clean_url_pass_from_module "$_username" ".git/modules/$_module"
+        _bender_installer_clean_url_pass_from_module "$_username" ".git/modules/$_module"
     done
 
     return 0
@@ -344,6 +351,8 @@ _bender_installer_get_repository ()
     _repo_url_clean="$_repo_url"
     if [ "$use_credentials" = "true" ]; then
         _repo_url="$(echo "$_repo_url" | sed "s/bitbucket.org/$_username:$_password@bitbucket.org/")"
+    else
+        _repo_url="$(echo "$_repo_url" | sed "s/bitbucket.org/benderuchile:benderrobot@bitbucket.org/")"
     fi
     printf " - - - > \n"
     git clone "$_repo_url" "$_repo_path"
@@ -373,6 +382,8 @@ _bender_installer_get_repository ()
         printf " - no submodules were found for this repo\n"
         if [ "$use_credentials" = "true" ]; then
             _bender_installer_clean_repo_password "$_username"
+        else
+            _bender_installer_clean_repo_password "none"
         fi
         cd "$_user_path"
         return 0
@@ -382,9 +393,12 @@ _bender_installer_get_repository ()
 
     # modify .gitmodules
     printf " - (creating .gitmodules backup)\n"
-    if [ ! -z "$_username" ]; then
-        # modify .gitmodules
-        sed --in-place=_bkp "s/\/\/@bitbucket.org/\/\/$_username:$_password@bitbucket.org/" "$_gitmodules"
+    if [ "$use_credentials" = "true" ]; then
+        # user values
+        sed --in-place=_bkp "s/\/\/bitbucket.org/\/\/$_username:$_password@bitbucket.org/" "$_gitmodules"
+    else
+        # default values
+        sed --in-place=_bkp "s/\/\/bitbucket.org/\/\/benderuchile:benderrobot@bitbucket.org/" "$_gitmodules"
     fi
     
     # update
@@ -407,6 +421,8 @@ _bender_installer_get_repository ()
     # clean git state
     if [ "$use_credentials" = "true" ]; then
         _bender_installer_clean_repo_password "$_username"
+    else
+        _bender_installer_clean_repo_password "none"
     fi
     cd "$_user_path"
 
