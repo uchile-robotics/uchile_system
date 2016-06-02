@@ -49,17 +49,19 @@ bender_open_config () {
     fi
 
     # check if EDITOR variable is unset
-    _editor=$EDITOR
+    _editor="$EDITOR"
     if ! _bender_check_var_isset "EDITOR"; then
         printf "EDITOR env variable is unset. Using 'cat'\n"
         _editor="cat"
     fi
+    printf " - EDITOR env variable resolves to: '%s'\n" "$_editor"
 
     # check editor is installed
     if ! _bender_check_installed "$_editor"; then
         printf "Sorry, but '%s' is not installed. Using 'cat'\n" "$_editor"
         _editor="cat"
     fi
+
 
     printf " - opening user config file '%s' with '%s'\n" "$_conf" "$_editor"    
     "$_editor" "$_conf" &

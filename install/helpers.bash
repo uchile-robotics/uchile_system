@@ -384,7 +384,7 @@ _bender_installer_get_repository ()
     printf " - (creating .gitmodules backup)\n"
     if [ ! -z "$_username" ]; then
         # modify .gitmodules
-        sed --in-place=_bkp "s/\/\/bitbucket.org/\/\/$_username:$_password@bitbucket.org/" "$_gitmodules"
+        sed --in-place=_bkp "s/\/\/@bitbucket.org/\/\/$_username:$_password@bitbucket.org/" "$_gitmodules"
     fi
     
     # update

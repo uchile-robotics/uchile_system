@@ -21,7 +21,7 @@ BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/high_ws/src/"
 
 ## 
 # _bender_git_status
-# - shows a short status of common bender repositiries (see $BENDER_REPOSITORIES)# 
+# - shows a short status of common bender repositiries (see $BENDER_REPOSITORIES)
 _bender_git_status ()
 {
     local _user_path _repo_path _repo_path_cropped
@@ -148,9 +148,24 @@ _bender_git_ls_files ()
     return 0
 }
 
+# this function is called when Ctrl-C is sent
+# the idea prevent leaving .git/config file in a inconsistent state!
+_bender_git_fetch_trapped=false
+_bender_git_fetch_trap ()
+{
+    # perform cleanup here
+    printf "Ctrl-C caught... Reverting git config\n"
+    if [ -e "./git/config.bkp" ]; then
+        mv ".git/config.bkp" ".git/config"
+    fi
+    printf "(OK)\n"
+ 
+    _bender_git_fetch_trapped=true
+}
+
 _bender_git_fetch ()
 {
-    local _user_path _repo_path _repo_path_cropped
+    local _user_path _repo_path _repo_path_cropped _config
     _user_path="$(pwd)"
 
     # echo "git st $*"
@@ -159,17 +174,48 @@ _bender_git_fetch ()
         # short version
         _repo_path_cropped="${_repo_path//$BENDER_WS/}"
 
+        # if git repository
         if [ -e "$_repo_path/.git" ]; then
+
+            # skip submodules
+            if [ ! -d "$_repo_path/.git" ]; then
+                continue
+            fi
+
             cd "$_repo_path"
             printf " - - - \n"
-            printf "Repository: %s\n" "$_repo_path_cropped"
+            printf "Fetching repository: %s and submodules ...\n" "$_repo_path_cropped"
+            _config="$_repo_path/.git/config"
+
+            
+            # trap
+            trap _bender_git_fetch_trap 1 2 3 9 15
+            
+            # modify and create config.bkp
+            # this replaces any credentials by the default ones: benderuchile:benderrobot on https protocol
+            sed --in-place=.bkp "s/https:\/\/\(.*\)bitbucket.org/https:\/\/benderuchile:benderrobot@bitbucket.org/" "$_config"
+            
+            # fetch
             git fetch
+            git submodule foreach git fetch
+
+            # restore config
+            if [ -e "$_config.bkp" ]; then
+                mv "$_config.bkp" "$_config"
+            fi
+
+            # unset trap
+            trap - 1 2 3 9 15
+            if $_bender_git_fetch_trapped; then
+                printf "ctrl-caught - bye\n"
+                return
+            fi
+            
         else
             printf " - - - \n"
             printf "Repository: %s\n" "$_repo_path_cropped"
             printf " - NOT FOUND! \n"
         fi
-
     done
     cd "$_user_path"
 
