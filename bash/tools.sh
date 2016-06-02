@@ -17,7 +17,7 @@
 ##############################################################################################
 
 # prints all BENDER_* environment variables and its values
-alias bender_printenv='printenv | grep "BENDER_.*="'
+alias bender_printenv='printenv | sort | grep "BENDER_.*="'
 
 ## bender_refresh_bash
 # executes bash to resource the bender framework.
