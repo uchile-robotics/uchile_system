@@ -172,7 +172,7 @@ EOF
 
         # in filenames 
         echo "[INFO]: - Looking for pattern '$string' in filenames:"
-        find . -name "$string" -print -o -path "*/.git" -prune
+        find . -name "*$string*" -print -o -path "*/.git" -prune
     done
 
     cd "$user_path"
