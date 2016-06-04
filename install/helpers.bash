@@ -180,7 +180,7 @@ _bender_installer_reset_ws ()
     rm -rf build/
     rm -rf devel/
     rm -rf install/
-    #catkin_make
+    catkin_make
     source devel/setup.bash
     cd "$user_path"
 }
