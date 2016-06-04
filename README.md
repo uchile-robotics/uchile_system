@@ -13,6 +13,9 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 
 ## Pre-requisitos
 
+# actualizar base de software
+sudo apt-get update
+
 # ROS baseline
 # ver: http://wiki.ros.org/indigo/Installation/Ubuntu
 sudo apt-get install ros-indigo-ros-base
@@ -61,6 +64,8 @@ Al terminar la instalación debes reabrir el terminal o ejecutar `$ source "$HOM
 
 
 ## Configuraciones recomendadas
+
+Ejecutar en terminal (`Ctrl+Alt+T`)
 
 ```
 #!/bin/bash
