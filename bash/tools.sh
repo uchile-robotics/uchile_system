@@ -91,13 +91,11 @@ bender_find_string ()
             "high"      ) path="$BENDER_WS/high_ws/src" ;;
             "graveyard" ) path="$BENDER_WS/bender_code_graveyard" ;;
             "forks"     ) path="$BENDER_WS/forks_ws/src" ;;
-            "install"   ) path="$BENDER_WS/install" ;;
             "embedded"  ) path="$BENDER_WS/bender_embedded" ;;
             "all" )
                 path="$path $BENDER_WS/bender_code_graveyard"
                 path="$path $BENDER_WS/bender_embedded"
                 path="$path $BENDER_WS/forks_ws/src"
-                path="$path $BENDER_WS/install"
                 ;;
 
             # unknown
@@ -146,7 +144,6 @@ Options:
         - system   : lookup on bender_system
         - graveyard: lookup on bender_code_graveyard
         - forks    : lookup on forks_ws
-        - install  : lookup on the install folder at <bender_ws>/install
         - embedded : lookup on bender_embedded
         - all      : lookup on all previous locations
 
@@ -174,7 +171,7 @@ EOF
 
         # in filenames 
         echo "[INFO]: - Looking for pattern '$string' in filenames:"
-        find . -name "*$string*" -print -o -path "*/.git" -prune
+        find . -wholename "*$string*" -print -o -path "*/.git" -prune
     done
 
     cd "$user_path"
@@ -204,7 +201,6 @@ bender_cd ()
             "high"      ) path="$BENDER_WS/high_ws/src" ;;
             "graveyard" ) path="$BENDER_WS/bender_code_graveyard" ;;
             "forks"     ) path="$BENDER_WS/forks_ws/src" ;;
-            "install"   ) path="$BENDER_WS/install" ;;
             "embedded"  ) path="$BENDER_WS/bender_embedded" ;;
 
              "-h" | "--help" ) show_help=true ;;
@@ -257,7 +253,6 @@ Options:
         - system   : 'cd' to bender_system
         - graveyard: 'cd' to bender_code_graveyard
         - forks    : 'cd' to forks_ws
-        - install  : 'cd' to the install folder at <bender_ws>/install
         - embedded : 'cd' to bender_embedded
     
     Available package options correspond to ROS (meta)packages named 'bender_*'.
@@ -296,7 +291,6 @@ bender_ws ()
             "high"      ) path="$BENDER_WS/high_ws/src" ;;
             "graveyard" ) path="$BENDER_WS/bender_code_graveyard" ;;
             "forks"     ) path="$BENDER_WS/forks_ws/src" ;;
-            "install"   ) path="$BENDER_WS/install" ;;
             "embedded"  ) path="$BENDER_WS/bender_embedded" ;;
 
              "-h" | "--help" ) show_help=true ;;
@@ -348,7 +342,6 @@ Options:
         - system   : 'nautilus' on bender_system
         - graveyard: 'nautilus' on bender_code_graveyard
         - forks    : 'nautilus' on forks_ws
-        - install  : 'nautilus' on the install folder at <bender_ws>/install
         - embedded : 'nautilus' on bender_embedded
     
     Available package options correspond to ROS (meta)packages named 'bender_*'.
