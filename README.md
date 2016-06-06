@@ -86,8 +86,8 @@ echo 'export EDITOR="gedit"' >> ~/.bashrc
 # - utilitario gráfico para git
 sudo apt-get install nautilus-open-terminal terminator gitk
 
-# Trabajar en rama develop de cada repositorio
-# - si tras correr el comando, algún repositorio no está en tal rama,
+# Trabajar en rama "develop" de cada repositorio
+# - si tras correr el comando algún repositorio no está en tal rama,
 #   debes cambiarlo manualmente.
 #   ej:
 #   > cdb soft
