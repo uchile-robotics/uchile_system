@@ -172,7 +172,7 @@ catkin_make
 
 ```
 
-### Instalación de `soft_ws`
+### Instalación de `high_ws`
 ```
 #!/bin/bash
 
@@ -185,4 +185,3 @@ cdb high && cd ..
 catkin_make
 
 ```
-
