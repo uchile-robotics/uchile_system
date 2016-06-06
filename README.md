@@ -101,39 +101,88 @@ bgit checkout develop
 
 En esta fase es importante el orden de compilación.
 
-### Instalación de `base_forks`
+### Instalación de `forks_ws`
 
 ```
 #!/bin/bash
 
 # Abrir workspace
-bender_cd forks
+cdb forks && cd ..
 
 # Instalar dependencias
 rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # Compilar
-cd ..
 catkin_make
 
 ```
+
 ### Instalación de `base_ws`
 
 ```
 #!/bin/bash
 
-# Abrir workspace
-bender_cd base
+# instalar dependencias
+cdb base
+rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
-# Instalar dependencias
+# install bender_description
+cdb bender_description
+./scripts/install.sh
+./scripts/update_models.sh
+
+# install bender_base
+cdb bender_base
+bash install/install.sh
+
+# install bender_face
+cdb bender_face
+bash install/install.sh
+
+# install bender_joy
+cdb bender_joy
+bash install/install.sh
+
+# Compilar
+cdb base && cd ..
+catkin_make
+
+```
+
+
+### Instalación de `soft_ws`
+```
+#!/bin/bash
+
+# instalar dependencias
+cdb soft
+rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+
+# instalar dependencias de speech
+cdb bender_speech
+bash ./install/install.sh
+
+# instalar dependencias de navegación
+cdb bender_nav
+bash ./install/install.sh
+
+# Compilar
+cdb soft && cd ..
+catkin_make
+
+```
+
+### Instalación de `soft_ws`
+```
+#!/bin/bash
+
+# instalar dependencias
+cdb high
 rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # Compilar
-cd ..
+cdb high && cd ..
 catkin_make
 
-# Descargar meshes para bender_description
-bender_cd bender_description
-./scripts/install.sh
-
 ```
+
