@@ -8,9 +8,7 @@
 
 Ejecutar en terminal (`Ctrl+Alt+T`)
 
-```
-#!/bin/bash
-
+```bash
 ## Pre-requisitos
 
 # actualizar base de software
@@ -58,7 +56,6 @@ echo 'source "$HOME"/bender.sh' >> ~/.bashrc
 
 sudo rosdep init
 rosdep update
-
 ```
 Al terminar la instalación debes reabrir el terminal o ejecutar `$ source "$HOME"/bender.sh`.
 
@@ -67,8 +64,7 @@ Al terminar la instalación debes reabrir el terminal o ejecutar `$ source "$HOM
 
 Ejecutar en terminal (`Ctrl+Alt+T`)
 
-```
-#!/bin/bash
+```bash
 # configurar ~/.gitconfig global: usuario, mail, colores y aliases para comandos git.
 # - tras copiar el .gitconfig, al menos se debe configurar "name" y "email"!!!
 cp -bfS.bkp "$BENDER_SYSTEM"/templates/default.gitconfig ~/.gitconfig
@@ -93,7 +89,6 @@ sudo apt-get install nautilus-open-terminal terminator gitk
 #   > cdb soft
 #   > git checkout develop
 bgit checkout develop
- 
 ```
 
 
@@ -101,11 +96,12 @@ bgit checkout develop
 
 En esta fase es importante el orden de compilación.
 
+
 ### Instalación de `forks_ws`
 
-```
-#!/bin/bash
+Ejecutar en terminal (`Ctrl+Alt+T`)
 
+```bash
 # Abrir workspace
 cdb forks && cd ..
 
@@ -114,14 +110,14 @@ rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # Compilar
 catkin_make
-
 ```
+
 
 ### Instalación de `base_ws`
 
-```
-#!/bin/bash
+Ejecutar en terminal (`Ctrl+Alt+T`)
 
+```bash
 # instalar dependencias
 cdb base
 rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
@@ -146,14 +142,14 @@ bash install/install.sh
 # Compilar
 cdb base && cd ..
 catkin_make
-
 ```
 
 
 ### Instalación de `soft_ws`
-```
-#!/bin/bash
 
+Ejecutar en terminal (`Ctrl+Alt+T`)
+
+```bash
 # instalar dependencias
 cdb soft
 rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
@@ -169,13 +165,13 @@ bash ./install/install.sh
 # Compilar
 cdb soft && cd ..
 catkin_make
-
 ```
 
 ### Instalación de `high_ws`
-```
-#!/bin/bash
 
+Ejecutar en terminal (`Ctrl+Alt+T`)
+
+```bash
 # instalar dependencias
 cdb high
 rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
@@ -183,5 +179,4 @@ rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 # Compilar
 cdb high && cd ..
 catkin_make
-
 ```
