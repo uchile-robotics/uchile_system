@@ -16,25 +16,32 @@
 #   shell utilities
 ##############################################################################################
 
-# prints all BENDER_* environment variables and its values
-alias bender_printenv='printenv | sort | grep "BENDER_.*="'
+# prevent failure
+if [ "$CATKIN_SHELL" = "bash" ]; then
 
-## bender_refresh_bash
-# executes bash to resource the bender framework.
-#
-# this is for testing purposes only!. Do not use it
-# when environment variables have changed. Open a new
-# terminal session instead.
-alias bender_refresh_bash='exec bash'
+    # prints all BENDER_* environment variables and its values
+    alias bender_printenv='printenv | sort | grep "BENDER_.*="'
 
-# lists currently untracked files
-alias bender_git_show_untracked='git ls-files --others'
+    ## bender_refresh_bash
+    # executes bash to resource the bender framework.
+    #
+    # this is for testing purposes only!. Do not use it
+    # when environment variables have changed. Open a new
+    # terminal session instead.
+    alias bender_refresh_bash='exec bash'
 
-# lists currently ignored files
-alias bender_git_show_ignored='git check-ignore -v *'
+    # lists currently untracked files
+    alias bender_git_show_untracked='git ls-files --others'
 
-# the same as bender_cd but faster to type 
-alias cdb='bender_cd'
+    # lists currently ignored files
+    alias bender_git_show_ignored='git check-ignore -v *'
+
+    # the same as bender_cd but faster to type 
+    alias cdb='bender_cd'
+    
+fi
+
+
 
 
 bender_open_config () {

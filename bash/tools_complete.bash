@@ -7,6 +7,11 @@ if [ ! "$CATKIN_SHELL" = "bash" ]; then
     return 1
 fi
 
+# export functions
+export -f bender_cd
+export -f bender_find_string
+export -f bender_ws
+
 
 _bendercomplete_bender_find_string()
 {
