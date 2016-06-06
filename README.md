@@ -8,10 +8,11 @@
 
 Ejecutar en terminal (`Ctrl+Alt+T`)
 
-```
-#!/bin/bash
-
+```bash
 ## Pre-requisitos
+
+# actualizar base de software
+sudo apt-get update
 
 # ROS baseline
 # ver: http://wiki.ros.org/indigo/Installation/Ubuntu
@@ -55,15 +56,15 @@ echo 'source "$HOME"/bender.sh' >> ~/.bashrc
 
 sudo rosdep init
 rosdep update
-
 ```
 Al terminar la instalación debes reabrir el terminal o ejecutar `$ source "$HOME"/bender.sh`.
 
 
 ## Configuraciones recomendadas
 
-```
-#!/bin/bash
+Ejecutar en terminal (`Ctrl+Alt+T`)
+
+```bash
 # configurar ~/.gitconfig global: usuario, mail, colores y aliases para comandos git.
 # - tras copiar el .gitconfig, al menos se debe configurar "name" y "email"!!!
 cp -bfS.bkp "$BENDER_SYSTEM"/templates/default.gitconfig ~/.gitconfig
@@ -80,7 +81,14 @@ echo 'export EDITOR="gedit"' >> ~/.bashrc
 # - shell más moderno. permite subdivisiones en cada pestaña.
 # - utilitario gráfico para git
 sudo apt-get install nautilus-open-terminal terminator gitk
- 
+
+# Trabajar en rama "develop" de cada repositorio
+# - si tras correr el comando algún repositorio no está en tal rama,
+#   debes cambiarlo manualmente.
+#   ej:
+#   > cdb soft
+#   > git checkout develop
+bgit checkout develop
 ```
 
 
@@ -88,39 +96,87 @@ sudo apt-get install nautilus-open-terminal terminator gitk
 
 En esta fase es importante el orden de compilación.
 
-### Instalación de `base_forks`
 
-```
-#!/bin/bash
+### Instalación de `forks_ws`
 
+Ejecutar en terminal (`Ctrl+Alt+T`)
+
+```bash
 # Abrir workspace
-bender_cd forks
+cdb forks && cd ..
 
 # Instalar dependencias
 rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # Compilar
-cd ..
 catkin_make
-
 ```
+
+
 ### Instalación de `base_ws`
 
+Ejecutar en terminal (`Ctrl+Alt+T`)
+
+```bash
+# instalar dependencias
+cdb base
+rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+
+# install bender_description
+cdb bender_description
+./scripts/install.sh
+./scripts/update_models.sh
+
+# install bender_base
+cdb bender_base
+bash install/install.sh
+
+# install bender_face
+cdb bender_face
+bash install/install.sh
+
+# install bender_joy
+cdb bender_joy
+bash install/install.sh
+
+# Compilar
+cdb base && cd ..
+catkin_make
 ```
-#!/bin/bash
 
-# Abrir workspace
-bender_cd base
 
-# Instalar dependencias
+### Instalación de `soft_ws`
+
+Ejecutar en terminal (`Ctrl+Alt+T`)
+
+```bash
+# instalar dependencias
+cdb soft
+rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+
+# instalar dependencias de speech
+cdb bender_speech
+bash ./install/install.sh
+
+# instalar dependencias de navegación
+cdb bender_nav
+bash ./install/install.sh
+
+# Compilar
+cdb soft && cd ..
+catkin_make
+```
+
+### Instalación de `high_ws`
+
+Ejecutar en terminal (`Ctrl+Alt+T`)
+
+```bash
+# instalar dependencias
+cdb high
 rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # Compilar
-cd ..
+cdb high && cd ..
 catkin_make
-
-# Descargar meshes para bender_description
-bender_cd bender_description
-./scripts/install.sh
-
 ```
