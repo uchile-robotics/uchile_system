@@ -85,6 +85,14 @@ echo 'export EDITOR="gedit"' >> ~/.bashrc
 # - shell más moderno. permite subdivisiones en cada pestaña.
 # - utilitario gráfico para git
 sudo apt-get install nautilus-open-terminal terminator gitk
+
+# Trabajar en rama develop de cada repositorio
+# - si tras correr el comando, algún repositorio no está en tal rama,
+#   debes cambiarlo manualmente.
+#   ej:
+#   > cdb soft
+#   > git checkout develop
+bgit checkout develop
  
 ```
 
