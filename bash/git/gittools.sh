@@ -1,22 +1,20 @@
 #!/bin/bash
 
+# TODO:
+# fetch en repos nesteados con más de 2 niveles!
 
-## TODO LIST:
-# - poder ejecutar el comando sólo en el workspace que se desee
-# - poder excluir repos
-# - hacer fetch, pull y merge 
 
 BENDER_REPOSITORIES=""
 BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_SYSTEM"
 BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/base_ws/src"
 BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/base_ws/src/bender_knowledge"
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src/"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src"
 BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src/bender_hri"
 BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src/bender_manipulation"
 BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src/bender_navigation"
 BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src/bender_perception"
 BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src/bender_tools"
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/high_ws/src/"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/high_ws/src"
 
 
 ## 
@@ -148,19 +146,12 @@ _bender_git_ls_files ()
     return 0
 }
 
-# this function is called when Ctrl-C is sent
-# the idea prevent leaving .git/config file in a inconsistent state!
-_bender_git_fetch_trapped=false
+# trap required to handle some signals and perform the cleanup
+# note that the cleanup is performed on _bender_git_fetch not here!  
 _bender_git_fetch_trap ()
 {
-    # perform cleanup here
-    printf "Ctrl-C caught... Reverting git config\n"
-    if [ -e "./git/config.bkp" ]; then
-        mv ".git/config.bkp" ".git/config"
-    fi
-    printf "(OK)\n"
- 
-    _bender_git_fetch_trapped=true
+    # this does nothing!
+    true
 }
 
 _bender_git_fetch ()
@@ -186,30 +177,33 @@ _bender_git_fetch ()
             printf " - - - \n"
             printf "Fetching repository: %s and submodules ...\n" "$_repo_path_cropped"
             _config="$_repo_path/.git/config"
+            _gitmodules="$_repo_path/.gitmodules"
 
-            
-            # trap
-            trap _bender_git_fetch_trap 1 2 3 9 15
+            # deactivate some signals
+            # this should prevent leaving the .config, and
+            # .gitmodules files in a inconsistent way
+            trap "_bender_git_fetch_trap" 1 2 3 15 20
             
             # modify and create config.bkp
             # this replaces any credentials by the default ones: benderuchile:benderrobot on https protocol
             sed --in-place=.bkp "s/https:\/\/\(.*\)bitbucket.org/https:\/\/benderuchile:benderrobot@bitbucket.org/" "$_config"
+            if [ -e "$_gitmodules" ]; then
+                sed --in-place=.bkp "s/https:\/\/\(.*\)bitbucket.org/https:\/\/benderuchile:benderrobot@bitbucket.org/" "$_gitmodules"
+                git submodule --quiet foreach 'sed --in-place=.bkp "s/https:\/\/\(.*\)bitbucket.org/https:\/\/benderuchile:benderrobot@bitbucket.org/" "$toplevel/.git/modules/$name/config"'
+            fi
             
             # fetch
             git fetch
             git submodule foreach git fetch
 
-            # restore config
-            if [ -e "$_config.bkp" ]; then
-                mv "$_config.bkp" "$_config"
-            fi
+            # restore configs
+            # "|| true" is useful to return zero when .bkp does not exists
+            mv "$_config".bkp "$_config" 2>/dev/null
+            mv "$_gitmodules".bkp "$_gitmodules" 2>/dev/null
+            git submodule --quiet foreach 'mv "$toplevel/.git/modules/$name/config.bkp" "$toplevel/.git/modules/$name/config" 2>/dev/null || true'
 
-            # unset trap
-            trap - 1 2 3 9 15
-            if $_bender_git_fetch_trapped; then
-                printf "ctrl-caught - bye\n"
-                return
-            fi
+            # reset signals to defaults
+            trap - 1 2 3 15 20
             
         else
             printf " - - - \n"
