@@ -16,25 +16,32 @@
 #   shell utilities
 ##############################################################################################
 
-# prints all BENDER_* environment variables and its values
-alias bender_printenv='printenv | grep "BENDER_.*="'
+# prevent failure
+if [ "$CATKIN_SHELL" = "bash" ]; then
 
-## bender_refresh_bash
-# executes bash to resource the bender framework.
-#
-# this is for testing purposes only!. Do not use it
-# when environment variables have changed. Open a new
-# terminal session instead.
-alias bender_refresh_bash='exec bash'
+    # prints all BENDER_* environment variables and its values
+    alias bender_printenv='printenv | sort | grep "BENDER_.*="'
 
-# lists currently untracked files
-alias bender_git_show_untracked='git ls-files --others'
+    ## bender_refresh_bash
+    # executes bash to resource the bender framework.
+    #
+    # this is for testing purposes only!. Do not use it
+    # when environment variables have changed. Open a new
+    # terminal session instead.
+    alias bender_refresh_bash='exec bash'
 
-# lists currently ignored files
-alias bender_git_show_ignored='git check-ignore -v *'
+    # lists currently untracked files
+    alias bender_git_show_untracked='git ls-files --others'
 
-# the same as bender_cd but faster to type 
-alias cdb='bender_cd'
+    # lists currently ignored files
+    alias bender_git_show_ignored='git check-ignore -v *'
+
+    # the same as bender_cd but faster to type 
+    alias cdb='bender_cd'
+    
+fi
+
+
 
 
 bender_open_config () {
@@ -49,17 +56,19 @@ bender_open_config () {
     fi
 
     # check if EDITOR variable is unset
-    _editor=$EDITOR
+    _editor="$EDITOR"
     if ! _bender_check_var_isset "EDITOR"; then
         printf "EDITOR env variable is unset. Using 'cat'\n"
         _editor="cat"
     fi
+    printf " - EDITOR env variable resolves to: '%s'\n" "$_editor"
 
     # check editor is installed
     if ! _bender_check_installed "$_editor"; then
         printf "Sorry, but '%s' is not installed. Using 'cat'\n" "$_editor"
         _editor="cat"
     fi
+
 
     printf " - opening user config file '%s' with '%s'\n" "$_conf" "$_editor"    
     "$_editor" "$_conf" &
@@ -89,13 +98,11 @@ bender_find_string ()
             "high"      ) path="$BENDER_WS/high_ws/src" ;;
             "graveyard" ) path="$BENDER_WS/bender_code_graveyard" ;;
             "forks"     ) path="$BENDER_WS/forks_ws/src" ;;
-            "install"   ) path="$BENDER_WS/install" ;;
             "embedded"  ) path="$BENDER_WS/bender_embedded" ;;
             "all" )
                 path="$path $BENDER_WS/bender_code_graveyard"
                 path="$path $BENDER_WS/bender_embedded"
                 path="$path $BENDER_WS/forks_ws/src"
-                path="$path $BENDER_WS/install"
                 ;;
 
             # unknown
@@ -144,7 +151,6 @@ Options:
         - system   : lookup on bender_system
         - graveyard: lookup on bender_code_graveyard
         - forks    : lookup on forks_ws
-        - install  : lookup on the install folder at <bender_ws>/install
         - embedded : lookup on bender_embedded
         - all      : lookup on all previous locations
 
@@ -172,7 +178,7 @@ EOF
 
         # in filenames 
         echo "[INFO]: - Looking for pattern '$string' in filenames:"
-        find . -name "$string" -print -o -path "*/.git" -prune
+        find . -wholename "*$string*" -print -o -path "*/.git" -prune
     done
 
     cd "$user_path"
@@ -184,7 +190,7 @@ EOF
 # see also: bender_cd --help
 bender_cd ()
 {
-    local user_path show_help path
+    local user_path show_help path pkg_name pkg stack_name stack
     path=""
 
     user_path="$1"
@@ -202,7 +208,6 @@ bender_cd ()
             "high"      ) path="$BENDER_WS/high_ws/src" ;;
             "graveyard" ) path="$BENDER_WS/bender_code_graveyard" ;;
             "forks"     ) path="$BENDER_WS/forks_ws/src" ;;
-            "install"   ) path="$BENDER_WS/install" ;;
             "embedded"  ) path="$BENDER_WS/bender_embedded" ;;
 
              "-h" | "--help" ) show_help=true ;;
@@ -221,7 +226,17 @@ bender_cd ()
                         return 0
                     fi
                 done
-                echo "Bender package named '$pkg_name' doesn't not exists. Try with 'roscd' command."
+
+                stack_name="$user_path"
+                for stack in $BENDER_STACKS; do
+                    if [ "$stack" = "$stack_name" ]; then
+                        path=$(rosstack find "$stack_name")
+                        cd "$path"/..
+                        return 0
+                    fi
+                done
+
+                echo "Bender (meta)package named '$pkg_name' doesn't not exists. Try with 'roscd' command."
                 show_help=true
         esac
     else
@@ -235,7 +250,7 @@ Synopsis:
 
 Description:
     It changes the current directory to the root of the
-    selected workspace or ROS package.
+    selected workspace or ROS (meta)package.
 
 Options:
     Available workspace options are:
@@ -245,10 +260,9 @@ Options:
         - system   : 'cd' to bender_system
         - graveyard: 'cd' to bender_code_graveyard
         - forks    : 'cd' to forks_ws
-        - install  : 'cd' to the install folder at <bender_ws>/install
         - embedded : 'cd' to bender_embedded
     
-    Available package options correspond to ROS packages named 'bender_*'.
+    Available package options correspond to ROS (meta)packages named 'bender_*'.
     
     If no option is given, then the directory will be the one 
     addressed by the \$BENDER_WS environment variable.
@@ -266,7 +280,7 @@ EOF
 # see also: bender_ws --help
 bender_ws ()
 {
-    local user_path show_help path
+    local user_path show_help path pkg pkg_name stack stack_name
     path=""
 
     user_path="$1"
@@ -284,7 +298,6 @@ bender_ws ()
             "high"      ) path="$BENDER_WS/high_ws/src" ;;
             "graveyard" ) path="$BENDER_WS/bender_code_graveyard" ;;
             "forks"     ) path="$BENDER_WS/forks_ws/src" ;;
-            "install"   ) path="$BENDER_WS/install" ;;
             "embedded"  ) path="$BENDER_WS/bender_embedded" ;;
 
              "-h" | "--help" ) show_help=true ;;
@@ -303,7 +316,17 @@ bender_ws ()
                         return 0
                     fi
                 done
-                echo "Bender package named '$pkg_name' doesn't not exists. Try with 'roscd' command."
+
+                stack_name="$user_path"
+                for stack in $BENDER_STACKS; do
+                    if [ "$stack" = "$stack_name" ]; then
+                        path=$(rosstack find "$stack_name")
+                        nautilus "$path"
+                        return 0
+                    fi
+                done
+
+                echo "Bender (meta)package named '$pkg_name' doesn't not exists. Try with 'roscd' command."
                 show_help=true
         esac
     else
@@ -316,7 +339,7 @@ Synopsis:
     bender_ws [<workspace>|<package>|-h|--help]
 
 Description:
-    It opens a nautilus window on the the selected workspace or ROS package.
+    It opens a nautilus window on the the selected workspace or ROS (meta)package.
 
 Options:
     Available workspace options are:
@@ -326,10 +349,9 @@ Options:
         - system   : 'nautilus' on bender_system
         - graveyard: 'nautilus' on bender_code_graveyard
         - forks    : 'nautilus' on forks_ws
-        - install  : 'nautilus' on the install folder at <bender_ws>/install
         - embedded : 'nautilus' on bender_embedded
     
-    Available package options correspond to ROS packages named 'bender_*'.
+    Available package options correspond to ROS (meta)packages named 'bender_*'.
     
     If no option is given, then the directory will be the one 
     addressed by the \$BENDER_WS environment variable.

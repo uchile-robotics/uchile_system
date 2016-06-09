@@ -10,6 +10,10 @@
 # Exports:
 # - _FAILED
 
+# check command existence
+if ! _bender_git_hooks_command_exists "awk"; then
+    return 0
+fi
 
 _max_size="400" # kB
 _max_size_B=$(awk "BEGIN {printf \"%d\",${_max_size}*1024}")

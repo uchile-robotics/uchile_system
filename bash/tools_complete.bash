@@ -7,6 +7,11 @@ if [ ! "$CATKIN_SHELL" = "bash" ]; then
     return 1
 fi
 
+# export functions
+export -f bender_cd
+export -f bender_find_string
+export -f bender_ws
+
 
 _bendercomplete_bender_find_string()
 {
@@ -47,6 +52,7 @@ _bendercomplete_bender_cd()
     opts="-h --help"
     opts="${opts} base soft high system graveyard forks install embedded"
     opts="${opts} ${BENDER_PACKAGES}"
+    opts="${opts} ${BENDER_STACKS}"
 
     # empty reply
     COMPREPLY=()
@@ -69,3 +75,4 @@ complete -F "_bendercomplete_NOT_COMPLETE" "bender_printenv"
 complete -F "_bendercomplete_NOT_COMPLETE" "bender_refresh_bash"
 complete -F "_bendercomplete_NOT_COMPLETE" "bender_git_show_untracked"
 complete -F "_bendercomplete_NOT_COMPLETE" "bender_git_show_ignored"
+complete -F "_bendercomplete_NOT_COMPLETE" "bender_open_config"

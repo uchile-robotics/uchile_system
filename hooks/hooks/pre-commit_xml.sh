@@ -17,7 +17,10 @@
 # - $ man xmllint
 #  
 
-
+# check command existence
+if ! _bender_git_hooks_command_exists "xmllint"; then
+    return 0
+fi
 
 _show_xml_goodbye() {
 

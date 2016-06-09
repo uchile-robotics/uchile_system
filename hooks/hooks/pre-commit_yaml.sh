@@ -14,6 +14,10 @@
 # see also: http://pyyaml.org
 #  
 
+# check command existence
+if ! _bender_git_hooks_pymodule_exists "yaml"; then
+    return 0
+fi
 
 
 _show_yaml_goodbye() {

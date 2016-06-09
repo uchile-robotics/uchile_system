@@ -7,7 +7,7 @@
 # see 'pre-commit' file
 
 
-_revert_stash ()
+_bender_git_hooks_revert_stash ()
 {
     ## revert changes from stash
     git config apply.whitespace nowarn # prevent stupid warnings
@@ -17,11 +17,11 @@ _revert_stash ()
 
 # this function is called when Ctrl-C is sent
 # the idea is to revert stashed changes!
-_trap_ctrlc ()
+_bender_git_hooks_trap_ctrlc ()
 {
     # perform cleanup here
     echo "Ctrl-C caught... Reverting Stash"
-    _revert_stash
+    _bender_git_hooks_revert_stash
     echo "(OK)"
  
     # exit shell script with error code 2
@@ -67,6 +67,7 @@ exec 1>&2
 
 
 # supported formats
+ALL_FILES=""
 PY_FILES=""
 SH_FILES=""
 BASH_FILES=""
@@ -94,7 +95,7 @@ if [ "$_is_initial_commit" != "yes" ]; then
     ## Set trap to ctrl+C (and others), in order to revert the stashed changes
     # initialise trap to call trap_ctrlc function
     # when signal 2 (SIGINT) is received
-    trap "_trap_ctrlc" 1 2 15
+    trap "_bender_git_hooks_trap_ctrlc" 1 2 15
 
     # if there were no changes (e.g., `--amend` or `--allow-empty`)
     # then nothing was stashed, and we should skip everything,
@@ -104,7 +105,7 @@ if [ "$_is_initial_commit" != "yes" ]; then
         #echo "pre-commit script: no changes to test"
         #sleep 1 # XXX hack, editor may erase message
         
-        #_revert_stash
+        #_bender_git_hooks_revert_stash
 
         exit 0
     fi
@@ -127,6 +128,7 @@ do
 
     _fullfile="$TOP_LEVEL/$file"
 
+    ALL_FILES="$ALL_FILES $_fullfile"
     case "$_ext" in
 
         "py" ) 
@@ -176,6 +178,12 @@ done
 
 _FAILED="no"
 
+# common stuff
+. "$GITHOOKS_PATH"/common.sh
+
+# git merge conflict hook
+. "$GITHOOKS_PATH"/pre-commit_merge_conflict.sh
+
 # size hook
 . "$GITHOOKS_PATH"/pre-commit_size.sh
 
@@ -203,7 +211,7 @@ _FAILED="no"
 if [ "$_is_initial_commit" != "yes" ]; then
 
     #echo "Reverting changes from stash"
-    _revert_stash
+    _bender_git_hooks_revert_stash
 
 fi
 
@@ -211,12 +219,17 @@ fi
 ## check whether the script succeeded or not
 if [ "$_FAILED" != "no" ]; then
 
-    cat <<\EOF
+   cat <<EOF
+
+ # USE WITH CAUTION!
+ to bypass this code inspection you can use:
+ > git commit --no-verify -m "..."
 
  kindly
  git admin.-
 
- Have some feedback?, please contact us: TODO :p
+ Have some feedback?, please contact us:
+ "$BENDER_SYSTEM_ADMIN" - $BENDER_EMAIL_DEVELOP
 
 EOF
 

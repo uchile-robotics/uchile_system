@@ -7,7 +7,7 @@
 export BENDER_SYSTEM="$BENDER_WS"/bender_system
 
 # contact
-export BENDER_SYSTEM_ADMIN="<mpavez> - matias pavez"
+export BENDER_SYSTEM_ADMIN="mpavez (matias pavez)"
 export BENDER_EMAIL_CONTACT="bender.contacto@gmail.com"
 export BENDER_EMAIL_DEVELOP="bender.devel@gmail.com"
 
