@@ -131,8 +131,8 @@ cdb bender_description
 cdb bender_base
 bash install/install.sh
 
-# install bender_face
-cdb bender_face
+# install bender_head
+cdb bender_head
 bash install/install.sh
 
 # install bender_joy
