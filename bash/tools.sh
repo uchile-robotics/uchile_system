@@ -100,7 +100,6 @@ bender_find_string ()
             "forks"     ) path="$BENDER_WS/forks_ws/src" ;;
             "embedded"  ) path="$BENDER_WS/bender_embedded" ;;
             "all" )
-                path="$path $BENDER_WS/bender_code_graveyard"
                 path="$path $BENDER_WS/bender_embedded"
                 path="$path $BENDER_WS/forks_ws/src"
                 ;;
@@ -152,7 +151,7 @@ Options:
         - graveyard: lookup on bender_code_graveyard
         - forks    : lookup on forks_ws
         - embedded : lookup on bender_embedded
-        - all      : lookup on all previous locations
+        - all      : lookup on all previous locations, except graveyard
 
     By default the lookup is executed on system-base-soft-high.
 EOF
