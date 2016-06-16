@@ -14,7 +14,7 @@ _bendercomplete_bender_git ()
 
     # available options
     opts="-h --help"
-    opts="status st checkout co ls-files fetch"
+    opts="status st checkout co ls-files fetch merge pull"
     opts_co="master develop"
     opts_ls="modified untracked ignored"
 
