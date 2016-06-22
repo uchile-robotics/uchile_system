@@ -67,7 +67,10 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 ```bash
 # configurar ~/.gitconfig global: usuario, mail, colores y aliases para comandos git.
 # - tras copiar el .gitconfig, al menos se debe configurar "name" y "email"!!!
+# - setear herramienta meld para ver los git diffs
+sudo apt-get install meld
 cp -bfS.bkp "$BENDER_SYSTEM"/templates/default.gitconfig ~/.gitconfig
+ln -s "$BENDER_SYSTEM"/bash/git/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
 gedit ~/.gitconfig
 
 # configurar ~/.bash_aliases: esto configura el prompt PS1 para git. 
