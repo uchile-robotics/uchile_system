@@ -145,8 +145,9 @@ _repo_path="$framework_path"/forks_ws/src/rosaria
 _repo_url=https://bitbucket.org/uchile-robotics-die/bender_fork_rosaria.git
 _bender_installer_get_repository "$_repo_path" "$_repo_url" "$use_credentials" "$username" "$password"
 
-cd "$framework_path"/forks_ws/src/
+cd "$framework_path"/forks_ws/src
 git clone https://github.com/uchile-robotics/dynamixel_motor.git
+cd "$framework_path"/forks_ws/src/dynamixel_motor
 git checkout develop
 
 unset use_credentials username password
