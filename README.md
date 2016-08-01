@@ -142,6 +142,10 @@ bash install/install.sh
 cdb bender_joy
 bash install/install.sh
 
+# install bender_fieldbus
+cdb bender_fieldbus
+bash install/install.sh
+
 # Compilar
 cdb base && cd ..
 catkin_make
@@ -163,6 +167,10 @@ bash ./install/install.sh
 
 # instalar dependencias de navegación
 cdb bender_nav
+bash ./install/install.sh
+
+# instalar dependencias de bender_arm_planning
+cdb bender_arm_planning
 bash ./install/install.sh
 
 # Compilar
