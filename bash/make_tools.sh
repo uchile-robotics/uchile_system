@@ -1,5 +1,74 @@
 #!/bin/sh
 
+bender_clean_ws ()
+{
+    local ws path user_path
+
+    if [ -z "$1" ] || [ "$1" = "-h" ] || [ "$1" = "--help"  ]; then
+
+        # display help
+        cat <<EOF
+Synopsis:                
+    bender_clean_ws <workspace>
+
+Description:
+    It attempts to clean all files which are (catkin_make)generated while 
+    building a workspace. This is useful when testing for dependencies
+    declaration completeness.
+
+    Specifically, it deletes the build/ and devel/{bin,include,lib,share}
+    folders.
+
+Options:
+    Use the 'workspace' option to select workspace that will be cleaned.
+    
+    Supported values are:
+        - base   : cleans the base_ws
+        - soft   : cleans the soft_ws
+        - high   : cleans the high_ws
+        - forks  : cleans the forks_ws
+
+    There is no default value!
+EOF
+        _bender_admin_goodbye
+        return 0
+
+    else
+        ws="$1"
+        user_path="$(pwd)"
+        path="$BENDER_WS"/"$ws"_ws
+
+        if [ ! -e "$path" ]; then
+            echo "Invalid workspace: $1 at $BENDER_WS"
+            return 1
+        fi
+        if [ ! -e "$path"/"src"/CMakeLists.txt ]; then
+            echo "Invalid workspace: $1 at $BENDER_WS"
+            echo "Missing CMakeLists.txt at $path/src/"
+            return 1
+        fi
+        if [ ! -e "$path"/"devel"/setup.sh ]; then
+            echo "Invalid workspace: $1 at $BENDER_WS"
+            echo "Missing setup.sh at $path/devel/"
+            return 1
+        fi
+
+        echo "This workspace will be (make)cleaned: $path"
+        if ! _bender_check_user_confirmation ; then
+            return 0
+        fi
+
+        cd "$path"
+        echo " - deleting 'build' ... "         && rm -rf build
+        echo " - deleting 'devel/bin' ... "     && rm -rf devel/bin
+        echo " - deleting 'devel/include' ... " && rm -rf devel/include
+        echo " - deleting 'devel/lib' ... "     && rm -rf devel/lib
+        echo " - deleting 'devel/share' ... "   && rm -rf devel/share
+        cd "$user_path"
+        return 0
+    fi
+}
+
 # AUN NO ESTAN DISPONIBLES!
 return 0
 

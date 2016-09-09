@@ -67,7 +67,10 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 ```bash
 # configurar ~/.gitconfig global: usuario, mail, colores y aliases para comandos git.
 # - tras copiar el .gitconfig, al menos se debe configurar "name" y "email"!!!
+# - setear herramienta meld para ver los git diffs
+sudo apt-get install meld
 cp -bfS.bkp "$BENDER_SYSTEM"/templates/default.gitconfig ~/.gitconfig
+ln -s "$BENDER_SYSTEM"/bash/git/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
 gedit ~/.gitconfig
 
 # configurar ~/.bash_aliases: esto configura el prompt PS1 para git. 
@@ -131,12 +134,16 @@ cdb bender_description
 cdb bender_base
 bash install/install.sh
 
-# install bender_face
-cdb bender_face
+# install bender_head
+cdb bender_head
 bash install/install.sh
 
 # install bender_joy
 cdb bender_joy
+bash install/install.sh
+
+# install bender_fieldbus
+cdb bender_fieldbus
 bash install/install.sh
 
 # Compilar
@@ -160,6 +167,10 @@ bash ./install/install.sh
 
 # instalar dependencias de navegación
 cdb bender_nav
+bash ./install/install.sh
+
+# instalar dependencias de bender_arm_planning
+cdb bender_arm_planning
 bash ./install/install.sh
 
 # Compilar

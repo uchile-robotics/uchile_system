@@ -7,8 +7,10 @@
 
 ; ; ; ; ; ; ; ; ; ; ; ; MODIFY THIS ; ; ; ; ; ; ; ; ; ; ; ; ; ;
 [user]
-	name = Chuck Norris
-	email = chuck.norris@punchmail.com
+	# your repository username
+	#name = Chuck Norris
+	# your username mail
+	#email = chuck.norris@punchmail.com
 ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ;
 
 
@@ -46,6 +48,12 @@
 
 	; show file (hash code) content
 	dump = cat-file -p
+
+
+# - - - - - - Git diff tools - - - - - - -
+[diff]
+	# launch git meld
+	external = ~/.gitconfig_meld_launcher.py
 
 
 # - - - - - - Git Commands Coloring - - - - - - -
