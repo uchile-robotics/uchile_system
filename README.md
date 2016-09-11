@@ -171,7 +171,7 @@ bash ./install/install.sh
 
 # instalar dependencias de bender_arm_planning
 cdb bender_arm_planning
-bash ./install/install.sh
+bash /install/install.sh
 
 # Compilar
 cdb soft && cd ..
