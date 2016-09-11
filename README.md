@@ -127,8 +127,8 @@ rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # install bender_description
 cdb bender_description
-./scripts/install.sh
-./scripts/update_models.sh
+bash install/install.sh
+bash scripts/update_models.sh
 
 # install bender_base
 cdb bender_base
