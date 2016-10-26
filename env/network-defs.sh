@@ -8,7 +8,7 @@
 #  - (general) conectar automaticamente
 #  - (ipv4): Method: Manual
 #  - (ipv4): address: 192.168.0.X
-#  - (ipv4): address: 255.255.255.X
+#  - (ipv4): address: 255.255.255.0
 #  - (ipv4): address: 192.168.1.1
 #  - (ipv4-routes): Use this connection only for 
 #                   resources on this network
@@ -28,6 +28,8 @@ _bender_net_parse_ip ()
 		printf "%s" "$BENDER_NET_IP_VISION"
 	elif [ "$ipname" = "nav" ]; then
 		printf "%s" "$BENDER_NET_IP_NAV"
+	elif [ "$ipname" = "localhost" ]; then
+		printf "%s" "127.0.0.1"
 	else
 		printf "%s" "$ipname"
 	fi
