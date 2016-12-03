@@ -335,7 +335,8 @@ Options:
         - checkout | co : Provides git checkout functionality, only for branch
                           switching.
 
-                          The checkout will only proceed if the current status 
+                          The checkout will only proceed for a repo, if it is
+                          in a clean state, with no modified files.
 
                           Autocomplete feature is only available for master and
                           develop branches.
@@ -351,6 +352,11 @@ Options:
 
                           Only fast-forward merges are executed!, otherwise the
                           merge will not proceed.
+
+                          usage:
+                          |   $ bgit merge <branchname>
+                          |   $ bgit merge origin/develop
+                          |   $ bgit merge develop
 
 
         - pull          : Alias for:
