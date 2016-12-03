@@ -163,7 +163,7 @@ rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # instalar dependencias de speech
 cdb bender_speech
-bash install/install.sh
+bash install/install.bash
 
 # instalar dependencias de navegación
 cdb bender_nav
