@@ -22,7 +22,7 @@ sudo apt-get install ros-indigo-ros-base
 sudo apt-get install git python-flake8 shellcheck libxml2-utils python-yaml cppcheck
 
 # instalación
-sudo apt-get install curl openssl pv python-rosinstall
+sudo apt-get install curl openssl pv python-rosinstall python-pip
 
 # conectividad
 sudo apt-get install openssh-client openssh-server
@@ -140,6 +140,10 @@ bash install/install.sh
 
 # install bender_joy
 cdb bender_joy
+bash install/install.sh
+
+# install bender_tts
+cdb bender_tts
 bash install/install.sh
 
 # install bender_fieldbus
