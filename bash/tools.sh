@@ -363,3 +363,14 @@ EOF
     nautilus "$path"
     return 0
 }
+
+# Kill gazebo gently
+killgz(){
+    # Kill controllers spawners
+    rosnode kill /bender/controller_spawner 
+    rosnode kill /bender/neck_controller_spawner
+    # Kill Gazebo server
+    killall gzserver
+    # Kill Gazebo client
+    killall gzclient
+}
