@@ -38,11 +38,8 @@ cd "$HOME"
 git clone https://bitbucket.org/uchile-robotics-die/bender_system.git tmp_repo
 cd tmp_repo/install
 
-# Dar permisos de ejecución
-chmod +x bender_ws_installer.bash
-
 # Obtener repositorios y crear workspaces
-./bender_ws_installer.bash
+bash bender_ws_installer.bash
 
 # limpiar
 cd "$HOME"
@@ -50,9 +47,17 @@ rm -rf ~/tmp_repo
 
 
 ## Habilitar workspace para uso en consola
-
-# Hacer source
+#
+# (sólo usuarios de bash):
+# habilitar source del workspace al abrir la consola
 echo 'source "$HOME"/bender.sh' >> ~/.bashrc
+#
+# (sólo usuarios de zsh):
+# habilitar source del workspace al abrir la consola
+# IMPORTANTE: modificar ~/bender.sh: Comentar versión 
+# bash y habilitar versión zsh.
+echo 'source "$HOME"/bender.sh' >> ~/.zshrc
+# 
 
 sudo rosdep init
 rosdep update
@@ -70,7 +75,7 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 # - setear herramienta meld para ver los git diffs
 sudo apt-get install meld
 cp -bfS.bkp "$BENDER_SYSTEM"/templates/default.gitconfig ~/.gitconfig
-ln -s "$BENDER_SYSTEM"/bash/git/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
+cp "$BENDER_SYSTEM"/templates/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
 gedit ~/.gitconfig
 
 # configurar ~/.bash_aliases: esto configura el prompt PS1 para git. 

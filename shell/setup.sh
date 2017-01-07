@@ -18,37 +18,35 @@ export BENDER_PACKAGES="$(printf "%s\n%s\n%s" "$BENDER_PACKAGES_BASE" "$BENDER_P
 export BENDER_STACKS=$(rosstack list-names | grep "bender_")
 
 
-
 ##############################################################################################
 #   bender system tools
 ##############################################################################################
 # the source order is important!, at least functions.sh must be placed first.
 
 # sh utilities named with "_bender_" preffix
-. "$BENDER_SYSTEM"/bash/functions.sh
+. "$BENDER_SYSTEM"/shell/functions.sh
 
 # utilities for building with cmake and ROS
-. "$BENDER_SYSTEM"/bash/make_tools.sh
+. "$BENDER_SYSTEM"/shell/make_tools.sh
 
 # utilities useful when working on bash/sh
-. "$BENDER_SYSTEM"/bash/tools.sh
+. "$BENDER_SYSTEM"/shell/tools.sh
 
 # utilities for doing git stuff on the whole workspace
-. "$BENDER_SYSTEM"/bash/git/gittools.sh
+. "$BENDER_SYSTEM"/shell/gittools.sh
 
-# if using bash
-if [ "$CATKIN_SHELL" = "bash" ]; then
+
+# autocomplete
+if _bender_check_if_bash_or_zsh ; then
 
     # common autocompletion
-    . "$BENDER_SYSTEM"/bash/complete.bash
+    . "$BENDER_SYSTEM"/shell/complete/common.sh
 
     # tools autocompletion
-    . "$BENDER_SYSTEM"/bash/make_tools_complete.bash
-    . "$BENDER_SYSTEM"/bash/tools_complete.bash
-    . "$BENDER_SYSTEM"/bash/git/gittools_complete.bash
+    . "$BENDER_SYSTEM"/shell/complete/tools.sh
+    . "$BENDER_SYSTEM"/shell/complete/gittools.sh
 
 fi
-
 
 
 
@@ -62,7 +60,7 @@ for _pkg in $BENDER_PACKAGES
 do
     # related setup.sh file
     _pkg_path="$(echo "$_pkgs_and_paths" | grep "$_pkg " | sed 's/^.* //')"
-    _setup_file="$_pkg_path"/bash/setup.sh
+    _setup_file="$_pkg_path"/shell/setup.sh
 
     # source if neccesary.
     if [ -f "$_setup_file" ]; then

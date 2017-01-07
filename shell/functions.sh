@@ -13,6 +13,30 @@ _bender_admin_goodbye ()
 EOF
 }
 
+_bender_check_if_bash ()
+{
+    if [ "$CATKIN_SHELL" = "bash" ]; then
+        return 0
+    fi
+    return 1
+}
+
+_bender_check_if_zsh ()
+{
+    if [ "$CATKIN_SHELL" = "zsh" ]; then
+        return 0
+    fi
+    return 1
+}
+
+_bender_check_if_bash_or_zsh ()
+{
+    if _bender_check_if_bash || _bender_check_if_zsh ; then
+        return 0
+    fi
+    return 1
+}
+
 _bender_check_installed ()
 {
     ## this only works on bash!!.

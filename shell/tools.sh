@@ -17,10 +17,13 @@
 ##############################################################################################
 
 # prevent failure
-if [ "$CATKIN_SHELL" = "bash" ]; then
+if _bender_check_if_bash_or_zsh ; then
 
     # prints all BENDER_* environment variables and its values
-    alias bender_printenv='printenv | sort | grep "BENDER_.*="'
+    function bender_printenv
+    {
+        printenv | sort | grep "BENDER_.*=" 
+    }
 
     ## bender_refresh_bash
     # executes bash to resource the bender framework.
@@ -28,16 +31,29 @@ if [ "$CATKIN_SHELL" = "bash" ]; then
     # this is for testing purposes only!. Do not use it
     # when environment variables have changed. Open a new
     # terminal session instead.
-    alias bender_refresh_bash='exec bash'
+    function bender_refresh_bash
+    {
+        exec bash
+    }
+    
 
     # lists currently untracked files
-    alias bender_git_show_untracked='git ls-files --others'
+    function bender_git_show_untracked
+    {
+        git ls-files --others
+    }
 
     # lists currently ignored files
-    alias bender_git_show_ignored='git check-ignore -v *'
+    function bender_git_show_ignored
+    {
+        git check-ignore -v *
+    }
 
     # the same as bender_cd but faster to type 
-    alias cdb='bender_cd'
+    function cdb
+    {
+        bender_cd
+    }
     
 fi
 

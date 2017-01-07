@@ -30,5 +30,8 @@ export BENDER_NET_WARN=false
 ## LOAD FRAMEWORK
 ## ==========================================
 
-# bender framework
-. "$BENDER_WS"/bender_system/setup.sh
+# bender framework for BASH
+. "$BENDER_WS"/bender_system/setup.bash
+
+# bender framework for ZSH
+#. "$BENDER_WS"/bender_system/setup.zsh

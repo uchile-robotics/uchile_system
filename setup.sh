@@ -26,8 +26,6 @@ export ROSCONSOLE_FORMAT='[${severity}] [${node}]: ${message}'
 # ----------------------------------------
 if [ "$BENDER_NET_BY_SSH" = "YES" ]; then
     . "$BENDER_SYSTEM"/env/network-defs.sh
-else
-    export CATKIN_SHELL=bash
 fi
 
 if [ "$BENDER_NET_ENABLE" = true ]; then
@@ -85,4 +83,4 @@ fi
 ## ##########################################
 
 # bash functionalities
-. "$BENDER_SYSTEM"/bash/setup.sh
+. "$BENDER_SYSTEM"/shell/setup.sh
