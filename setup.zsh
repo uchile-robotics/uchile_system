@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 
-CATKIN_SHELL=zsh
+export CATKIN_SHELL=zsh
 
 # source setup.sh from same directory as this file
 THIS_DIR=$(builtin cd -q "`dirname "$0"`" > /dev/null && pwd)

@@ -1,5 +1,48 @@
 #!/bin/sh
 
+# TODO> modify template
+# TODO> remove messages
+
+## SYSTEM CONFIGURATIONS
+## ##########################################
+#
+# OBS: Some configurations are meant for outdated machines
+# NOTE FOR FUTURE ADMINS: Update this configuration loading for
+# release 2.0.
+if [ -z "$CATKIN_SHELL" ]; then
+    # WARNING: THIS BEHAVIOR IS VALID FOR SSH CONNECTIONS!.
+    echo "Sorry, the CATKIN_SHELL env variable is not set. I assume you are "
+    echo "loading this script as setup.sh. Please, modify your *rc file or "
+    echo "the bender.sh file to source the proper shell script:"
+    echo "setup.bash or setup.zsh, for bash or zsh users."
+fi
+
+# load configs
+if [ -z "$BENDER_SHELL_CFG" ]; then
+    DEFAULT_CFG="$HOME"/bender.sh
+    if [ -e "$DEFAULT_CFG" ]; then
+        . "$DEFAULT_CFG"
+    else
+        echo "Sorry, the BENDER_SHELL_CFG env variable is not set."
+        echo "Please, set this to the path of the bender.sh script."
+        echo "e.g: \"$HOME/bender.sh\""
+        echo "Bender workspace will not be configured."
+        return 0
+    fi
+else
+    if [ -e "$BENDER_SHELL_CFG" ]; then
+        . "$BENDER_SHELL_CFG"
+    else
+        echo "Sorry, the BENDER_SHELL_CFG is set, the configuration file cannot be read."
+        echo "Configuration file: $BENDER_SHELL_CFG"
+        echo "Please, set this to the path of the bender.sh script."
+        echo "e.g: \"$HOME/bender.sh\""
+        echo "Bender workspace will not be configured."
+        return 0
+    fi
+fi
+
+
 ## SYSTEM DEFS
 ## ##########################################
 

@@ -47,18 +47,21 @@ rm -rf ~/tmp_repo
 
 
 ## Habilitar workspace para uso en consola
-#
-# (sólo usuarios de bash):
-# habilitar source del workspace al abrir la consola
-echo 'source "$HOME"/bender.sh' >> ~/.bashrc
-#
-# (sólo usuarios de zsh):
-# habilitar source del workspace al abrir la consola
-# IMPORTANTE: modificar ~/bender.sh: Comentar versión 
-# bash y habilitar versión zsh.
-echo 'source "$HOME"/bender.sh' >> ~/.zshrc
-# 
 
+# sólo usuarios de bash
+echo '# Bender Workspace settings: location, configs and setup script.' >> ~/.bashrc
+echo 'export BENDER_WS="$HOME"/bender_ws'        >> ~/.bashrc
+echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh' >> ~/.bashrc
+echo '. "$BENDER_WS"/bender_system/setup.bash'    >> ~/.bashrc
+
+# sólo usuarios de bash
+echo '# Bender Workspace settings: location, configs and setup script.' >> ~/.zshrc
+echo 'export BENDER_WS="$HOME"/bender_ws'        >> ~/.zshrc
+echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh' >> ~/.zshrc
+echo '. "$BENDER_WS"/bender_system/setup.zsh'    >> ~/.zshrc
+
+
+# inicializar rosdep
 sudo rosdep init
 rosdep update
 ```

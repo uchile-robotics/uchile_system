@@ -4,10 +4,6 @@
 ## BENDER FRAMEWORK SETTINGS
 ## ==========================================
 
-# bender workspace location
-export BENDER_WS="$HOME"/bender_ws
-
-
 # networking settings
 # -------------------------------------------
 # available names are:
@@ -24,14 +20,3 @@ export BENDER_NET_ENABLE=false
 
 # (dis)plays a warning when working in offline mode (true/false)
 export BENDER_NET_WARN=false
-
-
-
-## LOAD FRAMEWORK
-## ==========================================
-
-# bender framework for BASH
-. "$BENDER_WS"/bender_system/setup.bash
-
-# bender framework for ZSH
-#. "$BENDER_WS"/bender_system/setup.zsh
