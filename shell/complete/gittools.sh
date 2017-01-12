@@ -44,8 +44,8 @@ _bendercomplete_bender_git ()
             elif [ "$prev" = "ls-files" ]; then
                 COMPREPLY=( $(compgen -W "${opts_ls}" -- "${cur}") )
 
-            elif [ "$prev" = "merge" ]; then
-                COMPREPLY=( $(compgen -W "${opts_mg}" -- "${cur}") )
+            # elif [ "$prev" = "merge" ]; then
+            #     COMPREPLY=( $(compgen -W "${opts_mg}" -- "${cur}") )
             fi
         fi
     else
@@ -64,8 +64,8 @@ _bendercomplete_bender_git ()
             elif [ "$prev" = "ls-files" ]; then
                 reply=(${=opts_ls})
 
-            elif [ "$prev" = "merge" ]; then
-                reply=(${=opts_mg})
+            # elif [ "$prev" = "merge" ]; then
+            #     reply=(${=opts_mg})
             fi
         fi
     fi
