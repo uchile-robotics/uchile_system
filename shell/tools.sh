@@ -6,9 +6,8 @@
 # bender_find_string        - finds string within bender src space
 # bender_cd                 - cd to a bender framework directory
 # cdb                       - the same as bender_cd but faster to type 
-# bender_ws                 - opens a window on a bender framework directory 
 # bender_printenv           - prints all BENDER_* environment variables
-# bender_refresh_bash       - executes bash to resource the bender framework
+# bender_refresh_shell      - reexecutes a shell to resource the bender framework
 # bender_git_show_untracked - lists currently untracked files
 # bender_git_show_ignored   - lists currently ignored files
 
@@ -25,15 +24,15 @@ if _bender_check_if_bash_or_zsh ; then
         printenv | sort | grep "BENDER_.*=" 
     }
 
-    ## bender_refresh_bash
+    ## bender_refresh_shell
     # executes bash to resource the bender framework.
     #
     # this is for testing purposes only!. Do not use it
     # when environment variables have changed. Open a new
     # terminal session instead.
-    function bender_refresh_bash
+    function bender_refresh_shell
     {
-        exec bash
+        exec "$SHELL"
     }
     
 
@@ -50,20 +49,15 @@ if _bender_check_if_bash_or_zsh ; then
     }
 
     # the same as bender_cd but faster to type 
-    function cdb
-    {
-        bender_cd
-    }
+    alias cdb="bender_cd"
     
 fi
 
 
-
-
-bender_open_config () {
+function bender_open_config {
 
     local _conf _editor
-    _conf="$HOME"/bender.sh
+    _conf="$BENDER_SHELL_CFG"
 
     # check file existence
     if [ ! -e "$_conf" ]; then
@@ -73,6 +67,10 @@ bender_open_config () {
 
     # check if EDITOR variable is unset
     _editor="$EDITOR"
+    if [ -z "$_editor" ]; then
+        printf "EDITOR env variable is unset. Using 'cat'\n"
+        _editor="cat"
+    fi
     if ! _bender_check_var_isset "EDITOR"; then
         printf "EDITOR env variable is unset. Using 'cat'\n"
         _editor="cat"
@@ -94,13 +92,12 @@ bender_open_config () {
 # see also: bender_find_string --help 
 bender_find_string ()
 {
-    local string path user_path opt show_help curpath
+    local string _path user_path opt show_help curpath
 
-    path=""
-    path="$path $BENDER_SYSTEM"         # bender_system
-    path="$path $BENDER_WS/base_ws/src" # base_ws
-    path="$path $BENDER_WS/soft_ws/src" # soft_ws
-    path="$path $BENDER_WS/high_ws/src" # high_ws
+    _path="$BENDER_SYSTEM"         # bender_system
+    _path="$_path $BENDER_WS/base_ws/src" # base_ws
+    _path="$_path $BENDER_WS/soft_ws/src" # soft_ws
+    _path="$_path $BENDER_WS/high_ws/src" # high_ws
 
     string=""
     if [ "$#" = "2" ]; then 
@@ -108,16 +105,16 @@ bender_find_string ()
         opt="$1"
         case "$opt" in
 
-            "system"    ) path="$BENDER_SYSTEM" ;;
-            "base"      ) path="$BENDER_WS/base_ws/src" ;;
-            "soft"      ) path="$BENDER_WS/soft_ws/src" ;;
-            "high"      ) path="$BENDER_WS/high_ws/src" ;;
-            "graveyard" ) path="$BENDER_WS/bender_code_graveyard" ;;
-            "forks"     ) path="$BENDER_WS/forks_ws/src" ;;
-            "embedded"  ) path="$BENDER_WS/bender_embedded" ;;
+            "system"    ) _path="$BENDER_SYSTEM" ;;
+            "base"      ) _path="$BENDER_WS/base_ws/src" ;;
+            "soft"      ) _path="$BENDER_WS/soft_ws/src" ;;
+            "high"      ) _path="$BENDER_WS/high_ws/src" ;;
+            "graveyard" ) _path="$BENDER_WS/bender_code_graveyard" ;;
+            "forks"     ) _path="$BENDER_WS/forks_ws/src" ;;
+            "embedded"  ) _path="$BENDER_WS/bender_embedded" ;;
             "all" )
-                path="$path $BENDER_WS/bender_embedded"
-                path="$path $BENDER_WS/forks_ws/src"
+                _path="$_path $BENDER_WS/bender_embedded"
+                _path="$_path $BENDER_WS/forks_ws/src"
                 ;;
 
             # unknown
@@ -180,7 +177,11 @@ EOF
     # displayed by grep, but shorter ones
     user_path=$(pwd)
 
-    for curpath in $path; do
+    # parse the string array in a bash like manner
+    if _bender_check_if_zsh ; then
+        setopt local_options shwordsplit
+    fi
+    for curpath in $_path; do
 
         echo "$curpath"
         cd "$curpath"
@@ -203,27 +204,31 @@ EOF
 
 ## bender_cd
 # see also: bender_cd --help
-bender_cd ()
+function bender_cd
 {
-    local user_path show_help path pkg_name pkg stack_name stack
-    path=""
+    local user_path show_help _path pkg_name pkg stack_name stack
+    _path=""
 
+    if _bender_check_if_zsh ; then
+        setopt local_options shwordsplit
+    fi
+    
     user_path="$1"
 
     if [ "$#" = "0" ]; then
-        path="$BENDER_WS"
+        _path="$BENDER_WS"
 
     elif [ "$#" = "1" ]; then
 
         case "$user_path" in
 
-            "system"    ) path="$BENDER_SYSTEM" ;;
-            "base"      ) path="$BENDER_WS/base_ws/src" ;;            
-            "soft"      ) path="$BENDER_WS/soft_ws/src" ;;
-            "high"      ) path="$BENDER_WS/high_ws/src" ;;
-            "graveyard" ) path="$BENDER_WS/bender_code_graveyard" ;;
-            "forks"     ) path="$BENDER_WS/forks_ws/src" ;;
-            "embedded"  ) path="$BENDER_WS/bender_embedded" ;;
+            "system"    ) _path="$BENDER_SYSTEM" ;;
+            "base"      ) _path="$BENDER_WS/base_ws/src" ;;            
+            "soft"      ) _path="$BENDER_WS/soft_ws/src" ;;
+            "high"      ) _path="$BENDER_WS/high_ws/src" ;;
+            "graveyard" ) _path="$BENDER_WS/bender_code_graveyard" ;;
+            "forks"     ) _path="$BENDER_WS/forks_ws/src" ;;
+            "embedded"  ) _path="$BENDER_WS/bender_embedded" ;;
 
              "-h" | "--help" ) show_help=true ;;
 
@@ -234,19 +239,22 @@ bender_cd ()
             # unknown --> package
             * )
                 pkg_name="$user_path"
-                for pkg in $BENDER_PACKAGES; do
+                for pkg in $BENDER_PACKAGES
+                do
                     if [ "$pkg" = "$pkg_name" ]; then
-                        path=$(rospack find "$pkg_name")
-                        cd "$path"
+                        _path=$(rospack find "$pkg_name")
+                        cd "$_path"
                         return 0
                     fi
                 done
 
+
                 stack_name="$user_path"
-                for stack in $BENDER_STACKS; do
+                for stack in $BENDER_STACKS
+                do
                     if [ "$stack" = "$stack_name" ]; then
-                        path=$(rosstack find "$stack_name")
-                        cd "$path"/..
+                        _path=$(rosstack find "$stack_name")
+                        cd "$_path"/..
                         return 0
                     fi
                 done
@@ -287,101 +295,14 @@ EOF
         return 1
     fi
 
-    cd "$path"
+    cd "$_path"
     return 0
 }
 
-## bender_ws
-# see also: bender_ws --help
-bender_ws ()
-{
-    local user_path show_help path pkg pkg_name stack stack_name
-    path=""
-
-    user_path="$1"
-
-    if [ "$#" = "0" ]; then
-        path="$BENDER_WS"
-
-    elif [ "$#" = "1" ]; then
-
-        case "$user_path" in
-
-            "system"    ) path="$BENDER_SYSTEM" ;;
-            "base"      ) path="$BENDER_WS/base_ws/src" ;;            
-            "soft"      ) path="$BENDER_WS/soft_ws/src" ;;
-            "high"      ) path="$BENDER_WS/high_ws/src" ;;
-            "graveyard" ) path="$BENDER_WS/bender_code_graveyard" ;;
-            "forks"     ) path="$BENDER_WS/forks_ws/src" ;;
-            "embedded"  ) path="$BENDER_WS/bender_embedded" ;;
-
-             "-h" | "--help" ) show_help=true ;;
-
-            -* | --* )
-                echo "Unknown option: $user_path"
-                show_help=true ;;
-
-            # unknown --> package
-            * )
-                pkg_name="$user_path"
-                for pkg in $BENDER_PACKAGES; do
-                    if [ "$pkg" = "$pkg_name" ]; then
-                        path=$(rospack find "$pkg_name")
-                        nautilus "$path"
-                        return 0
-                    fi
-                done
-
-                stack_name="$user_path"
-                for stack in $BENDER_STACKS; do
-                    if [ "$stack" = "$stack_name" ]; then
-                        path=$(rosstack find "$stack_name")
-                        nautilus "$path"
-                        return 0
-                    fi
-                done
-
-                echo "Bender (meta)package named '$pkg_name' doesn't not exists. Try with 'roscd' command."
-                show_help=true
-        esac
-    else
-        show_help=true
-    fi
-
-    if [ "$show_help" = true ]; then
-        cat <<EOF
-Synopsis:                
-    bender_ws [<workspace>|<package>|-h|--help]
-
-Description:
-    It opens a nautilus window on the the selected workspace or ROS (meta)package.
-
-Options:
-    Available workspace options are:
-        - base     : 'nautilus' on base_ws
-        - soft     : 'nautilus' on soft_ws
-        - high     : 'nautilus' on high_ws
-        - system   : 'nautilus' on bender_system
-        - graveyard: 'nautilus' on bender_code_graveyard
-        - forks    : 'nautilus' on forks_ws
-        - embedded : 'nautilus' on bender_embedded
-    
-    Available package options correspond to ROS (meta)packages named 'bender_*'.
-    
-    If no option is given, then the directory will be the one 
-    addressed by the \$BENDER_WS environment variable.
-
-EOF
-        _bender_admin_goodbye
-        return 1
-    fi
-
-    nautilus "$path"
-    return 0
-}
 
 # Kill gazebo gently
-killgz(){
+bender_killgz()
+{
     # Kill controllers spawners
     rosnode kill /bender/controller_spawner 
     rosnode kill /bender/neck_controller_spawner
@@ -389,4 +310,14 @@ killgz(){
     killall gzserver
     # Kill Gazebo client
     killall gzclient
+}
+
+killgz ()
+{
+    # BENDER_DEPRECATED : mark method as deprecated. The flag is
+    # useful for looking up deprecated methods.
+
+    echo "DEPRECATED ... Please call bender_killgz (gently)"
+    echo "THIS METHOD WILL BE REMOVED FOR THE NEXT RELEASE"
+    bender_killgz
 }
