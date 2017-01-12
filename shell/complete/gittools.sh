@@ -9,49 +9,71 @@ fi
 
 
 
+# autocompletions:
+# 1st: all options
+# 2nd: checkout: common local branches
+# 2nd: ls-files: ls-files related options
+# 2nd: merge: common origin/ branches
 _bendercomplete_bender_git ()
 {
+    local cur opts prev opts_co opts_ls
+
+    # available options
+    opts="-h --help"
+    opts="${opts} status st checkout co ls-files fetch merge pull"
+    opts_co="master develop"
+    opts_ls="modified untracked ignored"
+    opts_mg="origin/master origin/develop"
+
+
     if _bender_check_if_bash ; then
-        local cur opts prev opts_co opts_ls
-
-        # available options
-        opts="-h --help"
-        opts="${opts} status st checkout co ls-files fetch merge pull"
-        opts_co="master develop"
-        opts_ls="modified untracked ignored"
-
-        # empty reply
+        # bash - complete
         COMPREPLY=()
 
         # current word
         cur="${COMP_WORDS[COMP_CWORD]}"
-
         if [[ $COMP_CWORD == 1 ]] ; then
-            # autocomplete with any option
             COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
+
         elif [[ $COMP_CWORD == 2 ]]; then
 
             prev="${COMP_WORDS[1]}"
             if [ "$prev" = "checkout" ] || [ "$prev" = "co" ]; then
-                # autocomplete common branches
                 COMPREPLY=( $(compgen -W "${opts_co}" -- "${cur}") )
-                return 0
 
             elif [ "$prev" = "ls-files" ]; then
-                # autocomplete
                 COMPREPLY=( $(compgen -W "${opts_ls}" -- "${cur}") )
-                return 0
+
+            elif [ "$prev" = "merge" ]; then
+                COMPREPLY=( $(compgen -W "${opts_mg}" -- "${cur}") )
             fi
-            return 0
         fi
     else
-        return 0
+        # zsh - compctl
+        reply=()
+
+        if [[ ${CURRENT} == 2 ]]; then
+            reply=(${=opts})
+
+        elif [[ ${CURRENT} == 3 ]]; then
+
+            prev="${=${(s: :)words}[2]}"
+            if [ "$prev" = "checkout" ] || [ "$prev" = "co" ]; then
+                reply=(${=opts_co})
+
+            elif [ "$prev" = "ls-files" ]; then
+                reply=(${=opts_ls})
+
+            elif [ "$prev" = "merge" ]; then
+                reply=(${=opts_mg})
+            fi
+        fi
     fi
+    return 0
 }
 
 if _bender_check_if_bash ; then
     complete -F "_bendercomplete_bender_git" "bgit"
 else
-    echo "complete _bendercomplete_bender_git"
+    compctl -K "_bendercomplete_bender_git" "bgit"
 fi

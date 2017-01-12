@@ -26,6 +26,11 @@ _bender_git_status ()
     local _user_path _repo_path _repo_path_cropped
     _user_path="$(pwd)"
 
+	# parse the string array in a bash like manner
+    if _bender_check_if_zsh ; then
+        setopt local_options shwordsplit
+    fi
+
     # echo "git st $*"
     for _repo_path in $BENDER_REPOSITORIES; do
 
@@ -60,6 +65,11 @@ _bender_git_checkout ()
         printf "Sorry, but you must provide a branch name.\n"
         printf "see: bgit --help\n"
         return 1
+    fi
+
+    # parse the string array in a bash like manner
+    if _bender_check_if_zsh ; then
+        setopt local_options shwordsplit
     fi
 
     for _repo_path in $BENDER_REPOSITORIES; do
@@ -124,6 +134,11 @@ _bender_git_ls_files ()
             ;;
     esac
 
+	# parse the string array in a bash like manner
+    if _bender_check_if_zsh ; then
+        setopt local_options shwordsplit
+    fi
+
     # echo "git st $*"
     for _repo_path in $BENDER_REPOSITORIES; do
 
@@ -159,6 +174,11 @@ _bender_git_fetch ()
 {
     local _user_path _repo_path _repo_path_cropped _config
     _user_path="$(pwd)"
+
+    # parse the string array in a bash like manner
+    if _bender_check_if_zsh ; then
+        setopt local_options shwordsplit
+    fi
 
     # echo "git st $*"
     for _repo_path in $BENDER_REPOSITORIES; do
@@ -241,6 +261,11 @@ _bender_git_merge ()
 {
     local _user_path _repo_path _repo_path_cropped
     _user_path="$(pwd)"
+
+    # parse the string array in a bash like manner
+    if _bender_check_if_zsh ; then
+        setopt local_options shwordsplit
+    fi
 
     # echo "git st $*"
     for _repo_path in $BENDER_REPOSITORIES; do
