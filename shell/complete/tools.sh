@@ -7,17 +7,6 @@ if ! _bender_check_if_bash_or_zsh ; then
     return 1
 fi
 
-
-if _bender_check_if_bash ; then
-
-    # export functions
-    export -f bender_cd
-    
-else
-    echo " - TODO: bender setup.sh: {tools.sh} export bender_cd function"
-fi
-
-
 ## _bendercomplete_bender_find_string
 # 1. autocomplete with any option
 # 2. don't autocomplete if previous option was -h or --help
