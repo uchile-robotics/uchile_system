@@ -1,9 +1,5 @@
 #!/bin/sh
 
-##############################################################################################
-#   bender system defs
-##############################################################################################
-
 # update package list
 rospack profile >/dev/null 2>/dev/null
 
@@ -17,7 +13,6 @@ export BENDER_PACKAGES="$(printf "%s\n%s\n%s" "$BENDER_PACKAGES_BASE" "$BENDER_P
 # bender_* stacks lists
 export BENDER_STACKS=$(rosstack list-names | grep "bender_")
 
-
 ##############################################################################################
 #   bender system tools
 ##############################################################################################
@@ -25,9 +20,6 @@ export BENDER_STACKS=$(rosstack list-names | grep "bender_")
 
 # sh utilities named with "_bender_" preffix
 . "$BENDER_SYSTEM"/shell/functions.sh
-
-# utilities for building with cmake and ROS
-. "$BENDER_SYSTEM"/shell/make_tools.sh
 
 # utilities useful when working on bash/sh
 . "$BENDER_SYSTEM"/shell/tools.sh
@@ -54,20 +46,31 @@ fi
 #   source setup.sh files
 ##############################################################################################
 
-
 # source .sh files
+if _bender_check_if_zsh ; then
+    setopt shwordsplit
+fi
 for _pkg in $BENDER_PACKAGES
 do
-    # related setup.sh file
     _pkg_path="$(echo "$_pkgs_and_paths" | grep "$_pkg " | sed 's/^.* //')"
-    _setup_file="$_pkg_path"/shell/setup.sh
+
+    # deprecated
+    _setup_file="$_pkg_path"/bash/setup.sh
 
     # source if neccesary.
     if [ -f "$_setup_file" ]; then
+    	echo " - [BENDER DEPRECATED] loading $_setup_file. Please rename the bash/ to shell/."
         . "$_setup_file"
     fi
-
+    
+    _setup_file="$_pkg_path"/shell/setup.sh
+    if [ -f "$_setup_file" ]; then
+        . "$_setup_file"
+    fi
 done
+if _bender_check_if_zsh ; then
+    unsetopt shwordsplit
+fi
 unset _pkgs_and_paths
 unset _pkg
 unset _pkg_path
