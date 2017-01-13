@@ -56,7 +56,7 @@ _show_sh_goodbye() {
 
     cat <<\EOF
 
- At least, you should fix the SC1* codes (the red ones!)
+ If any, at least you should fix the SC1* codes (the red ones!)
  note: SC2 codes (the green ones) are warnings.
 
 EOF

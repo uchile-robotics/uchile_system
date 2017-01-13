@@ -13,8 +13,11 @@
 
 weird_chars=$(git diff --cached --name-only --diff-filter=ACMR -z "$against" | 
 	LC_ALL=C tr -d '[:alnum:][/._\-]\0')
+# echo "weird: '$weird_chars'"
 
-count=${#weird_chars | wc -c}
+count=${#weird_chars}
+# echo "count: $count"
+
 
 if [ "$count" != 0 ]
 then
