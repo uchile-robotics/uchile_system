@@ -59,7 +59,7 @@ do
 
     # source if neccesary.
     if [ -f "$_setup_file" ]; then
-    	echo " - [BENDER DEPRECATED] loading $_setup_file. Please rename the bash/ to shell/."
+    	#echo " - [BENDER DEPRECATED] loading $_setup_file. Please rename the bash/ to shell/."
         . "$_setup_file"
     fi
     
