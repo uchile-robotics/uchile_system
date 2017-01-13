@@ -15,6 +15,28 @@ if [ -z "$CATKIN_SHELL" ]; then
     echo "loading this script as setup.sh. Please, modify your *rc file or "
     echo "the bender.sh file to source the proper shell script:"
     echo "setup.bash or setup.zsh, for bash or zsh users."
+    echo ""
+    echo ""
+    echo "THE BENDER WORKSPACE WILL NOT BE LOADED. PLEASE, UPDATE YOUR SETTINGS"
+    echo "AS FOLLOWS:"
+    echo "$ cp $HOME/bender.sh $HOME/bender.sh.bkp"
+    echo "$ cp $HOME/bender_ws/bender_system/templates/bender.sh $HOME/bender.sh"
+    echo ""
+    echo "Then edit your .bashrc:"
+    echo "1st: REMOVE the old bender lines (e.g: source bender.sh ....)"
+    echo "2nd: Append the following:"
+    echo "----------------------------------------------------------------"
+    echo '# Bender Workspace settings: location, configs and setup script.'
+    echo 'export BENDER_WS="$HOME"/bender_ws'
+    echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh'
+    echo '. "$BENDER_WS"/bender_system/setup.bash'
+    echo "----------------------------------------------------------------"
+    echo ""
+    echo "For zsh shells, edit your .zshrc and use the bender_system/setup.zsh file."
+    echo "More info on the bender_system/README.md file."
+    echo ""
+    echo "Bye."
+    return 0
 fi
 
 # load configs
