@@ -222,7 +222,8 @@ _bender_installer_enable_hook "$framework_path"/forks_ws/src/rosaria/.git/hooks
 unset _hook_file
 
 
-## BENDER.SH SOURCING
+
+## BENDER.SH
 ## ==========================================
 printf "\n"
 printf "\n"
@@ -231,31 +232,19 @@ printf " ============ Setting up bender.sh ============ \n"
 # bender.sh
 # -----------------------------
 printf " - setting up file: $HOME/bender.sh\n"
-
-# prepare file
 template="$framework_path"/bender_system/templates/bender.sh
-sed --in-place=_bkp 's,"$HOME"/bender_ws,'"$framework_path"',' "$template"
-
-# copy it
 cp -f "$template" "$HOME"/bender.sh
-
-# restore it
-mv "$template"_bkp "$template"
 unset template
 
-# .bashrc
-# ----------------------------
 
+# END
+# ----------------------------
 printf "\n"
-printf "The installation is almost ready!."
-printf " - Please source the %s script onto your .bashrc file.\n" "$HOME"/bender.sh
-printf "   e.g:\n"
-printf "   > echo 'source \"\$HOME\"/bender.sh' >> .bashrc\n"
-printf " - Then, just follow the instructions displayed on bender_system README.md file."
+printf "The installation is almost ready!. Just follow the installation\n"
+printf "instructions on the bender_system README.md file.\n"
 printf "\n"
 
 unset framework_path
-
 
 printf "###########################################\n"
 printf " DONE! \n"
