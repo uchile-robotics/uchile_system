@@ -1,11 +1,20 @@
 #!/bin/sh
 
-# TODO> modify template
-# TODO> remove messages
+# TODO: enable the framework for ssh connections
 
 ## SYSTEM CONFIGURATIONS
 ## ##########################################
-#
+
+# prevent multiple executions
+if [ "$BENDER_FRAMEWORK_TWICE_LOAD_CHECK" = true ]; then
+    echo "You are loading this script twice. Please update your"
+    echo ".bashrc/.zshrc files and fix this problem. See the "
+    echo "bender_system/README.md file to reconfigure your shell"
+    echo "environment."
+    return 0
+fi
+export BENDER_FRAMEWORK_TWICE_LOAD_CHECK=true
+
 # OBS: Some configurations are meant for outdated machines
 # NOTE FOR FUTURE ADMINS: Update this configuration loading for
 # release 2.0.
@@ -38,6 +47,28 @@ if [ -z "$CATKIN_SHELL" ]; then
     echo "Bye."
     return 0
 fi
+if [ ! "$CATKIN_SHELL" = "bash" ] && [ ! "$CATKIN_SHELL" = "zsh" ]; then
+    echo "Sorry, but the bender framework is only designed for bash and zsh shells."
+    echo "The framework will not be loaded. Bye"
+    return 0
+fi
+
+# prevent running with an incorrect shell environment
+_currshell=$(ps -p$$ -ocmd=)
+if [ "$_currshell" = "bash" ] && [ ! "$CATKIN_SHELL" = "bash" ]; then
+    echo "Attempt to load the bender framework for zsh shells on bash."
+    echo "Please, source the correct file: setup.bash"
+    echo "See also: bender_system/README.md"
+    return 0
+fi
+if [ "$_currshell" = "/usr/bin/zsh" ] && [ ! "$CATKIN_SHELL" = "zsh" ]; then
+    echo "Attempt to load the bender framework for bash shells on zsh."
+    echo "Please, source the correct file: setup.zsh"
+    echo "See also: bender_system/README.md"
+    return 0
+fi
+unset _currshell
+
 
 # load configs
 if [ -z "$BENDER_SHELL_CFG" ]; then
