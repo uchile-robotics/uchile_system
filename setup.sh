@@ -6,14 +6,19 @@
 ## ##########################################
 
 # prevent multiple executions
+_currshell=$(ps -p$$ -ocmd=)
 if [ "$BENDER_FRAMEWORK_TWICE_LOAD_CHECK" = true ]; then
-    echo "You are loading this script twice. Please update your"
-    echo ".bashrc/.zshrc files and fix this problem. See the "
-    echo "bender_system/README.md file to reconfigure your shell"
-    echo "environment."
-    return 0
+    if [ "$_currshell" = "$BENDER_FRAMEWORK_LOADED_SHELL" ]; then
+        echo "You are loading this script twice. Please update your"
+        echo ".bashrc/.zshrc files and fix this problem. See the "
+        echo "bender_system/README.md file to reconfigure your shell"
+        echo "environment."
+        unset _currshell
+        return 0
+    fi
 fi
 export BENDER_FRAMEWORK_TWICE_LOAD_CHECK=true
+export BENDER_FRAMEWORK_LOADED_SHELL="$_currshell"
 
 # OBS: Some configurations are meant for outdated machines
 # NOTE FOR FUTURE ADMINS: Update this configuration loading for
@@ -45,26 +50,29 @@ if [ -z "$CATKIN_SHELL" ]; then
     echo "More info on the bender_system/README.md file."
     echo ""
     echo "Bye."
+    unset _currshell
     return 0
 fi
 if [ ! "$CATKIN_SHELL" = "bash" ] && [ ! "$CATKIN_SHELL" = "zsh" ]; then
     echo "Sorry, but the bender framework is only designed for bash and zsh shells."
     echo "The framework will not be loaded. Bye"
+    unset _currshell
     return 0
 fi
 
 # prevent running with an incorrect shell environment
-_currshell=$(ps -p$$ -ocmd=)
 if [ "$_currshell" = "bash" ] && [ ! "$CATKIN_SHELL" = "bash" ]; then
     echo "Attempt to load the bender framework for zsh shells on bash."
     echo "Please, source the correct file: setup.bash"
     echo "See also: bender_system/README.md"
+    unset _currshell
     return 0
 fi
 if [ "$_currshell" = "/usr/bin/zsh" ] && [ ! "$CATKIN_SHELL" = "zsh" ]; then
     echo "Attempt to load the bender framework for bash shells on zsh."
     echo "Please, source the correct file: setup.zsh"
     echo "See also: bender_system/README.md"
+    unset _currshell
     return 0
 fi
 unset _currshell
