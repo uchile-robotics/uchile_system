@@ -152,10 +152,14 @@ bash install/install.sh
 
 # install bender_tts
 cdb bender_tts
-bash install/install.bash
+bash install/install.sh
 
 # install bender_fieldbus
 cdb bender_fieldbus
+bash install/install.sh
+
+# install bender_fieldbus
+cdb bender_sensors
 bash install/install.sh
 
 # Compilar
