@@ -145,10 +145,23 @@ _repo_path="$framework_path"/forks_ws/src/rosaria
 _repo_url=https://bitbucket.org/uchile-robotics-die/bender_fork_rosaria.git
 _bender_installer_get_repository "$_repo_path" "$_repo_url" "$use_credentials" "$username" "$password"
 
+# fork: dynamixel_motor
 cd "$framework_path"/forks_ws/src
 git clone https://github.com/uchile-robotics/dynamixel_motor.git
 cd "$framework_path"/forks_ws/src/dynamixel_motor
 git checkout develop
+
+# fork: usb_cam
+cd "$framework_path"/forks_ws/src
+git clone https://github.com/uchile-robotics/usb_cam.git
+cd "$framework_path"/forks_ws/src/usb_cam
+git checkout 0.3.4
+
+# fork: urg_node
+cd "$framework_path"/forks_ws/src
+git clone https://github.com/uchile-robotics/urg_node.git
+cd "$framework_path"/forks_ws/src/urg_node
+git checkout 0.1.9
 
 unset use_credentials username password
 unset _repo_url _repo_path
