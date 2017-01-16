@@ -141,9 +141,10 @@ _repo_url=https://bitbucket.org/uchile-robotics-die/bender_embedded.git
 _bender_installer_get_repository "$_repo_path" "$_repo_url" "$use_credentials" "$username" "$password"
 
 # forks: rosaria
-_repo_path="$framework_path"/forks_ws/src/rosaria
-_repo_url=https://bitbucket.org/uchile-robotics-die/bender_fork_rosaria.git
-_bender_installer_get_repository "$_repo_path" "$_repo_url" "$use_credentials" "$username" "$password"
+cd "$framework_path"/forks_ws/src
+git clone https://github.com/uchile-robotics/rosaria.git
+cd "$framework_path"/forks_ws/src/rosaria
+git checkout master
 
 # fork: dynamixel_motor
 cd "$framework_path"/forks_ws/src
