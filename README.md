@@ -158,8 +158,12 @@ bash install/install.sh
 cdb bender_fieldbus
 bash install/install.sh
 
-# install bender_fieldbus
+# install bender_sensors
 cdb bender_sensors
+bash install/install.sh
+
+# install bender_turning_base
+cdb bender_turning_base
 bash install/install.sh
 
 # Compilar
