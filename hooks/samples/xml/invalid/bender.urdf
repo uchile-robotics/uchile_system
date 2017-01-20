@@ -299,7 +299,7 @@
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
   </link>
-  <joint name="base_fixed_jont" type="fixed">
+  <joint name="base_fixed_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <child link="bender/base_footprint"/>
     <parent link="bender/base_link"/>
@@ -330,7 +330,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="body_fixed_jont" type="fixed">
+  <joint name="body_fixed_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="bender/base_link"/>
     <child link="bender/body"/>
