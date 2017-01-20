@@ -38,11 +38,8 @@ cd "$HOME"
 git clone https://bitbucket.org/uchile-robotics-die/bender_system.git tmp_repo
 cd tmp_repo/install
 
-# Dar permisos de ejecución
-chmod +x bender_ws_installer.bash
-
 # Obtener repositorios y crear workspaces
-./bender_ws_installer.bash
+bash bender_ws_installer.bash
 
 # limpiar
 cd "$HOME"
@@ -51,9 +48,20 @@ rm -rf ~/tmp_repo
 
 ## Habilitar workspace para uso en consola
 
-# Hacer source
-echo 'source "$HOME"/bender.sh' >> ~/.bashrc
+# sólo usuarios de bash
+echo '# Bender Workspace settings: location, configs and setup script.' >> ~/.bashrc
+echo 'export BENDER_WS="$HOME"/bender_ws'        >> ~/.bashrc
+echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh' >> ~/.bashrc
+echo '. "$BENDER_WS"/bender_system/setup.bash'    >> ~/.bashrc
 
+# sólo usuarios de bash
+echo '# Bender Workspace settings: location, configs and setup script.' >> ~/.zshrc
+echo 'export BENDER_WS="$HOME"/bender_ws'        >> ~/.zshrc
+echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh' >> ~/.zshrc
+echo '. "$BENDER_WS"/bender_system/setup.zsh'    >> ~/.zshrc
+
+
+# inicializar rosdep
 sudo rosdep init
 rosdep update
 ```
@@ -70,7 +78,7 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 # - setear herramienta meld para ver los git diffs
 sudo apt-get install meld
 cp -bfS.bkp "$BENDER_SYSTEM"/templates/default.gitconfig ~/.gitconfig
-ln -s "$BENDER_SYSTEM"/bash/git/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
+cp "$BENDER_SYSTEM"/templates/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
 gedit ~/.gitconfig
 
 # configurar ~/.bash_aliases: esto configura el prompt PS1 para git. 
@@ -150,6 +158,14 @@ bash install/install.sh
 cdb bender_fieldbus
 bash install/install.sh
 
+# install bender_sensors
+cdb bender_sensors
+bash install/install.sh
+
+# install bender_turning_base
+cdb bender_turning_base
+bash install/install.sh
+
 # Compilar
 cdb base && cd ..
 catkin_make
@@ -167,10 +183,6 @@ rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # instalar dependencias de speech
 cdb bender_speech
-bash install/install.bash
-
-# instalar dependencias de navegación
-cdb bender_nav
 bash install/install.sh
 
 # instalar dependencias de bender_arm_planning

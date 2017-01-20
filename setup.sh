@@ -1,5 +1,109 @@
 #!/bin/sh
 
+# TODO: enable the framework for ssh connections
+
+## SYSTEM CONFIGURATIONS
+## ##########################################
+
+# prevent multiple executions
+_currshell=$(ps -p$$ -ocmd=)
+if [ "$BENDER_FRAMEWORK_TWICE_LOAD_CHECK" = true ]; then
+    if [ "$_currshell" = "$BENDER_FRAMEWORK_LOADED_SHELL" ]; then
+        echo "You are loading this script twice. Please update your"
+        echo ".bashrc/.zshrc files and fix this problem. See the "
+        echo "bender_system/README.md file to reconfigure your shell"
+        echo "environment."
+        unset _currshell
+        return 0
+    fi
+fi
+export BENDER_FRAMEWORK_TWICE_LOAD_CHECK=true
+export BENDER_FRAMEWORK_LOADED_SHELL="$_currshell"
+
+# OBS: Some configurations are meant for outdated machines
+# NOTE FOR FUTURE ADMINS: Update this configuration loading for
+# release 2.0.
+if [ -z "$CATKIN_SHELL" ]; then
+    # WARNING: THIS BEHAVIOR IS VALID FOR SSH CONNECTIONS!.
+    echo "Sorry, the CATKIN_SHELL env variable is not set. I assume you are "
+    echo "loading this script as setup.sh. Please, modify your *rc file or "
+    echo "the bender.sh file to source the proper shell script:"
+    echo "setup.bash or setup.zsh, for bash or zsh users."
+    echo ""
+    echo ""
+    echo "THE BENDER WORKSPACE WILL NOT BE LOADED. PLEASE, UPDATE YOUR SETTINGS"
+    echo "AS FOLLOWS:"
+    echo "$ cp $HOME/bender.sh $HOME/bender.sh.bkp"
+    echo "$ cp $HOME/bender_ws/bender_system/templates/bender.sh $HOME/bender.sh"
+    echo ""
+    echo "Then edit your .bashrc:"
+    echo "1st: REMOVE the old bender lines (e.g: source bender.sh ....)"
+    echo "2nd: Append the following:"
+    echo "----------------------------------------------------------------"
+    echo '# Bender Workspace settings: location, configs and setup script.'
+    echo 'export BENDER_WS="$HOME"/bender_ws'
+    echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh'
+    echo '. "$BENDER_WS"/bender_system/setup.bash'
+    echo "----------------------------------------------------------------"
+    echo ""
+    echo "For zsh shells, edit your .zshrc and use the bender_system/setup.zsh file."
+    echo "More info on the bender_system/README.md file."
+    echo ""
+    echo "Bye."
+    unset _currshell
+    return 0
+fi
+if [ ! "$CATKIN_SHELL" = "bash" ] && [ ! "$CATKIN_SHELL" = "zsh" ]; then
+    echo "Sorry, but the bender framework is only designed for bash and zsh shells."
+    echo "The framework will not be loaded. Bye"
+    unset _currshell
+    return 0
+fi
+
+# prevent running with an incorrect shell environment
+if [ "$_currshell" = "bash" ] && [ ! "$CATKIN_SHELL" = "bash" ]; then
+    echo "Attempt to load the bender framework for zsh shells on bash."
+    echo "Please, source the correct file: setup.bash"
+    echo "See also: bender_system/README.md"
+    unset _currshell
+    return 0
+fi
+if [ "$_currshell" = "/usr/bin/zsh" ] && [ ! "$CATKIN_SHELL" = "zsh" ]; then
+    echo "Attempt to load the bender framework for bash shells on zsh."
+    echo "Please, source the correct file: setup.zsh"
+    echo "See also: bender_system/README.md"
+    unset _currshell
+    return 0
+fi
+unset _currshell
+
+
+# load configs
+if [ -z "$BENDER_SHELL_CFG" ]; then
+    DEFAULT_CFG="$HOME"/bender.sh
+    if [ -e "$DEFAULT_CFG" ]; then
+        . "$DEFAULT_CFG"
+    else
+        echo "Sorry, the BENDER_SHELL_CFG env variable is not set."
+        echo "Please, set this to the path of the bender.sh script."
+        echo "e.g: \"$HOME/bender.sh\""
+        echo "Bender workspace will not be configured."
+        return 0
+    fi
+else
+    if [ -e "$BENDER_SHELL_CFG" ]; then
+        . "$BENDER_SHELL_CFG"
+    else
+        echo "Sorry, the BENDER_SHELL_CFG is set, the configuration file cannot be read."
+        echo "Configuration file: $BENDER_SHELL_CFG"
+        echo "Please, set this to the path of the bender.sh script."
+        echo "e.g: \"$HOME/bender.sh\""
+        echo "Bender workspace will not be configured."
+        return 0
+    fi
+fi
+
+
 ## SYSTEM DEFS
 ## ##########################################
 
@@ -26,8 +130,6 @@ export ROSCONSOLE_FORMAT='[${severity}] [${node}]: ${message}'
 # ----------------------------------------
 if [ "$BENDER_NET_BY_SSH" = "YES" ]; then
     . "$BENDER_SYSTEM"/env/network-defs.sh
-else
-    export CATKIN_SHELL=bash
 fi
 
 if [ "$BENDER_NET_ENABLE" = true ]; then
@@ -85,4 +187,4 @@ fi
 ## ##########################################
 
 # bash functionalities
-. "$BENDER_SYSTEM"/bash/setup.sh
+. "$BENDER_SYSTEM"/shell/setup.sh

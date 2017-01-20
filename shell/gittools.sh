@@ -26,6 +26,11 @@ _bender_git_status ()
     local _user_path _repo_path _repo_path_cropped
     _user_path="$(pwd)"
 
+	# parse the string array in a bash like manner
+    if _bender_check_if_zsh ; then
+        setopt local_options shwordsplit
+    fi
+
     # echo "git st $*"
     for _repo_path in $BENDER_REPOSITORIES; do
 
@@ -60,6 +65,11 @@ _bender_git_checkout ()
         printf "Sorry, but you must provide a branch name.\n"
         printf "see: bgit --help\n"
         return 1
+    fi
+
+    # parse the string array in a bash like manner
+    if _bender_check_if_zsh ; then
+        setopt local_options shwordsplit
     fi
 
     for _repo_path in $BENDER_REPOSITORIES; do
@@ -124,6 +134,11 @@ _bender_git_ls_files ()
             ;;
     esac
 
+	# parse the string array in a bash like manner
+    if _bender_check_if_zsh ; then
+        setopt local_options shwordsplit
+    fi
+
     # echo "git st $*"
     for _repo_path in $BENDER_REPOSITORIES; do
 
@@ -159,6 +174,11 @@ _bender_git_fetch ()
 {
     local _user_path _repo_path _repo_path_cropped _config
     _user_path="$(pwd)"
+
+    # parse the string array in a bash like manner
+    if _bender_check_if_zsh ; then
+        setopt local_options shwordsplit
+    fi
 
     # echo "git st $*"
     for _repo_path in $BENDER_REPOSITORIES; do
@@ -222,6 +242,14 @@ _bender_git_merge_common ()
     local _curr_remote _curr_branch
     _curr_branch="$(git rev-parse --abbrev-ref HEAD)"
     _curr_remote="origin/$_curr_branch"
+
+    # remote does not exitsts
+    _branch_exists="$(git branch -a --no-color | grep -Ec "[ /]$_curr_remote")"
+    if [ "$_branch_exists" = "0" ]; then
+        printf " - will not merge $_curr_remote does not exits.\n"
+        return 1
+    fi
+
     # (remote <= branch) ==> ALREADY UP TO DATE
     if git merge-base --is-ancestor "$_curr_remote" "$_curr_branch"; then
         printf " - already up-to-date\n"
@@ -241,6 +269,11 @@ _bender_git_merge ()
 {
     local _user_path _repo_path _repo_path_cropped
     _user_path="$(pwd)"
+
+    # parse the string array in a bash like manner
+    if _bender_check_if_zsh ; then
+        setopt local_options shwordsplit
+    fi
 
     # echo "git st $*"
     for _repo_path in $BENDER_REPOSITORIES; do
@@ -265,8 +298,8 @@ _bender_git_merge ()
 
             # merge
             _bender_git_merge_common
-            export -f _bender_git_merge_common
-            git submodule foreach bash -c '_bender_git_merge_common'
+            #export -f _bender_git_merge_common
+            git submodule foreach bash -c 'source $BENDER_SYSTEM/shell/gittools.sh; _bender_git_merge_common'
 
 
             # reset signals to defaults
@@ -288,6 +321,10 @@ _bender_git_merge ()
 
 # mismo uso que el comando git, pero para cosas 
 # básicas del workspace de bender.
+# TODO:
+# |   $ bgit merge <branchname>
+# |   $ bgit merge origin/develop
+# |   $ bgit merge develop
 bgit () {
  
     local _command _params _show_help
@@ -348,15 +385,13 @@ Options:
 
 
         - merge         : Provides git merge functionality, only from remotes
-                          like origin/<branchname>. 
+                          like origin/<current_branchname>. 
 
                           Only fast-forward merges are executed!, otherwise the
                           merge will not proceed.
 
                           usage:
-                          |   $ bgit merge <branchname>
-                          |   $ bgit merge origin/develop
-                          |   $ bgit merge develop
+                          |   $ bgit merge
 
 
         - pull          : Alias for:

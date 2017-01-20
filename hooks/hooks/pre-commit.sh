@@ -7,6 +7,7 @@
 # see 'pre-commit' file
 
 
+
 _bender_git_hooks_revert_stash ()
 {
     ## revert changes from stash
@@ -52,6 +53,7 @@ exec 1>&2
 
 # check nice filenames hook
 . "$GITHOOKS_PATH"/pre-commit_filenames.sh
+
 
 
 ########################################################

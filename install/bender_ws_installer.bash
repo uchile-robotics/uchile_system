@@ -141,14 +141,28 @@ _repo_url=https://bitbucket.org/uchile-robotics-die/bender_embedded.git
 _bender_installer_get_repository "$_repo_path" "$_repo_url" "$use_credentials" "$username" "$password"
 
 # forks: rosaria
-_repo_path="$framework_path"/forks_ws/src/rosaria
-_repo_url=https://bitbucket.org/uchile-robotics-die/bender_fork_rosaria.git
-_bender_installer_get_repository "$_repo_path" "$_repo_url" "$use_credentials" "$username" "$password"
+cd "$framework_path"/forks_ws/src
+git clone https://github.com/uchile-robotics/rosaria.git
+cd "$framework_path"/forks_ws/src/rosaria
+git checkout master
 
+# fork: dynamixel_motor
 cd "$framework_path"/forks_ws/src
 git clone https://github.com/uchile-robotics/dynamixel_motor.git
 cd "$framework_path"/forks_ws/src/dynamixel_motor
 git checkout develop
+
+# fork: usb_cam
+cd "$framework_path"/forks_ws/src
+git clone https://github.com/uchile-robotics/usb_cam.git
+cd "$framework_path"/forks_ws/src/usb_cam
+git checkout 0.3.4
+
+# fork: urg_node
+cd "$framework_path"/forks_ws/src
+git clone https://github.com/uchile-robotics/urg_node.git
+cd "$framework_path"/forks_ws/src/urg_node
+git checkout 0.1.9
 
 unset use_credentials username password
 unset _repo_url _repo_path
@@ -222,7 +236,8 @@ _bender_installer_enable_hook "$framework_path"/forks_ws/src/rosaria/.git/hooks
 unset _hook_file
 
 
-## BENDER.SH SOURCING
+
+## BENDER.SH
 ## ==========================================
 printf "\n"
 printf "\n"
@@ -231,31 +246,19 @@ printf " ============ Setting up bender.sh ============ \n"
 # bender.sh
 # -----------------------------
 printf " - setting up file: $HOME/bender.sh\n"
-
-# prepare file
 template="$framework_path"/bender_system/templates/bender.sh
-sed --in-place=_bkp 's,"$HOME"/bender_ws,'"$framework_path"',' "$template"
-
-# copy it
 cp -f "$template" "$HOME"/bender.sh
-
-# restore it
-mv "$template"_bkp "$template"
 unset template
 
-# .bashrc
-# ----------------------------
 
+# END
+# ----------------------------
 printf "\n"
-printf "The installation is almost ready!."
-printf " - Please source the %s script onto your .bashrc file.\n" "$HOME"/bender.sh
-printf "   e.g:\n"
-printf "   > echo 'source \"\$HOME\"/bender.sh' >> .bashrc\n"
-printf " - Then, just follow the instructions displayed on bender_system README.md file."
+printf "The installation is almost ready!. Just follow the installation\n"
+printf "instructions on the bender_system README.md file.\n"
 printf "\n"
 
 unset framework_path
-
 
 printf "###########################################\n"
 printf " DONE! \n"
