@@ -54,7 +54,7 @@ echo 'export BENDER_WS="$HOME"/bender_ws'        >> ~/.bashrc
 echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh' >> ~/.bashrc
 echo '. "$BENDER_WS"/bender_system/setup.bash'    >> ~/.bashrc
 
-# sólo usuarios de bash
+# sólo usuarios de zsh
 echo '# Bender Workspace settings: location, configs and setup script.' >> ~/.zshrc
 echo 'export BENDER_WS="$HOME"/bender_ws'        >> ~/.zshrc
 echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh' >> ~/.zshrc
