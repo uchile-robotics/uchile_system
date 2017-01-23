@@ -339,10 +339,10 @@ bgit () {
     case "$_command" in
         "st" | "status"    ) _bender_git_status            ;;
         "co" | "checkout"  ) _bender_git_checkout $_params ;;
-        "fetch"            ) _bender_git_fetch             ;;
-        "merge"            ) _bender_git_merge             ;;
-        "pull"             ) _bender_git_fetch
-                             _bender_git_merge             ;;
+        "fetch"            ) bash -i -c _bender_git_fetch  ;;
+        "merge"            ) bash -i -c _bender_git_merge  ;;
+        "pull"             ) bash -i -c _bender_git_fetch
+                             bash -i -c _bender_git_merge  ;;
         "ls-files"         ) _bender_git_ls_files $_params ;;
         "-h" | "--help"    ) _show_help=true ;;
         *                  ) _show_help=true ;;
