@@ -189,6 +189,11 @@ bash install/install.sh
 cdb bender_arm_planning
 bash install/install.sh
 
+# instalar librerías de deep learning .... solo si tiene mucho tiempo libre
+cdb bender_perception_utils
+bash install/install.sh
+
+
 # Compilar
 cdb soft && cd ..
 catkin_make
