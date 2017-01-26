@@ -15,10 +15,13 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 sudo apt-get update
 
 # ROS baseline
+# Evite instalar la versión full (sudo apt-get install ros-indigo-desktop-full) o alguna de las otras variantes.
 # ver: http://wiki.ros.org/indigo/Installation/Ubuntu
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
 sudo apt-get install ros-indigo-ros-base
 
-# para los git y git-hooks
+# para git y git-hooks
 sudo apt-get install git python-flake8 shellcheck libxml2-utils python-yaml cppcheck
 
 # instalación
