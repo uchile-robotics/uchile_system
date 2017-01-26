@@ -20,18 +20,11 @@ sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C
 # actualizar base de software
 sudo apt-get update
 
-# ROS
-sudo apt-get install ros-indigo-ros-base
-
-# para git y git-hooks
-sudo apt-get install git python-flake8 shellcheck libxml2-utils python-yaml cppcheck
-
-# instalación
-sudo apt-get install curl openssl pv python-rosinstall python-pip
-
-# conectividad
-sudo apt-get install openssh-client openssh-server
-
+# ROS: ros-indigo-ros-base
+# git/hooks: git python-flake8 shellcheck libxml2-utils python-yaml cppcheck
+# install: curl openssl pv python-rosinstall python-pip
+# conectividad: openssh-client openssh-server
+sudo apt-get install ros-indigo-ros-base git python-flake8 shellcheck libxml2-utils python-yaml cppcheck curl openssl pv python-rosinstall python-pip openssh-client openssh-server
 
 
 ## Instalación
