@@ -11,14 +11,16 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 ```bash
 ## Pre-requisitos
 
-# actualizar base de software
-sudo apt-get update
-
-# ROS baseline
+# ROS Keys
 # Evite instalar la versión full (sudo apt-get install ros-indigo-desktop-full) o alguna de las otras variantes.
 # ver: http://wiki.ros.org/indigo/Installation/Ubuntu
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+
+# actualizar base de software
+sudo apt-get update
+
+# ROS
 sudo apt-get install ros-indigo-ros-base
 
 # para git y git-hooks
