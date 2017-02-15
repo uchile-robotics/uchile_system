@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/robotica/bender_ws/bender_system/shell/ros_network_indicator/ros_network_indicator.py --indicator /home/robotica/bender.sh
+Terminal=false
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[es_CL]=ros_network_indicator.desktop
+Name=ROS Network
+Comment[es_CL]=ROS Network
+Comment=ROS Network
