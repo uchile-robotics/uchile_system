@@ -164,6 +164,12 @@ git clone https://github.com/uchile-robotics/urg_node.git
 cd "$framework_path"/forks_ws/src/urg_node
 git checkout 0.1.9
 
+# fork: navigation
+cd "$framework_path"/forks_ws/src
+git clone https://github.com/uchile-robotics/navigation.git
+cd "$framework_path"/forks_ws/src/navigation
+git checkout kinetic-devel
+
 unset use_credentials username password
 unset _repo_url _repo_path
 
