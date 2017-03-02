@@ -63,7 +63,7 @@ echo '. "$BENDER_WS"/bender_system/setup.zsh'    >> ~/.zshrc
 sudo rosdep init
 rosdep update
 ```
-Al terminar la instalación debes reabrir el terminal o ejecutar `$ source "$HOME"/bender.sh`.
+Al terminar la instalación debes reabrir el terminal.
 
 
 ## Configuraciones recomendadas
@@ -219,5 +219,3 @@ catkin_make
 ### Configuración del simulador Gazebo
 
 Para configurar una versión adecuada del simulador Gazebo debes seguir la documentación del package [bender_gazebo](https://bitbucket.org/uchile-robotics-die/bender_system/wiki/doc/packages/bender_gazebo.md).
-
-
