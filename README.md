@@ -112,7 +112,7 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 
 ```bash
 # Abrir workspace
-cdb forks
+cdb forks && cd ..
 
 # Instalar dependencias
 rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
