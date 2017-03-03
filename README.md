@@ -47,12 +47,14 @@ rm -rf ~/tmp_repo
 ## Habilitar workspace para uso en consola
 
 # sólo usuarios de bash
+echo '' >> ~/.bashrc
 echo '# Bender Workspace settings: location, configs and setup script.' >> ~/.bashrc
 echo 'export BENDER_WS="$HOME"/bender_ws'        >> ~/.bashrc
 echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh' >> ~/.bashrc
 echo '. "$BENDER_WS"/bender_system/setup.bash'    >> ~/.bashrc
 
 # sólo usuarios de zsh
+echo '' >> ~/.zshrc
 echo '# Bender Workspace settings: location, configs and setup script.' >> ~/.zshrc
 echo 'export BENDER_WS="$HOME"/bender_ws'        >> ~/.zshrc
 echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh' >> ~/.zshrc
