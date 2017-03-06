@@ -195,7 +195,7 @@ bash install/install.sh
 
 # instalar dependencias para deep learning
 # [AVISO] puede tomar un par de horas !!
-# [WARNING] Sólo testeado en consola bash. En ZSH desconfigura python!!! NO RECOMENDADO.
+# [WARNING] Sólo testeado en consola bash. Puede haber problemas con pip. Ver: https://bitbucket.org/uchile-robotics-die/bender_system/issues/9/importerror-no-module-named
 # [NOTA] No instalar no afecta en compilar bender
 cdb bender_perception_utils
 bash install/install.sh
