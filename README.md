@@ -193,8 +193,10 @@ bash install/install.sh
 cdb bender_arm_planning
 bash install/install.sh
 
-#[PRECAUCION] instalar librerías de deep learning .... solo si tiene mucho tiempo libre... puede tomar un par de horas u.u
-#No instalar no afecta en compilar bender
+# instalar dependencias para deep learning
+# [AVISO] puede tomar un par de horas !!
+# [WARNING] Sólo testeado en consola bash. En ZSH desconfigura python!!! NO RECOMENDADO.
+# [NOTA] No instalar no afecta en compilar bender
 cdb bender_perception_utils
 bash install/install.sh
 
