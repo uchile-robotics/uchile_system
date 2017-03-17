@@ -321,3 +321,16 @@ killgz ()
     echo "THIS METHOD WILL BE REMOVED FOR THE NEXT RELEASE"
     bender_killgz
 }
+
+bender_net_enable()
+{
+    python "$BENDER_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --enable "$HOME"/bender.sh
+    source "$HOME"/bender.sh
+}
+
+bender_net_disable()
+{
+    python "$BENDER_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --disable "$HOME"/bender.sh
+    source "$HOME"/bender.sh
+}
+

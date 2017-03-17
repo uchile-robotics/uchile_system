@@ -6,7 +6,7 @@
 	<arg name="tf_gui"       default="false"/>
 	<arg name="joy_number"   default="0"    />
 	<arg name="slam"         default="false"/>
-	<arg name="model_type"   default="asus"/>
+	<arg name="model_type"   default="standard"/>
 	<arg name="map_name"     default="map"/>
 	<arg name="sim_world"    default="amtc"/>
 
