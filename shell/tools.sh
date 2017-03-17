@@ -50,6 +50,7 @@ if _bender_check_if_bash_or_zsh ; then
 
     # the same as bender_cd but faster to type 
     alias cdb="bender_cd"
+    alias bviz="roslaunch bender_utils rviz.launch"
     
 fi
 

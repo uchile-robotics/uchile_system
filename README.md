@@ -47,12 +47,14 @@ rm -rf ~/tmp_repo
 ## Habilitar workspace para uso en consola
 
 # sólo usuarios de bash
+echo '' >> ~/.bashrc
 echo '# Bender Workspace settings: location, configs and setup script.' >> ~/.bashrc
 echo 'export BENDER_WS="$HOME"/bender_ws'        >> ~/.bashrc
 echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh' >> ~/.bashrc
 echo '. "$BENDER_WS"/bender_system/setup.bash'    >> ~/.bashrc
 
 # sólo usuarios de zsh
+echo '' >> ~/.zshrc
 echo '# Bender Workspace settings: location, configs and setup script.' >> ~/.zshrc
 echo 'export BENDER_WS="$HOME"/bender_ws'        >> ~/.zshrc
 echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh' >> ~/.zshrc
@@ -63,7 +65,7 @@ echo '. "$BENDER_WS"/bender_system/setup.zsh'    >> ~/.zshrc
 sudo rosdep init
 rosdep update
 ```
-Al terminar la instalación debes reabrir el terminal o ejecutar `$ source "$HOME"/bender.sh`.
+Al terminar la instalación debes reabrir el terminal.
 
 
 ## Configuraciones recomendadas
@@ -112,7 +114,7 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 
 ```bash
 # Abrir workspace
-cdb forks
+cdb forks && cd ..
 
 # Instalar dependencias
 rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
@@ -183,12 +185,18 @@ rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 cdb bender_speech
 bash install/install.sh
 
+# instalar dependencias de navegación
+cdb bender_nav
+bash install/install.sh
+
 # instalar dependencias de bender_arm_planning
 cdb bender_arm_planning
 bash install/install.sh
 
-#[PRECAUCION] instalar librerías de deep learning .... solo si tiene mucho tiempo libre... puede tomar un par de horas u.u
-#No instalar no afecta en compilar bender
+# instalar dependencias para deep learning
+# [AVISO] puede tomar un par de horas !!
+# [WARNING] Sólo testeado en consola bash. Puede haber problemas con pip. Ver: https://bitbucket.org/uchile-robotics-die/bender_system/issues/9/importerror-no-module-named
+# [NOTA] No instalar no afecta en compilar bender
 cdb bender_perception_utils
 bash install/install.sh
 
@@ -215,5 +223,3 @@ catkin_make
 ### Configuración del simulador Gazebo
 
 Para configurar una versión adecuada del simulador Gazebo debes seguir la documentación del package [bender_gazebo](https://bitbucket.org/uchile-robotics-die/bender_system/wiki/doc/packages/bender_gazebo.md).
-
-
