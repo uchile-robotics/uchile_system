@@ -3,15 +3,15 @@
 # update package list
 rospack profile >/dev/null 2>/dev/null
 
-# bender_* pkg lists
-_pkgs_and_paths=$(rospack list | grep "bender_.* ")
+# pkg lists
+_pkgs_and_paths=$(rospack list | grep "$BENDER_WS")
 export BENDER_PACKAGES_BASE="$(echo "$_pkgs_and_paths" | grep ".*base_ws.*" | sed 's/ [^.*]*//')"
 export BENDER_PACKAGES_SOFT="$(echo "$_pkgs_and_paths" | grep ".*soft_ws.*" | sed 's/ [^.*]*//')"
 export BENDER_PACKAGES_HIGH="$(echo "$_pkgs_and_paths" | grep ".*high_ws.*" | sed 's/ [^.*]*//')"
 export BENDER_PACKAGES="$(printf "%s\n%s\n%s" "$BENDER_PACKAGES_BASE" "$BENDER_PACKAGES_SOFT" "$BENDER_PACKAGES_HIGH")"
 
 # bender_* stacks lists
-export BENDER_STACKS=$(rosstack list-names | grep "bender_")
+export BENDER_STACKS="$(rosstack list | grep $BENDER_WS | cut -d' ' -f1)"
 
 ##############################################################################################
 #   bender system tools

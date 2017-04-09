@@ -107,6 +107,8 @@ fi
 ## SYSTEM DEFS
 ## ##########################################
 
+export ROBOT="bender"
+
 # paths
 export BENDER_SYSTEM="$BENDER_WS"/bender_system
 
