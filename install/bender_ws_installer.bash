@@ -140,6 +140,20 @@ _repo_path="$framework_path"/bender_embedded
 _repo_url=https://bitbucket.org/uchile-robotics-die/bender_embedded.git
 _bender_installer_get_repository "$_repo_path" "$_repo_url" "$use_credentials" "$username" "$password"
 
+
+# install python-aiml
+mkdir -p "$framework_path"/install/base/knowledge/
+cd "$framework_path"/install/base/knowledge/
+git clone https://github.com/uchile-robotics-forks/python-aiml
+cd python-aiml
+sudo python setup.py install
+
+# robot_skills
+cd "$framework_path"/high_ws/src
+git clone https://github.com/uchile-robotics/robot_skills.git
+cd "$framework_path"/high_ws/src/robot_skills
+git checkout master
+
 # forks: rosaria
 cd "$framework_path"/forks_ws/src
 git clone https://github.com/uchile-robotics/rosaria.git
@@ -224,6 +238,7 @@ _bender_installer_enable_hook "$framework_path"/soft_ws/src/.git/modules/bender_
 # repo
 _bender_installer_enable_hook "$framework_path"/high_ws/src/.git/hooks
 
+_bender_installer_enable_hook "$framework_path"/high_ws/src/robot_skills/.git/hooks
 
 
 ## bender_code_graveyard
