@@ -32,7 +32,8 @@ if _bender_check_if_bash_or_zsh ; then
     # terminal session instead.
     function bender_refresh_shell
     {
-        exec "$SHELL"
+        export BENDER_FRAMEWORK_TWICE_LOAD_CHECK=false
+        exec "$BENDER_FRAMEWORK_LOADED_SHELL"
     }
     
 
