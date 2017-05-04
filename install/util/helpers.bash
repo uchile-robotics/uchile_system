@@ -1,11 +1,9 @@
 #!/bin/bash
 
-#
-# checks whether ROS INDIGO baseline is installed or no
-_uch_installer_check_rosindigo ()
-{
-    
 
+# checks whether ROS INDIGO baseline is installed or no
+_uch_check_rosindigo ()
+{
     # ros-base is installed?
     dpkg -s ros-indigo-ros-base >/dev/null 2>/dev/null
     local rc="$?"
@@ -32,7 +30,7 @@ _uch_installer_check_rosindigo ()
 #   if this folder is not empty, the user decides if the script continues or not.
 #
 # it creates the framework_path var
-_uch_installer_ask_framework_path ()
+_uch_ask_framework_path ()
 {
     local _default_path _user_path _n_files _answer
     framework_path=""
@@ -112,61 +110,8 @@ _uch_installer_ask_framework_path ()
     done
 }
 
-#
-# prompts the user for an username
-_uch_installer_ask_username ()
-{
-    local  _username
-    read -e -p " - Bitbucket username: " _username
-    echo "$_username"
-}
 
-#
-# prompts the user for a password
-_uch_installer_ask_password ()
-{
-    local _password
-    read -es -p " - Bitbucket password: " _password
-    echo "$_password"
-}
-
-#
-# prompts the user for an username
-# - writes variables username and password
-# - this vars will be empty if the response was a negation
-_uch_installer_ask_single_username ()
-{
-    local _answer
-    username=""
-    password=""
-
-    printf " - If this computer will only be used by a single user, the git login\n"
-    printf "   process can be eased. Otherwise, you will have to provide your username\n"
-    printf "   for every fetch/pull/push command.\n"
-    printf "\n"
-    printf " - (hints time!):\n"
-    printf "   + it is highly recommended to provide your repository credentials if you\n"
-    printf "     will be the only one using this account (respond 'y')\n"
-    printf "   + if this is a shared account, then using this feature will be a headache!\n"
-    printf "     example: respond 'N' for bender pcs !\n"
-    printf "\n"
-
-    read -p " - So, do you want to setup your credentials? [y/N]: " _answer
-    if echo "$_answer" | grep -iq "^y" ; then        
-        
-        printf " - OK, i need the following data:\n"
-        username=$(_uch_installer_ask_username)
-        password=$(_uch_installer_ask_password)
-        printf "\n"
-        #echo "$username"
-        #echo "$password"
-    fi
-}
-
-#
-# resets completely a workspace!
-# - anything roslike is deleted, but src/
-_uch_installer_reset_ws ()
+_uch_create_ws ()
 {
     local ws_path user_path
     ws_path="$1"
@@ -174,6 +119,11 @@ _uch_installer_reset_ws ()
 
     mkdir -p "$ws_path"/src
     cd "$ws_path"/src
+
+    if [ -e CMakeLists.txt ]; then
+        return 0
+    fi
+
     rm -rf CMakeLists.txt
     catkin_init_workspace
     cd ..
@@ -185,158 +135,46 @@ _uch_installer_reset_ws ()
     cd "$user_path"
 }
 
-# cleans password occurrences on a git url for the given file.
-# - only works on repositories were the username is set up
-# - requires the filename: e.g: .git/config, .git/logs/HEAD
-# - requires the asociated username: myuser or "none", when you want to clear all
-_uch_installer_clean_url_pass_from_file () {
+# # resets completely a workspace!
+# # - anything roslike excepting src/ is deleted 
+# _uch_reset_ws ()
+# {
+#     local ws_path user_path
+#     ws_path="$1"
+#     user_path="$(pwd)"
 
-    local _username _filename
-    _username="$1"
-    _filename="$2"
+#     mkdir -p "$ws_path"/src
+#     cd "$ws_path"/src
+#     rm -rf CMakeLists.txt
+#     catkin_init_workspace
+#     cd ..
+#     rm -rf build/
+#     rm -rf devel/
+#     rm -rf install/
+#     catkin_make
+#     source devel/setup.bash
+#     cd "$user_path"
+# }
 
-    # check arguments
-    if [ -z "$1" ]; then
-        printf " - [ERROR]: _uch_installer_clean_url_pass_from_file requires 2 arguments: _username _filename\n"
-        return 1
-    fi
-    if [ -z "$2" ]; then
-        printf " - [ERROR]: _uch_installer_clean_url_pass_from_file requires 2 arguments: _username _filename\n"
-        return 1
-    fi
-
-    # check file existence
-    if [ ! -e "$_filename" ]; then
-        printf " - [ERROR]: attemped to clean a nonexistent file: %s\n" "$_filename"
-        return 1
-    fi
-
-    #echo " - [DEBUG]: cleaning file: $_filename for user $_username"
-    if [ "$_username" = "none" ]; then
-        sed --in-place "s/https:\/\/\(.*\)bitbucket.org/https:\/\/bitbucket.org/" "$_filename"
-    else
-        sed --in-place "s/$_username:.*@/$_username@/" "$_filename"
-    fi
-    return 0
-}
-
-# cleans password occurrences from .git module folder, for the given username
-# - only works on repositories were the username is set up
-# - requires the module path. e.g: .git/module/my_module
-# - requires the asociated username: myuser or "none" when you want to clear
-#   both, the username and password.
-_uch_installer_clean_url_pass_from_module () {
-
-    local _username _modulepath _headspath
-    _username="$1"
-    _modulepath="$2"
-
-    # check arguments
-    if [ -z "$1" ]; then
-        printf " - [ERROR]: _uch_installer_clean_url_pass_from_module requires 2 arguments: _username and _modulepath\n"
-        return 1
-    fi
-    if [ -z "$2" ]; then
-        printf " - [ERROR]: _uch_installer_clean_url_pass_from_module requires 2 arguments: _username and _modulepath\n"
-        return 1
-    fi
-
-    # check directory existence
-    if [ ! -d "$_modulepath" ]; then
-        printf " - [ERROR]: attemped to clean a nonexistent module directory\n"
-        return 1
-    fi
-
-    #echo " - [DEBUG]: cleaning module on path: $_modulepath for user $_username"
-
-    # clean repo reference + 1 line for each submodule
-    _uch_installer_clean_url_pass_from_file "$_username" "$_modulepath/config"
-    _uch_installer_clean_url_pass_from_file "$_username" "$_modulepath/logs/HEAD"
-    _uch_installer_clean_url_pass_from_file "$_username" "$_modulepath/logs/refs/remotes/origin/HEAD"
-
-    _headspath="$_modulepath/logs/refs/heads"
-    if [ ! -d "$_headspath" ]; then
-        return 0
-    fi
-
-    for _branch in $(ls $_headspath)
-    do
-        #echo " - [DEBUG]: branch: $_branch"
-        _uch_installer_clean_url_pass_from_file "$_username" "$_headspath/$_branch"
-    done
-
-    return 0
-}
-
-# cleans password occurrences from .git folder, for the given username
-# - only works on repositories were the username is set up
-# - assumes it is located in a repository. e.g: echo $pwd  --> "~/my_repo/"
-# - requires:
-#    - the asociated username
-#    - or "none" when you want to clear both, the username and password
-_uch_installer_clean_repo_password () {
-
-    local _username _module
-    _username="$1"
-
-    if [ -z "$1" ]; then
-        printf " - [ERROR]: _uch_installer_clean_repo_password requires 1 argument: _username\n"
-        return 1
-    fi
-
-    # check repository existence
-    if [ ! -e ".git/" ]; then
-        printf " - [ERROR]: attemped to clean repository, but current path does not points to one\n"
-        return 1
-    fi
-
-    # clean repo references
-    _uch_installer_clean_url_pass_from_module "$_username" ".git"
-    
-    # no modules, then return
-    if [ ! -d ".git/modules" ]; then
-        return 0
-    fi
-
-    # clean modules
-    for _module in $(ls .git/modules)
-    do
-        _uch_installer_clean_url_pass_from_module "$_username" ".git/modules/$_module"
-    done
-
-    return 0
-}
 
 ## clones a repository from the given location
 # requires the following:
 # - [1] _repo_path : where to clone the repo
 # - [2] _repo_url  : the repo url
-# - [3] _use_credentials: provides username and pass?
-# - [4] _username : the username
-# - [5] _password : the user password
-_uch_installer_get_repository ()
+_uch_get_repository ()
 {
-    local _repo_name _repo_path _repo_url _username _password _use_credentials
-    local _user_path _show_user _gitmodules
+    local _repo_name _repo_path _repo_url _branch
+    local _user_path
     _repo_path="$1"
     _repo_url="$2"
-    _use_credentials="$3"
-    _username="$4"
-    _password="$5"
+    _branch="$3"
+    _user_path=$(pwd)
 
-
-    # presentation
-    _show_user="$_username"
-    if [ "$use_credentials" = "false" ]; then
-        _show_user=" -- not given -- "
-    fi
     _repo_name="$(echo "$_repo_url" | sed 's/.*\///' | sed 's/.git//')"
     printf "\n - - - - - - - \n"
     printf " - repository name: $_repo_name\n"
     printf " - repository url : $_repo_url\n"
     printf " - destiny path   : $_repo_path\n"
-    printf " - user name      : $_show_user\n"
-
 
     # check repository existence
     if [ -e "$_repo_path"/.git ]; then
@@ -346,14 +184,8 @@ _uch_installer_get_repository ()
     fi
     rm -rf "$_repo_path" # delete if existing but is not a repository
 
- 
+
     # clone using previous username
-    _repo_url_clean="$_repo_url"
-    if [ "$use_credentials" = "true" ]; then
-        _repo_url="$(echo "$_repo_url" | sed "s/bitbucket.org/$_username:$_password@bitbucket.org/")"
-    else
-        _repo_url="$(echo "$_repo_url" | sed "s/bitbucket.org/benderuchile:benderrobot@bitbucket.org/")"
-    fi
     printf " - - - > \n"
     git clone "$_repo_url" "$_repo_path"
 
@@ -361,100 +193,78 @@ _uch_installer_get_repository ()
     local _rc="$?"
     if [ "$_rc" = "128" ] || [ ! -d "$_repo_path" ] ; then
         printf "\n"
-        printf "UPS.. The clone process failed for: %s\n" "$_repo_url_clean"
-        printf "Maybe you should run this script again and mind your credentials!\n"
+        printf "UPS.. The clone process failed for: %s\n" "$_repo_url"
+        printf "Maybe you should run this script again!\n"
         printf "\n"
         rm -rf "$_repo_path"
         printf "<---\n"
         return 1
     fi
-    printf "< - - - \n\n"
     printf " - clone OK\n"
+
+    if [ ! -z "$_branch" ]; then
+        printf " - checking out to hash: %s\n" "$_branch"
+        cd "$_repo_path"
+        git checkout "$_branch"
+        cd "$_user_path"
+    fi
+
+    printf "< - - - \n\n"
+
 
     ## update submodules
     ## ------------------------------
-    _user_path=$(pwd)
+    
     cd "$_repo_path"
 
     # check submodules
-    _gitmodules="$_repo_path"/.gitmodules
-    if [ ! -e "$_gitmodules" ]; then
+    if [ ! -e "$_repo_path"/.gitmodules ]; then
         printf " - no submodules were found for this repo\n"
-        if [ "$use_credentials" = "true" ]; then
-            _uch_installer_clean_repo_password "$_username"
-        else
-            _uch_installer_clean_repo_password "none"
-        fi
         cd "$_user_path"
         return 0
     fi
     printf " - found some submodules.\n"
-    printf " - now, i will attempt to update the submodules using the same credentials!\n"
+    printf " - now, i will attempt to update the submodules.\n"
 
-    # modify .gitmodules
-    printf " - (creating .gitmodules backup)\n"
-    if [ "$use_credentials" = "true" ]; then
-        # user values
-        sed --in-place=_bkp "s/\/\/bitbucket.org/\/\/$_username:$_password@bitbucket.org/" "$_gitmodules"
-    else
-        # default values
-        sed --in-place=_bkp "s/\/\/bitbucket.org/\/\/benderuchile:benderrobot@bitbucket.org/" "$_gitmodules"
-    fi
-    
     # update
+    printf " ---------------------- >>>> \n"
     printf " - (git submodule init)\n"
-    printf " - - - > \n"
-    # --quiet: we dont want to display the user password from the repo url!
-    git submodule --quiet init
-    printf "< - - - \n\n"
+    git submodule init
+    printf "<<<< ---------------------- \n\n"
+
+    printf " ---------------------- >>>> \n"
     printf " - (git submodule update)\n"
-    printf " - - - > \n"
     git submodule update
-    printf "< - - - \n\n"
+    printf "<<<< ---------------------- \n\n"
 
-    # restore .gitmodules bkp
-    printf " - (restoring .gitmodules backup)\n"
-    if [ ! -z "$_username" ]; then
-        mv "$_gitmodules"_bkp "$_gitmodules"
-    fi
-
-    # clean git state
-    if [ "$use_credentials" = "true" ]; then
-        _uch_installer_clean_repo_password "$_username"
-    else
-        _uch_installer_clean_repo_password "none"
-    fi
     cd "$_user_path"
-
     return 0
 }
+
 
 ## clones a repository from the given location
 # requires the following:
 # - [1] _repo_path : where to clone the repo
 # - [2] _repo_url  : the repo url
-# - [3] _use_credentials: provides username and pass?
-# - [4] _username : the username
-# - [5] _password : the user password
-_uch_installer_get_repository_for_ws ()
+_uch_get_repository_for_ws ()
 {
-    local _repo_name _repo_path _repo_url _username _password _use_credentials
+    local _repo_name _repo_path _repo_url
     _repo_path="$1"
     _repo_url="$2"
-    _use_credentials="$3"
-    _username="$4"
-    _password="$5"
-
 
     # save CMakeLists.txt
-    mv "$_repo_path"/CMakeLists.txt /tmp/bender_CMakeLists.txt
+    if [ -e "$_repo_path"/CMakeLists.txt ]; then
+        mv "$_repo_path"/CMakeLists.txt /tmp/bender_CMakeLists.txt
+    fi
 
     # clone if necessary.. this would remove the src folder
-    _uch_installer_get_repository "$_repo_path" "$_repo_url" "$_use_credentials" "$_username" "$_password" 
+    _uch_get_repository "$_repo_path" "$_repo_url"
     local _rc="$?"
     
     # recover CMakeLists.txt
-    mv /tmp/bender_CMakeLists.txt "$_repo_path"/CMakeLists.txt
+    if [ -e /tmp/bender_CMakeLists.txt ]; then
+        mv /tmp/bender_CMakeLists.txt "$_repo_path"/CMakeLists.txt
+    fi
 
     if [ "$_rc" = "1" ]; then 
         return 1
@@ -462,14 +272,15 @@ _uch_installer_get_repository_for_ws ()
 }
 
 
-_uch_installer_enable_hook ()
+_uch_enable_hook ()
 {
-    local _new_hookfile
-    _new_hookfile="$1"
+    local _new_hookfile _hook_file
+    _hook_file="$1"
+    _new_hookfile="$2"    
 
     printf " - installing git hook:\n"
-    printf "     - at  : %s/pre-commit" "$_new_hookfile"
-    printf "     - from: %s\n"          "$_hook_file"
+    printf "     - at  : %s/pre-commit\n" "$_new_hookfile"
+    printf "     - from: %s\n" "$_hook_file"
 
     if [ ! -d "$_new_hookfile" ]; then
         printf " - folder not found: %s\n" "$_new_hookfile"
