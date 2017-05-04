@@ -9,7 +9,7 @@
 # $ ./maqui_framework_install.bash
 #
 
-export WS_FOR_ROBOT=bender
+export WS_FOR_ROBOT=maqui
 
 cd $(dirname "$BASH_SOURCE")
 bash "ws_installer.bash"

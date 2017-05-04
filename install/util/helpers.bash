@@ -2,7 +2,7 @@
 
 #
 # checks whether ROS INDIGO baseline is installed or no
-_bender_installer_check_rosindigo ()
+_uch_installer_check_rosindigo ()
 {
     
 
@@ -26,13 +26,13 @@ _bender_installer_check_rosindigo ()
 }
 
 #
-# promts the user for a VALID location for the framework
+# prompts the user for a VALID location for the framework
 # - if the location does not exists, then the user decides about its creation
 # - otherwise, the path must be a writtable folder
 #   if this folder is not empty, the user decides if the script continues or not.
 #
 # it creates the framework_path var
-_bender_installer_ask_framework_path ()
+_uch_installer_ask_framework_path ()
 {
     local _default_path _user_path _n_files _answer
     framework_path=""
@@ -114,7 +114,7 @@ _bender_installer_ask_framework_path ()
 
 #
 # prompts the user for an username
-_bender_installer_ask_username ()
+_uch_installer_ask_username ()
 {
     local  _username
     read -e -p " - Bitbucket username: " _username
@@ -123,7 +123,7 @@ _bender_installer_ask_username ()
 
 #
 # prompts the user for a password
-_bender_installer_ask_password ()
+_uch_installer_ask_password ()
 {
     local _password
     read -es -p " - Bitbucket password: " _password
@@ -134,7 +134,7 @@ _bender_installer_ask_password ()
 # prompts the user for an username
 # - writes variables username and password
 # - this vars will be empty if the response was a negation
-_bender_installer_ask_single_username ()
+_uch_installer_ask_single_username ()
 {
     local _answer
     username=""
@@ -155,8 +155,8 @@ _bender_installer_ask_single_username ()
     if echo "$_answer" | grep -iq "^y" ; then        
         
         printf " - OK, i need the following data:\n"
-        username=$(_bender_installer_ask_username)
-        password=$(_bender_installer_ask_password)
+        username=$(_uch_installer_ask_username)
+        password=$(_uch_installer_ask_password)
         printf "\n"
         #echo "$username"
         #echo "$password"
@@ -166,7 +166,7 @@ _bender_installer_ask_single_username ()
 #
 # resets completely a workspace!
 # - anything roslike is deleted, but src/
-_bender_installer_reset_ws ()
+_uch_installer_reset_ws ()
 {
     local ws_path user_path
     ws_path="$1"
@@ -189,7 +189,7 @@ _bender_installer_reset_ws ()
 # - only works on repositories were the username is set up
 # - requires the filename: e.g: .git/config, .git/logs/HEAD
 # - requires the asociated username: myuser or "none", when you want to clear all
-_bender_installer_clean_url_pass_from_file () {
+_uch_installer_clean_url_pass_from_file () {
 
     local _username _filename
     _username="$1"
@@ -197,11 +197,11 @@ _bender_installer_clean_url_pass_from_file () {
 
     # check arguments
     if [ -z "$1" ]; then
-        printf " - [ERROR]: _bender_installer_clean_url_pass_from_file requires 2 arguments: _username _filename\n"
+        printf " - [ERROR]: _uch_installer_clean_url_pass_from_file requires 2 arguments: _username _filename\n"
         return 1
     fi
     if [ -z "$2" ]; then
-        printf " - [ERROR]: _bender_installer_clean_url_pass_from_file requires 2 arguments: _username _filename\n"
+        printf " - [ERROR]: _uch_installer_clean_url_pass_from_file requires 2 arguments: _username _filename\n"
         return 1
     fi
 
@@ -225,7 +225,7 @@ _bender_installer_clean_url_pass_from_file () {
 # - requires the module path. e.g: .git/module/my_module
 # - requires the asociated username: myuser or "none" when you want to clear
 #   both, the username and password.
-_bender_installer_clean_url_pass_from_module () {
+_uch_installer_clean_url_pass_from_module () {
 
     local _username _modulepath _headspath
     _username="$1"
@@ -233,11 +233,11 @@ _bender_installer_clean_url_pass_from_module () {
 
     # check arguments
     if [ -z "$1" ]; then
-        printf " - [ERROR]: _bender_installer_clean_url_pass_from_module requires 2 arguments: _username and _modulepath\n"
+        printf " - [ERROR]: _uch_installer_clean_url_pass_from_module requires 2 arguments: _username and _modulepath\n"
         return 1
     fi
     if [ -z "$2" ]; then
-        printf " - [ERROR]: _bender_installer_clean_url_pass_from_module requires 2 arguments: _username and _modulepath\n"
+        printf " - [ERROR]: _uch_installer_clean_url_pass_from_module requires 2 arguments: _username and _modulepath\n"
         return 1
     fi
 
@@ -250,9 +250,9 @@ _bender_installer_clean_url_pass_from_module () {
     #echo " - [DEBUG]: cleaning module on path: $_modulepath for user $_username"
 
     # clean repo reference + 1 line for each submodule
-    _bender_installer_clean_url_pass_from_file "$_username" "$_modulepath/config"
-    _bender_installer_clean_url_pass_from_file "$_username" "$_modulepath/logs/HEAD"
-    _bender_installer_clean_url_pass_from_file "$_username" "$_modulepath/logs/refs/remotes/origin/HEAD"
+    _uch_installer_clean_url_pass_from_file "$_username" "$_modulepath/config"
+    _uch_installer_clean_url_pass_from_file "$_username" "$_modulepath/logs/HEAD"
+    _uch_installer_clean_url_pass_from_file "$_username" "$_modulepath/logs/refs/remotes/origin/HEAD"
 
     _headspath="$_modulepath/logs/refs/heads"
     if [ ! -d "$_headspath" ]; then
@@ -262,7 +262,7 @@ _bender_installer_clean_url_pass_from_module () {
     for _branch in $(ls $_headspath)
     do
         #echo " - [DEBUG]: branch: $_branch"
-        _bender_installer_clean_url_pass_from_file "$_username" "$_headspath/$_branch"
+        _uch_installer_clean_url_pass_from_file "$_username" "$_headspath/$_branch"
     done
 
     return 0
@@ -274,13 +274,13 @@ _bender_installer_clean_url_pass_from_module () {
 # - requires:
 #    - the asociated username
 #    - or "none" when you want to clear both, the username and password
-_bender_installer_clean_repo_password () {
+_uch_installer_clean_repo_password () {
 
     local _username _module
     _username="$1"
 
     if [ -z "$1" ]; then
-        printf " - [ERROR]: _bender_installer_clean_repo_password requires 1 argument: _username\n"
+        printf " - [ERROR]: _uch_installer_clean_repo_password requires 1 argument: _username\n"
         return 1
     fi
 
@@ -291,7 +291,7 @@ _bender_installer_clean_repo_password () {
     fi
 
     # clean repo references
-    _bender_installer_clean_url_pass_from_module "$_username" ".git"
+    _uch_installer_clean_url_pass_from_module "$_username" ".git"
     
     # no modules, then return
     if [ ! -d ".git/modules" ]; then
@@ -301,7 +301,7 @@ _bender_installer_clean_repo_password () {
     # clean modules
     for _module in $(ls .git/modules)
     do
-        _bender_installer_clean_url_pass_from_module "$_username" ".git/modules/$_module"
+        _uch_installer_clean_url_pass_from_module "$_username" ".git/modules/$_module"
     done
 
     return 0
@@ -314,7 +314,7 @@ _bender_installer_clean_repo_password () {
 # - [3] _use_credentials: provides username and pass?
 # - [4] _username : the username
 # - [5] _password : the user password
-_bender_installer_get_repository ()
+_uch_installer_get_repository ()
 {
     local _repo_name _repo_path _repo_url _username _password _use_credentials
     local _user_path _show_user _gitmodules
@@ -381,9 +381,9 @@ _bender_installer_get_repository ()
     if [ ! -e "$_gitmodules" ]; then
         printf " - no submodules were found for this repo\n"
         if [ "$use_credentials" = "true" ]; then
-            _bender_installer_clean_repo_password "$_username"
+            _uch_installer_clean_repo_password "$_username"
         else
-            _bender_installer_clean_repo_password "none"
+            _uch_installer_clean_repo_password "none"
         fi
         cd "$_user_path"
         return 0
@@ -420,9 +420,9 @@ _bender_installer_get_repository ()
 
     # clean git state
     if [ "$use_credentials" = "true" ]; then
-        _bender_installer_clean_repo_password "$_username"
+        _uch_installer_clean_repo_password "$_username"
     else
-        _bender_installer_clean_repo_password "none"
+        _uch_installer_clean_repo_password "none"
     fi
     cd "$_user_path"
 
@@ -436,7 +436,7 @@ _bender_installer_get_repository ()
 # - [3] _use_credentials: provides username and pass?
 # - [4] _username : the username
 # - [5] _password : the user password
-_bender_installer_get_repository_for_ws ()
+_uch_installer_get_repository_for_ws ()
 {
     local _repo_name _repo_path _repo_url _username _password _use_credentials
     _repo_path="$1"
@@ -450,7 +450,7 @@ _bender_installer_get_repository_for_ws ()
     mv "$_repo_path"/CMakeLists.txt /tmp/bender_CMakeLists.txt
 
     # clone if necessary.. this would remove the src folder
-    _bender_installer_get_repository "$_repo_path" "$_repo_url" "$_use_credentials" "$_username" "$_password" 
+    _uch_installer_get_repository "$_repo_path" "$_repo_url" "$_use_credentials" "$_username" "$_password" 
     local _rc="$?"
     
     # recover CMakeLists.txt
@@ -462,7 +462,7 @@ _bender_installer_get_repository_for_ws ()
 }
 
 
-_bender_installer_enable_hook ()
+_uch_installer_enable_hook ()
 {
     local _new_hookfile
     _new_hookfile="$1"
