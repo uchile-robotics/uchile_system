@@ -47,7 +47,7 @@ fi
 ## ======================================================
 printf "\n"
 
-# select a folder were to install the framework (default: /home/user/bender_ws)
+# select a folder were to install the framework (default: /home/user/<robot>_ws)
 printf " ------- Framework Location: -------\n"
 # comment for debug
 _uch_ask_framework_path "$HOME/${robot_name}_ws"

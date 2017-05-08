@@ -23,9 +23,9 @@
 # HOOK REQUIREMENTS:
 #
 # this hook requires the GITHOOKS_PATH env variable to be set.
-# GITHOOKS_PATH contains the FULL path to the hooks folder of bender_system repository.
+# GITHOOKS_PATH contains the FULL path to the hooks folder of uch_system repository.
 #
-#       $ export GITHOOKS_PATH="/home/<bender_ws>/bender_system/hooks/hooks"
+#       $ export GITHOOKS_PATH="/home/<robot_ws>/system/hooks/hooks"
 #
 # note: no trailling slashes! in the name
 # note: if you try: 'ls $GITHOOKS_PATH' you should see files like: pre-commit.sh
@@ -42,9 +42,9 @@ if [ -z ${GITHOOKS_PATH+x} ]; then
 		Git pre-commit hooks will not be executed.
 
 		If you want to enable them, please set GITHOOKS_PATH properly:
-		> export GITHOOKS_PATH="/home/<bender_ws>/bender_system/hooks/hooks"
+		> export GITHOOKS_PATH="/home/<robot_ws>/system/hooks/hooks"
 
-		GITHOOKS_PATH contains the FULL path to the 'hooks/hooks' folder of 'bender_system' repository.
+		GITHOOKS_PATH contains the FULL path to the 'hooks/hooks' folder of 'uch_system' repository.
 	EOF
 
 	exit 0
@@ -61,9 +61,9 @@ else
 			The commit will be aborted.
 
 			To solve this, please set GITHOOKS_PATH properly:
-			> export GITHOOKS_PATH="/home/<bender_ws>/bender_system/hooks/hooks"
+			> export GITHOOKS_PATH="/home/<robot_ws>/system/hooks/hooks"
 
-			GITHOOKS_PATH contains the FULL path to the 'hooks' folder of 'bender_system' repository.
+			GITHOOKS_PATH contains the FULL path to the 'hooks' folder of 'uch_system' repository.
 		EOF
 
 		exit 1

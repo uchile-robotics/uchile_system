@@ -254,7 +254,7 @@ _uch_get_repository_for_ws ()
 
     # save CMakeLists.txt
     if [ -e "$_repo_path"/CMakeLists.txt ]; then
-        mv "$_repo_path"/CMakeLists.txt /tmp/bender_CMakeLists.txt
+        mv "$_repo_path"/CMakeLists.txt /tmp/uch_CMakeLists.txt
     fi
 
     # clone if necessary.. this would remove the src folder
@@ -262,8 +262,8 @@ _uch_get_repository_for_ws ()
     local _rc="$?"
     
     # recover CMakeLists.txt
-    if [ -e /tmp/bender_CMakeLists.txt ]; then
-        mv /tmp/bender_CMakeLists.txt "$_repo_path"/CMakeLists.txt
+    if [ -e /tmp/uch_CMakeLists.txt ]; then
+        mv /tmp/uch_CMakeLists.txt "$_repo_path"/CMakeLists.txt
     fi
 
     if [ "$_rc" = "1" ]; then 

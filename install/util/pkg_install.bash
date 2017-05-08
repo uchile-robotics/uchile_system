@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# allows re sourcing the bender scripts on installers
+# allows re sourcing robot scripts on installers
 unset BENDER_FRAMEWORK_TWICE_LOAD_CHECK
 
 # re source bash
