@@ -33,7 +33,7 @@ _uch_check_rosindigo ()
 _uch_ask_framework_path ()
 {
     local _default_path _user_path _n_files _answer
-    framework_path=""
+    export framework_path=""
 
     # default
     _default_path="$1"
@@ -69,14 +69,14 @@ _uch_ask_framework_path ()
             # dir is empty
             if [ "$_n_files" = "1" ] ; then
                 #echo "and is empty"
-                framework_path="$_user_path"
+                export framework_path="$_user_path"
                 break
             fi
 
             # directory is not empty
             read -p " - $_user_path is not empty, do you want proceed anyway? [y/N]: " _answer
             if echo "$_answer" | grep -iq "^y" ;then
-                framework_path="$_user_path"
+                export framework_path="$_user_path"
                 break
             fi
             continue
@@ -104,7 +104,7 @@ _uch_ask_framework_path ()
             # creation succeeded
             _user_path="$(readlink -f "$_user_path")"   # full path (after folder creation!)
             printf " - creating folder: %s ...\n" "$_user_path"
-            framework_path="$_user_path"
+            export framework_path="$_user_path"
             break
         fi
     done
@@ -172,9 +172,9 @@ _uch_get_repository ()
 
     _repo_name="$(echo "$_repo_url" | sed 's/.*\///' | sed 's/.git//')"
     printf "\n - - - - - - - \n"
-    printf " - repository name: $_repo_name\n"
-    printf " - repository url : $_repo_url\n"
-    printf " - destiny path   : $_repo_path\n"
+    printf " - repository name: %s" "$_repo_name\n"
+    printf " - repository url : %s" "$_repo_url\n"
+    printf " - destiny path   : %s" "$_repo_path\n"
 
     # check repository existence
     if [ -e "$_repo_path"/.git ]; then
@@ -209,22 +209,22 @@ _uch_get_repository ()
         cd "$_user_path"
     fi
 
-    printf "< - - - \n\n"
+    printf "< - - - \n"
 
 
     ## update submodules
     ## ------------------------------
-    
-    cd "$_repo_path"
 
     # check submodules
     if [ ! -e "$_repo_path"/.gitmodules ]; then
         printf " - no submodules were found for this repo\n"
-        cd "$_user_path"
         return 0
     fi
     printf " - found some submodules.\n"
     printf " - now, i will attempt to update the submodules.\n"
+
+
+    cd "$_repo_path"
 
     # update
     printf " ---------------------- >>>> \n"
@@ -272,31 +272,43 @@ _uch_get_repository_for_ws ()
 }
 
 
-_uch_enable_hook ()
+_uch_enable_githook ()
 {
-    local _new_hookfile _hook_file
-    _hook_file="$1"
-    _new_hookfile="$2"    
+    local _repo _template _hook_file _submodule
+    _repo="$1"
+    _template="$2"
 
-    printf " - installing git hook:\n"
-    printf "     - at  : %s/pre-commit\n" "$_new_hookfile"
-    printf "     - from: %s\n" "$_hook_file"
-
-    if [ ! -d "$_new_hookfile" ]; then
-        printf " - folder not found: %s\n" "$_new_hookfile"
-
-        local count="$(printf "%s\n" "$_new_hookfile" | grep ".git/modules/" | wc -c)"
-        if [ ! "$count" = "0" ]; then
-            printf " - this is a uninitialized submodule.\n"
-            printf "   try:\n > git submodule init\n > git submodule update\n\n"
-        fi
+    # checks
+    if [ ! -d "$_repo/.git" ]; then
+        printf "Path %s is not the root of a valid git repository.\n" "$_repo"
         return 1
     fi
+    if [ ! -e "$_template" ]; then
+        printf "Git hook template file not found at: '%s' .\n" "$_template"
+        return 1
+    fi
+    printf " - installing git hook on repo '%s' from template '%s'\n" "$_repo" "$_template"
 
-    _new_hookfile="$_new_hookfile"/pre-commit
-    cp "$_hook_file" "$_new_hookfile"
-    chmod 775 "$_new_hookfile"
 
+    # install root hookfile
+    _hook_file="$_repo/.git/hooks/pre-commit"
+    mkdir -p "$_repo/.git/hooks"
+    cp "$_template" "$_hook_file"
+    chmod 775 "$_hook_file"
+
+    # install on submodules
+    printf " - looking for submodules\n"
+    if [ -d "$_repo/.git/modules" ]; then
+
+        for _submodule in $(find "$_repo/.git/modules" -mindepth 1 -maxdepth 1 -type d)
+        do
+            printf "   ... installing git hook on submodule '%s'\n" "$_submodule"
+            _hook_file="$_submodule/hooks/pre-commit"
+            mkdir -p "$_submodule/hooks"
+            cp "$_template" "$_hook_file"
+            chmod 775 "$_hook_file"
+        done
+
+    fi
     return 0
 }
-

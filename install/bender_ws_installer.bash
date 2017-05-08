@@ -35,7 +35,7 @@ cd "$framework_path"
 git config --global credential.helper 'cache --timeout=900'
 
 # where to copy the git hook from
-_tmp_hook_file="$TMP_SYSTEM_DIR"/hooks/hooks/pre-commit
+_hook_template="$TMP_SYSTEM_DIR"/hooks/hooks/pre-commit
 
 
 ## MISC
@@ -57,7 +57,7 @@ _uch_get_repository "misc/embedded" "https://bitbucket.org/uchile-robotics-die/b
 
 # system
 _uch_get_repository "system" "https://github.com/uchile-robotics/uch_system.git"
-_uch_enable_hook "$_tmp_hook_file" system/.git/hooks
+_uch_enable_githook "system" "$_hook_template"
 
 
 ## layers
@@ -65,25 +65,19 @@ _uch_enable_hook "$_tmp_hook_file" system/.git/hooks
 
 # base layer
 _uch_get_repository_for_ws "ros/base_ws/src" "https://bitbucket.org/uchile-robotics-die/bender_base_layer.git"
-_uch_enable_hook "$_tmp_hook_file" ros/base_ws/src/.git/hooks
-_uch_enable_hook "$_tmp_hook_file" ros/base_ws/src/.git/modules/bender_knowledge/hooks
+_uch_enable_githook "ros/base_ws/src" "$_hook_template"
 
 # soft layer
 _uch_get_repository_for_ws "ros/soft_ws/src" "https://bitbucket.org/uchile-robotics-die/bender_soft_layer.git"
-_uch_enable_hook "$_tmp_hook_file" ros/soft_ws/src/.git/hooks
-_uch_enable_hook "$_tmp_hook_file" ros/soft_ws/src/.git/modules/bender_hri/hooks
-_uch_enable_hook "$_tmp_hook_file" ros/soft_ws/src/.git/modules/bender_tools/hooks
-_uch_enable_hook "$_tmp_hook_file" ros/soft_ws/src/.git/modules/bender_manipulation/hooks
-_uch_enable_hook "$_tmp_hook_file" ros/soft_ws/src/.git/modules/bender_navigation/hooks
-_uch_enable_hook "$_tmp_hook_file" ros/soft_ws/src/.git/modules/bender_perception/hooks
+_uch_enable_githook "ros/soft_ws/src" "$_hook_template"
 
 # high layer
 _uch_get_repository_for_ws "ros/high_ws/src" "https://bitbucket.org/uchile-robotics-die/bender_high_layer.git"
-_uch_enable_hook "$_tmp_hook_file" ros/high_ws/src/.git/hooks
+_uch_enable_githook "ros/high_ws/src" "$_hook_template"
 
 # robot_skills
 _uch_get_repository "ros/high_ws/src/robot_skills" "https://github.com/uchile-robotics/robot_skills.git"
-_uch_enable_hook "$_tmp_hook_file" ros/high_ws/src/robot_skills/.git/hooks
+_uch_enable_githook "ros/high_ws/src/robot_skills" "$_hook_template"
 
 
 ## forks
@@ -118,7 +112,7 @@ if [ ! -d "$framework_path"/deps/base/knowledge/python-aiml ]; then
 	cd "$framework_path"
 fi
 
-unset _tmp_hook_file
+unset _hook_template
 
 
 
