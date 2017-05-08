@@ -83,11 +83,11 @@ fi
 unset _currshell
 
 
-## COMPATIBILITY LAYER WITH SYSTEM v1.0
+## COMPATIBILITY LAYER WITH SYSTEM v1.9
 ## ########################################################
 # As the title describes, this section is meant for old
 # system installations and creates a compatibility layer
-# between v1.0 on bitbucket (bender_system) and v2.0 on 
+# between v1.9 on bitbucket (bender_system) and v2.0 on 
 # github (uch_system)
 #
 # mayor compatibility issues are:
@@ -108,7 +108,7 @@ ROBOT_COMPAT_PREFIX=ROBOT
 if [ -z "$ROBOT_WS" ]; then
     ROBOT_COMPAT_MODE=true
     ROBOT_COMPAT_PREFIX=BENDER
-    printf "You are running in system compatibility mode with bender_system v1.0.\n."
+    printf "You are running in system compatibility mode with bender_system v1.9.\n."
     printf "Please update your robot installation. See the system README.md file.\n."
 
     export ROBOT_SHELL_CFG="$BENDER_SHELL_CFG"
@@ -125,7 +125,7 @@ fi
 
 # load configs
 if [ -z "$ROBOT_SHELL_CFG" ]; then
-    # this mode is intended for v0.0 users
+    # this mode is intended for v1.0 users
     DEFAULT_CFG="$HOME"/bender.sh
     if [ -e "$DEFAULT_CFG" ]; then
         . "$DEFAULT_CFG"
@@ -192,7 +192,7 @@ export GITHOOKS_PATH="$ROBOT_SYSTEM/hooks/hooks"
 export ROSCONSOLE_FORMAT='[${severity}] [${node}]: ${message}'
 
 
-# (compatibility with repos which depend on v1.0)
+# (compatibility with repos which depend on v1.9)
 # avoid missing variables on outdated repos
 if ! ROBOT_COMPAT_MODE; then
     export BENDER_WS="$ROBOT_WS"

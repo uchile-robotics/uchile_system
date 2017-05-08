@@ -43,9 +43,11 @@ old_git_credential_helper=$(git config --global --get credential.helper)
 # ====================================================================================
 # COMPAT MODE: will work but should be updated to v2.0
 
+CREAR tag y subit 1.9 de bender_system
 bender.sh
 network_defs
 migrar issues, wiki
+asegurarse de migrar TAGS de otros repos
 
 # BENDER_WS (COMPAT MODE)
 ./bender_sim/bender_gazebo/install/install.sh:33:BACKUP_FOLDER="$BENDER_WS"/install/base/sim/gazebo

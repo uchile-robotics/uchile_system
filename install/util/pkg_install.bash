@@ -6,7 +6,7 @@ unset ROBOT_FRAMEWORK_TWICE_LOAD_CHECK
 # re source bash
 if [ -z "$ROBOT_WS" ]; then
 
-	# compatibility with v1.0
+	# compatibility with v1.9
 	if [ ! -z "$BENDER_WS" ]; then
 		export ROBOT_WS="$BENDER_WS"
 	else
@@ -17,7 +17,7 @@ if [ -z "$ROBOT_WS" ]; then
 fi
 
 if [ -d "$ROBOT_WS"/bender_system ]; then
-	# compatibility with v1.0
+	# compatibility with v1.9
 	source "$ROBOT_WS"/bender_system/setup.bash
 else
 	source "$ROBOT_WS"/system/setup.bash
