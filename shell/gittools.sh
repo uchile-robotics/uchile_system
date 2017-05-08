@@ -6,17 +6,17 @@
 
 
 BENDER_REPOSITORIES=""
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_SYSTEM"
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/base_ws/src"
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/base_ws/src/bender_knowledge"
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src"
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src/bender_hri"
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src/bender_manipulation"
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src/bender_navigation"
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src/bender_perception"
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/soft_ws/src/bender_tools"
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/high_ws/src"
-BENDER_REPOSITORIES="$BENDER_REPOSITORIES $BENDER_WS/high_ws/src/robot_skills"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $ROBOT_SYSTEM"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $ROBOT_WS/base_ws/src"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $ROBOT_WS/base_ws/src/bender_knowledge"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $ROBOT_WS/soft_ws/src"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $ROBOT_WS/soft_ws/src/bender_hri"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $ROBOT_WS/soft_ws/src/bender_manipulation"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $ROBOT_WS/soft_ws/src/bender_navigation"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $ROBOT_WS/soft_ws/src/bender_perception"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $ROBOT_WS/soft_ws/src/bender_tools"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $ROBOT_WS/high_ws/src"
+BENDER_REPOSITORIES="$BENDER_REPOSITORIES $ROBOT_WS/high_ws/src/robot_skills"
 
 
 ## 
@@ -36,7 +36,7 @@ _bender_git_status ()
     for _repo_path in $BENDER_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$BENDER_WS/}"
+        _repo_path_cropped="${_repo_path//$ROBOT_WS/}"
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
@@ -76,7 +76,7 @@ _bender_git_checkout ()
     for _repo_path in $BENDER_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$BENDER_WS/}"
+        _repo_path_cropped="${_repo_path//$ROBOT_WS/}"
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
@@ -144,7 +144,7 @@ _bender_git_ls_files ()
     for _repo_path in $BENDER_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$BENDER_WS/}"
+        _repo_path_cropped="${_repo_path//$ROBOT_WS/}"
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
@@ -185,7 +185,7 @@ _bender_git_fetch ()
     for _repo_path in $BENDER_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$BENDER_WS/}"
+        _repo_path_cropped="${_repo_path//$ROBOT_WS/}"
 
         # if git repository
         if [ -e "$_repo_path/.git" ]; then
@@ -280,7 +280,7 @@ _bender_git_merge ()
     for _repo_path in $BENDER_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$BENDER_WS/}"
+        _repo_path_cropped="${_repo_path//$ROBOT_WS/}"
 
         # if git repository
         if [ -e "$_repo_path/.git" ]; then
@@ -300,7 +300,7 @@ _bender_git_merge ()
             # merge
             _bender_git_merge_common
             #export -f _bender_git_merge_common
-            git submodule foreach bash -c 'source $BENDER_SYSTEM/shell/gittools.sh; _bender_git_merge_common'
+            git submodule foreach bash -c 'source $ROBOT_SYSTEM/shell/gittools.sh; _bender_git_merge_common'
 
 
             # reset signals to defaults
@@ -413,7 +413,7 @@ Options:
         - (empty)       : Displays this help
 
     The lookup is executed on the following workspaces:
-    - bender_system
+    - system
     - base_ws (and submodules)
     - soft_ws (and submodules)
     - high_ws (and submodules)

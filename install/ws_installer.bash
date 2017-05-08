@@ -112,12 +112,9 @@ cp -f "$template" "$HOME"/"${WS_FOR_ROBOT}".sh
 unset template
 
 # replace tags
-uppercase_name=$(echo "$WS_FOR_ROBOT" | tr /a-z/ /A-Z/)
 sed -i "s/<ROBOT_LOWER>/${WS_FOR_ROBOT}/" "$HOME"/"${WS_FOR_ROBOT}".sh
-sed -i "s/<ROBOT_UPPER>/${uppercase_name}/" "$HOME"/"${WS_FOR_ROBOT}".sh
 sed -i "s'<FRAMEWORK_PATH>'${framework_path}'" "$HOME"/"${WS_FOR_ROBOT}".sh
 printf " - file $HOME/${WS_FOR_ROBOT}.sh is ready...\n\n"
-unset uppercase_name
 
 # END
 # ----------------------------

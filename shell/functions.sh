@@ -2,38 +2,38 @@
 
 _bender_admin_goodbye () 
 {
-    python "$BENDER_SYSTEM"/shell/src/functions.py "admin_goodbye"
+    python "$ROBOT_SYSTEM"/shell/src/functions.py "admin_goodbye"
 
 }
 
 _bender_check_if_bash ()
 {
-    python "$BENDER_SYSTEM"/shell/src/functions.py "shell_is_bash"
+    python "$ROBOT_SYSTEM"/shell/src/functions.py "shell_is_bash"
 }
 
 _bender_check_if_zsh ()
 {
-    python "$BENDER_SYSTEM"/shell/src/functions.py "shell_is_zsh"
+    python "$ROBOT_SYSTEM"/shell/src/functions.py "shell_is_zsh"
 }
 
 _bender_check_if_bash_or_zsh ()
 {
-    python "$BENDER_SYSTEM"/shell/src/functions.py "shell_is_bash_or_zsh"
+    python "$ROBOT_SYSTEM"/shell/src/functions.py "shell_is_bash_or_zsh"
 }
 
 _bender_check_var_isset ()
 {
-    python "$BENDER_SYSTEM"/shell/src/functions.py "check_var_isset" "$1"
+    python "$ROBOT_SYSTEM"/shell/src/functions.py "check_var_isset" "$1"
 }
 
 _bender_check_file_ext ()
 {
-	python "$BENDER_SYSTEM"/shell/src/functions.py "check_file_ext" "$1" "$2"
+	python "$ROBOT_SYSTEM"/shell/src/functions.py "check_file_ext" "$1" "$2"
 }
 
 _bender_get_filepath ()
 {
-	python "$BENDER_SYSTEM"/shell/src/functions.py "get_filepath" "$1"
+	python "$ROBOT_SYSTEM"/shell/src/functions.py "get_filepath" "$1"
 }
 
 _bender_check_user_confirmation ()

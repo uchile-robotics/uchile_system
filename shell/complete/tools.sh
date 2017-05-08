@@ -62,8 +62,8 @@ function _bendercomplete_bender_cd
     # available options
     opts="-h --help"
     opts="${opts} base soft high system graveyard forks embedded"
-    opts="${opts} $BENDER_PACKAGES"
-    opts="${opts} $BENDER_STACKS"
+    opts="${opts} $ROBOT_PACKAGES"
+    opts="${opts} $ROBOT_STACKS"
 
     if _bender_check_if_bash ; then
         # bash - complete

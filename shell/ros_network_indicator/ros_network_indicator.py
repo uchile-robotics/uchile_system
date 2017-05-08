@@ -16,7 +16,7 @@ from gi.repository import AppIndicator3 as appindicator
 from gi.repository import Notify as notify
 
 class ROSNetworkCmdLine(object):
-    TEXT = 'export BENDER_NET_ENABLE='
+    TEXT = 'export ROBOT_NET_ENABLE='
     def __init__(self, file_name):
         self.file_name = os.path.abspath(file_name)
 

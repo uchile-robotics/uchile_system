@@ -9,19 +9,25 @@
 # To enable the framework, you must setup the following on your rc file:
 # 
 # # workspace location
-# export <ROBOT_UPPER>_WS=<FRAMEWORK_PATH>
+# export ROBOT_WS=<FRAMEWORK_PATH>
 #
 # # workspace configuration file
-# export <ROBOT_UPPER>_SHELL_CFG="$HOME"/<ROBOT_LOWER>.sh
+# export ROBOT_SHELL_CFG="$HOME"/<ROBOT_LOWER>.sh
 #
 # # source the setup file
-# . "$<ROBOT_UPPER>_WS"/system/setup.bash  # (on .bashrc : bash only)
-# . "$<ROBOT_UPPER>_WS"/system/setup.zsh   # (on .zshrc  : zsh only )
+# . "$ROBOT_WS"/system/setup.bash  # (on .bashrc : bash only)
+# . "$ROBOT_WS"/system/setup.zsh   # (on .zshrc  : zsh only )
 #
 #
 
-## <ROBOT_UPPER> FRAMEWORK SETTINGS
+## ROBOT FRAMEWORK SETTINGS
 ## ==========================================
+
+# robot settings
+# ------------------------------------------- 
+
+export ROBOT="<ROBOT_LOWER>"
+
 
 # networking settings
 # -------------------------------------------
@@ -29,13 +35,13 @@
 # - chest / nav / vision
 
 # Your IP address or name
-export <ROBOT_UPPER>_NET_IP="SET-THIS-VALUE"
+export ROBOT_NET_IP="SET-THIS-VALUE"
 
 # ROS MASTER IP address or name
-export <ROBOT_UPPER>_NET_MASTER="chest"
+export ROBOT_NET_MASTER="chest"
 
 # Enable ROS networking (true/false)
-export <ROBOT_UPPER>_NET_ENABLE=false
+export ROBOT_NET_ENABLE=false
 
 # (dis)plays a warning when working in offline mode (true/false)
-export <ROBOT_UPPER>_NET_WARN=false
+export ROBOT_NET_WARN=false

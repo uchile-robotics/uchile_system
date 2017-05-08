@@ -37,6 +37,6 @@ _bender_net_parse_ip ()
 
 
 # utilizados por ros
-export ROS_MASTER_URI="http://$(_bender_net_parse_ip "$BENDER_NET_MASTER"):11311"
-export ROS_IP="$(_bender_net_parse_ip "$BENDER_NET_IP")"
+export ROS_MASTER_URI="http://$(_bender_net_parse_ip "$ROBOT_NET_MASTER"):11311"
+export ROS_IP="$(_bender_net_parse_ip "$ROBOT_NET_IP")"
 export ROSLAUNCH_SSH_UNKNOWN="1"

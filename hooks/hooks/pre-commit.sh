@@ -231,7 +231,7 @@ if [ "$_FAILED" != "no" ]; then
  git admin.-
 
  Have some feedback?, please contact us:
- "$BENDER_SYSTEM_ADMIN" - $BENDER_EMAIL_DEVELOP
+ "$ROBOT_SYSTEM_ADMIN" - $ROBOT_EMAIL_DEVELOP
 
 EOF
 

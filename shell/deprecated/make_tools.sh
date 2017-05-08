@@ -36,19 +36,19 @@ EOF
     else
         ws="$1"
         user_path="$(pwd)"
-        path="$BENDER_WS"/"$ws"_ws
+        path="$ROBOT_WS"/"$ws"_ws
 
         if [ ! -e "$path" ]; then
-            echo "Invalid workspace: $1 at $BENDER_WS"
+            echo "Invalid workspace: $1 at $ROBOT_WS"
             return 1
         fi
         if [ ! -e "$path"/"src"/CMakeLists.txt ]; then
-            echo "Invalid workspace: $1 at $BENDER_WS"
+            echo "Invalid workspace: $1 at $ROBOT_WS"
             echo "Missing CMakeLists.txt at $path/src/"
             return 1
         fi
         if [ ! -e "$path"/"devel"/setup.sh ]; then
-            echo "Invalid workspace: $1 at $BENDER_WS"
+            echo "Invalid workspace: $1 at $ROBOT_WS"
             echo "Missing setup.sh at $path/devel/"
             return 1
         fi
@@ -83,7 +83,7 @@ _bender_make_common() {
 
     if [ -z "$2" ]; then
         # build all packages by default
-        _make_pkg=$BENDER_PACKAGES
+        _make_pkg=$ROBOT_PACKAGES
 
     elif [ "$2" = "-h" ] || [ "$2" = "--help"  ]; then
 
@@ -127,7 +127,7 @@ EOF
     elif [ "$2" = "--eclipse" ]; then
 
         # build all packages and generate eclipse project files
-        _make_pkg=$BENDER_PACKAGES
+        _make_pkg=$ROBOT_PACKAGES
 
         catkin_make -DCMAKE_BUILD_TYPE="$1" --only-pkg-with-deps $_make_pkg --force-cmake -G"Eclipse CDT4 - Unix Makefiles"
         cd "$OLDPWD"
@@ -144,13 +144,13 @@ alias bender_make_Debug='_bender_make_common Debug'
 alias bender_make=bender_make_RelWithDebInfo
 
 
-_bender_system_reset_ws ()
+_robot_system_reset_ws ()
 {
     local ws user_path
     ws="$1"
     user_path="$(pwd)"
 
-    cd "$BENDER_WS"/"$ws"/src
+    cd "$ROBOT_WS"/"$ws"/src
     rm -rf CMakeLists.txt
     catkin_init_workspace
     cd ..
@@ -161,7 +161,7 @@ _bender_system_reset_ws ()
     cd "$user_path"
 }
 
-bender_system_repair_ws_overlay ()
+robot_system_repair_ws_overlay ()
 {
     local user_path
 
@@ -175,16 +175,16 @@ bender_system_repair_ws_overlay ()
     . /opt/ros/indigo/setup.bash
 
     # forks overlay
-    bender_system_reset_ws "forks_ws"
+    robot_system_reset_ws "forks_ws"
  
     # base overlay
-    bender_system_reset_ws "base_ws"
+    robot_system_reset_ws "base_ws"
 
     # soft overlay
-    bender_system_reset_ws "soft_ws"
+    robot_system_reset_ws "soft_ws"
     
     # high overlay
-    bender_system_reset_ws "high_ws"
+    robot_system_reset_ws "high_ws"
 
     cd "$user_path"
 }

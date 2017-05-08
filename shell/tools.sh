@@ -32,8 +32,8 @@ if _bender_check_if_bash_or_zsh ; then
     # terminal session instead.
     function bender_refresh_shell
     {
-        export BENDER_FRAMEWORK_TWICE_LOAD_CHECK=false
-        exec "$BENDER_FRAMEWORK_LOADED_SHELL"
+        export ROBOT_FRAMEWORK_TWICE_LOAD_CHECK=false
+        exec "$ROBOT_FRAMEWORK_LOADED_SHELL"
     }
     
 
@@ -59,7 +59,7 @@ fi
 function bender_open_config {
 
     local _conf _editor
-    _conf="$BENDER_SHELL_CFG"
+    _conf="$ROBOT_SHELL_CFG"
 
     # check file existence
     if [ ! -e "$_conf" ]; then
@@ -96,10 +96,10 @@ bender_find_string ()
 {
     local string _path user_path opt show_help curpath
 
-    _path="$BENDER_SYSTEM"         # bender_system
-    _path="$_path $BENDER_WS/base_ws/src" # base_ws
-    _path="$_path $BENDER_WS/soft_ws/src" # soft_ws
-    _path="$_path $BENDER_WS/high_ws/src" # high_ws
+    _path="$ROBOT_SYSTEM"                # system
+    _path="$_path $ROBOT_WS/base_ws/src" # base_ws
+    _path="$_path $ROBOT_WS/soft_ws/src" # soft_ws
+    _path="$_path $ROBOT_WS/high_ws/src" # high_ws
 
     string=""
     if [ "$#" = "2" ]; then 
@@ -107,16 +107,16 @@ bender_find_string ()
         opt="$1"
         case "$opt" in
 
-            "system"    ) _path="$BENDER_SYSTEM" ;;
-            "base"      ) _path="$BENDER_WS/base_ws/src" ;;
-            "soft"      ) _path="$BENDER_WS/soft_ws/src" ;;
-            "high"      ) _path="$BENDER_WS/high_ws/src" ;;
-            "graveyard" ) _path="$BENDER_WS/bender_code_graveyard" ;;
-            "forks"     ) _path="$BENDER_WS/forks_ws/src" ;;
-            "embedded"  ) _path="$BENDER_WS/bender_embedded" ;;
+            "system"    ) _path="$ROBOT_SYSTEM" ;;
+            "base"      ) _path="$ROBOT_WS/base_ws/src" ;;
+            "soft"      ) _path="$ROBOT_WS/soft_ws/src" ;;
+            "high"      ) _path="$ROBOT_WS/high_ws/src" ;;
+            "graveyard" ) _path="$ROBOT_WS/bender_code_graveyard" ;;
+            "forks"     ) _path="$ROBOT_WS/forks_ws/src" ;;
+            "embedded"  ) _path="$ROBOT_WS/bender_embedded" ;;
             "all" )
-                _path="$_path $BENDER_WS/bender_embedded"
-                _path="$_path $BENDER_WS/forks_ws/src"
+                _path="$_path $ROBOT_WS/bender_embedded"
+                _path="$_path $ROBOT_WS/forks_ws/src"
                 ;;
 
             # unknown
@@ -162,7 +162,7 @@ Options:
         - base     : lookup on base_ws
         - soft     : lookup on soft_ws
         - high     : lookup on high_ws
-        - system   : lookup on bender_system
+        - system   : lookup on system
         - graveyard: lookup on bender_code_graveyard
         - forks    : lookup on forks_ws
         - embedded : lookup on bender_embedded
@@ -218,19 +218,19 @@ function bender_cd
     user_path="$1"
 
     if [ "$#" = "0" ]; then
-        _path="$BENDER_WS"
+        _path="$ROBOT_WS"
 
     elif [ "$#" = "1" ]; then
 
         case "$user_path" in
 
-            "system"    ) _path="$BENDER_SYSTEM" ;;
-            "base"      ) _path="$BENDER_WS/base_ws/src" ;;            
-            "soft"      ) _path="$BENDER_WS/soft_ws/src" ;;
-            "high"      ) _path="$BENDER_WS/high_ws/src" ;;
-            "graveyard" ) _path="$BENDER_WS/bender_code_graveyard" ;;
-            "forks"     ) _path="$BENDER_WS/forks_ws/src" ;;
-            "embedded"  ) _path="$BENDER_WS/bender_embedded" ;;
+            "system"    ) _path="$ROBOT_SYSTEM" ;;
+            "base"      ) _path="$ROBOT_WS/base_ws/src" ;;            
+            "soft"      ) _path="$ROBOT_WS/soft_ws/src" ;;
+            "high"      ) _path="$ROBOT_WS/high_ws/src" ;;
+            "graveyard" ) _path="$ROBOT_WS/bender_code_graveyard" ;;
+            "forks"     ) _path="$ROBOT_WS/forks_ws/src" ;;
+            "embedded"  ) _path="$ROBOT_WS/bender_embedded" ;;
 
              "-h" | "--help" ) show_help=true ;;
 
@@ -241,7 +241,7 @@ function bender_cd
             # unknown --> package
             * )
                 pkg_name="$user_path"
-                for pkg in $BENDER_PACKAGES
+                for pkg in $ROBOT_PACKAGES
                 do
                     if [ "$pkg" = "$pkg_name" ]; then
                         _path=$(rospack find "$pkg_name")
@@ -252,7 +252,7 @@ function bender_cd
 
 
                 stack_name="$user_path"
-                for stack in $BENDER_STACKS
+                for stack in $ROBOT_STACKS
                 do
                     if [ "$stack" = "$stack_name" ]; then
                         _path=$(rosstack find "$stack_name")
@@ -282,7 +282,7 @@ Options:
         - base     : 'cd' to base_ws
         - soft     : 'cd' to soft_ws
         - high     : 'cd' to high_ws
-        - system   : 'cd' to bender_system
+        - system   : 'cd' to system
         - graveyard: 'cd' to bender_code_graveyard
         - forks    : 'cd' to forks_ws
         - embedded : 'cd' to bender_embedded
@@ -290,7 +290,7 @@ Options:
     Available package options correspond to ROS (meta)packages named 'bender_*'.
     
     If no option is given, then the directory will be the one 
-    addressed by the \$BENDER_WS environment variable.
+    addressed by the \$ROBOT_WS environment variable.
 
 EOF
         _bender_admin_goodbye
@@ -326,13 +326,13 @@ killgz ()
 
 bender_net_enable()
 {
-    python "$BENDER_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --enable "$HOME"/bender.sh
+    python "$ROBOT_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --enable "$HOME"/bender.sh
     source "$HOME"/bender.sh
 }
 
 bender_net_disable()
 {
-    python "$BENDER_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --disable "$HOME"/bender.sh
+    python "$ROBOT_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --disable "$HOME"/bender.sh
     source "$HOME"/bender.sh
 }
 

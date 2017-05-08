@@ -14,7 +14,7 @@ if [ $# -eq 0 ] ; then
 fi
 
 # mark the entry point as an SSH connection
-export BENDER_NET_BY_SSH="YES"
+export ROBOT_NET_BY_SSH="YES"
 
 # bender framework as usual
 . "$HOME"/bender.sh

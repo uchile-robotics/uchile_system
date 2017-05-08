@@ -31,8 +31,8 @@ sudo apt-get install ros-indigo-ros-base git python-flake8 shellcheck libxml2-ut
 # directorio "sano" y con permisos de escritura.
 cd "$HOME"
 
-# descargar bender_system
-git clone https://bitbucket.org/uchile-robotics-die/bender_system.git tmp_repo
+# descargar uch_system
+git clone https://github.com/uchile-robotics/uch_system.git tmp_repo
 cd tmp_repo/install
 
 # Obtener repositorios y crear workspaces
@@ -44,20 +44,21 @@ rm -rf ~/tmp_repo
 
 
 ## Habilitar workspace para uso en consola
+# reemplazar "bender_ws" por "maqui_ws" y "bender.sh" por "maqui.sh" de ser necesario.
 
 # sólo usuarios de bash
 echo '' >> ~/.bashrc
-echo '# Bender Workspace settings: location, configs and setup script.' >> ~/.bashrc
-echo 'export BENDER_WS="$HOME"/bender_ws'        >> ~/.bashrc
-echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh' >> ~/.bashrc
-echo '. "$BENDER_WS"/bender_system/setup.bash'    >> ~/.bashrc
+echo '# UCH Robot Workspace settings: location, configs and setup script.' >> ~/.bashrc
+echo 'export ROBOT_WS="$HOME"/bender_ws'        >> ~/.bashrc
+echo 'export ROBOT_SHELL_CFG="$HOME"/bender.sh' >> ~/.bashrc
+echo '. "$ROBOT_WS"/system/setup.bash'          >> ~/.bashrc
 
 # sólo usuarios de zsh
 echo '' >> ~/.zshrc
-echo '# Bender Workspace settings: location, configs and setup script.' >> ~/.zshrc
-echo 'export BENDER_WS="$HOME"/bender_ws'        >> ~/.zshrc
-echo 'export BENDER_SHELL_CFG="$HOME"/bender.sh' >> ~/.zshrc
-echo '. "$BENDER_WS"/bender_system/setup.zsh'    >> ~/.zshrc
+echo '# UCH Robot Workspace settings: location, configs and setup script.' >> ~/.zshrc
+echo 'export ROBOT_WS="$HOME"/bender_ws'        >> ~/.zshrc
+echo 'export ROBOT_SHELL_CFG="$HOME"/bender.sh' >> ~/.zshrc
+echo '. "$ROBOT_WS"/system/setup.zsh'           >> ~/.zshrc
 
 
 # inicializar rosdep
@@ -76,12 +77,12 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 # - tras copiar el .gitconfig, al menos se debe configurar "name" y "email"!!!
 # - setear herramienta meld para ver los git diffs
 sudo apt-get install meld
-cp -bfS.bkp "$BENDER_SYSTEM"/templates/default.gitconfig ~/.gitconfig
-cp "$BENDER_SYSTEM"/templates/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
+cp -bfS.bkp "$ROBOT_SYSTEM"/templates/default.gitconfig ~/.gitconfig
+cp "$ROBOT_SYSTEM"/templates/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
 gedit ~/.gitconfig
 
 # configurar ~/.bash_aliases: esto configura el prompt PS1 para git. 
-cp -bfS.bkp "$BENDER_SYSTEM"/templates/bash_aliases ~/.bash_aliases
+cp -bfS.bkp "$ROBOT_SYSTEM"/templates/bash_aliases ~/.bash_aliases
 
 # variable utilizada por "rosed" y algunos utilitarios de bender.
 echo 'export EDITOR="gedit"' >> ~/.bashrc
@@ -198,7 +199,6 @@ bash install/install.sh
 # [NOTA] No instalar no afecta en compilar bender
 cdb bender_perception_utils
 bash install/install.sh
-
 
 # Compilar
 cdb soft && cd ..
