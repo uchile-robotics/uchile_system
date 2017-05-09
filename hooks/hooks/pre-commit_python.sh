@@ -11,7 +11,7 @@
 # - _FAILED
 
 # check command existence
-if ! _bender_git_hooks_command_exists "flake8"; then
+if ! _uch_git_hooks_command_exists "flake8"; then
     return 0
 fi
 

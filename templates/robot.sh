@@ -9,14 +9,14 @@
 # To enable the framework, you must setup the following on your rc file:
 # 
 # # workspace location
-# export ROBOT_WS=<FRAMEWORK_PATH>
+# export UCH_WS=<FRAMEWORK_PATH>
 #
 # # workspace configuration file
-# export ROBOT_SHELL_CFG="$HOME"/<ROBOT_LOWER>.sh
+# export UCH_SHELL_CFG="$HOME"/<ROBOT_LOWER>.sh
 #
 # # source the setup file
-# . "$ROBOT_WS"/system/setup.bash  # (on .bashrc : bash only)
-# . "$ROBOT_WS"/system/setup.zsh   # (on .zshrc  : zsh only )
+# . "$UCH_WS"/system/setup.bash  # (on .bashrc : bash only)
+# . "$UCH_WS"/system/setup.zsh   # (on .zshrc  : zsh only )
 #
 #
 
@@ -35,13 +35,13 @@ export ROBOT="<ROBOT_LOWER>"
 # - chest / nav / vision
 
 # Your IP address or name
-export ROBOT_NET_IP="SET-THIS-VALUE"
+export UCH_NET_IP="SET-THIS-VALUE"
 
 # ROS MASTER IP address or name
-export ROBOT_NET_MASTER="chest"
+export UCH_NET_MASTER="chest"
 
 # Enable ROS networking (true/false)
-export ROBOT_NET_ENABLE=false
+export UCH_NET_ENABLE=false
 
 # (dis)plays a warning when working in offline mode (true/false)
-export ROBOT_NET_WARN=false
+export UCH_NET_WARN=false

@@ -18,7 +18,7 @@ export BENDER_NET_IP_CHEST="192.168.0.10"
 export BENDER_NET_IP_VISION="192.168.0.20"
 export BENDER_NET_IP_NAV="192.168.0.30"
 
-_bender_net_parse_ip ()
+_uch_net_parse_ip ()
 {
 	local ipname
 	ipname="$1"
@@ -37,6 +37,6 @@ _bender_net_parse_ip ()
 
 
 # utilizados por ros
-export ROS_MASTER_URI="http://$(_bender_net_parse_ip "$ROBOT_NET_MASTER"):11311"
-export ROS_IP="$(_bender_net_parse_ip "$ROBOT_NET_IP")"
+export ROS_MASTER_URI="http://$(_uch_net_parse_ip "$UCH_NET_MASTER"):11311"
+export ROS_IP="$(_uch_net_parse_ip "$UCH_NET_IP")"
 export ROSLAUNCH_SSH_UNKNOWN="1"

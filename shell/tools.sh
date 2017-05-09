@@ -1,65 +1,66 @@
 #!/bin/sh
 
-##############################################################################################
+###############################################################################
 #   OVERVIEW
-##############################################################################################
-# bender_find_string        - finds string within bender src space
-# bender_cd                 - cd to a bender framework directory
-# cdb                       - the same as bender_cd but faster to type 
-# bender_printenv           - prints all BENDER_* environment variables
-# bender_refresh_shell      - reexecutes a shell to resource the bender framework
-# bender_git_show_untracked - lists currently untracked files
-# bender_git_show_ignored   - lists currently ignored files
+###############################################################################
+# uch_find_string        - finds string within uch src space
+# uch_cd                 - cd to a robot framework directory
+# cdb                    - the same as uch_cd but faster to type. The "b"
+#                          stands for Bender and legacy users.
+# uch_printenv           - prints all UCH_* environment variables
+# uch_refresh_shell      - reexecutes a shell to resource the robot framework
+# uch_git_show_untracked - lists currently untracked files
+# uch_git_show_ignored   - lists currently ignored files
 
-##############################################################################################
+###############################################################################
 #   shell utilities
-##############################################################################################
+###############################################################################
 
 # prevent failure
-if _bender_check_if_bash_or_zsh ; then
+if _uch_check_if_bash_or_zsh ; then
 
-    # prints all BENDER_* environment variables and its values
-    function bender_printenv
+    # prints all UCH_* environment variables and its values
+    function uch_printenv
     {
-        printenv | sort | grep "BENDER_.*=" 
+        printenv | sort | grep "UCH_.*=" 
     }
 
-    ## bender_refresh_shell
-    # executes bash to resource the bender framework.
+    ## uch_refresh_shell
+    # executes bash to resource the robot framework.
     #
     # this is for testing purposes only!. Do not use it
     # when environment variables have changed. Open a new
     # terminal session instead.
-    function bender_refresh_shell
+    function uch_refresh_shell
     {
-        export ROBOT_FRAMEWORK_TWICE_LOAD_CHECK=false
-        exec "$ROBOT_FRAMEWORK_LOADED_SHELL"
+        export UCH_FRAMEWORK_TWICE_LOAD_CHECK=false
+        exec "$UCH_FRAMEWORK_LOADED_SHELL"
     }
     
 
     # lists currently untracked files
-    function bender_git_show_untracked
+    function uch_git_show_untracked
     {
         git ls-files --others
     }
 
     # lists currently ignored files
-    function bender_git_show_ignored
+    function uch_git_show_ignored
     {
         git check-ignore -v *
     }
 
-    # the same as bender_cd but faster to type 
-    alias cdb="bender_cd"
-    alias bviz="roslaunch bender_utils rviz.launch"
+    # the same as uch_cd but faster to type 
+    alias cdb="uch_cd"
+    alias bviz="roslaunch bender_utils rviz.launch" # TODO: move this 
     
 fi
 
 
-function bender_open_config {
+function uch_open_config {
 
     local _conf _editor
-    _conf="$ROBOT_SHELL_CFG"
+    _conf="$UCH_SHELL_CFG"
 
     # check file existence
     if [ ! -e "$_conf" ]; then
@@ -73,14 +74,14 @@ function bender_open_config {
         printf "EDITOR env variable is unset. Using 'cat'\n"
         _editor="cat"
     fi
-    if ! _bender_check_var_isset "EDITOR"; then
+    if ! _uch_check_var_isset "EDITOR"; then
         printf "EDITOR env variable is unset. Using 'cat'\n"
         _editor="cat"
     fi
     printf " - EDITOR env variable resolves to: '%s'\n" "$_editor"
 
     # check editor is installed
-    if ! _bender_check_installed "$_editor"; then
+    if ! _uch_check_installed "$_editor"; then
         printf "Sorry, but '%s' is not installed. Using 'cat'\n" "$_editor"
         _editor="cat"
     fi
@@ -90,16 +91,16 @@ function bender_open_config {
     "$_editor" "$_conf" &
 }
 
-## bender_find_string
-# see also: bender_find_string --help 
-bender_find_string ()
+## uch_find_string
+# see also: uch_find_string --help 
+uch_find_string ()
 {
     local string _path user_path opt show_help curpath
 
-    _path="$ROBOT_SYSTEM"                # system
-    _path="$_path $ROBOT_WS/base_ws/src" # base_ws
-    _path="$_path $ROBOT_WS/soft_ws/src" # soft_ws
-    _path="$_path $ROBOT_WS/high_ws/src" # high_ws
+    _path="$UCH_SYSTEM"                # system
+    _path="$_path $UCH_ROS_WS/base_ws/src" # base_ws
+    _path="$_path $UCH_ROS_WS/soft_ws/src" # soft_ws
+    _path="$_path $UCH_ROS_WS/high_ws/src" # high_ws
 
     string=""
     if [ "$#" = "2" ]; then 
@@ -107,16 +108,16 @@ bender_find_string ()
         opt="$1"
         case "$opt" in
 
-            "system"    ) _path="$ROBOT_SYSTEM" ;;
-            "base"      ) _path="$ROBOT_WS/base_ws/src" ;;
-            "soft"      ) _path="$ROBOT_WS/soft_ws/src" ;;
-            "high"      ) _path="$ROBOT_WS/high_ws/src" ;;
-            "graveyard" ) _path="$ROBOT_WS/bender_code_graveyard" ;;
-            "forks"     ) _path="$ROBOT_WS/forks_ws/src" ;;
-            "embedded"  ) _path="$ROBOT_WS/bender_embedded" ;;
+            "system"    ) _path="$UCH_SYSTEM" ;;
+            "forks"     ) _path="$UCH_ROS_WS/forks_ws/src" ;;
+            "base"      ) _path="$UCH_ROS_WS/base_ws/src" ;;
+            "soft"      ) _path="$UCH_ROS_WS/soft_ws/src" ;;
+            "high"      ) _path="$UCH_ROS_WS/high_ws/src" ;;
+            "graveyard" ) _path="$UCH_WS/bender_code_graveyard" ;;
+            "embedded"  ) _path="$UCH_WS/bender_embedded" ;;
             "all" )
-                _path="$_path $ROBOT_WS/bender_embedded"
-                _path="$_path $ROBOT_WS/forks_ws/src"
+                _path="$_path $UCH_WS/bender_embedded"
+                _path="$_path $UCH_ROS_WS/forks_ws/src"
                 ;;
 
             # unknown
@@ -148,11 +149,11 @@ bender_find_string ()
     if [ "$show_help" = true ]; then
         cat <<EOF
 Synopsis:                
-    bender_find_string [<workspace>] <string>
+    uch_find_string [<workspace>] <string>
 
 Description:
     It looks for instances of a <string> written on any file
-    located on at least 1 bender workspace.
+    located on at least 1 robot workspace.
 
 Options:
     Through the 'workspace' option you can change the location
@@ -171,7 +172,7 @@ Options:
     By default the lookup is executed on system-base-soft-high.
 EOF
 
-        _bender_admin_goodbye
+        _uch_admin_goodbye
         return 1
     fi
     
@@ -180,7 +181,7 @@ EOF
     user_path=$(pwd)
 
     # parse the string array in a bash like manner
-    if _bender_check_if_zsh ; then
+    if _uch_check_if_zsh ; then
         setopt local_options shwordsplit
     fi
     for curpath in $_path; do
@@ -204,33 +205,33 @@ EOF
     return 0
 }
 
-## bender_cd
-# see also: bender_cd --help
-function bender_cd
+## uch_cd
+# see also: uch_cd --help
+function uch_cd
 {
     local user_path show_help _path pkg_name pkg stack_name stack
     _path=""
 
-    if _bender_check_if_zsh ; then
+    if _uch_check_if_zsh ; then
         setopt local_options shwordsplit
     fi
     
     user_path="$1"
 
     if [ "$#" = "0" ]; then
-        _path="$ROBOT_WS"
+        _path="$UCH_ROS_WS"
 
     elif [ "$#" = "1" ]; then
 
         case "$user_path" in
 
-            "system"    ) _path="$ROBOT_SYSTEM" ;;
-            "base"      ) _path="$ROBOT_WS/base_ws/src" ;;            
-            "soft"      ) _path="$ROBOT_WS/soft_ws/src" ;;
-            "high"      ) _path="$ROBOT_WS/high_ws/src" ;;
-            "graveyard" ) _path="$ROBOT_WS/bender_code_graveyard" ;;
-            "forks"     ) _path="$ROBOT_WS/forks_ws/src" ;;
-            "embedded"  ) _path="$ROBOT_WS/bender_embedded" ;;
+            "system"    ) _path="$UCH_SYSTEM" ;;
+            "forks"     ) _path="$UCH_ROS_WS/forks_ws/src" ;;
+            "base"      ) _path="$UCH_ROS_WS/base_ws/src" ;;            
+            "soft"      ) _path="$UCH_ROS_WS/soft_ws/src" ;;
+            "high"      ) _path="$UCH_ROS_WS/high_ws/src" ;;
+            "graveyard" ) _path="$UCH_WS/bender_code_graveyard" ;;
+            "embedded"  ) _path="$UCH_WS/bender_embedded" ;;
 
              "-h" | "--help" ) show_help=true ;;
 
@@ -241,7 +242,7 @@ function bender_cd
             # unknown --> package
             * )
                 pkg_name="$user_path"
-                for pkg in $ROBOT_PACKAGES
+                for pkg in $UCH_PACKAGES
                 do
                     if [ "$pkg" = "$pkg_name" ]; then
                         _path=$(rospack find "$pkg_name")
@@ -252,7 +253,7 @@ function bender_cd
 
 
                 stack_name="$user_path"
-                for stack in $ROBOT_STACKS
+                for stack in $UCH_STACKS
                 do
                     if [ "$stack" = "$stack_name" ]; then
                         _path=$(rosstack find "$stack_name")
@@ -271,7 +272,7 @@ function bender_cd
     if [ "$show_help" = true ]; then
         cat <<EOF
 Synopsis:                
-    bender_cd [<workspace>|<package>|-h|--help]
+    uch_cd [<workspace>|<package>|-h|--help]
 
 Description:
     It changes the current directory to the root of the
@@ -290,10 +291,10 @@ Options:
     Available package options correspond to ROS (meta)packages named 'bender_*'.
     
     If no option is given, then the directory will be the one 
-    addressed by the \$ROBOT_WS environment variable.
+    addressed by the \$UCH_WS environment variable.
 
 EOF
-        _bender_admin_goodbye
+        _uch_admin_goodbye
         return 1
     fi
 
@@ -303,7 +304,7 @@ EOF
 
 
 # Kill gazebo gently
-bender_killgz()
+uch_killgz()
 {
     # Kill controllers spawners
     rosnode kill /bender/controller_spawner 
@@ -316,23 +317,23 @@ bender_killgz()
 
 killgz ()
 {
-    # BENDER_DEPRECATED : mark method as deprecated. The flag is
+    # UCH_DEPRECATED : mark method as deprecated. The flag is
     # useful for looking up deprecated methods.
 
-    echo "DEPRECATED ... Please call bender_killgz (gently)"
+    echo "DEPRECATED ... Please call uch_killgz (gently)"
     echo "THIS METHOD WILL BE REMOVED FOR THE NEXT RELEASE"
-    bender_killgz
+    uch_killgz
 }
 
-bender_net_enable()
+uch_net_enable()
 {
-    python "$ROBOT_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --enable "$HOME"/bender.sh
+    python "$UCH_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --enable "$HOME"/bender.sh
     source "$HOME"/bender.sh
 }
 
-bender_net_disable()
+uch_net_disable()
 {
-    python "$ROBOT_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --disable "$HOME"/bender.sh
+    python "$UCH_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --disable "$HOME"/bender.sh
     source "$HOME"/bender.sh
 }
 

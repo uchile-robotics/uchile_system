@@ -49,16 +49,16 @@ rm -rf ~/tmp_repo
 # sólo usuarios de bash
 echo '' >> ~/.bashrc
 echo '# UCH Robot Workspace settings: location, configs and setup script.' >> ~/.bashrc
-echo 'export ROBOT_WS="$HOME"/bender_ws'        >> ~/.bashrc
-echo 'export ROBOT_SHELL_CFG="$HOME"/bender.sh' >> ~/.bashrc
-echo '. "$ROBOT_WS"/system/setup.bash'          >> ~/.bashrc
+echo 'export UCH_WS="$HOME"/bender_ws'        >> ~/.bashrc
+echo 'export UCH_SHELL_CFG="$HOME"/bender.sh' >> ~/.bashrc
+echo '. "$UCH_WS"/system/setup.bash'          >> ~/.bashrc
 
 # sólo usuarios de zsh
 echo '' >> ~/.zshrc
 echo '# UCH Robot Workspace settings: location, configs and setup script.' >> ~/.zshrc
-echo 'export ROBOT_WS="$HOME"/bender_ws'        >> ~/.zshrc
-echo 'export ROBOT_SHELL_CFG="$HOME"/bender.sh' >> ~/.zshrc
-echo '. "$ROBOT_WS"/system/setup.zsh'           >> ~/.zshrc
+echo 'export UCH_WS="$HOME"/bender_ws'        >> ~/.zshrc
+echo 'export UCH_SHELL_CFG="$HOME"/bender.sh' >> ~/.zshrc
+echo '. "$UCH_WS"/system/setup.zsh'           >> ~/.zshrc
 
 
 # inicializar rosdep
@@ -77,12 +77,12 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 # - tras copiar el .gitconfig, al menos se debe configurar "name" y "email"!!!
 # - setear herramienta meld para ver los git diffs
 sudo apt-get install meld
-cp -bfS.bkp "$ROBOT_SYSTEM"/templates/default.gitconfig ~/.gitconfig
-cp "$ROBOT_SYSTEM"/templates/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
+cp -bfS.bkp "$UCH_SYSTEM"/templates/default.gitconfig ~/.gitconfig
+cp "$UCH_SYSTEM"/templates/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
 gedit ~/.gitconfig
 
 # configurar ~/.bash_aliases: esto configura el prompt PS1 para git. 
-cp -bfS.bkp "$ROBOT_SYSTEM"/templates/bash_aliases ~/.bash_aliases
+cp -bfS.bkp "$UCH_SYSTEM"/templates/bash_aliases ~/.bash_aliases
 
 # variable utilizada por "rosed" y algunos utilitarios de bender.
 echo 'export EDITOR="gedit"' >> ~/.bashrc

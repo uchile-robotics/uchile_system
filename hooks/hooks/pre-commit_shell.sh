@@ -21,7 +21,7 @@
 # code list: https://github.com/koalaman/shellcheck/wiki
 
 # check command existence
-if ! _bender_git_hooks_command_exists "shellcheck"; then
+if ! _uch_git_hooks_command_exists "shellcheck"; then
     return 0
 fi
 

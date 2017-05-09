@@ -1,20 +1,34 @@
 # TODOS:
 # - version para maqui en gentoo. 
 #   - ROS check
-# opcion: USE_OLD_LAYOUT
-#
+# - assets/bender.machine, env/network-defs.sh and env/env-loader.sh
+# - bender_* to robot_* bash function names
+# - README.md
+# - test
+# - 
+# -
+# -
+# -
+# -
+# -
+# -
+# -
+# -
+# -
+# -
+
+
+
 
 
 install -> deps
 misc/embedded
 misc/code_graveyard
+/misc/wiki
 /ros/high_ws/src
 /ros/soft_ws/src
 /ros/base_ws/src
 /system
-/misc/wiki
-
-- activar hooks
 
 
 bgit fetch usando credential helper.. evitar introducir contrasenas
@@ -119,6 +133,67 @@ asegurarse de migrar TAGS de otros repos
 ./bender_hardware/bender_sensors/install/install.sh:14:source "$BENDER_WS"/bender_system/install/pkg_install.bash
 ./bender_core_tools/bender_turning_base/install/install.sh:13:source "$BENDER_WS"/bender_system/install/pkg_install.bash
 ./bender_navigation/bender_nav/install/install.sh:14:source "$BENDER_WS"/bender_system/install/pkg_install.bash
+
+
+# bender_ws
+./shell/ros_network_indicator/ros_network_indicator.desktop:3:Exec=/home/robotica/bender_ws/system/shell/ros_network_indicator/ros_network_indicator.py --indicator /home/robotica/bender.sh
+./bender_manipulation/bender_ikfast_l_arm/update_ikfast_plugin.sh:1:rosrun moveit_ikfast create_ikfast_moveit_plugin.py bender l_arm bender_ikfast_l_arm /home/rodrigo/bender_ws/soft_ws/src/bender_manipulation/bender_ikfast_l_arm/src/bender_l_arm_ikfast_solver.cpp
+./bender_manipulation/bender_ikfast_r_arm/update_ikfast_plugin.sh:1:rosrun moveit_ikfast create_ikfast_moveit_plugin.py bender r_arm bender_ikfast_r_arm /home/rodrigo/bender_ws/soft_ws/src/bender_manipulation/bender_ikfast_r_arm/src/bender_r_arm_ikfast_solver.cpp
+
+
+# forks_ws (OK)
+# //
+
+# base_ws
+./bender_common/bender_description/scripts/update_models.sh:19:cd "$BENDER_WS"/base_ws/src/bender_common/bender_description/robots
+./bender_common/bender_description/install/install.sh:58:tar -xzf "$BACKUP_FILE" --directory "$BENDER_WS"/base_ws/src/bender_common/
+./bender_common/bender_tf/scripts/load_calibration:43:    calibration_folder="$BENDER_WS/base_ws/src/bender_common/bender_tf/calibration"
+./bender_common/bender_tf/scripts/save_calibration:26:    calibration_folder="$BENDER_WS/base_ws/src/bender_common/bender_tf/calibration"
+./bender_knowledge/bender_db/db/download.sh:46:#unzip bender_description.zip -d $BENDER_WS/base_ws/src/bender_common/
+
+# soft_ws
+./bender_manipulation/bender_ikfast_l_arm/update_ikfast_plugin.sh:1:rosrun moveit_ikfast create_ikfast_moveit_plugin.py bender l_arm bender_ikfast_l_arm /home/rodrigo/bender_ws/soft_ws/src/bender_manipulation/bender_ikfast_l_arm/src/bender_l_arm_ikfast_solver.cpp
+./bender_manipulation/bender_arm_planning/install/install.sh:61:unzip -q -o "$BACKUP_FILE" -d "$BENDER_WS"/soft_ws/src/bender_manipulation/
+./bender_manipulation/bender_ikfast_r_arm/update_ikfast_plugin.sh:1:rosrun moveit_ikfast create_ikfast_moveit_plugin.py bender r_arm bender_ikfast_r_arm /home/rodrigo/bender_ws/soft_ws/src/bender_manipulation/bender_ikfast_r_arm/src/bender_r_arm_ikfast_solver.cpp
+
+# high_ws (OK)
+# //
+
+
+# MISC
+./robot_skills/shell/setup.sh:17:if ! _bender_check_if_bash_or_zsh ; then
+./robot_skills/shell/setup.sh:45:    if _bender_check_if_bash ; then
+./robot_skills/shell/setup.sh:105:if _bender_check_if_bash ; then
+
+# _bendercomplete..
+./bender_hardware/bender_head/shell/shell_tools.sh:44:_bendercomplete_bender-set_emotion()
+./bender_hardware/bender_head/shell/shell_tools.sh:67:_bendercomplete_bender-set_mouth_state()
+./bender_hardware/bender_head/shell/shell_tools.sh:89:complete -F "_bendercomplete_bender-set_emotion"     "bender-head_emotion"
+./bender_hardware/bender_head/shell/shell_tools.sh:90:complete -F "_bendercomplete_bender-set_mouth_state" "bender-head_mouth_state"
+./bender_hardware/bender_tts/shell/setup.bash:3:complete -F "_bendercomplete_str" "bender-say" "bender-say_eng" "bender-say_esp"
+./bender_hardware/bender_tts/shell/setup.bash:4:complete -F "_bendercomplete_NOT_COMPLETE" "bender-say_random_eng" "bender-say_random_esp"
+./bender_hardware/bender_tts/shell/setup.bash:15:_bendercomplete_bender_say_set_language()
+./bender_hardware/bender_tts/shell/setup.bash:35:complete -F "_bendercomplete_bender_say_set_language" "bender-say_set_language"
+
+# bender_cd
+./bender_hardware/bender_base/install/install.sh:25:bender_cd forks
+./bender_hardware/bender_base/install/install.sh:41:bender_cd bender_base
+./bender_hardware/bender_head/install/install.sh:20:bender_cd bender_head
+./bender_hardware/bender_fieldbus/install/README.md:10:$ bender_cd bender_fieldbus
+./bender_hardware/bender_fieldbus/install/install.sh:32:bender_cd bender_fieldbus
+./bender_hardware/bender_tts/install/install.sh:70:bender_cd bender_tts
+./bender_hardware/bender_sensors/install/cameras.sh:14:bender_cd forks
+./bender_hardware/bender_sensors/install/cameras.sh:29:bender_cd bender_sensors
+./bender_hardware/bender_sensors/install/lasers.sh:11:bender_cd forks
+./bender_hardware/bender_sensors/install/lasers.sh:29:bender_cd forks
+./bender_hardware/bender_sensors/install/lasers.sh:33:bender_cd forks
+./bender_hardware/bender_sensors/install/lasers.sh:37:bender_cd bender_sensors
+./bender_hardware/bender_sensors/install/install.sh:19:bender_cd bender_sensors
+./bender_core_tools/bender_turning_base/install/install.sh:28:bender_cd bender_turning_base
+./bender_navigation/bender_nav/install/install.sh:25:bender_cd forks
+./bender_tools/bender_fun/shell/setup.sh:22:    	bender_cd bender_fun
+
+
 
 
 

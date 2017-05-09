@@ -11,8 +11,8 @@
 
 # prevent multiple executions
 _currshell=$(ps -p$$ -ocmd=)
-if [ "$ROBOT_FRAMEWORK_TWICE_LOAD_CHECK" = true ]; then
-    if [ "$_currshell" = "$ROBOT_FRAMEWORK_LOADED_SHELL" ]; then
+if [ "$UCH_FRAMEWORK_TWICE_LOAD_CHECK" = true ]; then
+    if [ "$_currshell" = "$UCH_FRAMEWORK_LOADED_SHELL" ]; then
         echo "You are loading this script twice. Please update your"
         echo ".bashrc/.zshrc files and fix this problem. See the "
         echo "system/README.md file to reconfigure your shell environment."
@@ -20,8 +20,8 @@ if [ "$ROBOT_FRAMEWORK_TWICE_LOAD_CHECK" = true ]; then
         return 0
     fi
 fi
-export ROBOT_FRAMEWORK_TWICE_LOAD_CHECK=true
-export ROBOT_FRAMEWORK_LOADED_SHELL="$_currshell"
+export UCH_FRAMEWORK_TWICE_LOAD_CHECK=true
+export UCH_FRAMEWORK_LOADED_SHELL="$_currshell"
 
 # OBS: Some configurations are meant for outdated machines
 # NOTE FOR FUTURE ADMINS: Update this configuration loading for
@@ -91,7 +91,7 @@ unset _currshell
 # github (uch_system)
 #
 # mayor compatibility issues are:
-# - rename env vars from BENDER_ to ROBOT_
+# - rename env vars from BENDER_ to UCH_
 # - workspace layout changes:
 #   - ./bender_system/ --> ./system/
 #   - ./install/       --> ./deps/
@@ -103,16 +103,16 @@ unset _currshell
 #   - ./bender_embedded/       --> ./misc/embedded/
 #   - ./wiki/                  --> ./misc/wiki/
 #
-ROBOT_COMPAT_MODE=false
-ROBOT_COMPAT_PREFIX=ROBOT
-if [ -z "$ROBOT_WS" ]; then
-    ROBOT_COMPAT_MODE=true
-    ROBOT_COMPAT_PREFIX=BENDER
+UCH_COMPAT_MODE=false
+UCH_COMPAT_PREFIX=ROBOT
+if [ -z "$UCH_WS" ]; then
+    UCH_COMPAT_MODE=true
+    UCH_COMPAT_PREFIX=BENDER
     printf "You are running in system compatibility mode with bender_system v1.9.\n."
     printf "Please update your robot installation. See the system README.md file.\n."
 
-    export ROBOT_SHELL_CFG="$BENDER_SHELL_CFG"
-    export ROBOT_WS="$BENDER_WS"
+    export UCH_SHELL_CFG="$BENDER_SHELL_CFG"
+    export UCH_WS="$BENDER_WS"
 
     # this var is user defined on v2.0
     export ROBOT="bender"
@@ -124,7 +124,7 @@ fi
 ## ########################################################
 
 # load configs
-if [ -z "$ROBOT_SHELL_CFG" ]; then
+if [ -z "$UCH_SHELL_CFG" ]; then
     # this mode is intended for v1.0 users
     DEFAULT_CFG="$HOME"/bender.sh
     if [ -e "$DEFAULT_CFG" ]; then
@@ -138,11 +138,11 @@ if [ -z "$ROBOT_SHELL_CFG" ]; then
     fi
 else
     # mode for v1.0 and newer
-    if [ -e "$ROBOT_SHELL_CFG" ]; then
-        . "$ROBOT_SHELL_CFG"
+    if [ -e "$UCH_SHELL_CFG" ]; then
+        . "$UCH_SHELL_CFG"
     else
-        echo "Sorry, the ${ROBOT_COMPAT_PREFIX}_SHELL_CFG is set, but the configuration file cannot be read."
-        echo "Configuration file: $ROBOT_SHELL_CFG"
+        echo "Sorry, the ${UCH_COMPAT_PREFIX}_SHELL_CFG is set, but the configuration file cannot be read."
+        echo "Configuration file: $UCH_SHELL_CFG"
         echo "Please, set this to the path of the <robot>.sh script."
         echo "e.g: \"$HOME/bender.sh\""
         echo "UCH Robot workspace will not be configured."
@@ -155,18 +155,18 @@ fi
 
 # ROBOT
 if [ -z "$ROBOT" ]; then
-    echo "Sorry, the ${ROBOT_COMPAT_PREFIX} env variable is not set."
+    echo "Sorry, the ${UCH_COMPAT_PREFIX} env variable is not set."
     return 0
 fi
 
-# ROBOT_WS
-if [ -z "$ROBOT_WS" ]; then
-    echo "Sorry, the ${ROBOT_COMPAT_PREFIX}_WS env variable is not set."
+# UCH_WS
+if [ -z "$UCH_WS" ]; then
+    echo "Sorry, the ${UCH_COMPAT_PREFIX}_WS env variable is not set."
     return 0
 fi
-if [ ! -d "$ROBOT_WS" ]; then
-    echo "Sorry, the ${ROBOT_COMPAT_PREFIX}_WS env variable is set. But is not a valid directory."
-    echo "Found ${ROBOT_COMPAT_PREFIX}_WS=\'$ROBOT_WS\'"
+if [ ! -d "$UCH_WS" ]; then
+    echo "Sorry, the ${UCH_COMPAT_PREFIX}_WS env variable is set. But is not a valid directory."
+    echo "Found ${UCH_COMPAT_PREFIX}_WS=\'$UCH_WS\'"
     return 0
 fi
 
@@ -174,19 +174,22 @@ fi
 ## ##########################################
 
 # paths
-export ROBOT_SYSTEM="$ROBOT_WS"/system
-if ROBOT_COMPAT_MODE; then
-    export ROBOT_SYSTEM="$ROBOT_WS"/bender_system
+export UCH_SYSTEM="$UCH_WS"/system
+export UCH_ROS_WS="$UCH_WS"/ros
+export UCH_DEP_WS="$UCH_WS"/deps
+if UCH_COMPAT_MODE; then
+    export UCH_SYSTEM="$UCH_WS"/bender_system
+    export UCH_ROS_WS="$UCH_WS"
+    export UCH_DEP_WS="$UCH_WS"/install
 fi
 
 # contact
-export ROBOT_SYSTEM_ADMIN="mpavezb (matias pavez)"
-export ROBOT_EMAIL_CONTACT="bender.contacto@gmail.com"
-export ROBOT_EMAIL_DEVELOP="bender.devel@gmail.com"
-
+export UCH_SYSTEM_ADMIN="mpavezb (matias pavez)"
+export UCH_EMAIL_CONTACT="bender.contacto@gmail.com"
+export UCH_EMAIL_DEVELOP="bender.devel@gmail.com"
 
 # git hooks
-export GITHOOKS_PATH="$ROBOT_SYSTEM/hooks/hooks"
+export GITHOOKS_PATH="$UCH_SYSTEM/hooks/hooks"
 
 # ros console output format
 export ROSCONSOLE_FORMAT='[${severity}] [${node}]: ${message}'
@@ -194,9 +197,9 @@ export ROSCONSOLE_FORMAT='[${severity}] [${node}]: ${message}'
 
 # (compatibility with repos which depend on v1.9)
 # avoid missing variables on outdated repos
-if ! ROBOT_COMPAT_MODE; then
-    export BENDER_WS="$ROBOT_WS"
-    export BENDER_SYSTEM="$ROBOT_SYSTEM"
+if ! UCH_COMPAT_MODE; then
+    export BENDER_WS="$UCH_WS"
+    export BENDER_SYSTEM="$UCH_SYSTEM"
 fi
 
 ## ROS
@@ -204,15 +207,15 @@ fi
 
 # manage network configurations
 # ----------------------------------------
-if [ "$ROBOT_NET_BY_SSH" = "YES" ]; then
-    . "$ROBOT_SYSTEM"/env/network-defs.sh
+if [ "$UCH_NET_BY_SSH" = "YES" ]; then
+    . "$UCH_SYSTEM"/env/network-defs.sh
 fi
 
-if [ "$ROBOT_NET_ENABLE" = true ]; then
+if [ "$UCH_NET_ENABLE" = true ]; then
     
-    . "$ROBOT_SYSTEM"/env/network-defs.sh
+    . "$UCH_SYSTEM"/env/network-defs.sh
 
-elif [ "$ROBOT_NET_WARN" = true ]; then
+elif [ "$UCH_NET_WARN" = true ]; then
 
     _caller_script=
     if command -v caller >/dev/null 2>&1 ; then
@@ -224,9 +227,9 @@ elif [ "$ROBOT_NET_WARN" = true ]; then
     and run another shell.
 
     If you want to stop this and all network warnings, 
-    set: '%s_NET_WARN=false'%s.\e[0m\n\n" "$ROBOT_COMPAT_PREFIX" "$_caller_script" "$ROBOT_COMPAT_PREFIX" "$_caller_script"
+    set: '%s_NET_WARN=false'%s.\e[0m\n\n" "$UCH_COMPAT_PREFIX" "$_caller_script" "$UCH_COMPAT_PREFIX" "$_caller_script"
 
-    _sound_file="$ROBOT_SYSTEM"/assets/network_false.wav
+    _sound_file="$UCH_SYSTEM"/assets/network_false.wav
     if [ -f "$_sound_file" ]; then
         aplay "$_sound_file" >/dev/null 2>&1
     else
@@ -247,20 +250,20 @@ fi
 #. /opt/ros/indigo/setup.sh
 
 # forks
-#. "$ROBOT_WS"/forks_ws/devel/setup.sh
+#. "$UCH_ROS_WS"/forks_ws/devel/setup.sh
 
 # base_ws
-#. "$ROBOT_WS"/base_ws/devel/setup.sh
+#. "$UCH_ROS_WS"/base_ws/devel/setup.sh
 
 # soft_ws
-#. "$ROBOT_WS"/soft_ws/devel/setup.sh
+#. "$UCH_ROS_WS"/soft_ws/devel/setup.sh
 
 # high_ws
-. "$ROBOT_WS"/high_ws/devel/setup.sh
+. "$UCH_ROS_WS"/high_ws/devel/setup.sh
 
 
-## BENDER FRAMEWORK
+## UCH ROBOT FRAMEWORK
 ## ##########################################
 
 # bash functionalities
-. "$ROBOT_SYSTEM"/shell/setup.sh
+. "$UCH_SYSTEM"/shell/setup.sh

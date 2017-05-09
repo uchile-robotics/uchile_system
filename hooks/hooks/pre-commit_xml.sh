@@ -18,7 +18,7 @@
 #  
 
 # check command existence
-if ! _bender_git_hooks_command_exists "xmllint"; then
+if ! _uch_git_hooks_command_exists "xmllint"; then
     return 0
 fi
 

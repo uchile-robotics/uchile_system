@@ -18,7 +18,7 @@
 # 
 
 # check command existence
-if ! _bender_git_hooks_command_exists "cppcheck"; then
+if ! _uch_git_hooks_command_exists "cppcheck"; then
     return 0
 fi
 
