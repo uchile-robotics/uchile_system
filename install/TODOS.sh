@@ -23,7 +23,7 @@
 
 install -> deps
 misc/embedded
-misc/code_graveyard
+misc/graveyard
 /misc/wiki
 /ros/high_ws/src
 /ros/soft_ws/src

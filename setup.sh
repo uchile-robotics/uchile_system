@@ -99,7 +99,7 @@ unset _currshell
 #   - ./base_ws/  --> ./ros/base_ws/
 #   - ./soft_ws/  --> ./ros/soft_ws/
 #   - ./high_ws/  --> ./ros/high_ws/
-#   - ./bender_code_graveyard/ --> ./misc/code_graveyard/
+#   - ./bender_code_graveyard/ --> ./misc/graveyard/
 #   - ./bender_embedded/       --> ./misc/embedded/
 #   - ./wiki/                  --> ./misc/wiki/
 #
@@ -177,10 +177,14 @@ fi
 export UCH_SYSTEM="$UCH_WS"/system
 export UCH_ROS_WS="$UCH_WS"/ros
 export UCH_DEP_WS="$UCH_WS"/deps
+export UCH_GRAVEYARD="$UCH_WS"/misc/graveyard
+export UCH_EMBEDDED="$UCH_WS"/misc/embedded
 if UCH_COMPAT_MODE; then
     export UCH_SYSTEM="$UCH_WS"/bender_system
     export UCH_ROS_WS="$UCH_WS"
     export UCH_DEP_WS="$UCH_WS"/install
+    export UCH_GRAVEYARD="$UCH_WS"/bender_code_graveyard
+    export UCH_EMBEDDED="$UCH_WS"/bender_embedded
 fi
 
 # contact

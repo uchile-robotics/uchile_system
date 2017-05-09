@@ -113,10 +113,10 @@ uch_find_string ()
             "base"      ) _path="$UCH_ROS_WS/base_ws/src" ;;
             "soft"      ) _path="$UCH_ROS_WS/soft_ws/src" ;;
             "high"      ) _path="$UCH_ROS_WS/high_ws/src" ;;
-            "graveyard" ) _path="$UCH_WS/bender_code_graveyard" ;;
-            "embedded"  ) _path="$UCH_WS/bender_embedded" ;;
+            "graveyard" ) _path="$UCH_GRAVEYARD" ;;
+            "embedded"  ) _path="$UCH_EMBEDDED" ;;
             "all" )
-                _path="$_path $UCH_WS/bender_embedded"
+                _path="$_path $UCH_EMBEDDED"
                 _path="$_path $UCH_ROS_WS/forks_ws/src"
                 ;;
 
@@ -160,13 +160,13 @@ Options:
     where lookup will be executed.
 
     Supported values are:
+        - forks    : lookup on forks_ws
         - base     : lookup on base_ws
         - soft     : lookup on soft_ws
         - high     : lookup on high_ws
         - system   : lookup on system
-        - graveyard: lookup on bender_code_graveyard
-        - forks    : lookup on forks_ws
-        - embedded : lookup on bender_embedded
+        - graveyard: lookup on graveyard
+        - embedded : lookup on embedded
         - all      : lookup on all previous locations, except graveyard
 
     By default the lookup is executed on system-base-soft-high.
@@ -230,8 +230,8 @@ function uch_cd
             "base"      ) _path="$UCH_ROS_WS/base_ws/src" ;;            
             "soft"      ) _path="$UCH_ROS_WS/soft_ws/src" ;;
             "high"      ) _path="$UCH_ROS_WS/high_ws/src" ;;
-            "graveyard" ) _path="$UCH_WS/bender_code_graveyard" ;;
-            "embedded"  ) _path="$UCH_WS/bender_embedded" ;;
+            "graveyard" ) _path="$UCH_GRAVEYARD" ;;
+            "embedded"  ) _path="$UCH_EMBEDDED" ;;
 
              "-h" | "--help" ) show_help=true ;;
 
@@ -280,13 +280,13 @@ Description:
 
 Options:
     Available workspace options are:
+        - forks    : 'cd' to forks_ws
         - base     : 'cd' to base_ws
         - soft     : 'cd' to soft_ws
         - high     : 'cd' to high_ws
         - system   : 'cd' to system
-        - graveyard: 'cd' to bender_code_graveyard
-        - forks    : 'cd' to forks_ws
-        - embedded : 'cd' to bender_embedded
+        - graveyard: 'cd' to graveyard
+        - embedded : 'cd' to embedded
     
     Available package options correspond to ROS (meta)packages named 'bender_*'.
     

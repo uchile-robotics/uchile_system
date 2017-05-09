@@ -420,7 +420,7 @@ Options:
 
     excluded repos:
     - forks_ws
-    - bender_code_graveyard
+    - graveyard
 
 EOF
         _uch_admin_goodbye

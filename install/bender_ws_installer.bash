@@ -44,11 +44,11 @@ _hook_template="$TMP_SYSTEM_DIR"/hooks/hooks/pre-commit
 # wiki
 _uch_get_repository "misc/wiki" "https://bitbucket.org/uchile-robotics-die/bender_system.git/wiki"
 
-# code_graveyard
+# graveyard
 # OBS: no queremos hooks en el graveyard!, es codigo que no vale la pena arreglar
-_uch_get_repository "misc/code_graveyard" "https://bitbucket.org/uchile-robotics-die/bender_code_graveyard.git"
+_uch_get_repository "misc/graveyard" "https://bitbucket.org/uchile-robotics-die/bender_code_graveyard.git"
 
-# bender_embedded
+# embedded
 _uch_get_repository "misc/embedded" "https://bitbucket.org/uchile-robotics-die/bender_embedded.git"
 
 

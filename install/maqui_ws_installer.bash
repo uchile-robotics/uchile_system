@@ -43,7 +43,7 @@ _hook_template="$TMP_SYSTEM_DIR"/hooks/hooks/pre-commit
 
 # wiki
 
-# code_graveyard
+# graveyard
 
 
 ## system
