@@ -20,7 +20,7 @@
 if _uch_check_if_bash_or_zsh ; then
 
     # prints all UCH_* environment variables and its values
-    function uch_printenv
+    uch_printenv ()
     {
         printenv | sort | grep "UCH_.*=" 
     }
@@ -31,7 +31,7 @@ if _uch_check_if_bash_or_zsh ; then
     # this is for testing purposes only!. Do not use it
     # when environment variables have changed. Open a new
     # terminal session instead.
-    function uch_refresh_shell
+    uch_refresh_shell ()
     {
         export UCH_FRAMEWORK_TWICE_LOAD_CHECK=false
         exec "$UCH_FRAMEWORK_LOADED_SHELL"
@@ -39,13 +39,13 @@ if _uch_check_if_bash_or_zsh ; then
     
 
     # lists currently untracked files
-    function uch_git_show_untracked
+    uch_git_show_untracked ()
     {
         git ls-files --others
     }
 
     # lists currently ignored files
-    function uch_git_show_ignored
+    uch_git_show_ignored ()
     {
         git check-ignore -v *
     }
@@ -57,7 +57,8 @@ if _uch_check_if_bash_or_zsh ; then
 fi
 
 
-function uch_open_config {
+uch_open_config ()
+{
 
     local _conf _editor
     _conf="$UCH_SHELL_CFG"
@@ -207,7 +208,7 @@ EOF
 
 ## uch_cd
 # see also: uch_cd --help
-function uch_cd
+uch_cd ()
 {
     local user_path show_help _path pkg_name pkg stack_name stack
     _path=""
@@ -304,7 +305,7 @@ EOF
 
 
 # Kill gazebo gently
-uch_killgz()
+uch_killgz ()
 {
     # Kill controllers spawners
     rosnode kill /bender/controller_spawner 
@@ -325,15 +326,15 @@ killgz ()
     uch_killgz
 }
 
-uch_net_enable()
+uch_net_enable ()
 {
     python "$UCH_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --enable "$HOME"/bender.sh
-    source "$HOME"/bender.sh
+    . "$HOME"/bender.sh
 }
 
-uch_net_disable()
+uch_net_disable ()
 {
     python "$UCH_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --disable "$HOME"/bender.sh
-    source "$HOME"/bender.sh
+    . "$HOME"/bender.sh
 }
 

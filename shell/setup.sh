@@ -11,7 +11,7 @@ export UCH_PACKAGES_HIGH="$(echo "$_pkgs_and_paths" | grep ".*high_ws.*" | sed '
 export UCH_PACKAGES="$(printf "%s\n%s\n%s" "$UCH_PACKAGES_BASE" "$UCH_PACKAGES_SOFT" "$UCH_PACKAGES_HIGH")"
 
 # uch_* stacks lists
-export UCH_STACKS="$(rosstack list | grep $UCH_ROS_WS | cut -d' ' -f1)"
+export UCH_STACKS="$(rosstack list | grep "$UCH_ROS_WS" | cut -d' ' -f1)"
 
 ##############################################################################################
 #   bender system tools

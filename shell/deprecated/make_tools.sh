@@ -76,7 +76,8 @@ return 0
 #  CATKIN MAKE HELPER FUNCTIONS
 #############################################################################################
 
-_uch_make_common() {
+_uch_make_common()
+{
 
     cd "$BENDER_WORKSPACE"/..
     _make_pkg="$2"

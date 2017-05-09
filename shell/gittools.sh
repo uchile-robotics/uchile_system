@@ -247,7 +247,7 @@ _uch_git_merge_common ()
     # remote does not exitsts
     _branch_exists="$(git branch -a --no-color | grep -Ec "[ /]$_curr_remote")"
     if [ "$_branch_exists" = "0" ]; then
-        printf " - will not merge $_curr_remote does not exits.\n"
+        printf " - will not merge %s does not exits.\n" "$_curr_remote"
         return 1
     fi
 
@@ -257,11 +257,11 @@ _uch_git_merge_common ()
     else
         # (branch <= remote) ==> SHOULD UPDATE
         if git merge-base --is-ancestor "$_curr_branch" "$_curr_remote"; then
-            printf " - merge: ($_curr_branch) <---- ($_curr_remote)\n"
+            printf " - merge: (%s) <---- (%s)\n" "$_curr_branch" "$_curr_remote"
             git merge "$_curr_remote"
         else
             # NON FAST FORDWARD
-            printf " - will not merge $_curr_remote onto $_curr_branch (not fast-forward merge)\n"
+            printf " - will not merge %s onto %s (not fast-forward merge)\n" "$_curr_remote" "$_curr_branch"
         fi
     fi
 }
@@ -326,7 +326,8 @@ _uch_git_merge ()
 # |   $ bgit merge <branchname>
 # |   $ bgit merge origin/develop
 # |   $ bgit merge develop
-bgit () {
+bgit ()
+{
  
     local _command _params _show_help
     _command="$1"
