@@ -18,9 +18,6 @@
 # -
 
 
-
-
-
 install -> deps
 misc/embedded
 misc/graveyard
@@ -64,40 +61,41 @@ migrar issues, wiki
 asegurarse de migrar TAGS de otros repos
 
 # BENDER_WS (COMPAT MODE)
-./bender_sim/bender_gazebo/install/install.sh:33:BACKUP_FOLDER="$BENDER_WS"/install/base/sim/gazebo
-./bender_hardware/bender_base/install/install.sh:14:source "$BENDER_WS"/bender_system/install/pkg_install.bash
-./bender_hardware/bender_joy/install/install.sh:14:source "$BENDER_WS"/bender_system/install/pkg_install.bash
-./bender_hardware/bender_head/install/install.sh:14:source "$BENDER_WS"/bender_system/install/pkg_install.bash
-./bender_hardware/bender_fieldbus/install/install.sh:16:source "$BENDER_WS"/bender_system/install/pkg_install.bash
-./bender_hardware/bender_tts/install/settings.bash:21:install_space="$BENDER_WS"/install/base/hardware/tts
-./bender_hardware/bender_tts/install/install.sh:16:source "$BENDER_WS"/bender_system/install/pkg_install.bash
+./bender_core_tools/bender_turning_base/install/install.sh:13:source "$BENDER_WS"/bender_system/install/pkg_install.bash
 ./bender_hardware/bender_sensors/install/lasers.sh:5:source "$BENDER_WS"/bender_system/install/pkg_install.bash
 ./bender_hardware/bender_sensors/install/install.sh:14:source "$BENDER_WS"/bender_system/install/pkg_install.bash
-./bender_common/bender_description/scripts/update_models.sh:19:cd "$BENDER_WS"/base_ws/src/bender_common/bender_description/robots
+./bender_hardware/bender_base/install/install.sh:14:source "$BENDER_WS"/bender_system/install/pkg_install.bash
+./bender_hardware/bender_tts/install/settings.bash:21:install_space="$BENDER_WS"/install/base/hardware/tts
+./bender_hardware/bender_tts/install/install.sh:16:source "$BENDER_WS"/bender_system/install/pkg_install.bash
+./bender_hardware/bender_head/install/install.sh:14:source "$BENDER_WS"/bender_system/install/pkg_install.bash
+./bender_hardware/bender_joy/install/install.sh:14:source "$BENDER_WS"/bender_system/install/pkg_install.bash
+./bender_hardware/bender_fieldbus/install/install.sh:16:source "$BENDER_WS"/bender_system/install/pkg_install.bash
+./bender_sim/bender_gazebo/install/install.sh:33:BACKUP_FOLDER="$BENDER_WS"/install/base/sim/gazebo
 ./bender_common/bender_description/install/install.sh:30:BACKUP_FOLDER="$BENDER_WS"/install/base/common/description
 ./bender_common/bender_description/install/install.sh:58:tar -xzf "$BACKUP_FILE" --directory "$BENDER_WS"/base_ws/src/bender_common/
+./bender_common/bender_description/scripts/update_models.sh:19:cd "$BENDER_WS"/base_ws/src/bender_common/bender_description/robots
 ./bender_common/bender_tf/scripts/load_calibration:43:    calibration_folder="$BENDER_WS/base_ws/src/bender_common/bender_tf/calibration"
 ./bender_common/bender_tf/scripts/save_calibration:26:    calibration_folder="$BENDER_WS/base_ws/src/bender_common/bender_tf/calibration"
 ./bender_knowledge/bender_db/db/download.sh:46:#unzip bender_description.zip -d $BENDER_WS/base_ws/src/bender_common/
-./bender_core_tools/bender_turning_base/install/install.sh:13:source "$BENDER_WS"/bender_system/install/pkg_install.bash
-./bender_hri/bender_speech/install/install.sh:9:# install_space="$BENDER_WS"/install/soft/hri/speech
-./bender_hri/bender_speech/install/install.sh:28:install_space="$BENDER_WS"/install/soft/hri/speech
-./bender_hri/bender_nlp/install/install.sh:9:install_path="$BENDER_WS/install/soft/hri/nlp"
 ./bender_manipulation/bender_arm_planning/install/install.sh:32:BACKUP_FOLDER="$BENDER_WS"/install/soft/manipulation/arm_planning
 ./bender_manipulation/bender_arm_planning/install/install.sh:61:unzip -q -o "$BACKUP_FILE" -d "$BENDER_WS"/soft_ws/src/bender_manipulation/
-./bender_navigation/bender_nav/install/install.sh:14:source "$BENDER_WS"/bender_system/install/pkg_install.bash
+./bender_perception/bender_perception_utils/install/install_openface.sh:8:cd "$BENDER_WS"/install/soft
+./bender_perception/bender_perception_utils/install/install_openface.sh:30:cd "$BENDER_WS"/install/soft/perception/torch/install/bin
+./bender_perception/bender_perception_utils/install/install_openface.sh:36:cd "$BENDER_WS"/install/soft/perception
+./bender_perception/bender_perception_utils/install/reinstall_pip.sh:8:cd "$BENDER_WS"/install/soft
+./bender_perception/bender_perception_utils/install/install_caffe.sh:8:cd "$BENDER_WS"/install/soft
+./bender_perception/bender_perception_utils/install/install_caffe.sh:31:echo 'export PYTHONPATH="$BENDER_WS"/install/soft/perception/caffe/python:$PYTHONPATH' >> ~/.bashrc 
+./bender_perception/bender_perception_utils/install/install_torch.sh:8:cd "$BENDER_WS"/install/soft
 ./bender_perception/bender_person/waving_detector/install_nite.sh:6:BACKUP_FOLDER="$BENDER_WS"/install/soft/perception/person/waving_detector
 ./bender_perception/bender_person/waving_detector/CMakeLists.txt:2:if(EXISTS "$ENV{BENDER_WS}/install/soft/perception/person/waving_detector")
 ./bender_perception/bender_person/waving_detector/CMakeLists.txt:5:    set(OPENNI2_DIR "$ENV{BENDER_WS}/install/soft/perception/OpenNI2")
 ./bender_perception/bender_person/waving_detector/CMakeLists.txt:6:    set(NITE2_DIR "$ENV{BENDER_WS}/install/soft/perception/person/waving_detector/NiTE-2.0.0")
 ./bender_perception/bender_person/waving_detector/CMakeLists.txt:7:    set(NITE2_LIB "$ENV{BENDER_WS}/install/soft/perception/person/waving_detector/NiTE-2.0.0/Redist/libNiTE2.so")
-./bender_perception/bender_perception_utils/install/install_caffe.sh:8:cd "$BENDER_WS"/install/soft
-./bender_perception/bender_perception_utils/install/install_caffe.sh:31:echo 'export PYTHONPATH="$BENDER_WS"/install/soft/perception/caffe/python:$PYTHONPATH' >> ~/.bashrc 
-./bender_perception/bender_perception_utils/install/install_openface.sh:8:cd "$BENDER_WS"/install/soft
-./bender_perception/bender_perception_utils/install/install_openface.sh:30:cd "$BENDER_WS"/install/soft/perception/torch/install/bin
-./bender_perception/bender_perception_utils/install/install_openface.sh:36:cd "$BENDER_WS"/install/soft/perception
-./bender_perception/bender_perception_utils/install/install_torch.sh:8:cd "$BENDER_WS"/install/soft
-./bender_perception/bender_perception_utils/install/reinstall_pip.sh:8:cd "$BENDER_WS"/install/soft
+./bender_hri/bender_speech/install/install.sh:9:# install_space="$BENDER_WS"/install/soft/hri/speech
+./bender_hri/bender_speech/install/install.sh:28:install_space="$BENDER_WS"/install/soft/hri/speech
+./bender_hri/bender_nlp/install/install.sh:9:install_path="$BENDER_WS/install/soft/hri/nlp"
+./bender_navigation/bender_nav/install/install.sh:14:source "$BENDER_WS"/bender_system/install/pkg_install.bash
+
 
 # BENDER_SYSTEM (COMPAT MODE)
 ./bender_sim/bender_gazebo/install/install.sh:40:	"$BENDER_SYSTEM"/shell/megadown/megadown 'https://mega.nz/#!G1MCEZIQ!u2UDNUMPPKODJ0u5-qs_OkA5hodXh3ilwSP8CoYSSD8'
@@ -140,7 +138,6 @@ asegurarse de migrar TAGS de otros repos
 ./bender_manipulation/bender_ikfast_l_arm/update_ikfast_plugin.sh:1:rosrun moveit_ikfast create_ikfast_moveit_plugin.py bender l_arm bender_ikfast_l_arm /home/rodrigo/bender_ws/soft_ws/src/bender_manipulation/bender_ikfast_l_arm/src/bender_l_arm_ikfast_solver.cpp
 ./bender_manipulation/bender_ikfast_r_arm/update_ikfast_plugin.sh:1:rosrun moveit_ikfast create_ikfast_moveit_plugin.py bender r_arm bender_ikfast_r_arm /home/rodrigo/bender_ws/soft_ws/src/bender_manipulation/bender_ikfast_r_arm/src/bender_r_arm_ikfast_solver.cpp
 
-
 # forks_ws (OK)
 # //
 
@@ -175,7 +172,7 @@ asegurarse de migrar TAGS de otros repos
 ./bender_hardware/bender_tts/shell/setup.bash:15:_bendercomplete_bender_say_set_language()
 ./bender_hardware/bender_tts/shell/setup.bash:35:complete -F "_bendercomplete_bender_say_set_language" "bender-say_set_language"
 
-# bender_cd
+# bender_cd TODO
 ./bender_hardware/bender_base/install/install.sh:25:bender_cd forks
 ./bender_hardware/bender_base/install/install.sh:41:bender_cd bender_base
 ./bender_hardware/bender_head/install/install.sh:20:bender_cd bender_head
@@ -193,7 +190,25 @@ asegurarse de migrar TAGS de otros repos
 ./bender_navigation/bender_nav/install/install.sh:25:bender_cd forks
 ./bender_tools/bender_fun/shell/setup.sh:22:    	bender_cd bender_fun
 
-
+# install TODO
+./bender_sim/bender_gazebo/install/install.sh:33:BACKUP_FOLDER="$BENDER_WS"/install/base/sim/gazebo
+./bender_common/bender_description/install/install.sh:30:BACKUP_FOLDER="$BENDER_WS"/install/base/common/description
+./bender_manipulation/bender_arm_planning/install/install.sh:32:BACKUP_FOLDER="$BENDER_WS"/install/soft/manipulation/arm_planning
+./bender_perception/bender_perception_utils/install/install_openface.sh:8:cd "$BENDER_WS"/install/soft
+./bender_perception/bender_perception_utils/install/install_openface.sh:30:cd "$BENDER_WS"/install/soft/perception/torch/install/bin
+./bender_perception/bender_perception_utils/install/install_openface.sh:36:cd "$BENDER_WS"/install/soft/perception
+./bender_perception/bender_perception_utils/install/reinstall_pip.sh:8:cd "$BENDER_WS"/install/soft
+./bender_perception/bender_perception_utils/install/install_caffe.sh:8:cd "$BENDER_WS"/install/soft
+./bender_perception/bender_perception_utils/install/install_caffe.sh:31:echo 'export PYTHONPATH="$BENDER_WS"/install/soft/perception/caffe/python:$PYTHONPATH' >> ~/.bashrc 
+./bender_perception/bender_perception_utils/install/install_torch.sh:8:cd "$BENDER_WS"/install/soft
+./bender_perception/bender_person/waving_detector/install_nite.sh:6:BACKUP_FOLDER="$BENDER_WS"/install/soft/perception/person/waving_detector
+./bender_perception/bender_person/waving_detector/CMakeLists.txt:2:if(EXISTS "$ENV{BENDER_WS}/install/soft/perception/person/waving_detector")
+./bender_perception/bender_person/waving_detector/CMakeLists.txt:5:    set(OPENNI2_DIR "$ENV{BENDER_WS}/install/soft/perception/OpenNI2")
+./bender_perception/bender_person/waving_detector/CMakeLists.txt:6:    set(NITE2_DIR "$ENV{BENDER_WS}/install/soft/perception/person/waving_detector/NiTE-2.0.0")
+./bender_perception/bender_person/waving_detector/CMakeLists.txt:7:    set(NITE2_LIB "$ENV{BENDER_WS}/install/soft/perception/person/waving_detector/NiTE-2.0.0/Redist/libNiTE2.so")
+./bender_hri/bender_speech/install/install.sh:9:# install_space="$BENDER_WS"/install/soft/hri/speech
+./bender_hri/bender_speech/install/install.sh:28:install_space="$BENDER_WS"/install/soft/hri/speech
+./bender_hri/bender_nlp/install/install.sh:9:install_path="$BENDER_WS/install/soft/hri/nlp"
 
 
 
@@ -233,3 +248,30 @@ asegurarse de migrar TAGS de otros repos
 #   File "/usr/local/lib/python2.7/dist-packages/setuptools/archive_util.py", line 11, in <module>
 #     from pkg_resources import ensure_directory, ContextualZipFile
 # ImportError: cannot import name ContextualZipFile
+
+
+https://github.com/uchile-robotics/uch_system   # OK
+
+https://github.com/uchile-robotics/robot_skills # mover a uch_skills, rename pkg
+https://github.com/uchile-robotics/maqui_core   # algunos skills varios
+https://github.com/uchile-robotics/maqui_sim    # archivos repetidos!, siempre se repetiran los worlds!
+https://github.com/uchile-robotics/maqui_system # no tiene sentido... mover a system
+https://github.com/uchile-robotics/maqui_skills # no tiene sentido... borrarlo!.. compatibilidad uch_skills
+
+https://bitbucket.org/uchile-robotics-die/bender_base_layer
+https://bitbucket.org/uchile-robotics-die/bender_soft_layer
+https://bitbucket.org/uchile-robotics-die/bender_high_layer
+https://bitbucket.org/uchile-robotics-die/bender_knowledge
+https://bitbucket.org/uchile-robotics-die/bender_hri
+https://bitbucket.org/uchile-robotics-die/bender_perception
+https://bitbucket.org/uchile-robotics-die/bender_manipulation
+https://bitbucket.org/uchile-robotics-die/bender_navigation
+https://bitbucket.org/uchile-robotics-die/bender_tools
+https://bitbucket.org/uchile-robotics-die/bender_embedded
+
+
+# PRIVADO
+bender_libs
+bender_objects
+
+

@@ -173,7 +173,7 @@ _uch_git_trap ()
 
 _uch_git_fetch ()
 {
-    local _user_path _repo_path _repo_path_cropped _config
+    local _user_path _repo_path _repo_path_cropped
     _user_path="$(pwd)"
 
     # parse the string array in a bash like manner
@@ -198,35 +198,8 @@ _uch_git_fetch ()
             cd "$_repo_path"
             printf " - - - \n"
             printf "Fetching repository: %s and submodules ...\n" "$_repo_path_cropped"
-            _config="$_repo_path/.git/config"
-            _gitmodules="$_repo_path/.gitmodules"
-
-            # deactivate some signals
-            # this should prevent leaving the .config, and
-            # .gitmodules files in a inconsistent way
-            trap "_uch_git_trap" 1 2 3 15 20
-            
-            # modify and create config.bkp
-            # this replaces any credentials by the default ones: benderuchile:benderrobot on https protocol
-            sed --in-place=.bkp "s/https:\/\/\(.*\)bitbucket.org/https:\/\/benderuchile:benderrobot@bitbucket.org/" "$_config"
-            if [ -e "$_gitmodules" ]; then
-                sed --in-place=.bkp "s/https:\/\/\(.*\)bitbucket.org/https:\/\/benderuchile:benderrobot@bitbucket.org/" "$_gitmodules"
-                git submodule --quiet foreach 'sed --in-place=.bkp "s/https:\/\/\(.*\)bitbucket.org/https:\/\/benderuchile:benderrobot@bitbucket.org/" "$toplevel/.git/modules/$name/config"'
-            fi
-            
-            # fetch
             git fetch
             git submodule foreach git fetch
-
-            # restore configs
-            # "|| true" is useful to return zero when .bkp does not exists
-            mv "$_config".bkp "$_config" 2>/dev/null
-            mv "$_gitmodules".bkp "$_gitmodules" 2>/dev/null
-            git submodule --quiet foreach 'mv "$toplevel/.git/modules/$name/config.bkp" "$toplevel/.git/modules/$name/config" 2>/dev/null || true'
-
-            # reset signals to defaults
-            trap - 1 2 3 15 20
-            
         else
             printf " - - - \n"
             printf "Repository: %s\n" "$_repo_path_cropped"
@@ -301,7 +274,6 @@ _uch_git_merge ()
             _uch_git_merge_common
             #export -f _uch_git_merge_common
             git submodule foreach bash -c 'source $UCH_SYSTEM/shell/gittools.sh; _uch_git_merge_common'
-
 
             # reset signals to defaults
             trap - 1 2 3 15 20
