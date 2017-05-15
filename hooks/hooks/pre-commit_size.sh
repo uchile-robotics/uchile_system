@@ -11,7 +11,7 @@
 # - _FAILED
 
 # check command existence
-if ! _uch_git_hooks_command_exists "awk"; then
+if ! _uchile_git_hooks_command_exists "awk"; then
     return 0
 fi
 

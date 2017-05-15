@@ -2,7 +2,7 @@
 
 
 # checks whether ROS INDIGO baseline is installed or no
-_uch_check_rosindigo ()
+_uchile_check_rosindigo ()
 {
     # ros-base is installed?
     dpkg -s ros-indigo-ros-base >/dev/null 2>/dev/null
@@ -30,7 +30,7 @@ _uch_check_rosindigo ()
 #   if this folder is not empty, the user decides if the script continues or not.
 #
 # it creates the framework_path var
-_uch_ask_framework_path ()
+_uchile_ask_framework_path ()
 {
     local _default_path _user_path _n_files _answer
     export framework_path=""
@@ -111,7 +111,7 @@ _uch_ask_framework_path ()
 }
 
 
-_uch_create_ws ()
+_uchile_create_ws ()
 {
     local ws_path user_path
     ws_path="$1"
@@ -137,7 +137,7 @@ _uch_create_ws ()
 
 # # resets completely a workspace!
 # # - anything roslike excepting src/ is deleted 
-# _uch_reset_ws ()
+# _uchile_reset_ws ()
 # {
 #     local ws_path user_path
 #     ws_path="$1"
@@ -161,7 +161,7 @@ _uch_create_ws ()
 # requires the following:
 # - [1] _repo_path : where to clone the repo
 # - [2] _repo_url  : the repo url
-_uch_get_repository ()
+_uchile_get_repository ()
 {
     local _repo_name _repo_path _repo_url _branch
     local _user_path
@@ -246,7 +246,7 @@ _uch_get_repository ()
 # requires the following:
 # - [1] _repo_path : where to clone the repo
 # - [2] _repo_url  : the repo url
-_uch_get_repository_for_ws ()
+_uchile_get_repository_for_ws ()
 {
     local _repo_name _repo_path _repo_url
     _repo_path="$1"
@@ -258,7 +258,7 @@ _uch_get_repository_for_ws ()
     fi
 
     # clone if necessary.. this would remove the src folder
-    _uch_get_repository "$_repo_path" "$_repo_url"
+    _uchile_get_repository "$_repo_path" "$_repo_url"
     local _rc="$?"
     
     # recover CMakeLists.txt
@@ -272,7 +272,7 @@ _uch_get_repository_for_ws ()
 }
 
 
-_uch_enable_githook ()
+_uchile_enable_githook ()
 {
     local _repo _template _hook_file _submodule
     _repo="$1"

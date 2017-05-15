@@ -1,16 +1,16 @@
 #!/bin/sh
 
 # prevent failure
-if ! _uch_check_if_bash_or_zsh ; then
+if ! _uchile_check_if_bash_or_zsh ; then
     printf "\e[33m[WARNING]: Attempted to source this script on an invalid shell env.
     This script was only designed for autocompletion on bash/zsh shells.\e[0m\n\n"
     return 1
 fi
 
-## _uchcomplete_uch_find_string
+## _uchilecomplete_uchile_find_string
 # 1. autocomplete with any option
 # 2. don't autocomplete if previous option was -h or --help
-function _uchcomplete_uch_find_string
+function _uchilecomplete_uchile_find_string
 {
     local cur opts prev
 
@@ -18,7 +18,7 @@ function _uchcomplete_uch_find_string
     opts="-h --help"
     opts="${opts} base soft high system graveyard forks install embedded all"
 
-    if _uch_check_if_bash ; then
+    if _uchile_check_if_bash ; then
         # bash - complete
         COMPREPLY=()
 
@@ -52,20 +52,20 @@ function _uchcomplete_uch_find_string
 }
 
 
-# _uchcomplete_uch_cd
+# _uchilecomplete_uchile_cd
 # single option completion
 # 1. workspaces + packages + metapackages
-function _uchcomplete_uch_cd
+function _uchilecomplete_uchile_cd
 {
     local cur opts prev
 
     # available options
     opts="-h --help"
     opts="${opts} base soft high system graveyard forks embedded"
-    opts="${opts} $UCH_PACKAGES"
-    opts="${opts} $UCH_STACKS"
+    opts="${opts} $UCHILE_PACKAGES"
+    opts="${opts} $UCHILE_STACKS"
 
-    if _uch_check_if_bash ; then
+    if _uchile_check_if_bash ; then
         # bash - complete
         COMPREPLY=()
 
@@ -86,27 +86,27 @@ function _uchcomplete_uch_cd
 
 
 
-if _uch_check_if_bash ; then
+if _uchile_check_if_bash ; then
 
-    complete -F "_uchcomplete_uch_find_string" "uch_find_string"
-    complete -F "_uchcomplete_uch_cd" "uch_cd" "cdb"
+    complete -F "_uchilecomplete_uchile_find_string" "uchile_find_string"
+    complete -F "_uchilecomplete_uchile_cd" "uchile_cd" "cdb"
 
     # no completion
-    complete -F "_uchcomplete_NOT_COMPLETE" "uch_printenv"
-    complete -F "_uchcomplete_NOT_COMPLETE" "uch_refresh_shell"
-    complete -F "_uchcomplete_NOT_COMPLETE" "uch_git_show_untracked"
-    complete -F "_uchcomplete_NOT_COMPLETE" "uch_git_show_ignored"
-    complete -F "_uchcomplete_NOT_COMPLETE" "uch_open_config"
+    complete -F "_uchilecomplete_NOT_COMPLETE" "uchile_printenv"
+    complete -F "_uchilecomplete_NOT_COMPLETE" "uchile_refresh_shell"
+    complete -F "_uchilecomplete_NOT_COMPLETE" "uchile_git_show_untracked"
+    complete -F "_uchilecomplete_NOT_COMPLETE" "uchile_git_show_ignored"
+    complete -F "_uchilecomplete_NOT_COMPLETE" "uchile_open_config"
 
 else
 
-    compctl -Q -K "_uchcomplete_uch_find_string" "uch_find_string"
-    compctl -K "_uchcomplete_uch_cd" "uch_cd"
+    compctl -Q -K "_uchilecomplete_uchile_find_string" "uchile_find_string"
+    compctl -K "_uchilecomplete_uchile_cd" "uchile_cd"
 
     # no completion
-    compctl -K "_uchcomplete_NOT_COMPLETE" "uch_printenv"
-    compctl -K "_uchcomplete_NOT_COMPLETE" "uch_refresh_shell"
-    compctl -K "_uchcomplete_NOT_COMPLETE" "uch_git_show_untracked"
-    compctl -K "_uchcomplete_NOT_COMPLETE" "uch_git_show_ignored"
-    compctl -K "_uchcomplete_NOT_COMPLETE" "uch_open_config"
+    compctl -K "_uchilecomplete_NOT_COMPLETE" "uchile_printenv"
+    compctl -K "_uchilecomplete_NOT_COMPLETE" "uchile_refresh_shell"
+    compctl -K "_uchilecomplete_NOT_COMPLETE" "uchile_git_show_untracked"
+    compctl -K "_uchilecomplete_NOT_COMPLETE" "uchile_git_show_ignored"
+    compctl -K "_uchilecomplete_NOT_COMPLETE" "uchile_open_config"
 fi

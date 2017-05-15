@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=/home/robotica/bender_ws/system/shell/ros_network_indicator/ros_network_indicator.py --indicator /home/robotica/bender.sh
+Exec=/home/robotica/uchile_ws/system/shell/ros_network_indicator/ros_network_indicator.py --indicator /home/robotica/uchile.sh
 Terminal=false
 Hidden=false
 NoDisplay=false

@@ -30,31 +30,31 @@ Options:
 
     There is no default value!
 EOF
-        _uch_admin_goodbye
+        _uchile_admin_goodbye
         return 0
 
     else
         ws="$1"
         user_path="$(pwd)"
-        path="$UCH_WS"/"$ws"_ws
+        path="$UCHILE_WS"/"$ws"_ws
 
         if [ ! -e "$path" ]; then
-            echo "Invalid workspace: $1 at $UCH_WS"
+            echo "Invalid workspace: $1 at $UCHILE_WS"
             return 1
         fi
         if [ ! -e "$path"/"src"/CMakeLists.txt ]; then
-            echo "Invalid workspace: $1 at $UCH_WS"
+            echo "Invalid workspace: $1 at $UCHILE_WS"
             echo "Missing CMakeLists.txt at $path/src/"
             return 1
         fi
         if [ ! -e "$path"/"devel"/setup.sh ]; then
-            echo "Invalid workspace: $1 at $UCH_WS"
+            echo "Invalid workspace: $1 at $UCHILE_WS"
             echo "Missing setup.sh at $path/devel/"
             return 1
         fi
 
         echo "This workspace will be (make)cleaned: $path"
-        if ! _uch_check_user_confirmation ; then
+        if ! _uchile_check_user_confirmation ; then
             return 0
         fi
 
@@ -76,7 +76,7 @@ return 0
 #  CATKIN MAKE HELPER FUNCTIONS
 #############################################################################################
 
-_uch_make_common()
+_uchile_make_common()
 {
 
     cd "$BENDER_WORKSPACE"/..
@@ -84,7 +84,7 @@ _uch_make_common()
 
     if [ -z "$2" ]; then
         # build all packages by default
-        _make_pkg=$UCH_PACKAGES
+        _make_pkg=$UCHILE_PACKAGES
 
     elif [ "$2" = "-h" ] || [ "$2" = "--help"  ]; then
 
@@ -104,7 +104,7 @@ _uch_make_common()
             - bender_make_RelWithDebInfo
             - bender_make_Release
 EOF
-        _uch_admin_goodbye
+        _uchile_admin_goodbye
         cd "$OLDPWD"
         return
 
@@ -128,7 +128,7 @@ EOF
     elif [ "$2" = "--eclipse" ]; then
 
         # build all packages and generate eclipse project files
-        _make_pkg=$UCH_PACKAGES
+        _make_pkg=$UCHILE_PACKAGES
 
         catkin_make -DCMAKE_BUILD_TYPE="$1" --only-pkg-with-deps $_make_pkg --force-cmake -G"Eclipse CDT4 - Unix Makefiles"
         cd "$OLDPWD"
@@ -139,19 +139,19 @@ EOF
     cd "$OLDPWD"
 }
 
-alias bender_make_Release='_uch_make_common Release'
-alias bender_make_RelWithDebInfo='_uch_make_common RelWithDebInfo'
-alias bender_make_Debug='_uch_make_common Debug'
+alias bender_make_Release='_uchile_make_common Release'
+alias bender_make_RelWithDebInfo='_uchile_make_common RelWithDebInfo'
+alias bender_make_Debug='_uchile_make_common Debug'
 alias bender_make=bender_make_RelWithDebInfo
 
 
-_uch_system_reset_ws ()
+_uchile_system_reset_ws ()
 {
     local ws user_path
     ws="$1"
     user_path="$(pwd)"
 
-    cd "$UCH_WS"/"$ws"/src
+    cd "$UCHILE_WS"/"$ws"/src
     rm -rf CMakeLists.txt
     catkin_init_workspace
     cd ..
@@ -166,7 +166,7 @@ robot_system_repair_ws_overlay ()
 {
     local user_path
 
-    if ! _uch_check_user_confirmation ; then
+    if ! _uchile_check_user_confirmation ; then
         return 0
     fi
 

@@ -15,7 +15,7 @@
 #  
 
 # check command existence
-if ! _uch_git_hooks_pymodule_exists "yaml"; then
+if ! _uchile_git_hooks_pymodule_exists "yaml"; then
     return 0
 fi
 

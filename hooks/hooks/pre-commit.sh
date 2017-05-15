@@ -8,7 +8,7 @@
 
 
 
-_uch_git_hooks_revert_stash ()
+_uchile_git_hooks_revert_stash ()
 {
     ## revert changes from stash
     git config apply.whitespace nowarn # prevent stupid warnings
@@ -18,11 +18,11 @@ _uch_git_hooks_revert_stash ()
 
 # this function is called when Ctrl-C is sent
 # the idea is to revert stashed changes!
-_uch_git_hooks_trap_ctrlc ()
+_uchile_git_hooks_trap_ctrlc ()
 {
     # perform cleanup here
     echo "Ctrl-C caught... Reverting Stash"
-    _uch_git_hooks_revert_stash
+    _uchile_git_hooks_revert_stash
     echo "(OK)"
  
     # exit shell script with error code 2
@@ -97,7 +97,7 @@ if [ "$_is_initial_commit" != "yes" ]; then
     ## Set trap to ctrl+C (and others), in order to revert the stashed changes
     # initialise trap to call trap_ctrlc function
     # when signal 2 (SIGINT) is received
-    trap "_uch_git_hooks_trap_ctrlc" 1 2 15
+    trap "_uchile_git_hooks_trap_ctrlc" 1 2 15
 
     # if there were no changes (e.g., `--amend` or `--allow-empty`)
     # then nothing was stashed, and we should skip everything,
@@ -107,7 +107,7 @@ if [ "$_is_initial_commit" != "yes" ]; then
         #echo "pre-commit script: no changes to test"
         #sleep 1 # XXX hack, editor may erase message
         
-        #_uch_git_hooks_revert_stash
+        #_uchile_git_hooks_revert_stash
 
         exit 0
     fi
@@ -213,7 +213,7 @@ _FAILED="no"
 if [ "$_is_initial_commit" != "yes" ]; then
 
     #echo "Reverting changes from stash"
-    _uch_git_hooks_revert_stash
+    _uchile_git_hooks_revert_stash
 
 fi
 

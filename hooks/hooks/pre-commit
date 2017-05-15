@@ -23,7 +23,7 @@
 # HOOK REQUIREMENTS:
 #
 # this hook requires the GITHOOKS_PATH env variable to be set.
-# GITHOOKS_PATH contains the FULL path to the hooks folder of uch_system repository.
+# GITHOOKS_PATH contains the FULL path to the hooks folder of uchile_system repository.
 #
 #       $ export GITHOOKS_PATH="/home/<robot_ws>/system/hooks/hooks"
 #
@@ -44,7 +44,7 @@ if [ -z ${GITHOOKS_PATH+x} ]; then
 		If you want to enable them, please set GITHOOKS_PATH properly:
 		> export GITHOOKS_PATH="/home/<robot_ws>/system/hooks/hooks"
 
-		GITHOOKS_PATH contains the FULL path to the 'hooks/hooks' folder of 'uch_system' repository.
+		GITHOOKS_PATH contains the FULL path to the 'hooks/hooks' folder of 'uchile_system' repository.
 	EOF
 
 	exit 0
@@ -63,7 +63,7 @@ else
 			To solve this, please set GITHOOKS_PATH properly:
 			> export GITHOOKS_PATH="/home/<robot_ws>/system/hooks/hooks"
 
-			GITHOOKS_PATH contains the FULL path to the 'hooks' folder of 'uch_system' repository.
+			GITHOOKS_PATH contains the FULL path to the 'hooks' folder of 'uchile_system' repository.
 		EOF
 
 		exit 1

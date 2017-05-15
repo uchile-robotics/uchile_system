@@ -11,8 +11,8 @@
 
 # prevent multiple executions
 _currshell=$(ps -p$$ -ocmd=)
-if [ "$UCH_FRAMEWORK_TWICE_LOAD_CHECK" = true ]; then
-    if [ "$_currshell" = "$UCH_FRAMEWORK_LOADED_SHELL" ]; then
+if [ "$UCHILE_FRAMEWORK_TWICE_LOAD_CHECK" = true ]; then
+    if [ "$_currshell" = "$UCHILE_FRAMEWORK_LOADED_SHELL" ]; then
         echo "You are loading this script twice. Please update your"
         echo ".bashrc/.zshrc files and fix this problem. See the "
         echo "system/README.md file to reconfigure your shell environment."
@@ -20,8 +20,8 @@ if [ "$UCH_FRAMEWORK_TWICE_LOAD_CHECK" = true ]; then
         return 0
     fi
 fi
-export UCH_FRAMEWORK_TWICE_LOAD_CHECK=true
-export UCH_FRAMEWORK_LOADED_SHELL="$_currshell"
+export UCHILE_FRAMEWORK_TWICE_LOAD_CHECK=true
+export UCHILE_FRAMEWORK_LOADED_SHELL="$_currshell"
 
 # OBS: Some configurations are meant for outdated machines
 # NOTE FOR FUTURE ADMINS: Update this configuration loading for
@@ -59,7 +59,7 @@ if [ -z "$CATKIN_SHELL" ]; then
     return 0
 fi
 if [ ! "$CATKIN_SHELL" = "bash" ] && [ ! "$CATKIN_SHELL" = "zsh" ]; then
-    echo "Sorry, but the uch robot framework is only designed for bash and zsh shells."
+    echo "Sorry, but the uchile robot framework is only designed for bash and zsh shells."
     echo "The framework will not be loaded. Bye"
     unset _currshell
     return 0
@@ -67,14 +67,14 @@ fi
 
 # prevent running with an incorrect shell environment
 if [ "$_currshell" = "bash" ] && [ ! "$CATKIN_SHELL" = "bash" ]; then
-    echo "Attempt to load the uch robot framework for zsh shells on bash."
+    echo "Attempt to load the uchile robot framework for zsh shells on bash."
     echo "Please, source the correct file: setup.bash"
     echo "See also: system/README.md"
     unset _currshell
     return 0
 fi
 if [ "$_currshell" = "/usr/bin/zsh" ] && [ ! "$CATKIN_SHELL" = "zsh" ]; then
-    echo "Attempt to load the uch robot framework for bash shells on zsh."
+    echo "Attempt to load the uchile robot framework for bash shells on zsh."
     echo "Please, source the correct file: setup.zsh"
     echo "See also: system/README.md"
     unset _currshell
@@ -88,10 +88,10 @@ unset _currshell
 # As the title describes, this section is meant for old
 # system installations and creates a compatibility layer
 # between v1.9 on bitbucket (bender_system) and v2.0 on 
-# github (uch_system)
+# github (uchile_system)
 #
 # mayor compatibility issues are:
-# - rename env vars from BENDER_ to UCH_
+# - rename env vars from BENDER_ to UCHILE_
 # - workspace layout changes:
 #   - ./bender_system/ --> ./system/
 #   - ./install/       --> ./deps/
@@ -103,16 +103,16 @@ unset _currshell
 #   - ./bender_embedded/       --> ./misc/embedded/
 #   - ./wiki/                  --> ./misc/wiki/
 #
-UCH_COMPAT_MODE=false
-UCH_COMPAT_PREFIX=ROBOT
-if [ -z "$UCH_WS" ]; then
-    UCH_COMPAT_MODE=true
-    UCH_COMPAT_PREFIX=BENDER
+UCHILE_COMPAT_MODE=false
+UCHILE_COMPAT_PREFIX=ROBOT
+if [ -z "$UCHILE_WS" ]; then
+    UCHILE_COMPAT_MODE=true
+    UCHILE_COMPAT_PREFIX=BENDER
     printf "You are running in system compatibility mode with bender_system v1.9.\n."
     printf "Please update your robot installation. See the system README.md file.\n."
 
-    export UCH_SHELL_CFG="$BENDER_SHELL_CFG"
-    export UCH_WS="$BENDER_WS"
+    export UCHILE_SHELL_CFG="$BENDER_SHELL_CFG"
+    export UCHILE_WS="$BENDER_WS"
 
     # this var is user defined on v2.0
     export ROBOT="bender"
@@ -124,7 +124,7 @@ fi
 ## ########################################################
 
 # load configs
-if [ -z "$UCH_SHELL_CFG" ]; then
+if [ -z "$UCHILE_SHELL_CFG" ]; then
     # this mode is intended for v1.0 users
     DEFAULT_CFG="$HOME"/bender.sh
     if [ -e "$DEFAULT_CFG" ]; then
@@ -138,11 +138,11 @@ if [ -z "$UCH_SHELL_CFG" ]; then
     fi
 else
     # mode for v1.0 and newer
-    if [ -e "$UCH_SHELL_CFG" ]; then
-        . "$UCH_SHELL_CFG"
+    if [ -e "$UCHILE_SHELL_CFG" ]; then
+        . "$UCHILE_SHELL_CFG"
     else
-        echo "Sorry, the ${UCH_COMPAT_PREFIX}_SHELL_CFG is set, but the configuration file cannot be read."
-        echo "Configuration file: $UCH_SHELL_CFG"
+        echo "Sorry, the ${UCHILE_COMPAT_PREFIX}_SHELL_CFG is set, but the configuration file cannot be read."
+        echo "Configuration file: $UCHILE_SHELL_CFG"
         echo "Please, set this to the path of the <robot>.sh script."
         echo "e.g: \"$HOME/bender.sh\""
         echo "UCH Robot workspace will not be configured."
@@ -155,18 +155,18 @@ fi
 
 # ROBOT
 if [ -z "$ROBOT" ]; then
-    echo "Sorry, the ${UCH_COMPAT_PREFIX} env variable is not set."
+    echo "Sorry, the ${UCHILE_COMPAT_PREFIX} env variable is not set."
     return 0
 fi
 
-# UCH_WS
-if [ -z "$UCH_WS" ]; then
-    echo "Sorry, the ${UCH_COMPAT_PREFIX}_WS env variable is not set."
+# UCHILE_WS
+if [ -z "$UCHILE_WS" ]; then
+    echo "Sorry, the ${UCHILE_COMPAT_PREFIX}_WS env variable is not set."
     return 0
 fi
-if [ ! -d "$UCH_WS" ]; then
-    echo "Sorry, the ${UCH_COMPAT_PREFIX}_WS env variable is set. But is not a valid directory."
-    echo "Found ${UCH_COMPAT_PREFIX}_WS=\'$UCH_WS\'"
+if [ ! -d "$UCHILE_WS" ]; then
+    echo "Sorry, the ${UCHILE_COMPAT_PREFIX}_WS env variable is set. But is not a valid directory."
+    echo "Found ${UCHILE_COMPAT_PREFIX}_WS=\'$UCHILE_WS\'"
     return 0
 fi
 
@@ -174,26 +174,26 @@ fi
 ## ##########################################
 
 # paths
-export UCH_SYSTEM="$UCH_WS"/system
-export UCH_ROS_WS="$UCH_WS"/ros
-export UCH_DEP_WS="$UCH_WS"/deps
-export UCH_GRAVEYARD="$UCH_WS"/misc/graveyard
-export UCH_EMBEDDED="$UCH_WS"/misc/embedded
-if UCH_COMPAT_MODE; then
-    export UCH_SYSTEM="$UCH_WS"/bender_system
-    export UCH_ROS_WS="$UCH_WS"
-    export UCH_DEP_WS="$UCH_WS"/install
-    export UCH_GRAVEYARD="$UCH_WS"/bender_code_graveyard
-    export UCH_EMBEDDED="$UCH_WS"/bender_embedded
+export UCHILE_SYSTEM="$UCHILE_WS"/system
+export UCHILE_ROS_WS="$UCHILE_WS"/ros
+export UCHILE_DEP_WS="$UCHILE_WS"/deps
+export UCHILE_GRAVEYARD="$UCHILE_WS"/misc/graveyard
+export UCHILE_EMBEDDED="$UCHILE_WS"/misc/embedded
+if UCHILE_COMPAT_MODE; then
+    export UCHILE_SYSTEM="$UCHILE_WS"/bender_system
+    export UCHILE_ROS_WS="$UCHILE_WS"
+    export UCHILE_DEP_WS="$UCHILE_WS"/install
+    export UCHILE_GRAVEYARD="$UCHILE_WS"/bender_code_graveyard
+    export UCHILE_EMBEDDED="$UCHILE_WS"/bender_embedded
 fi
 
 # contact
-export UCH_SYSTEM_ADMIN="mpavezb (matias pavez)"
-export UCH_EMAIL_CONTACT="bender.contacto@gmail.com"
-export UCH_EMAIL_DEVELOP="bender.devel@gmail.com"
+export UCHILE_SYSTEM_ADMIN="mpavezb (matias pavez)"
+export UCHILE_EMAIL_CONTACT="bender.contacto@gmail.com"
+export UCHILE_EMAIL_DEVELOP="bender.devel@gmail.com"
 
 # git hooks
-export GITHOOKS_PATH="$UCH_SYSTEM/hooks/hooks"
+export GITHOOKS_PATH="$UCHILE_SYSTEM/hooks/hooks"
 
 # ros console output format
 export ROSCONSOLE_FORMAT='[${severity}] [${node}]: ${message}'
@@ -201,9 +201,9 @@ export ROSCONSOLE_FORMAT='[${severity}] [${node}]: ${message}'
 
 # (compatibility with repos which depend on v1.9)
 # avoid missing variables on outdated repos
-if ! UCH_COMPAT_MODE; then
-    export BENDER_WS="$UCH_WS"
-    export BENDER_SYSTEM="$UCH_SYSTEM"
+if ! UCHILE_COMPAT_MODE; then
+    export BENDER_WS="$UCHILE_WS"
+    export BENDER_SYSTEM="$UCHILE_SYSTEM"
 fi
 
 ## ROS
@@ -211,15 +211,15 @@ fi
 
 # manage network configurations
 # ----------------------------------------
-if [ "$UCH_NET_BY_SSH" = "YES" ]; then
-    . "$UCH_SYSTEM"/env/network-defs.sh
+if [ "$UCHILE_NET_BY_SSH" = "YES" ]; then
+    . "$UCHILE_SYSTEM"/env/network-defs.sh
 fi
 
-if [ "$UCH_NET_ENABLE" = true ]; then
+if [ "$UCHILE_NET_ENABLE" = true ]; then
     
-    . "$UCH_SYSTEM"/env/network-defs.sh
+    . "$UCHILE_SYSTEM"/env/network-defs.sh
 
-elif [ "$UCH_NET_WARN" = true ]; then
+elif [ "$UCHILE_NET_WARN" = true ]; then
 
     _caller_script=
     if command -v caller >/dev/null 2>&1 ; then
@@ -231,9 +231,9 @@ elif [ "$UCH_NET_WARN" = true ]; then
     and run another shell.
 
     If you want to stop this and all network warnings, 
-    set: '%s_NET_WARN=false'%s.\e[0m\n\n" "$UCH_COMPAT_PREFIX" "$_caller_script" "$UCH_COMPAT_PREFIX" "$_caller_script"
+    set: '%s_NET_WARN=false'%s.\e[0m\n\n" "$UCHILE_COMPAT_PREFIX" "$_caller_script" "$UCHILE_COMPAT_PREFIX" "$_caller_script"
 
-    _sound_file="$UCH_SYSTEM"/assets/network_false.wav
+    _sound_file="$UCHILE_SYSTEM"/assets/network_false.wav
     if [ -f "$_sound_file" ]; then
         aplay "$_sound_file" >/dev/null 2>&1
     else
@@ -254,20 +254,20 @@ fi
 #. /opt/ros/indigo/setup.sh
 
 # forks
-#. "$UCH_ROS_WS"/forks_ws/devel/setup.sh
+#. "$UCHILE_ROS_WS"/forks_ws/devel/setup.sh
 
 # base_ws
-#. "$UCH_ROS_WS"/base_ws/devel/setup.sh
+#. "$UCHILE_ROS_WS"/base_ws/devel/setup.sh
 
 # soft_ws
-#. "$UCH_ROS_WS"/soft_ws/devel/setup.sh
+#. "$UCHILE_ROS_WS"/soft_ws/devel/setup.sh
 
 # high_ws
-. "$UCH_ROS_WS"/high_ws/devel/setup.sh
+. "$UCHILE_ROS_WS"/high_ws/devel/setup.sh
 
 
 ## UCH ROBOT FRAMEWORK
 ## ##########################################
 
 # bash functionalities
-. "$UCH_SYSTEM"/shell/setup.sh
+. "$UCHILE_SYSTEM"/shell/setup.sh

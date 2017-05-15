@@ -14,10 +14,10 @@ if [ $# -eq 0 ] ; then
 fi
 
 # mark the entry point as an SSH connection
-export UCH_NET_BY_SSH="YES"
+export UCHILE_NET_BY_SSH="YES"
 
-# bender framework as usual
-. "$HOME"/bender.sh
+# uchile robotics framework as usual
+. "$HOME"/uchile.sh
 
 # execute remote call
 exec "$@"

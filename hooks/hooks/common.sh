@@ -1,10 +1,10 @@
 #!/bin/sh
 
 ## checks for command existence
-# usage: _uch_git_hooks_command_exists "my-command"
+# usage: _uchile_git_hooks_command_exists "my-command"
 # returns 0: if "my-command" command exists
 # retunrs 1: otherwise
-_uch_git_hooks_command_exists ()
+_uchile_git_hooks_command_exists ()
 {
 	if command -v "$1" >/dev/null 2>&1; then
 		return 0
@@ -14,7 +14,7 @@ _uch_git_hooks_command_exists ()
 	return 1
 }
 
-_uch_git_hooks_pymodule_exists ()
+_uchile_git_hooks_pymodule_exists ()
 {
 	if python -c "import $1" >/dev/null 2>&1; then
 		return 0

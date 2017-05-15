@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # prevent failure
-if ! _uch_check_if_bash_or_zsh ; then
+if ! _uchile_check_if_bash_or_zsh ; then
     printf "\e[33m[WARNING]: Attempted to source this script on an invalid shell env.
     This script was only designed for autocompletion on bash/zsh shells.\e[0m\n\n"
     return 1
@@ -14,7 +14,7 @@ fi
 # 2nd: checkout: common local branches
 # 2nd: ls-files: ls-files related options
 # 2nd: merge: common origin/ branches
-_uchcomplete_uch_git ()
+_uchilecomplete_uchile_git ()
 {
     local cur opts prev opts_co opts_ls
 
@@ -26,7 +26,7 @@ _uchcomplete_uch_git ()
     opts_mg="origin/master origin/develop"
 
 
-    if _uch_check_if_bash ; then
+    if _uchile_check_if_bash ; then
         # bash - complete
         COMPREPLY=()
 
@@ -72,8 +72,8 @@ _uchcomplete_uch_git ()
     return 0
 }
 
-if _uch_check_if_bash ; then
-    complete -F "_uchcomplete_uch_git" "bgit"
+if _uchile_check_if_bash ; then
+    complete -F "_uchilecomplete_uchile_git" "bgit"
 else
-    compctl -K "_uchcomplete_uch_git" "bgit"
+    compctl -K "_uchilecomplete_uchile_git" "bgit"
 fi

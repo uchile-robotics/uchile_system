@@ -37,7 +37,7 @@ robot_name="$WS_FOR_ROBOT"
 printf " - Robot name: %s\n" "$robot_name"
 
 # ROS is installed
-if ! _uch_check_rosindigo; then
+if ! _uchile_check_rosindigo; then
     printf "Please, install ROS Indigo (ros-indigo-ros-base) before proceeding.\n"
     exit 1
 fi
@@ -50,7 +50,7 @@ printf "\n"
 # select a folder were to install the framework (default: /home/user/<robot>_ws)
 printf " ------- Framework Location: -------\n"
 # comment for debug
-_uch_ask_framework_path "$HOME/${robot_name}_ws"
+_uchile_ask_framework_path "$HOME/${robot_name}_ws"
 # uncomment for debug
 # framework_path=$HOME/DEBUG
 printf " - Using path: %s\n" "$framework_path"
@@ -84,16 +84,16 @@ mkdir -p "$framework_path"/deps
 source /opt/ros/indigo/setup.bash
 
 # # forks_ws overlays ROS baseline
-_uch_create_ws "$framework_path"/ros/forks_ws
+_uchile_create_ws "$framework_path"/ros/forks_ws
 
 # base_ws overlays forks_ws
-_uch_create_ws "$framework_path"/ros/base_ws
+_uchile_create_ws "$framework_path"/ros/base_ws
 
 # soft_ws overlays base_ws
-_uch_create_ws "$framework_path"/ros/soft_ws
+_uchile_create_ws "$framework_path"/ros/soft_ws
 
 # high_ws overlays soft_ws
-_uch_create_ws "$framework_path"/ros/high_ws
+_uchile_create_ws "$framework_path"/ros/high_ws
 
 
 

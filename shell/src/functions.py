@@ -27,9 +27,9 @@ def check_var_isset(varname):
 def admin_goodbye():
 
     text = "Have some feedback?, please contact us at <"
-    text += _env("UCH_EMAIL_DEVELOP")
+    text += _env("UCHILE_EMAIL_DEVELOP")
     text += ">, or just contact "
-    text += _env("UCH_SYSTEM_ADMIN") + ".\n"
+    text += _env("UCHILE_SYSTEM_ADMIN") + ".\n"
     text += "\n"
     text += "kindly,\n"
     text += " - bender system admin - \n"

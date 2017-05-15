@@ -50,8 +50,8 @@ _hook_template="$TMP_SYSTEM_DIR"/hooks/hooks/pre-commit
 ## ----------------------------------------------------------------------------
 
 # system
-_uch_get_repository "system" "https://github.com/uchile-robotics/uch_system.git"
-_uch_enable_githook "system" "$_hook_template"
+_uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_system.git"
+_uchile_enable_githook "system" "$_hook_template"
 
 
 ## layers
@@ -70,7 +70,7 @@ _uch_enable_githook "system" "$_hook_template"
 ## ----------------------------------------------------------------------------
 
 # fork: navigation
-_uch_get_repository "ros/forks_ws/src/navigation" "https://github.com/uchile-robotics-forks/navigation.git" "kinetic-devel"
+_uchile_get_repository "ros/forks_ws/src/navigation" "https://github.com/uchile-robotics-forks/navigation.git" "kinetic-devel"
 
 
 ## deps

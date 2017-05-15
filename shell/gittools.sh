@@ -5,38 +5,38 @@
 # - fetch en repos nesteados con más de 2 niveles!
 
 
-UCH_REPOSITORIES=""
-UCH_REPOSITORIES="$UCH_REPOSITORIES $UCH_SYSTEM"
-UCH_REPOSITORIES="$UCH_REPOSITORIES $UCH_ROS_WS/base_ws/src"
-UCH_REPOSITORIES="$UCH_REPOSITORIES $UCH_ROS_WS/base_ws/src/bender_knowledge"
-UCH_REPOSITORIES="$UCH_REPOSITORIES $UCH_ROS_WS/soft_ws/src"
-UCH_REPOSITORIES="$UCH_REPOSITORIES $UCH_ROS_WS/soft_ws/src/bender_hri"
-UCH_REPOSITORIES="$UCH_REPOSITORIES $UCH_ROS_WS/soft_ws/src/bender_manipulation"
-UCH_REPOSITORIES="$UCH_REPOSITORIES $UCH_ROS_WS/soft_ws/src/bender_navigation"
-UCH_REPOSITORIES="$UCH_REPOSITORIES $UCH_ROS_WS/soft_ws/src/bender_perception"
-UCH_REPOSITORIES="$UCH_REPOSITORIES $UCH_ROS_WS/soft_ws/src/bender_tools"
-UCH_REPOSITORIES="$UCH_REPOSITORIES $UCH_ROS_WS/high_ws/src"
-UCH_REPOSITORIES="$UCH_REPOSITORIES $UCH_ROS_WS/high_ws/src/robot_skills"
+UCHILE_REPOSITORIES=""
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_SYSTEM"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/base_ws/src"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/base_ws/src/bender_knowledge"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/soft_ws/src"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/soft_ws/src/bender_hri"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/soft_ws/src/bender_manipulation"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/soft_ws/src/bender_navigation"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/soft_ws/src/bender_perception"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/soft_ws/src/bender_tools"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/high_ws/src"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/high_ws/src/robot_skills"
 
 
 ## 
-# _uch_git_status
-# - shows a short status of common bender repositiries (see $UCH_REPOSITORIES)
-_uch_git_status ()
+# _uchile_git_status
+# - shows a short status of common bender repositiries (see $UCHILE_REPOSITORIES)
+_uchile_git_status ()
 {
     local _user_path _repo_path _repo_path_cropped
     _user_path="$(pwd)"
 
 	# parse the string array in a bash like manner
-    if _uch_check_if_zsh ; then
+    if _uchile_check_if_zsh ; then
         setopt local_options shwordsplit
     fi
 
     # echo "git st $*"
-    for _repo_path in $UCH_REPOSITORIES; do
+    for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCH_ROS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_ROS_WS/}"
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
@@ -56,7 +56,7 @@ _uch_git_status ()
 }
 
 # permite  cambiar de rama
-_uch_git_checkout ()
+_uchile_git_checkout ()
 {
     local _user_path _repo_path _repo_path_cropped _curr_branch _final_branch _modified
     _user_path="$(pwd)"
@@ -69,14 +69,14 @@ _uch_git_checkout ()
     fi
 
     # parse the string array in a bash like manner
-    if _uch_check_if_zsh ; then
+    if _uchile_check_if_zsh ; then
         setopt local_options shwordsplit
     fi
 
-    for _repo_path in $UCH_REPOSITORIES; do
+    for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCH_ROS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_ROS_WS/}"
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
@@ -113,7 +113,7 @@ _uch_git_checkout ()
     return 0
 }
 
-_uch_git_ls_files ()
+_uchile_git_ls_files ()
 {
     local _user_path _repo_path _repo_path_cropped _command
     _user_path="$(pwd)"
@@ -136,15 +136,15 @@ _uch_git_ls_files ()
     esac
 
 	# parse the string array in a bash like manner
-    if _uch_check_if_zsh ; then
+    if _uchile_check_if_zsh ; then
         setopt local_options shwordsplit
     fi
 
     # echo "git st $*"
-    for _repo_path in $UCH_REPOSITORIES; do
+    for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCH_ROS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_ROS_WS/}"
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
@@ -165,27 +165,27 @@ _uch_git_ls_files ()
 
 # trap required to handle some signals and perform the cleanup
 # note that cleanup depends and is performed on the caller, not here!.
-_uch_git_trap ()
+_uchile_git_trap ()
 {
     # this does nothing!
     true
 }
 
-_uch_git_fetch ()
+_uchile_git_fetch ()
 {
     local _user_path _repo_path _repo_path_cropped
     _user_path="$(pwd)"
 
     # parse the string array in a bash like manner
-    if _uch_check_if_zsh ; then
+    if _uchile_check_if_zsh ; then
         setopt local_options shwordsplit
     fi
 
     # echo "git st $*"
-    for _repo_path in $UCH_REPOSITORIES; do
+    for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCH_ROS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_ROS_WS/}"
 
         # if git repository
         if [ -e "$_repo_path/.git" ]; then
@@ -211,7 +211,7 @@ _uch_git_fetch ()
     return 0
 }
 
-_uch_git_merge_common ()
+_uchile_git_merge_common ()
 {
     local _curr_remote _curr_branch
     _curr_branch="$(git rev-parse --abbrev-ref HEAD)"
@@ -239,21 +239,21 @@ _uch_git_merge_common ()
     fi
 }
 
-_uch_git_merge ()
+_uchile_git_merge ()
 {
     local _user_path _repo_path _repo_path_cropped
     _user_path="$(pwd)"
 
     # parse the string array in a bash like manner
-    if _uch_check_if_zsh ; then
+    if _uchile_check_if_zsh ; then
         setopt local_options shwordsplit
     fi
 
     # echo "git st $*"
-    for _repo_path in $UCH_REPOSITORIES; do
+    for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCH_ROS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_ROS_WS/}"
 
         # if git repository
         if [ -e "$_repo_path/.git" ]; then
@@ -268,12 +268,12 @@ _uch_git_merge ()
             printf "repository: %s and submodules ...\n" "$_repo_path_cropped"
 
             # deactivate some signals
-            trap "_uch_git_trap" 1 2 3 15 20
+            trap "_uchile_git_trap" 1 2 3 15 20
 
             # merge
-            _uch_git_merge_common
-            #export -f _uch_git_merge_common
-            git submodule foreach bash -c 'source $UCH_SYSTEM/shell/gittools.sh; _uch_git_merge_common'
+            _uchile_git_merge_common
+            #export -f _uchile_git_merge_common
+            git submodule foreach bash -c 'source $UCHILE_SYSTEM/shell/gittools.sh; _uchile_git_merge_common'
 
             # reset signals to defaults
             trap - 1 2 3 15 20
@@ -311,13 +311,13 @@ bgit ()
 
     _show_help=
     case "$_command" in
-        "st" | "status"    ) _uch_git_status            ;;
-        "co" | "checkout"  ) _uch_git_checkout $_params ;;
-        "fetch"            ) bash -i -c _uch_git_fetch  ;;
-        "merge"            ) bash -i -c _uch_git_merge  ;;
-        "pull"             ) bash -i -c _uch_git_fetch
-                             bash -i -c _uch_git_merge  ;;
-        "ls-files"         ) _uch_git_ls_files $_params ;;
+        "st" | "status"    ) _uchile_git_status            ;;
+        "co" | "checkout"  ) _uchile_git_checkout $_params ;;
+        "fetch"            ) bash -i -c _uchile_git_fetch  ;;
+        "merge"            ) bash -i -c _uchile_git_merge  ;;
+        "pull"             ) bash -i -c _uchile_git_fetch
+                             bash -i -c _uchile_git_merge  ;;
+        "ls-files"         ) _uchile_git_ls_files $_params ;;
         "-h" | "--help"    ) _show_help=true ;;
         *                  ) _show_help=true ;;
     esac
@@ -396,7 +396,7 @@ Options:
     - graveyard
 
 EOF
-        _uch_admin_goodbye
+        _uchile_admin_goodbye
         return 1
     fi
     return 0

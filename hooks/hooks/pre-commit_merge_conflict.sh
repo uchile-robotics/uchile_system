@@ -14,7 +14,7 @@
 return 0
 
 # check command existence
-if ! _uch_git_hooks_pymodule_exists "argparse"; then
+if ! _uchile_git_hooks_pymodule_exists "argparse"; then
     return 0
 fi
 

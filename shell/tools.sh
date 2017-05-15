@@ -3,65 +3,65 @@
 ###############################################################################
 #   OVERVIEW
 ###############################################################################
-# uch_find_string        - finds string within uch src space
-# uch_cd                 - cd to a robot framework directory
-# cdb                    - the same as uch_cd but faster to type. The "b"
-#                          stands for Bender and legacy users.
-# uch_printenv           - prints all UCH_* environment variables
-# uch_refresh_shell      - reexecutes a shell to resource the robot framework
-# uch_git_show_untracked - lists currently untracked files
-# uch_git_show_ignored   - lists currently ignored files
+# uchile_find_string        - finds string within uchile src space
+# uchile_cd                 - cd to a robot framework directory
+# cdb                       - the same as uchile_cd but faster to type. The "b"
+#                             stands for Bender and legacy users.
+# uchile_printenv           - prints all UCHILE_* environment variables
+# uchile_refresh_shell      - reexecutes a shell to resource the robot framework
+# uchile_git_show_untracked - lists currently untracked files
+# uchile_git_show_ignored   - lists currently ignored files
 
 ###############################################################################
 #   shell utilities
 ###############################################################################
 
 # prevent failure
-if _uch_check_if_bash_or_zsh ; then
+if _uchile_check_if_bash_or_zsh ; then
 
-    # prints all UCH_* environment variables and its values
-    uch_printenv ()
+    # prints all UCHILE_* environment variables and its values
+    uchile_printenv ()
     {
-        printenv | sort | grep "UCH_.*=" 
+        printenv | sort | grep "UCHILE_.*=" 
     }
 
-    ## uch_refresh_shell
+    ## uchile_refresh_shell
     # executes bash to resource the robot framework.
     #
     # this is for testing purposes only!. Do not use it
     # when environment variables have changed. Open a new
     # terminal session instead.
-    uch_refresh_shell ()
+    uchile_refresh_shell ()
     {
-        export UCH_FRAMEWORK_TWICE_LOAD_CHECK=false
-        exec "$UCH_FRAMEWORK_LOADED_SHELL"
+        export UCHILE_FRAMEWORK_TWICE_LOAD_CHECK=false
+        exec "$UCHILE_FRAMEWORK_LOADED_SHELL"
     }
     
 
     # lists currently untracked files
-    uch_git_show_untracked ()
+    uchile_git_show_untracked ()
     {
         git ls-files --others
     }
 
     # lists currently ignored files
-    uch_git_show_ignored ()
+    uchile_git_show_ignored ()
     {
         git check-ignore -v *
     }
 
-    # the same as uch_cd but faster to type 
-    alias cdb="uch_cd"
+    # the same as uchile_cd but faster to type 
+    alias cdb="uchile_cd"
     alias bviz="roslaunch bender_utils rviz.launch" # TODO: move this 
     
 fi
 
 
-uch_open_config ()
+uchile_open_config ()
 {
 
     local _conf _editor
-    _conf="$UCH_SHELL_CFG"
+    _conf="$UCHILE_SHELL_CFG"
 
     # check file existence
     if [ ! -e "$_conf" ]; then
@@ -75,14 +75,14 @@ uch_open_config ()
         printf "EDITOR env variable is unset. Using 'cat'\n"
         _editor="cat"
     fi
-    if ! _uch_check_var_isset "EDITOR"; then
+    if ! _uchile_check_var_isset "EDITOR"; then
         printf "EDITOR env variable is unset. Using 'cat'\n"
         _editor="cat"
     fi
     printf " - EDITOR env variable resolves to: '%s'\n" "$_editor"
 
     # check editor is installed
-    if ! _uch_check_installed "$_editor"; then
+    if ! _uchile_check_installed "$_editor"; then
         printf "Sorry, but '%s' is not installed. Using 'cat'\n" "$_editor"
         _editor="cat"
     fi
@@ -92,16 +92,16 @@ uch_open_config ()
     "$_editor" "$_conf" &
 }
 
-## uch_find_string
-# see also: uch_find_string --help 
-uch_find_string ()
+## uchile_find_string
+# see also: uchile_find_string --help 
+uchile_find_string ()
 {
     local string _path user_path opt show_help curpath
 
-    _path="$UCH_SYSTEM"                # system
-    _path="$_path $UCH_ROS_WS/base_ws/src" # base_ws
-    _path="$_path $UCH_ROS_WS/soft_ws/src" # soft_ws
-    _path="$_path $UCH_ROS_WS/high_ws/src" # high_ws
+    _path="$UCHILE_SYSTEM"                # system
+    _path="$_path $UCHILE_ROS_WS/base_ws/src" # base_ws
+    _path="$_path $UCHILE_ROS_WS/soft_ws/src" # soft_ws
+    _path="$_path $UCHILE_ROS_WS/high_ws/src" # high_ws
 
     string=""
     if [ "$#" = "2" ]; then 
@@ -109,16 +109,16 @@ uch_find_string ()
         opt="$1"
         case "$opt" in
 
-            "system"    ) _path="$UCH_SYSTEM" ;;
-            "forks"     ) _path="$UCH_ROS_WS/forks_ws/src" ;;
-            "base"      ) _path="$UCH_ROS_WS/base_ws/src" ;;
-            "soft"      ) _path="$UCH_ROS_WS/soft_ws/src" ;;
-            "high"      ) _path="$UCH_ROS_WS/high_ws/src" ;;
-            "graveyard" ) _path="$UCH_GRAVEYARD" ;;
-            "embedded"  ) _path="$UCH_EMBEDDED" ;;
+            "system"    ) _path="$UCHILE_SYSTEM" ;;
+            "forks"     ) _path="$UCHILE_ROS_WS/forks_ws/src" ;;
+            "base"      ) _path="$UCHILE_ROS_WS/base_ws/src" ;;
+            "soft"      ) _path="$UCHILE_ROS_WS/soft_ws/src" ;;
+            "high"      ) _path="$UCHILE_ROS_WS/high_ws/src" ;;
+            "graveyard" ) _path="$UCHILE_GRAVEYARD" ;;
+            "embedded"  ) _path="$UCHILE_EMBEDDED" ;;
             "all" )
-                _path="$_path $UCH_EMBEDDED"
-                _path="$_path $UCH_ROS_WS/forks_ws/src"
+                _path="$_path $UCHILE_EMBEDDED"
+                _path="$_path $UCHILE_ROS_WS/forks_ws/src"
                 ;;
 
             # unknown
@@ -150,7 +150,7 @@ uch_find_string ()
     if [ "$show_help" = true ]; then
         cat <<EOF
 Synopsis:                
-    uch_find_string [<workspace>] <string>
+    uchile_find_string [<workspace>] <string>
 
 Description:
     It looks for instances of a <string> written on any file
@@ -173,7 +173,7 @@ Options:
     By default the lookup is executed on system-base-soft-high.
 EOF
 
-        _uch_admin_goodbye
+        _uchile_admin_goodbye
         return 1
     fi
     
@@ -182,7 +182,7 @@ EOF
     user_path=$(pwd)
 
     # parse the string array in a bash like manner
-    if _uch_check_if_zsh ; then
+    if _uchile_check_if_zsh ; then
         setopt local_options shwordsplit
     fi
     for curpath in $_path; do
@@ -206,33 +206,33 @@ EOF
     return 0
 }
 
-## uch_cd
-# see also: uch_cd --help
-uch_cd ()
+## uchile_cd
+# see also: uchile_cd --help
+uchile_cd ()
 {
     local user_path show_help _path pkg_name pkg stack_name stack
     _path=""
 
-    if _uch_check_if_zsh ; then
+    if _uchile_check_if_zsh ; then
         setopt local_options shwordsplit
     fi
     
     user_path="$1"
 
     if [ "$#" = "0" ]; then
-        _path="$UCH_ROS_WS"
+        _path="$UCHILE_ROS_WS"
 
     elif [ "$#" = "1" ]; then
 
         case "$user_path" in
 
-            "system"    ) _path="$UCH_SYSTEM" ;;
-            "forks"     ) _path="$UCH_ROS_WS/forks_ws/src" ;;
-            "base"      ) _path="$UCH_ROS_WS/base_ws/src" ;;            
-            "soft"      ) _path="$UCH_ROS_WS/soft_ws/src" ;;
-            "high"      ) _path="$UCH_ROS_WS/high_ws/src" ;;
-            "graveyard" ) _path="$UCH_GRAVEYARD" ;;
-            "embedded"  ) _path="$UCH_EMBEDDED" ;;
+            "system"    ) _path="$UCHILE_SYSTEM" ;;
+            "forks"     ) _path="$UCHILE_ROS_WS/forks_ws/src" ;;
+            "base"      ) _path="$UCHILE_ROS_WS/base_ws/src" ;;            
+            "soft"      ) _path="$UCHILE_ROS_WS/soft_ws/src" ;;
+            "high"      ) _path="$UCHILE_ROS_WS/high_ws/src" ;;
+            "graveyard" ) _path="$UCHILE_GRAVEYARD" ;;
+            "embedded"  ) _path="$UCHILE_EMBEDDED" ;;
 
              "-h" | "--help" ) show_help=true ;;
 
@@ -243,7 +243,7 @@ uch_cd ()
             # unknown --> package
             * )
                 pkg_name="$user_path"
-                for pkg in $UCH_PACKAGES
+                for pkg in $UCHILE_PACKAGES
                 do
                     if [ "$pkg" = "$pkg_name" ]; then
                         _path=$(rospack find "$pkg_name")
@@ -254,7 +254,7 @@ uch_cd ()
 
 
                 stack_name="$user_path"
-                for stack in $UCH_STACKS
+                for stack in $UCHILE_STACKS
                 do
                     if [ "$stack" = "$stack_name" ]; then
                         _path=$(rosstack find "$stack_name")
@@ -273,7 +273,7 @@ uch_cd ()
     if [ "$show_help" = true ]; then
         cat <<EOF
 Synopsis:                
-    uch_cd [<workspace>|<package>|-h|--help]
+    uchile_cd [<workspace>|<package>|-h|--help]
 
 Description:
     It changes the current directory to the root of the
@@ -292,10 +292,10 @@ Options:
     Available package options correspond to ROS (meta)packages named 'bender_*'.
     
     If no option is given, then the directory will be the one 
-    addressed by the \$UCH_WS environment variable.
+    addressed by the \$UCHILE_WS environment variable.
 
 EOF
-        _uch_admin_goodbye
+        _uchile_admin_goodbye
         return 1
     fi
 
@@ -305,7 +305,7 @@ EOF
 
 
 # Kill gazebo gently
-uch_killgz ()
+uchile_killgz ()
 {
     # Kill controllers spawners
     rosnode kill /bender/controller_spawner 
@@ -318,23 +318,23 @@ uch_killgz ()
 
 killgz ()
 {
-    # UCH_DEPRECATED : mark method as deprecated. The flag is
+    # UCHILE_DEPRECATED : mark method as deprecated. The flag is
     # useful for looking up deprecated methods.
 
-    echo "DEPRECATED ... Please call uch_killgz (gently)"
+    echo "DEPRECATED ... Please call uchile_killgz (gently)"
     echo "THIS METHOD WILL BE REMOVED FOR THE NEXT RELEASE"
-    uch_killgz
+    uchile_killgz
 }
 
-uch_net_enable ()
+uchile_net_enable ()
 {
-    python "$UCH_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --enable "$HOME"/bender.sh
+    python "$UCHILE_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --enable "$HOME"/bender.sh
     . "$HOME"/bender.sh
 }
 
-uch_net_disable ()
+uchile_net_disable ()
 {
-    python "$UCH_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --disable "$HOME"/bender.sh
+    python "$UCHILE_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --disable "$HOME"/bender.sh
     . "$HOME"/bender.sh
 }
 
