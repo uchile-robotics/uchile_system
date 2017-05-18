@@ -37,7 +37,7 @@ _checkfile() {
     
     _file="$1"
     
-    python "$GITHOOKS_PATH"/yaml_linter.py "$_file"
+    python "$GITHOOKS_PATH"/hooks/yaml_linter.py "$_file"
 
     _rc="$?"
     if [ "$_rc" != "0" ]; then

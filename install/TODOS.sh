@@ -8,16 +8,6 @@
 # - 
 # -
 
-install -> deps
-misc/embedded
-misc/graveyard
-/misc/wiki
-/ros/high_ws/src
-/ros/soft_ws/src
-/ros/base_ws/src
-/system
-
-
 - mail avisando sobre cambio de bender_system
 	- agregar comando a ejecutar para actualizar el remote
 

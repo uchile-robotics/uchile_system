@@ -193,7 +193,7 @@ export UCHILE_EMAIL_CONTACT="bender.contacto@gmail.com"
 export UCHILE_EMAIL_DEVELOP="bender.devel@gmail.com"
 
 # git hooks
-export GITHOOKS_PATH="$UCHILE_SYSTEM/hooks/hooks"
+export GITHOOKS_PATH="$UCHILE_SYSTEM/hooks"
 
 # ros console output format
 export ROSCONSOLE_FORMAT='[${severity}] [${node}]: ${message}'

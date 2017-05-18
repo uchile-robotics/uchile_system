@@ -52,7 +52,7 @@ exec 1>&2
 ########################################################
 
 # check nice filenames hook
-. "$GITHOOKS_PATH"/pre-commit_filenames.sh
+. "$GITHOOKS_PATH"/hooks/pre-commit_filenames.sh
 
 
 
@@ -181,28 +181,28 @@ done
 _FAILED="no"
 
 # common stuff
-. "$GITHOOKS_PATH"/common.sh
+. "$GITHOOKS_PATH"/hooks/common.sh
 
 # git merge conflict hook
-. "$GITHOOKS_PATH"/pre-commit_merge_conflict.sh
+. "$GITHOOKS_PATH"/hooks/pre-commit_merge_conflict.sh
 
 # size hook
-. "$GITHOOKS_PATH"/pre-commit_size.sh
+. "$GITHOOKS_PATH"/hooks/pre-commit_size.sh
 
 # shell hook
-. "$GITHOOKS_PATH"/pre-commit_shell.sh
+. "$GITHOOKS_PATH"/hooks/pre-commit_shell.sh
 
 # python hook
-. "$GITHOOKS_PATH"/pre-commit_python.sh
+. "$GITHOOKS_PATH"/hooks/pre-commit_python.sh
 
 # XML hook
-. "$GITHOOKS_PATH"/pre-commit_xml.sh
+. "$GITHOOKS_PATH"/hooks/pre-commit_xml.sh
 
 # yaml hook
-. "$GITHOOKS_PATH"/pre-commit_yaml.sh
+. "$GITHOOKS_PATH"/hooks/pre-commit_yaml.sh
 
 # cpp hook
-. "$GITHOOKS_PATH"/pre-commit_cpp.sh
+. "$GITHOOKS_PATH"/hooks/pre-commit_cpp.sh
 
 
 ########################################################

@@ -36,7 +36,7 @@ _checkfile() {
     
     _file="$1"
 
-    python "$GITHOOKS_PATH"/check_merge_conflict.py "$_file"
+    python "$GITHOOKS_PATH"/hooks/check_merge_conflict.py "$_file"
 
     _rc="$?"
     if [ "$_rc" != "0" ]; then
