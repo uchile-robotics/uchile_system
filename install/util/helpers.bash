@@ -314,22 +314,25 @@ _uchile_enable_githook ()
         printf "Git hook template file not found at: '%s' .\n" "$_template"
         return 1
     fi
-    printf " - installing git hook on repo '%s' from template '%s'\n" "$_repo" "$_template"
-
+    _hook_file="$_repo/.git/hooks/pre-commit"
+    if [ -e "$_hook_file" ]; then
+        printf " - (re)installing git hook on repo '%s' from template '%s'\n" "$_repo" "$_template"
+        rm -f "$_hook_file"
+    else
+        printf " - installing git hook on repo '%s' from template '%s'\n" "$_repo" "$_template"
+    fi
 
     # install root hookfile
-    _hook_file="$_repo/.git/hooks/pre-commit"
     mkdir -p "$_repo/.git/hooks"
     cp "$_template" "$_hook_file"
     chmod 775 "$_hook_file"
 
     # install on submodules
-    printf " - looking for submodules\n"
     if [ -d "$_repo/.git/modules" ]; then
-
+        printf "    - looking for submodules\n"
         for _submodule in $(find "$_repo/.git/modules" -mindepth 1 -maxdepth 1 -type d)
         do
-            printf "   ... installing git hook on submodule '%s'\n" "$_submodule"
+            printf "    - ... installing git hook on submodule '%s'\n" "$_submodule"
             _hook_file="$_submodule/hooks/pre-commit"
             mkdir -p "$_submodule/hooks"
             cp "$_template" "$_hook_file"
@@ -337,5 +340,35 @@ _uchile_enable_githook ()
         done
 
     fi
+    return 0
+}
+
+# requires the framework_path env variable to be set
+function _uchile_link_ ()
+{
+    local target dest full_target full_dest
+    target="$1"
+    dest="$2"
+
+    full_target="$framework_path/pkgs/$target"
+    full_dest="$framework_path/ros/$dest"
+
+    # target exists
+    if [ ! -e "$full_target" ]; then
+        printf "    - target not found: %s\n" "$full_target"
+        return 1
+    fi
+
+    # destination existence
+    if [ -e "$full_dest" ]; then
+        printf "    - (re)creating link to destination: %s\n" "$dest"
+        rm -f "$full_dest"
+    else
+        printf "    - creating link to destination: %s\n" "$dest"
+    fi
+
+    # symbolink link
+    ln -sf "$full_target" "$full_dest"
+
     return 0
 }
