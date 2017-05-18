@@ -1,4 +1,4 @@
-# uch_system [WORK IN PROGRESS.. new arch and migrating from bitbucket ...]
+# uchile_system
 
 ## Overview
 

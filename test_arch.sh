@@ -35,10 +35,10 @@ mkdir -p "$PKGS_WS"/base/uchile_common/uchile_msgs
 mkdir -p "$PKGS_WS"/base/uchile_common/uchile_srvs
 mkdir -p "$PKGS_WS"/base/uchile_common/uchile_tf
 mkdir -p "$PKGS_WS"/base/uchile_common/uchile_util  # MOVED FROM bender_core_tools/bender_utils 
-#mkdir -p "$PKGS_WS"/base/uchile_common/control_util # MOVED FROM bender_hardware/control_util
-mkdir -p "$PKGS_WS"/base/uchile_common/uchile_sim   # (GIT PROPUESTO) # duplicacion de mundos! en simuladores... QUe cosas son realmente unicas del robot?
-mkdir -p "$PKGS_WS"/base/uchile_common/uchile_sim/uchile_gazebo
-mkdir -p "$PKGS_WS"/base/uchile_common/uchile_sim/uchile_stage
+# mkdir -p "$PKGS_WS"/base/uchile_common/control_util # MOVED FROM bender_hardware/control_util
+# mkdir -p "$PKGS_WS"/base/uchile_common/uchile_sim   # (GIT PROPUESTO) # duplicacion de mundos! en simuladores... QUe cosas son realmente unicas del robot?
+# mkdir -p "$PKGS_WS"/base/uchile_common/uchile_sim/uchile_gazebo
+# mkdir -p "$PKGS_WS"/base/uchile_common/uchile_sim/uchile_stage
 
 mkdir -p "$PKGS_WS"/base/uchile_tools # (GIT PROPUESTO)
 mkdir -p "$PKGS_WS"/base/uchile_tools/uchile_cmd_vel_mux

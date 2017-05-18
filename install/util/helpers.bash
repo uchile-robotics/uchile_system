@@ -8,17 +8,17 @@ _uchile_check_rosindigo ()
     dpkg -s ros-indigo-ros-base >/dev/null 2>/dev/null
     local rc="$?"
     if [ "$rc" = "1" ]; then
-        printf "ros-indigo-ros-base is not installed.\n"
+        printf " - [FAIL] ros-indigo-ros-base is not installed.\n"
         return 1
     fi
-    printf " - ROS indigo is installed (ros-indigo-ros-base)\n"
+    printf " - [OK] ROS indigo is installed (ros-indigo-ros-base)\n"
     
     # ROS setup.bash exists?
     if [ ! -e /opt/ros/indigo/setup.bash ]; then
-        printf "File not found: /opt/ros/indigo/setup.bash \n"
+        printf " - [FAIL] File not found: /opt/ros/indigo/setup.bash \n"
         return 1
     fi
-    printf " - indigo setup.bash exists\n"
+    printf " - [OK] indigo setup.bash exists\n"
 
     return 0
 }
@@ -111,6 +111,32 @@ _uchile_ask_framework_path ()
 }
 
 
+_uchile_create_complete_ws ()
+{
+    local ws_path
+    ws_path="$1"
+
+    printf " - Building overlayed ROS workspaces at %s. (Delete CMakeLists.txt files to force rebuilds)\n" "$ws_path"
+
+    # ROS sourcing
+    source /opt/ros/indigo/setup.bash
+
+    # forks_ws overlays ROS baseline
+    _uchile_create_ws "$ws_path"/forks_ws
+
+    # base_ws overlays forks_ws
+    _uchile_create_ws "$ws_path"/base_ws
+
+    # soft_ws overlays base_ws
+    _uchile_create_ws "$ws_path"/soft_ws
+
+    # high_ws overlays soft_ws
+    _uchile_create_ws "$ws_path"/high_ws
+
+    printf " ... built ROS overlays: ROS_PACKAGE_PATH=%s.\n\n\n" "$ROS_PACKAGE_PATH"
+}
+
+
 _uchile_create_ws ()
 {
     local ws_path user_path
@@ -121,6 +147,8 @@ _uchile_create_ws ()
     cd "$ws_path"/src
 
     if [ -e CMakeLists.txt ]; then
+        printf " - ... workspace at %s already exists.\n" "$ws_path"
+        source ../devel/setup.bash
         return 0
     fi
 
@@ -172,14 +200,13 @@ _uchile_get_repository ()
 
     _repo_name="$(echo "$_repo_url" | sed 's/.*\///' | sed 's/.git//')"
     printf "\n - - - - - - - \n"
-    printf " - repository name: %s" "$_repo_name\n"
-    printf " - repository url : %s" "$_repo_url\n"
-    printf " - destiny path   : %s" "$_repo_path\n"
+    printf " - repository name: %s\n" "$_repo_name"
+    printf " - repository url : %s\n" "$_repo_url"
+    printf " - destiny path   : %s\n" "$_repo_path"
 
     # check repository existence
     if [ -e "$_repo_path"/.git ]; then
-        printf " - .git folder already exists\n"        
-        printf " - won't clone again. A repository already exists here!\n"
+        printf " - Found .git folder. Won't clone again.\n"
         return 0
     fi
     rm -rf "$_repo_path" # delete if existing but is not a repository
