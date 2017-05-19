@@ -97,10 +97,10 @@ uchile_find_string ()
 {
     local string _path user_path opt show_help curpath
 
-    _path="$UCHILE_SYSTEM"                    # system
-    _path="$_path $UCHILE_ROS_WS/base_ws/src" # base_ws
-    _path="$_path $UCHILE_ROS_WS/soft_ws/src" # soft_ws
-    _path="$_path $UCHILE_ROS_WS/high_ws/src" # high_ws
+    _path="$UCHILE_SYSTEM"                 # system
+    _path="$_path $UCHILE_PKGS_WS/base_ws" # base_ws
+    _path="$_path $UCHILE_PKGS_WS/soft_ws" # soft_ws
+    _path="$_path $UCHILE_PKGS_WS/high_ws" # high_ws
 
     string=""
     if [ "$#" = "2" ]; then 
