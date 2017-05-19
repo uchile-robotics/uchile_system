@@ -238,7 +238,7 @@ _uchile_get_repository "pkgs/forks_ws/urg_node" "https://github.com/uchile-robot
 _uchile_get_repository "pkgs/forks_ws/navigation" "https://github.com/uchile-robotics-forks/navigation" "kinetic-devel"
 
 # fork: open_ptrack
-_uchile_get_repository "pkgs/forks_ws/open_ptrack" "https://github.com/uchile-robotics-forks/open_ptrack" "master"
+#_uchile_get_repository "pkgs/forks_ws/open_ptrack" "https://github.com/uchile-robotics-forks/open_ptrack" "master"
 
 
 # unset credential helper if needed
@@ -288,7 +288,7 @@ function _uchile_link_common_ ()
 	
 	# forks
 	_uchile_link_ "forks_ws/navigation"         "$target_ws/forks_ws/src/navigation"
-	_uchile_link_ "forks_ws/open_ptrack"        "$target_ws/forks_ws/src/open_ptrack"
+	#_uchile_link_ "forks_ws/open_ptrack"        "$target_ws/forks_ws/src/open_ptrack"
 
 	# base
 	_uchile_link_ "base_ws/uchile_common"       "$target_ws/base_ws/src/uchile_common"
@@ -312,7 +312,7 @@ _uchile_link_common_ "all"
 
 
 # BENDER ONLY REPOSITORIES
-_uchile_link_ "forks_ws/open_ptrack"        "bender/forks_ws/src/open_ptrack"
+#_uchile_link_ "forks_ws/open_ptrack"        "bender/forks_ws/src/open_ptrack"
 _uchile_link_ "forks_ws/rosaria"            "bender/forks_ws/src/rosaria"
 _uchile_link_ "forks_ws/dynamixel_motor"    "bender/forks_ws/src/dynamixel_motor"
 _uchile_link_ "forks_ws/urg_node"           "bender/forks_ws/src/urg_node"
@@ -327,7 +327,7 @@ _uchile_link_ "high_ws/maqui_bringup"       "maqui/high_ws/src/maqui_bringup"
 
 
 # REMAINING REPOS FOR ALL
-_uchile_link_ "forks_ws/open_ptrack"        "all/forks_ws/src/open_ptrack"
+#_uchile_link_ "forks_ws/open_ptrack"        "all/forks_ws/src/open_ptrack"
 _uchile_link_ "forks_ws/rosaria"            "all/forks_ws/src/rosaria"
 _uchile_link_ "forks_ws/dynamixel_motor"    "all/forks_ws/src/dynamixel_motor"
 _uchile_link_ "forks_ws/urg_node"           "all/forks_ws/src/urg_node"

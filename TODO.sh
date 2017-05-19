@@ -6,7 +6,7 @@ REVISAR LINEAS COMENTADASEN PEPEPR
 uchile_system
 . commits diferidos
 . find string seguir links
-
+- catkin?make ..catkin?build
 
 
 # - paths de cosas que cambiaron de lugar..

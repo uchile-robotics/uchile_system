@@ -69,6 +69,13 @@ rosdep update
 Al terminar la instalación debes reabrir el terminal.
 
 
+## Configuraciones básicas
+
+En el archivo `$HOME/uchile.sh` se deben pueden configurar aspectos del framework como el robot a utilizar y opciones de red. Pon atención en las variables especificadas en tal archivo, pues deberás modificarlas constantemente.
+
+Al menos, debieras configurar la variable de entorno `UCHILE_ROBOT`, que por defecto es `bender`. Ésta permite seleccionar que overlay de workspaces ROS se utilizarán. Todos los overlays diponibles se encuentran en el directorio `$UCHILE_WS/ros/`. Según el valor escogido, el workspace ROS linkeado proveerá distintos packages, y por lo tanto, requerirá distintos pasos de instalación.
+
+
 ## Configuraciones MUY recomendadas
 
 Estas configuraciones son opcionales, pero se recomiendan para facilitar el desarrollo. Leer con atención y sólo habilitar las realmente deseadas.
@@ -79,17 +86,11 @@ Ejecutar en terminal (`Ctrl+Alt+T`)
 # Usuario de Git y ~/.gitconfig global
 # - provee usuario, mail, colores y aliases para comandos git.
 # - tras copiar el .gitconfig, al menos se debe configurar "name" y "email"!!!
-cp -bfS.bkp "$UCH_SYSTEM"/templates/default.gitconfig ~/.gitconfig
+cp -bfS.bkp "$UCHILE_SYSTEM"/templates/default.gitconfig ~/.gitconfig
 gedit ~/.gitconfig
 
-# Herramienta meld para git diffs. (OBS!, puede ser molesta en caso de no)
-# - permite ver diffs más bellos.
-# - descomentar línea [diff] external del .gitconfig.
-sudo apt-get install meld
-cp "$UCH_SYSTEM"/templates/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
-
 # configurar ~/.bash_aliases: esto configura el prompt PS1 para git. 
-cp -bfS.bkp "$UCH_SYSTEM"/templates/bash_aliases ~/.bash_aliases
+cp -bfS.bkp "$UCHILE_SYSTEM"/templates/bash_aliases ~/.bash_aliases
 
 # variable utilizada por "rosed" y algunos utilitarios de bender.
 echo 'export EDITOR="gedit"' >> ~/.bashrc
@@ -107,12 +108,22 @@ sudo apt-get install nautilus-open-terminal terminator gitk
 #   > cdb soft
 #   > git checkout develop
 bgit checkout develop
+
+# Herramienta meld para git diffs. (OBS!, puede ser molesta para algunos!)
+# - permite ver diffs más bellos.
+# - descomentar línea [diff] external del .gitconfig.
+sudo apt-get install meld
+cp "$UCHILE_SYSTEM"/templates/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
 ```
 
 
 ## Compilación de workspaces
 
 En esta fase es importante el orden de compilación.
+
+El sistema se divide en 5 workspaces, que en orden son: ROS, forks_ws, base_ws, soft_ws y high_ws.
+
+Los pasos a seguir dependerán del robot a utilizar, según la variable `$UCHILE_ROBOT`. En caso de querer utilizar ambos robots, seguir todas las instrucciones. Si sólo se instalará para uno de los robots, seguir las instrucciones correspondientes.
 
 
 ### Instalación de `forks_ws`
@@ -132,6 +143,8 @@ catkin_make
 
 
 ### Instalación de `base_ws`
+
+#### base_ws (sólo bender)
 
 Ejecutar en terminal (`Ctrl+Alt+T`)
 
@@ -170,8 +183,24 @@ cdb bender_sensors
 bash install/install.sh
 
 # install bender_turning_base
-cdb bender_turning_base
+cdb uchile_turning_base
 bash install/install.sh
+
+# Compilar
+cdb base && cd ..
+catkin_make
+```
+
+#### base_ws (sólo maqui)
+
+Ejecutar en terminal (`Ctrl+Alt+T`)
+
+```bash
+# instalar dependencias
+cdb base
+rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+
+# Nada que instalar aún!
 
 # Compilar
 cdb base && cd ..
@@ -181,6 +210,8 @@ catkin_make
 
 ### Instalación de `soft_ws`
 
+### instalación común
+
 Ejecutar en terminal (`Ctrl+Alt+T`)
 
 ```bash
@@ -189,13 +220,17 @@ cdb soft
 rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # instalar dependencias de speech
-cdb bender_speech
+cdb uchile_speech
 bash install/install.sh
 
 # instalar dependencias de navegación
-cdb bender_nav
+cdb uchile_nav
 bash install/install.sh
+```
 
+#### instalación sólo bender
+
+```bash
 # instalar dependencias de bender_arm_planning
 cdb bender_arm_planning
 bash install/install.sh
@@ -204,9 +239,15 @@ bash install/install.sh
 # [AVISO] puede tomar un par de horas !!
 # [WARNING] Sólo testeado en consola bash. Puede haber problemas con pip. Ver: https://bitbucket.org/uchile-robotics-die/bender_system/issues/9/importerror-no-module-named
 # [NOTA] No instalar no afecta en compilar bender
-cdb bender_perception_utils
+cdb uchile_perception_utils
 bash install/install.sh
+```
 
+#### Finalmente ...
+
+Finalmente, ejecutar:
+
+```bash
 # Compilar
 cdb soft && cd ..
 catkin_make
