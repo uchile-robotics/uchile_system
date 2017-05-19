@@ -109,16 +109,16 @@ uchile_find_string ()
         case "$opt" in
 
             "system"    ) _path="$UCHILE_SYSTEM" ;;
-            "forks"     ) _path="$UCHILE_ROS_WS/forks_ws/src" ;;
-            "base"      ) _path="$UCHILE_ROS_WS/base_ws/src" ;;
-            "soft"      ) _path="$UCHILE_ROS_WS/soft_ws/src" ;;
-            "high"      ) _path="$UCHILE_ROS_WS/high_ws/src" ;;
+            "forks"     ) _path="$UCHILE_PKGS_WS/forks_ws" ;;
+            "base"      ) _path="$UCHILE_PKGS_WS/base_ws" ;;
+            "soft"      ) _path="$UCHILE_PKGS_WS/soft_ws" ;;
+            "high"      ) _path="$UCHILE_PKGS_WS/high_ws" ;;
             "misc"      ) _path="$UCHILE_MISC_WS" ;;
             "deps"      ) _path="$UCHILE_DEPS_WS" ;;
             "pkgs"      ) _path="$UCHILE_PKGS_WS" ;;
-            "ros_ws"    ) _path="$_path $UCHILE_ROS_WS/forks_ws/src" ;;
+            "ros_ws"    ) _path="$_path $UCHILE_PKGS_WS/forks_ws" ;;
             "all" )
-                _path="$_path $UCHILE_ROS_WS/forks_ws/src"
+                _path="$_path $UCHILE_PKGS_WS/forks_ws"
                 _path="$_path $UCHILE_MISC_WS"
                 _path="$_path $UCHILE_DEPS_WS"
                 ;;

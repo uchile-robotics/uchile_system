@@ -9,6 +9,8 @@ uchile_system
 - catkin?make ..catkin?build
 
 
+
+
 # - paths de cosas que cambiaron de lugar..
 #    ej> $BENDER_WS/soft_ws/bender_tools....
 # - hacer un tag pre migracion: v1.9
