@@ -3,7 +3,6 @@
 _uchile_admin_goodbye () 
 {
     python "$UCHILE_SYSTEM"/shell/src/functions.py "admin_goodbye"
-
 }
 
 _uchile_check_if_bash ()
@@ -20,6 +19,21 @@ _uchile_check_if_bash_or_zsh ()
 {
     python "$UCHILE_SYSTEM"/shell/src/functions.py "shell_is_bash_or_zsh"
 }
+
+# compatibility layer
+_bender_check_if_bash () 
+{
+     _uchile_check_if_bash 
+}
+_bender_check_if_zsh ()
+{
+    _uchile_check_if_zsh
+}
+_bender_check_if_bash_or_zsh ()
+{
+    _uchile_check_if_bash_or_zsh
+}
+
 
 _uchile_check_var_isset ()
 {
@@ -50,7 +64,8 @@ _uchile_check_user_confirmation ()
 
 _uchile_get_active_ip ()
 {
-    ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | sed 's/\/.*//'
+    ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}
+    _uchile_check' | sed 's/\/.*//'
 }
 
 _uchile_check_installed ()

@@ -7,16 +7,18 @@
 
 UCHILE_REPOSITORIES=""
 UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_SYSTEM"
-UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/base_ws/src"
-UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/base_ws/src/bender_knowledge"
-UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/soft_ws/src"
-UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/soft_ws/src/bender_hri"
-UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/soft_ws/src/bender_manipulation"
-UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/soft_ws/src/bender_navigation"
-UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/soft_ws/src/bender_perception"
-UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/soft_ws/src/bender_tools"
-UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/high_ws/src"
-UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_ROS_WS/high_ws/src/robot_skills"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/base_ws/uchile_common"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/base_ws/uchile_tools"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/base_ws/uchile_knowledge"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/base_ws/bender_core"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/base_ws/maqui_core"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/soft_ws/uchile_hri"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/soft_ws/uchile_manipulation"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/soft_ws/uchile_navigation"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/soft_ws/uchile_perception"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/high_ws/uchile_high"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/high_ws/bender_bringup"
+UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/high_ws/maqui_bringup"
 
 
 ## 
@@ -36,7 +38,7 @@ _uchile_git_status ()
     for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCHILE_ROS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_PKGS_WS/}"
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
@@ -76,7 +78,7 @@ _uchile_git_checkout ()
     for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCHILE_ROS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_PKGS_WS/}"
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
@@ -144,7 +146,7 @@ _uchile_git_ls_files ()
     for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCHILE_ROS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_PKGS_WS/}"
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
@@ -185,7 +187,7 @@ _uchile_git_fetch ()
     for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCHILE_ROS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_PKGS_WS/}"
 
         # if git repository
         if [ -e "$_repo_path/.git" ]; then
@@ -253,7 +255,7 @@ _uchile_git_merge ()
     for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCHILE_ROS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_PKGS_WS/}"
 
         # if git repository
         if [ -e "$_repo_path/.git" ]; then

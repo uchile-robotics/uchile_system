@@ -13,6 +13,7 @@ export UCHILE_PACKAGES="$(printf "%s\n%s\n%s" "$UCHILE_PACKAGES_BASE" "$UCHILE_P
 # uchile_* stacks lists
 export UCHILE_STACKS="$(rosstack list | grep "$UCHILE_ROS_WS" | cut -d' ' -f1)"
 
+
 ##############################################################################################
 #   bender system tools
 ##############################################################################################
@@ -59,7 +60,7 @@ do
 
     # source if neccesary.
     if [ -f "$_setup_file" ]; then
-    	#echo " - [DEPRECATED] loading $_setup_file. Please rename the bash/ to shell/."
+        #echo " - [DEPRECATED] loading $_setup_file. Please rename the bash/ to shell/."
         . "$_setup_file"
     fi
     

@@ -52,14 +52,13 @@ if _uchile_check_if_bash_or_zsh ; then
 
     # the same as uchile_cd but faster to type 
     alias cdb="uchile_cd"
-    alias bviz="roslaunch bender_utils rviz.launch" # TODO: move this 
+    alias bviz="roslaunch uchile_utils rviz.launch"
     
 fi
 
 
 uchile_open_config ()
 {
-
     local _conf _editor
     _conf="$UCHILE_SHELL_CFG"
 
@@ -98,7 +97,7 @@ uchile_find_string ()
 {
     local string _path user_path opt show_help curpath
 
-    _path="$UCHILE_SYSTEM"                # system
+    _path="$UCHILE_SYSTEM"                    # system
     _path="$_path $UCHILE_ROS_WS/base_ws/src" # base_ws
     _path="$_path $UCHILE_ROS_WS/soft_ws/src" # soft_ws
     _path="$_path $UCHILE_ROS_WS/high_ws/src" # high_ws
@@ -114,13 +113,16 @@ uchile_find_string ()
             "base"      ) _path="$UCHILE_ROS_WS/base_ws/src" ;;
             "soft"      ) _path="$UCHILE_ROS_WS/soft_ws/src" ;;
             "high"      ) _path="$UCHILE_ROS_WS/high_ws/src" ;;
-            "graveyard" ) _path="$UCHILE_GRAVEYARD" ;;
-            "embedded"  ) _path="$UCHILE_EMBEDDED" ;;
+            "misc"      ) _path="$UCHILE_MISC_WS" ;;
+            "deps"      ) _path="$UCHILE_DEPS_WS" ;;
+            "pkgs"      ) _path="$UCHILE_PKGS_WS" ;;
+            "ros_ws"    ) _path="$_path $UCHILE_ROS_WS/forks_ws/src" ;;
             "all" )
-                _path="$_path $UCHILE_EMBEDDED"
                 _path="$_path $UCHILE_ROS_WS/forks_ws/src"
+                _path="$_path $UCHILE_MISC_WS"
+                _path="$_path $UCHILE_DEPS_WS"
                 ;;
-
+        
             # unknown
             * ) 
                 echo "Unknown option: $opt"
@@ -161,14 +163,16 @@ Options:
     where lookup will be executed.
 
     Supported values are:
-        - forks    : lookup on forks_ws
-        - base     : lookup on base_ws
-        - soft     : lookup on soft_ws
-        - high     : lookup on high_ws
-        - system   : lookup on system
-        - graveyard: lookup on graveyard
-        - embedded : lookup on embedded
-        - all      : lookup on all previous locations, except graveyard
+        - forks  : lookup on forks_ws
+        - base   : lookup on base_ws
+        - soft   : lookup on soft_ws
+        - high   : lookup on high_ws
+        - system : lookup on system
+        - misc   : lookup on misc ws
+        - deps   : lookup on deps ws
+        - all    : lookup on all previous locations
+        - ros_ws : lookup on system, base, soft, high and forks
+        - pkgs   : lookup on pkgs ws
 
     By default the lookup is executed on system-base-soft-high.
 EOF
@@ -198,7 +202,7 @@ EOF
 
         # in filenames 
         echo "[INFO]: - Looking for pattern '$string' in filenames:"
-        find . -wholename "*$string*" -print -o -path "*/.git" -prune
+        find . -wholename "*$string*" -print -o -path "*/.git" -prune | grep "$string"
     done
 
     cd "$user_path"
@@ -226,13 +230,14 @@ uchile_cd ()
 
         case "$user_path" in
 
-            "system"    ) _path="$UCHILE_SYSTEM" ;;
-            "forks"     ) _path="$UCHILE_ROS_WS/forks_ws/src" ;;
-            "base"      ) _path="$UCHILE_ROS_WS/base_ws/src" ;;            
-            "soft"      ) _path="$UCHILE_ROS_WS/soft_ws/src" ;;
-            "high"      ) _path="$UCHILE_ROS_WS/high_ws/src" ;;
-            "graveyard" ) _path="$UCHILE_GRAVEYARD" ;;
-            "embedded"  ) _path="$UCHILE_EMBEDDED" ;;
+            "system" ) _path="$UCHILE_SYSTEM" ;;
+            "forks"  ) _path="$UCHILE_ROS_WS/forks_ws/src" ;;
+            "base"   ) _path="$UCHILE_ROS_WS/base_ws/src" ;;            
+            "soft"   ) _path="$UCHILE_ROS_WS/soft_ws/src" ;;
+            "high"   ) _path="$UCHILE_ROS_WS/high_ws/src" ;;
+            "misc"   ) _path="$UCHILE_MISC_WS" ;;
+            "deps"   ) _path="$UCHILE_DEPS_WS" ;;
+            "pkgs"   ) _path="$UCHILE_PKGS_WS" ;;
 
              "-h" | "--help" ) show_help=true ;;
 
@@ -263,7 +268,7 @@ uchile_cd ()
                     fi
                 done
 
-                echo "Bender (meta)package named '$pkg_name' doesn't not exists. Try with 'roscd' command."
+                echo "(meta)package named '$pkg_name' doesn't not found on the UChile ROS Framework. Try with 'roscd' command."
                 show_help=true
         esac
     else
@@ -286,13 +291,14 @@ Options:
         - soft     : 'cd' to soft_ws
         - high     : 'cd' to high_ws
         - system   : 'cd' to system
-        - graveyard: 'cd' to graveyard
-        - embedded : 'cd' to embedded
+        - misc     : 'cd' to misc workspace
+        - deps     : 'cd' to deps workspace
+        - pkgs     : 'cd' to pkgs workspace
     
-    Available package options correspond to ROS (meta)packages named 'bender_*'.
+    Available package options correspond to ROS (meta)packages found on the UChile ROS Framework.
     
     If no option is given, then the directory will be the one 
-    addressed by the \$UCHILE_WS environment variable.
+    addressed by the \$UCHILE_ROS_WS environment variable.
 
 EOF
         _uchile_admin_goodbye
@@ -310,8 +316,10 @@ uchile_killgz ()
     # Kill controllers spawners
     rosnode kill /bender/controller_spawner 
     rosnode kill /bender/neck_controller_spawner
+
     # Kill Gazebo server
     killall gzserver
+
     # Kill Gazebo client
     killall gzclient
 }
@@ -328,13 +336,13 @@ killgz ()
 
 uchile_net_enable ()
 {
-    python "$UCHILE_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --enable "$HOME"/bender.sh
-    . "$HOME"/bender.sh
+    python "$UCHILE_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --enable "$HOME"/uchile.sh
+    . "$HOME"/uchile.sh
 }
 
 uchile_net_disable ()
 {
-    python "$UCHILE_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --disable "$HOME"/bender.sh
-    . "$HOME"/bender.sh
+    python "$UCHILE_SYSTEM"/shell/ros_network_indicator/ros_network_indicator.py --disable "$HOME"/uchile.sh
+    . "$HOME"/uchile.sh
 }
 

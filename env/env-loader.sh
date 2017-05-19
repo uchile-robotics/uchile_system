@@ -14,7 +14,7 @@ if [ $# -eq 0 ] ; then
 fi
 
 # mark the entry point as an SSH connection
-export UCHILE_NET_BY_SSH="YES"
+export UCHILE_NET_BY_SSH=true
 
 # uchile robotics framework as usual
 . "$HOME"/uchile.sh

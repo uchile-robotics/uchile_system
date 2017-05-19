@@ -16,7 +16,7 @@ fi
 # 2nd: merge: common origin/ branches
 _uchilecomplete_uchile_git ()
 {
-    local cur opts prev opts_co opts_ls
+    local cur opts prev opts_co opts_ls opts_mg
 
     # available options
     opts="-h --help"

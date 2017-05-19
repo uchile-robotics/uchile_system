@@ -16,7 +16,7 @@ function _uchilecomplete_uchile_find_string
 
     # available options
     opts="-h --help"
-    opts="${opts} base soft high system graveyard forks install embedded all"
+    opts="${opts} system forks base soft high misc deps pkgs ros_ws all"
 
     if _uchile_check_if_bash ; then
         # bash - complete
@@ -61,7 +61,7 @@ function _uchilecomplete_uchile_cd
 
     # available options
     opts="-h --help"
-    opts="${opts} base soft high system graveyard forks embedded"
+    opts="${opts} system forks base soft high misc deps pkgs"
     opts="${opts} $UCHILE_PACKAGES"
     opts="${opts} $UCHILE_STACKS"
 

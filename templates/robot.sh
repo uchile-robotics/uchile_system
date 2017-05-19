@@ -6,9 +6,9 @@
 # This file is automagically sourced whenever a new shell is opened.
 #
 #
-# To enable the framework, you must setup the following on your rc file:
+# To enable the UChile ROS Framework, you must setup the following on your rc file:
 # 
-# # workspace location
+# # UChile workspace location
 # export UCHILE_WS=<FRAMEWORK_PATH>
 #
 # # workspace configuration file
@@ -20,7 +20,7 @@
 #
 #
 
-## ROBOT FRAMEWORK SETTINGS
+## UCHILE ROS FRAMEWORK SETTINGS
 ## ==========================================
 
 # robot settings

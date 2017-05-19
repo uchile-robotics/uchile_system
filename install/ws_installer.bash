@@ -100,22 +100,22 @@ mkdir -p "$framework_path"/pkgs/high_ws
 
 # available ROS workspaces
 mkdir -p "$framework_path"/ros
-mkdir -p "$framework_path"/ros/bender_ws
-mkdir -p "$framework_path"/ros/maqui_ws
-mkdir -p "$framework_path"/ros/all_ws
+mkdir -p "$framework_path"/ros/bender
+mkdir -p "$framework_path"/ros/maqui
+mkdir -p "$framework_path"/ros/all
 
 
 ## ROS workspaces and overlays
 ## ---------------------------------------------
 
-# bender_ws
-bash -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/bender_ws"
+# bender
+bash -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/bender"
 
-# maqui_ws
-bash -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/maqui_ws"
+# maqui
+bash -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/maqui"
 
-# all_ws
-bash -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/all_ws"
+# all
+bash -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/all"
 
 
 ## ======================================================
@@ -306,36 +306,36 @@ function _uchile_link_common_ ()
 }
 
 # COMMON REPOSITORIES
-_uchile_link_common_ "bender_ws"
-_uchile_link_common_ "maqui_ws"
-_uchile_link_common_ "all_ws"
+_uchile_link_common_ "bender"
+_uchile_link_common_ "maqui"
+_uchile_link_common_ "all"
 
 
 # BENDER ONLY REPOSITORIES
-_uchile_link_ "forks_ws/open_ptrack"        "bender_ws/forks_ws/src/open_ptrack"
-_uchile_link_ "forks_ws/rosaria"            "bender_ws/forks_ws/src/rosaria"
-_uchile_link_ "forks_ws/dynamixel_motor"    "bender_ws/forks_ws/src/dynamixel_motor"
-_uchile_link_ "forks_ws/urg_node"           "bender_ws/forks_ws/src/urg_node"
-_uchile_link_ "forks_ws/usb_cam"            "bender_ws/forks_ws/src/usb_cam"
-_uchile_link_ "base_ws/bender_core"         "bender_ws/base_ws/src/bender_core"
-_uchile_link_ "high_ws/bender_bringup"      "bender_ws/high_ws/src/bender_bringup"
+_uchile_link_ "forks_ws/open_ptrack"        "bender/forks_ws/src/open_ptrack"
+_uchile_link_ "forks_ws/rosaria"            "bender/forks_ws/src/rosaria"
+_uchile_link_ "forks_ws/dynamixel_motor"    "bender/forks_ws/src/dynamixel_motor"
+_uchile_link_ "forks_ws/urg_node"           "bender/forks_ws/src/urg_node"
+_uchile_link_ "forks_ws/usb_cam"            "bender/forks_ws/src/usb_cam"
+_uchile_link_ "base_ws/bender_core"         "bender/base_ws/src/bender_core"
+_uchile_link_ "high_ws/bender_bringup"      "bender/high_ws/src/bender_bringup"
 
 
 # MAQUI ONLY REPOSITORIES
-_uchile_link_ "base_ws/maqui_core"          "maqui_ws/base_ws/src/maqui_core"
-_uchile_link_ "high_ws/maqui_bringup"       "maqui_ws/high_ws/src/maqui_bringup"
+_uchile_link_ "base_ws/maqui_core"          "maqui/base_ws/src/maqui_core"
+_uchile_link_ "high_ws/maqui_bringup"       "maqui/high_ws/src/maqui_bringup"
 
 
-# REMAINING REPOS FOR ALL_WS
-_uchile_link_ "forks_ws/open_ptrack"        "all_ws/forks_ws/src/open_ptrack"
-_uchile_link_ "forks_ws/rosaria"            "all_ws/forks_ws/src/rosaria"
-_uchile_link_ "forks_ws/dynamixel_motor"    "all_ws/forks_ws/src/dynamixel_motor"
-_uchile_link_ "forks_ws/urg_node"           "all_ws/forks_ws/src/urg_node"
-_uchile_link_ "forks_ws/usb_cam"            "all_ws/forks_ws/src/usb_cam"
-_uchile_link_ "base_ws/bender_core"         "all_ws/base_ws/src/bender_core"
-_uchile_link_ "base_ws/maqui_core"          "all_ws/base_ws/src/maqui_core"
-_uchile_link_ "high_ws/bender_bringup"      "all_ws/high_ws/src/bender_bringup"
-_uchile_link_ "high_ws/maqui_bringup"       "all_ws/high_ws/src/maqui_bringup"
+# REMAINING REPOS FOR ALL
+_uchile_link_ "forks_ws/open_ptrack"        "all/forks_ws/src/open_ptrack"
+_uchile_link_ "forks_ws/rosaria"            "all/forks_ws/src/rosaria"
+_uchile_link_ "forks_ws/dynamixel_motor"    "all/forks_ws/src/dynamixel_motor"
+_uchile_link_ "forks_ws/urg_node"           "all/forks_ws/src/urg_node"
+_uchile_link_ "forks_ws/usb_cam"            "all/forks_ws/src/usb_cam"
+_uchile_link_ "base_ws/bender_core"         "all/base_ws/src/bender_core"
+_uchile_link_ "base_ws/maqui_core"          "all/base_ws/src/maqui_core"
+_uchile_link_ "high_ws/bender_bringup"      "all/high_ws/src/bender_bringup"
+_uchile_link_ "high_ws/maqui_bringup"       "all/high_ws/src/maqui_bringup"
 
 unset _uchile_link_
 unset _uchile_link_common_
