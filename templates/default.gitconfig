@@ -53,7 +53,7 @@
 # - - - - - - Git diff tools - - - - - - -
 [diff]
 	# launch git meld
-	external = ~/.gitconfig_meld_launcher.py
+	# external = ~/.gitconfig_meld_launcher.py
 
 
 # - - - - - - Git Commands Coloring - - - - - - -
