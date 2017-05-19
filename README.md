@@ -32,11 +32,14 @@ sudo apt-get install ros-indigo-ros-base git python-flake8 shellcheck libxml2-ut
 cd "$HOME"
 
 # descargar uch_system
-git clone https://github.com/uchile-robotics/uch_system.git tmp_repo
+git clone https://github.com/uchile-robotics/uchile_system.git tmp_repo
 cd tmp_repo/install
 
 # Obtener repositorios y crear workspaces
-bash bender_ws_installer.bash
+# - ejecutar más de una vez en caso de haber fallado en clonar algún repositorio
+# - Esto requiere no tener sourceado ROS en la consola actual ni en bash (revisar .bashrc)
+chmod +x ws_installer.bash
+./ws_installer.bash
 
 # limpiar
 cd "$HOME"
@@ -44,22 +47,20 @@ rm -rf ~/tmp_repo
 
 
 ## Habilitar workspace para uso en consola
-# reemplazar "bender_ws" por "maqui_ws" y "bender.sh" por "maqui.sh" de ser necesario.
 
 # sólo usuarios de bash
 echo '' >> ~/.bashrc
-echo '# UCH Robot Workspace settings: location, configs and setup script.' >> ~/.bashrc
-echo 'export UCH_WS="$HOME"/bender_ws'        >> ~/.bashrc
-echo 'export UCH_SHELL_CFG="$HOME"/bender.sh' >> ~/.bashrc
-echo '. "$UCH_WS"/system/setup.bash'          >> ~/.bashrc
+echo '# UChile ROS Framework settings: location, configs and setup script.' >> ~/.bashrc
+echo 'export UCHILE_WS="$HOME"/uchile_ws'        >> ~/.bashrc
+echo 'export UCHILE_SHELL_CFG="$HOME"/uchile.sh' >> ~/.bashrc
+echo '. "$UCHILE_WS"/system/setup.bash'          >> ~/.bashrc
 
 # sólo usuarios de zsh
 echo '' >> ~/.zshrc
-echo '# UCH Robot Workspace settings: location, configs and setup script.' >> ~/.zshrc
-echo 'export UCH_WS="$HOME"/bender_ws'        >> ~/.zshrc
-echo 'export UCH_SHELL_CFG="$HOME"/bender.sh' >> ~/.zshrc
-echo '. "$UCH_WS"/system/setup.zsh'           >> ~/.zshrc
-
+echo '# UChile ROS Framework settings: location, configs and setup script.' >> ~/.zshrc
+echo 'export UCHILE_WS="$HOME"/uchile_ws'        >> ~/.zshrc
+echo 'export UCHILE_SHELL_CFG="$HOME"/uchile.sh' >> ~/.zshrc
+echo '. "$UCHILE_WS"/system/setup.zsh'           >> ~/.zshrc
 
 # inicializar rosdep
 sudo rosdep init
@@ -68,18 +69,24 @@ rosdep update
 Al terminar la instalación debes reabrir el terminal.
 
 
-## Configuraciones recomendadas
+## Configuraciones MUY recomendadas
+
+Estas configuraciones son opcionales, pero se recomiendan para facilitar el desarrollo. Leer con atención y sólo habilitar las realmente deseadas.
 
 Ejecutar en terminal (`Ctrl+Alt+T`)
 
 ```bash
-# configurar ~/.gitconfig global: usuario, mail, colores y aliases para comandos git.
+# Usuario de Git y ~/.gitconfig global
+# - provee usuario, mail, colores y aliases para comandos git.
 # - tras copiar el .gitconfig, al menos se debe configurar "name" y "email"!!!
-# - setear herramienta meld para ver los git diffs
-sudo apt-get install meld
 cp -bfS.bkp "$UCH_SYSTEM"/templates/default.gitconfig ~/.gitconfig
-cp "$UCH_SYSTEM"/templates/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
 gedit ~/.gitconfig
+
+# Herramienta meld para git diffs. (OBS!, puede ser molesta en caso de no)
+# - permite ver diffs más bellos.
+# - descomentar línea [diff] external del .gitconfig.
+sudo apt-get install meld
+cp "$UCH_SYSTEM"/templates/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
 
 # configurar ~/.bash_aliases: esto configura el prompt PS1 para git. 
 cp -bfS.bkp "$UCH_SYSTEM"/templates/bash_aliases ~/.bash_aliases
