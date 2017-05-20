@@ -162,14 +162,14 @@ export BENDER_SYSTEM="$UCHILE_SYSTEM"
 
 # manage network configurations
 # ----------------------------------------
-if $UCHILE_NET_BY_SSH; then
+if [ "$UCHILE_NET_BY_SSH" = true ]; then
     . "$UCHILE_SYSTEM"/env/network-defs.sh
 fi
 
-if $UCHILE_NET_ENABLE; then
+if [ "$UCHILE_NET_ENABLE" = true ]; then
     . "$UCHILE_SYSTEM"/env/network-defs.sh
 
-elif $UCHILE_NET_WARN; then
+elif [ "$UCHILE_NET_WARN" = true ]; then
 
     _caller_script=
     if command -v caller >/dev/null 2>&1 ; then
@@ -193,8 +193,6 @@ elif $UCHILE_NET_WARN; then
     unset _sound_file
     unset _caller_script
 fi
-
-
 
 
 # manage ros framework
