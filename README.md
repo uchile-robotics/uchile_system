@@ -222,10 +222,6 @@ rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 # instalar dependencias de speech
 cdb uchile_speech_pocketsphinx
 bash install/install.sh
-
-# instalar dependencias de navegación
-cdb uchile_nav
-bash install/install.sh
 ```
 
 #### instalación sólo bender
