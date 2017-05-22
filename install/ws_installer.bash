@@ -31,7 +31,11 @@ printf " ###########################################\n"
 ## ======================================================
 ask_framework_path=false
 
-force_rebuild=false # TODO
+# TODOs
+# force_rebuild=false # force workspace rebuilds
+# avoid extra=false   # Avoid cloning and setting other 
+#                       environments. Just sets up a 
+#                       single robot env.
 
 ## ======================================================
 ## PRE CHECKS
@@ -206,21 +210,17 @@ _uchile_get_repository "pkgs/high_ws/bender_bringup"      "https://github.com/uc
 ## forks
 ## ----------------------------------------------------------------------------
 
-# UNKNOWN!
-# https://github.com/uchile-robotics-forks/console_bridge
-# https://github.com/uchile-robotics-forks/robot_model
-# https://github.com/uchile-robotics-forks/libqi-release
-# https://github.com/uchile-robotics-forks/libqicore-release
-# https://github.com/uchile-robotics-forks/nao_robot
-# https://github.com/uchile-robotics-forks/naoqi_driver
-# https://github.com/uchile-robotics-forks/naoqi_bridge
-# https://github.com/uchile-robotics-forks/naoqi_bridge_msgs
-# https://github.com/uchile-robotics-forks/naoqi_dcm_driver
-# https://github.com/uchile-robotics-forks/pepper_dcm_robot
-# https://github.com/uchile-robotics-forks/pepper_virtual
-# https://github.com/uchile-robotics-forks/pepper_robot
-# https://github.com/uchile-robotics-forks/pepper_meshes
-# https://github.com/uchile-robotics-forks/pepper_moveit_config
+# pepper stuff
+_uchile_get_repository "pkgs/forks_ws/pepper/nao_robot"            "https://github.com/uchile-robotics-forks/nao_robot"            "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge"         "https://github.com/uchile-robotics-forks/naoqi_bridge"         "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge_msgs"    "https://github.com/uchile-robotics-forks/naoqi_bridge_msgs"    "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_dcm_driver"     "https://github.com/uchile-robotics-forks/naoqi_dcm_driver"     "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_driver"         "https://github.com/uchile-robotics-forks/naoqi_driver"         "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/pepper_dcm_robot"     "https://github.com/uchile-robotics-forks/pepper_dcm_robot"     "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/pepper_meshes"        "https://github.com/uchile-robotics-forks/pepper_meshes"        "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/pepper_moveit_config" "https://github.com/uchile-robotics-forks/pepper_moveit_config" "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/pepper_robot"         "https://github.com/uchile-robotics-forks/pepper_robot"         "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/pepper_virtual"       "https://github.com/uchile-robotics-forks/pepper_virtual"       "develop"
 
 # forks: rosaria
 _uchile_get_repository "pkgs/forks_ws/rosaria" "https://github.com/uchile-robotics-forks/rosaria" "master"
@@ -312,6 +312,7 @@ _uchile_link_common_ "all"
 
 
 # BENDER ONLY REPOSITORIES
+printf "\n - Linking bender specific repositories:\n"
 #_uchile_link_ "forks_ws/open_ptrack"        "bender/forks_ws/src/open_ptrack"
 _uchile_link_ "forks_ws/rosaria"            "bender/forks_ws/src/rosaria"
 _uchile_link_ "forks_ws/dynamixel_motor"    "bender/forks_ws/src/dynamixel_motor"
@@ -322,12 +323,16 @@ _uchile_link_ "high_ws/bender_bringup"      "bender/high_ws/src/bender_bringup"
 
 
 # MAQUI ONLY REPOSITORIES
+printf "\n - Linking maqui specific repositories:\n"
+_uchile_link_ "forks_ws/pepper"             "maqui/forks_ws/src/pepper"
 _uchile_link_ "base_ws/maqui_core"          "maqui/base_ws/src/maqui_core"
 _uchile_link_ "high_ws/maqui_bringup"       "maqui/high_ws/src/maqui_bringup"
 
 
 # REMAINING REPOS FOR ALL
+printf "\n - Linking remaining repos for the 'all' workspace:\n"
 #_uchile_link_ "forks_ws/open_ptrack"        "all/forks_ws/src/open_ptrack"
+_uchile_link_ "forks_ws/pepper"             "all/forks_ws/src/pepper"
 _uchile_link_ "forks_ws/rosaria"            "all/forks_ws/src/rosaria"
 _uchile_link_ "forks_ws/dynamixel_motor"    "all/forks_ws/src/dynamixel_motor"
 _uchile_link_ "forks_ws/urg_node"           "all/forks_ws/src/urg_node"
