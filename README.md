@@ -265,4 +265,4 @@ catkin_make
 
 ### Configuración del simulador Gazebo
 
-Para configurar una versión adecuada del simulador Gazebo debes seguir la documentación del package [bender_gazebo](https://bitbucket.org/uchile-robotics-die/bender_system/wiki/doc/packages/bender_gazebo.md).
+Para configurar una versión adecuada del simulador Gazebo debes seguir la documentación del package [bender_gazebo](https://github.com/uchile-robotics/uchile_system/wiki/bender_arm_control).
