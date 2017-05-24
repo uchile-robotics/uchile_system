@@ -211,7 +211,7 @@ catkin_make
 
 ### Instalación de `soft_ws`
 
-### instalación común
+#### instalación común
 
 Ejecutar en terminal (`Ctrl+Alt+T`)
 
