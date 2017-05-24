@@ -38,7 +38,6 @@ cd tmp_repo/install
 # Obtener repositorios y crear workspaces
 # - ejecutar más de una vez en caso de haber fallado en clonar algún repositorio
 # - Esto requiere no tener sourceado ROS en la consola actual ni en bash (revisar .bashrc)
-chmod +x ws_installer.bash
 ./ws_installer.bash
 
 # limpiar
@@ -47,8 +46,10 @@ rm -rf ~/tmp_repo
 
 
 ## Habilitar workspace para uso en consola
+#
+# usuarios de ZSH deben ejecutar ambos grupos de comandos!
 
-# sólo usuarios de bash
+# sólo usuarios de bash y zsh
 echo '' >> ~/.bashrc
 echo '# UChile ROS Framework settings: location, configs and setup script.' >> ~/.bashrc
 echo 'export UCHILE_WS="$HOME"/uchile_ws'        >> ~/.bashrc
@@ -235,8 +236,8 @@ bash install/install.sh
 # [AVISO] puede tomar un par de horas !!
 # [WARNING] Sólo testeado en consola bash. Puede haber problemas con pip. Ver: https://bitbucket.org/uchile-robotics-die/bender_system/issues/9/importerror-no-module-named
 # [NOTA] No instalar no afecta en compilar bender
-cdb uchile_perception_utils
-bash install/install.sh
+# cdb uchile_perception_utils
+# bash install/install.sh
 ```
 
 #### Finalmente ...
