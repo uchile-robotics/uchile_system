@@ -38,7 +38,8 @@ _uchile_git_status ()
     for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCHILE_PKGS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_WS\//}"
+        _repo_path_cropped="${_repo_path_cropped//pkgs\//}"
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
@@ -78,7 +79,8 @@ _uchile_git_checkout ()
     for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCHILE_PKGS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_WS\//}"
+        _repo_path_cropped="${_repo_path_cropped//pkgs\//}"
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
@@ -146,7 +148,8 @@ _uchile_git_ls_files ()
     for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCHILE_PKGS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_WS\//}"
+        _repo_path_cropped="${_repo_path_cropped//pkgs\//}"
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
@@ -187,7 +190,8 @@ _uchile_git_fetch ()
     for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCHILE_PKGS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_WS\//}"
+        _repo_path_cropped="${_repo_path_cropped//pkgs\//}"
 
         # if git repository
         if [ -e "$_repo_path/.git" ]; then
@@ -255,7 +259,8 @@ _uchile_git_merge ()
     for _repo_path in $UCHILE_REPOSITORIES; do
 
         # short version
-        _repo_path_cropped="${_repo_path//$UCHILE_PKGS_WS/}"
+        _repo_path_cropped="${_repo_path//$UCHILE_WS\//}"
+        _repo_path_cropped="${_repo_path_cropped//pkgs\//}"
 
         # if git repository
         if [ -e "$_repo_path/.git" ]; then
