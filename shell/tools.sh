@@ -52,7 +52,7 @@ if _uchile_check_if_bash_or_zsh ; then
 
     # the same as uchile_cd but faster to type 
     alias cdb="uchile_cd"
-    alias bviz="roslaunch uchile_utils rviz.launch"
+    alias bviz="roslaunch uchile_util rviz.launch"
     
 fi
 
