@@ -126,10 +126,9 @@ El sistema se divide en 5 workspaces, que en orden son: ROS, forks_ws, base_ws, 
 
 Los pasos a seguir dependerán del robot a utilizar, según la variable `$UCHILE_ROBOT`. En caso de querer utilizar ambos robots, seguir todas las instrucciones. Si sólo se instalará para uno de los robots, seguir las instrucciones correspondientes.
 
+Ejecutar lo siguiente en un nuevo terminal (`Ctrl+Alt+T`)
 
 ### Instalación de `forks_ws`
-
-Ejecutar en terminal (`Ctrl+Alt+T`)
 
 ```bash
 # Abrir workspace
@@ -142,18 +141,23 @@ rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 catkin_make
 ```
 
-
 ### Instalación de `base_ws`
 
-#### base_ws (sólo bender)
-
-Ejecutar en terminal (`Ctrl+Alt+T`)
+#### base_ws (común)
 
 ```bash
 # instalar dependencias
 cdb base
 rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
+# install uchile_turning_base
+cdb uchile_turning_base
+bash install/install.sh
+```
+
+#### base_ws (sólo bender)
+
+```bash
 # install bender_description
 cdb bender_description
 bash install/install.sh
@@ -182,28 +186,15 @@ bash install/install.sh
 # install bender_sensors
 cdb bender_sensors
 bash install/install.sh
-
-# install bender_turning_base
-cdb uchile_turning_base
-bash install/install.sh
-
-# Compilar
-cdb base && cd ..
-catkin_make
 ```
 
 #### base_ws (sólo maqui)
 
-Ejecutar en terminal (`Ctrl+Alt+T`)
+Nada que instalar aún!
+
+#### base_ws (compilación - común)
 
 ```bash
-# instalar dependencias
-cdb base
-rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
-
-# Nada que instalar aún!
-
-# Compilar
 cdb base && cd ..
 catkin_make
 ```
@@ -211,9 +202,7 @@ catkin_make
 
 ### Instalación de `soft_ws`
 
-#### instalación común
-
-Ejecutar en terminal (`Ctrl+Alt+T`)
+#### soft_ws (común)
 
 ```bash
 # instalar dependencias
@@ -225,7 +214,7 @@ cdb uchile_speech_pocketsphinx
 bash install/install.sh
 ```
 
-#### instalación sólo bender
+#### soft_ws (sólo bender)
 
 ```bash
 # instalar dependencias de bender_arm_planning
@@ -240,19 +229,20 @@ bash install/install.sh
 # bash install/install.sh
 ```
 
-#### Finalmente ...
+#### soft_ws (sólo maqui)
 
-Finalmente, ejecutar:
+Nada que instalar.
 
+#### soft_ws (compilación - común)
+ 
 ```bash
-# Compilar
 cdb soft && cd ..
 catkin_make
 ```
 
 ### Instalación de `high_ws`
 
-Ejecutar en terminal (`Ctrl+Alt+T`)
+#### high_ws (común)
 
 ```bash
 # instalar dependencias
