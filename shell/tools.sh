@@ -116,10 +116,8 @@ uchile_find_string ()
             "misc"      ) _path="$UCHILE_MISC_WS" ;;
             "deps"      ) _path="$UCHILE_DEPS_WS" ;;
             "pkgs"      ) _path="$UCHILE_PKGS_WS" ;;
-            "ros_ws"    ) _path="$_path $UCHILE_PKGS_WS/forks_ws" ;;
             "all" )
                 _path="$_path $UCHILE_PKGS_WS/forks_ws"
-                _path="$_path $UCHILE_MISC_WS"
                 _path="$_path $UCHILE_DEPS_WS"
                 ;;
         
@@ -168,11 +166,10 @@ Options:
         - soft   : lookup on soft_ws
         - high   : lookup on high_ws
         - system : lookup on system
-        - misc   : lookup on misc ws
         - deps   : lookup on deps ws
         - all    : lookup on all previous locations
-        - ros_ws : lookup on system, base, soft, high and forks
         - pkgs   : lookup on pkgs ws
+        - misc   : lookup on misc ws
 
     By default the lookup is executed on system-base-soft-high.
 EOF
