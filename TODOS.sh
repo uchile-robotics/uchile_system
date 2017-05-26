@@ -232,7 +232,6 @@ https://github.com/uchile-robotics/uch_system   # OK
 
 https://github.com/uchile-robotics/robot_skills # mover a uch_skills, rename pkg
 https://github.com/uchile-robotics/maqui_core   # algunos skills varios
-https://github.com/uchile-robotics/maqui_sim    # archivos repetidos!, siempre se repetiran los worlds!
 https://github.com/uchile-robotics/maqui_system # no tiene sentido... mover a system
 https://github.com/uchile-robotics/maqui_skills # no tiene sentido... borrarlo!.. compatibilidad uch_skills
 

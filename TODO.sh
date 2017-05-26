@@ -9,15 +9,16 @@ uchile_system
 - catkin?make ..catkin?build
 
 
-
-
 # - paths de cosas que cambiaron de lugar..
 #    ej> $BENDER_WS/soft_ws/bender_tools....
+
 # - hacer un tag pre migracion: v1.9
 # - hacer un tag post migracion: v2.0
+
 # - check cosas post migracion en bender
-# - ajustar uchile_system
+
 # - pushear commits nuevos y marcar repos como obsoletos
+
 # - mail avisando de esto para el viernes... 
 #    - recordar pushear todo el codigo local a rama respetiva! 
 

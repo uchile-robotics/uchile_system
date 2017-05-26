@@ -180,6 +180,9 @@ _uchile_get_repository "misc/graveyard/BenderCode_Indigo" "https://github.com/uc
 # page
 _uchile_get_repository "misc/webpage" "https://github.com/uchile-robotics/uchile-robotics.github.io"
 
+# maqui_system
+_uchile_get_repository "misc/maqui_system" "https://github.com/uchile-robotics/maqui_system"
+
 
 ## system
 ## ----------------------------------------------------------------------------
