@@ -71,22 +71,52 @@ rm -rf ~/tmp_repo
 
 ### Habilitar workspace para uso en consola
 
+En cada caso puedes copiar el bloque de código directo en la terminal.
+
+#### Sólo usuarios de bash
+
 ```bash
-# Sólo usuarios de bash
-echo '' >> ~/.bashrc
-echo '# UChile ROS Framework settings: location, configs and setup script.' >> ~/.bashrc
-echo 'export UCHILE_WS="$HOME"/uchile_ws'        >> ~/.bashrc
-echo 'export UCHILE_SHELL_CFG="$HOME"/uchile.sh' >> ~/.bashrc
-echo '. "$UCHILE_WS"/system/setup.bash'          >> ~/.bashrc
+cat >> ~/.bashrc <<"EOF"
 
-# Sólo usuarios de zsh
-echo '' >> ~/.zshrc
-echo '# UChile ROS Framework settings: location, configs and setup script.' >> ~/.zshrc
-echo 'export UCHILE_WS="$HOME"/uchile_ws'        >> ~/.zshrc
-echo 'export UCHILE_SHELL_CFG="$HOME"/uchile.sh' >> ~/.zshrc
-echo '. "$UCHILE_WS"/system/setup.zsh'           >> ~/.zshrc
+## -----------------------------------------------
+## UCHILE ROS FRAMEWORK Settings
 
+# workspace location
+export UCHILE_WS="$HOME"/uchile_ws
+
+# settings file location
+export UCHILE_SHELL_CFG="$HOME"/uchile.sh
+
+# UChile Robotics Framework for ZSH
+# comment this line to prevent sourcing the framework
+. "$UCHILE_WS"/system/setup.bash
+## -----------------------------------------------
+
+EOF
 ```
+
+#### Sólo usuarios de zsh
+
+```bash
+cat >> ~/.zshrc <<"EOF"
+
+## -----------------------------------------------
+## UCHILE ROS FRAMEWORK Settings
+
+# workspace location
+export UCHILE_WS="$HOME"/uchile_ws
+
+# settings file location
+export UCHILE_SHELL_CFG="$HOME"/uchile.sh
+
+# UChile Robotics Framework for ZSH
+# comment this line to prevent sourcing the framework
+. "$UCHILE_WS"/system/setup.zsh
+## -----------------------------------------------
+
+EOF
+```
+
 Al terminar la instalación debes reabrir el terminal.
 
 
