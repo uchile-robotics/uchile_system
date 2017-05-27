@@ -181,14 +181,11 @@ Ejecutar lo siguiente en un nuevo terminal (`Ctrl+Alt+T`)
 ### Instalación de `forks_ws`
 
 ```bash
-# Abrir workspace
-cdb forks && cd ..
-
-# Instalar dependencias
-rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+# instalar dependencias
+cdb forks && cd .. && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # Compilar
-catkin_make
+cdb forks && catkin_make
 ```
 
 ### Instalación de `base_ws`
@@ -197,45 +194,36 @@ catkin_make
 
 ```bash
 # instalar dependencias
-cdb base
-rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+cdb base && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # install uchile_turning_base
-cdb uchile_turning_base
-bash install/install.sh
+cdb uchile_turning_base  && bash install/install.sh
 ```
 
 #### base_ws (sólo bender)
 
 ```bash
 # install bender_description
-cdb bender_description
-bash install/install.sh
-bash scripts/update_models.sh
+cdb bender_description && bash install/install.sh
+cdb bender_description && bash scripts/update_models.sh
 
 # install bender_base
-cdb bender_base
-bash install/install.sh
+cdb bender_base && bash install/install.sh
 
 # install bender_head
-cdb bender_head
-bash install/install.sh
+cdb bender_head && bash install/install.sh
 
 # install bender_joy
-cdb bender_joy
-bash install/install.sh
+cdb bender_joy && bash install/install.sh
 
 # install bender_tts
-cdb bender_tts
-bash install/install.sh
+cdb bender_tts && bash install/install.sh
 
 # install bender_fieldbus
-cdb bender_fieldbus
-bash install/install.sh
+cdb bender_fieldbus && bash install/install.sh
 
 # install bender_sensors
-cdb bender_sensors
-bash install/install.sh
+cdb bender_sensors && bash install/install.sh
 ```
 
 #### base_ws (sólo maqui)
@@ -245,8 +233,7 @@ Nada que instalar aún!
 #### base_ws (compilación - común)
 
 ```bash
-cdb base && cd ..
-catkin_make
+cdb base && cd .. && catkin_make
 ```
 
 
@@ -256,27 +243,23 @@ catkin_make
 
 ```bash
 # instalar dependencias
-cdb soft
-rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # instalar dependencias de speech
-cdb uchile_speech_pocketsphinx
-bash install/install.sh
+cdb uchile_speech_pocketsphinx && bash install/install.sh
 ```
 
 #### soft_ws (sólo bender)
 
 ```bash
 # instalar dependencias de bender_arm_planning
-cdb bender_arm_planning
-bash install/install.sh
+cdb bender_arm_planning && bash install/install.sh
 
 # instalar dependencias para deep learning
 # [AVISO] puede tomar un par de horas !!
 # [WARNING] Sólo testeado en consola bash. Puede haber problemas con pip. Ver: https://bitbucket.org/uchile-robotics-die/bender_system/issues/9/importerror-no-module-named
 # [NOTA] No instalar no afecta en compilar bender
-# cdb uchile_perception_utils
-# bash install/install.sh
+# cdb uchile_perception_utils && bash install/install.sh
 ```
 
 #### soft_ws (sólo maqui)
@@ -286,8 +269,7 @@ Nada que instalar.
 #### soft_ws (compilación - común)
  
 ```bash
-cdb soft && cd ..
-catkin_make
+cdb soft && cd .. && catkin_make
 ```
 
 ### Instalación de `high_ws`
@@ -296,12 +278,10 @@ catkin_make
 
 ```bash
 # instalar dependencias
-cdb high
-rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+cdb high && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # Compilar
-cdb high && cd ..
-catkin_make
+cdb high && cd .. && catkin_make
 ```
 
 ### Configuración del simulador Gazebo
