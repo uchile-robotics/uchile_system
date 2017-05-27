@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # TODO:
 # - bgit sólo en workspaces seleccionados
@@ -168,14 +168,6 @@ _uchile_git_ls_files ()
     return 0
 }
 
-# trap required to handle some signals and perform the cleanup
-# note that cleanup depends and is performed on the caller, not here!.
-_uchile_git_trap ()
-{
-    # this does nothing!
-    true
-}
-
 _uchile_git_fetch ()
 {
     local _user_path _repo_path _repo_path_cropped
@@ -215,6 +207,14 @@ _uchile_git_fetch ()
     cd "$_user_path"
 
     return 0
+}
+
+# trap required to handle some signals and perform the cleanup
+# note that cleanup depends and is performed on the caller, not here!.
+_uchile_git_trap ()
+{
+    # this does nothing!
+    true
 }
 
 _uchile_git_merge_common ()
@@ -275,15 +275,27 @@ _uchile_git_merge ()
             printf "repository: %s and submodules ...\n" "$_repo_path_cropped"
 
             # deactivate some signals
-            trap "_uchile_git_trap" 1 2 3 15 20
+            # IS THIS REALLY NEEDED? 
+            # ... maybe not. but just to be sure nobody breaks the merge
+            # ''\_(*u*)_/''
+            if _uchile_check_if_bash ; then
+                trap "_uchile_git_trap" 1 2 3 15 20
+            else
+                # NOT IMPLEMENTED TRAP
+                : # noop
+            fi
 
             # merge
             _uchile_git_merge_common
-            #export -f _uchile_git_merge_common
-            git submodule foreach bash -c 'source $UCHILE_SYSTEM/shell/gittools.sh; _uchile_git_merge_common'
+            git submodule foreach _uchile_git_merge_common
 
             # reset signals to defaults
-            trap - 1 2 3 15 20
+            if _uchile_check_if_bash ; then
+                trap - 1 2 3 15 20
+            else
+                # NOT IMPLEMENTED TRAP EXIT
+                : # noop
+            fi
             
         else
             printf " - - - \n"
@@ -295,8 +307,6 @@ _uchile_git_merge ()
 
     return 0
 }
-
-
 
 
 # mismo uso que el comando git, pero para cosas 
@@ -320,10 +330,10 @@ bgit ()
     case "$_command" in
         "st" | "status"    ) _uchile_git_status            ;;
         "co" | "checkout"  ) _uchile_git_checkout $_params ;;
-        "fetch"            ) bash -i -c _uchile_git_fetch  ;;
-        "merge"            ) bash -i -c _uchile_git_merge  ;;
-        "pull"             ) bash -i -c _uchile_git_fetch
-                             bash -i -c _uchile_git_merge  ;;
+        "fetch"            ) _uchile_git_fetch             ;;
+        "merge"            ) _uchile_git_merge             ;;
+        "pull"             ) _uchile_git_fetch
+                             _uchile_git_merge             ;;
         "ls-files"         ) _uchile_git_ls_files $_params ;;
         "-h" | "--help"    ) _show_help=true ;;
         *                  ) _show_help=true ;;

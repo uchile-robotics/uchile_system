@@ -48,17 +48,15 @@ rm -rf ~/tmp_repo
 
 
 ## Habilitar workspace para uso en consola
-#
-# usuarios de ZSH deben ejecutar ambos grupos de comandos!
 
-# sólo usuarios de bash y zsh
+# Sólo usuarios de bash
 echo '' >> ~/.bashrc
 echo '# UChile ROS Framework settings: location, configs and setup script.' >> ~/.bashrc
 echo 'export UCHILE_WS="$HOME"/uchile_ws'        >> ~/.bashrc
 echo 'export UCHILE_SHELL_CFG="$HOME"/uchile.sh' >> ~/.bashrc
 echo '. "$UCHILE_WS"/system/setup.bash'          >> ~/.bashrc
 
-# sólo usuarios de zsh
+# Sólo usuarios de zsh
 echo '' >> ~/.zshrc
 echo '# UChile ROS Framework settings: location, configs and setup script.' >> ~/.zshrc
 echo 'export UCHILE_WS="$HOME"/uchile_ws'        >> ~/.zshrc
