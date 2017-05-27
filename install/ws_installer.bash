@@ -131,7 +131,7 @@ printf " ============ Setting up uchile.sh ============ \n"
 # uchile.sh
 # -----------------------------
 printf " - setting up file: %s\n" "$HOME/uchile.sh"
-template="$TMP_SYSTEM_DIR"/templates/robot.sh
+template="$TMP_SYSTEM_DIR"/templates/uchile.sh
 cp -f "$template" "$HOME"/uchile.sh
 unset template
 

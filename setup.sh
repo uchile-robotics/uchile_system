@@ -39,7 +39,7 @@ if [ -z "$CATKIN_SHELL" ]; then
     echo "THE UCHILE ROS WORKSPACE WILL NOT BE LOADED. PLEASE, UPDATE YOUR SETTINGS"
     echo "AS FOLLOWS:"
     echo "$ cp $HOME/uchile.sh $HOME/uchile.sh.bkp"
-    echo "$ cp $HOME/uchile_ws/system/templates/robot.sh $HOME/uchile.sh"
+    echo "$ cp $HOME/uchile_ws/system/templates/uchile.sh $HOME/uchile.sh"
     echo ""
     echo "Then edit your .bashrc:"
     echo "----------------------------------------------------------------"
