@@ -5,6 +5,8 @@
 
 ## Instalación del sistema
 
+*AVISO: Evitar copiar multiples líneas a la terminal, pues algunas podrían considerarse como argumento de las anteriores. Esto sucede, por ejemplo, cuando un script requiere input del usuario (contraseñas, aceptar/negar cosas...).*
+
 Ejecutar en terminal (`Ctrl+Alt+T`)
 
 ```bash
