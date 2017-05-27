@@ -185,7 +185,7 @@ Ejecutar lo siguiente en un nuevo terminal (`Ctrl+Alt+T`)
 cdb forks && cd .. && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # Compilar
-cdb forks && catkin_make
+cdb forks && cd .. && catkin_make
 ```
 
 ### Instalación de `base_ws`
