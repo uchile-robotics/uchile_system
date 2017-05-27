@@ -2,6 +2,17 @@
 
 ## Overview
 
+### Sobre uchile_system
+...
+
+### Actualizar la instalación
+
+En caso de querer descargar repositorios faltantes o actualizar la instalación, siempre se puede correr el instalador nuevamente, sin miedo a romper lo que ya está funcionando. El único efecto adverso podría ser que los repositorios queden en la rama default, o commit default para el caso de los forks. Para eso, correr en un terminal:
+```bash
+# recordar des sourcear ROS y UChile ROS Framework desde ~/.bashrc
+bash "$HOME"/uchile_ws/system/install/ws_installer.bash
+```
+
 
 ## Instalación del sistema
 
@@ -9,9 +20,13 @@
 
 Ejecutar en terminal (`Ctrl+Alt+T`)
 
-```bash
-## Pre-requisitos
+### Pre-requisitos
 
+#### Instalar ROS indigo
+
+*AVISO: Esta sección se puede ignorar si es que ROS indigo ya está instalado en la máquina.*
+
+```bash
 # ROS Keys
 # Evite instalar la versión full (sudo apt-get install ros-indigo-desktop-full) o alguna de las otras variantes.
 # ver: http://wiki.ros.org/indigo/Installation/Ubuntu
@@ -21,34 +36,42 @@ sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C
 # actualizar base de software
 sudo apt-get update
 
-# ROS: ros-indigo-ros-base
-# git/hooks: git python-flake8 shellcheck libxml2-utils python-yaml cppcheck
-# install: curl openssl pv python-rosinstall python-pip
-# conectividad: openssh-client openssh-server
-sudo apt-get install ros-indigo-ros-base git python-flake8 shellcheck libxml2-utils python-yaml cppcheck curl openssl pv python-rosinstall python-pip openssh-client openssh-server
+# instalar ROS base
+sudo apt-get install ros-indigo-ros-base curl openssl pv python-rosinstall python-pip python-rosdep
+
+# inicializar rosdep
+sudo rosdep init # ignorar si es que falla con "ERROR: default sources list file already exists:..."
+rosdep update    # NO EJECUTAR CON SUDO!
+```
+
+#### Instalar dependencias para system
+
+```bash
+sudo apt-get update
+sudo apt-get install git python-flake8 shellcheck libxml2-utils python-yaml cppcheck curl openssl pv python-rosinstall python-pip openssh-client openssh-server python-rosdep
+```
 
 
-## Instalación
+### Instalación de UChile ROS Framework
 
-# directorio "sano" y con permisos de escritura.
-cd "$HOME"
+Procurar **ejecutar las veces que sea necesario**, pues puede fallar el clone de algún repositorio, por ejemplo, al introducir mal la clave.
 
+*AVISO:* El instalador requiere no tener sourceado ROS en la consola actual ni en el archivo de configuración de bash. Para esto, debes asegurarte de que el archivo `~/.bashrc` no contenga líneas que hagan source de ROS ni de uchile_ws.
+
+```bash
 # descargar uch_system
-git clone https://github.com/uchile-robotics/uchile_system.git tmp_repo
-cd tmp_repo/install
+git clone https://github.com/uchile-robotics/uchile_system.git ~/tmp_repo
 
 # Obtener repositorios y crear workspaces
-# - ejecutar más de una vez en caso de haber fallado en clonar algún repositorio
-# - Esto requiere no tener sourceado ROS en la consola actual ni en bash (revisar .bashrc)
-./ws_installer.bash
+bash "$HOME"/tmp_repo/install/ws_installer.bash
 
 # limpiar
-cd "$HOME"
 rm -rf ~/tmp_repo
+```
 
+### Habilitar workspace para uso en consola
 
-## Habilitar workspace para uso en consola
-
+```bash
 # Sólo usuarios de bash
 echo '' >> ~/.bashrc
 echo '# UChile ROS Framework settings: location, configs and setup script.' >> ~/.bashrc
@@ -63,16 +86,13 @@ echo 'export UCHILE_WS="$HOME"/uchile_ws'        >> ~/.zshrc
 echo 'export UCHILE_SHELL_CFG="$HOME"/uchile.sh' >> ~/.zshrc
 echo '. "$UCHILE_WS"/system/setup.zsh'           >> ~/.zshrc
 
-# inicializar rosdep
-sudo rosdep init
-rosdep update
 ```
 Al terminar la instalación debes reabrir el terminal.
 
 
 ## Configuraciones básicas
 
-En el archivo `$HOME/uchile.sh` se deben pueden configurar aspectos del framework como el robot a utilizar y opciones de red. Pon atención en las variables especificadas en tal archivo, pues deberás modificarlas constantemente.
+En el archivo `~/uchile.sh` se deben pueden configurar aspectos del framework como el robot a utilizar y opciones de red. Pon atención en las variables especificadas en tal archivo, pues deberás modificarlas constantemente.
 
 Al menos, debieras configurar la variable de entorno `UCHILE_ROBOT`, que por defecto es `bender`. Ésta permite seleccionar que overlay de workspaces ROS se utilizarán. Todos los overlays diponibles se encuentran en el directorio `$UCHILE_WS/ros/`. Según el valor escogido, el workspace ROS linkeado proveerá distintos packages, y por lo tanto, requerirá distintos pasos de instalación.
 
@@ -114,7 +134,7 @@ bgit checkout develop
 # - permite ver diffs más bellos.
 # - descomentar línea [diff] external del .gitconfig.
 sudo apt-get install meld
-cp "$UCHILE_SYSTEM"/templates/gitconfig_meld_launcher.py "$HOME"/.gitconfig_meld_launcher.py
+cp "$UCHILE_SYSTEM"/templates/gitconfig_meld_launcher.py ~/.gitconfig_meld_launcher.py
 ```
 
 
