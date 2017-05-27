@@ -15,10 +15,10 @@
 ## ======================================================
 THIS_DIR=$(dirname "$BASH_SOURCE")
 TMP_SYSTEM_DIR=$(readlink -f "${THIS_DIR}/..")
-unset THIS_DIR
 
 # includes
 cd "$THIS_DIR"
+unset THIS_DIR
 source "util/helpers.bash"
 
 
