@@ -2,11 +2,11 @@
 # Instalación del sistema
 
 * [Prerrequisitos](#prerrequisitos)
-* [Instalación de UChile ROS Framework](#instalacion-de-uchile-ros-framework)
+* [Instalación de UChile ROS Framework](#instalación-de-uchile-ros-framework)
 * [Configuraciones](#configuraciones)
-* [Compilación de workspaces](#compilacion-de-workspaces)
-* [Actualizar la instalación](#actualizar-la-instalacion)
-* [Configuración del simulador Gazebo](#configuracion-del-simulador-gazebo)
+* [Compilación de workspaces](#compilación-de-workspaces)
+* [Actualizar la instalación](#actualizar-la-instalación)
+* [Configuración del simulador Gazebo](#configuración-del-simulador-gazebo)
 
 
 *AVISO: Evitar copiar multiples líneas a la terminal, pues algunas podrían considerarse como argumento de las anteriores. Esto sucede, por ejemplo, cuando un script requiere input del usuario (contraseñas, aceptar/negar cosas...).*
