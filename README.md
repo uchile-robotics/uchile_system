@@ -1,26 +1,20 @@
 # UChile ROS Framework
 
-<!--- * [Descripción](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/description.md) -->
+**uchile_system** tiene como objetivo proveer herramientas para manejar el código de los equipos *@Home de UChile Robotics*. Actualmente contiene los siguientes módulos:
+
+- Manejo e instalación del la estructura de archivos y workspaces ROS.
+- Configuración centralizada para cargar ROS en bash y zsh.
+- [Hooks para repositorios git.](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/githooks.md) 
+- [Herramientas para bash-zsh.](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/tools.md) 
+
+
+## Recursos
+
+* [Descripción](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/description.md) 
 * [Instalación](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/installation.md)
-<!--- * [Herramientas](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/tools.md) -->
+* [Herramientas](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/tools.md) 
 * [TODO List](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/TODO.md)
-* <!--- * [Change List](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/tools.md) -->
 
-
-
-
-<!--
-## Descripción del Workspace
- * El workspace aún se divide en forks_ws, base_ws, soft_ws y high_ws.
---- base_ws: Contiene metapackages: uchile_common, uchile_tools, uchile_knowledge junto a bender_core/maqui_core, que contienen código equivalente al de bender_hardware, es decir, todas los packages ROS que funcionan a modo de driver o simulación.
---- soft_ws: Contiene metapackages uchile_hri, uchile_manipulation, uchile_navigation y uchile_perception. (Todo idéntico, sólo cambian los nombres).
---- high_ws: Contiene metapackage uchile_high y packages: maqui_bringup, bender_bringup.  Los *_bringup están pensados para almacenar los launchfiles y configs (.yaml, .rviz, ...) específicas para lanzar a cada robot.
- -->
-
-## Recursos Externos
-
-* [Página Oficial de UChile Robotics](http://robotica-uchile.amtc.cl/)
-* [Wiki de UChile Robotics @Home](https://github.com/uchile-robotics/uchile_system/wiki)
 
 ## Lista de Cambios
 
@@ -54,3 +48,9 @@ Los principales cambios en relación a los repositorios se pueden resumir en:
 * Packages ROS y herramientas para la bash/zsh comunes a ambos robots, cambian prefijos de nombre desde `bender_*` a `uchile_*`
 * Las variables de entorno cambian prefijos de nombre desde `BENDER_*` a `UCHILE_*`.
 * El package antes llamado *bender_core*, que contenía los launchfiles para bender, ahora se llama *bender_bringup* y se encuentra en el *high_ws*.
+
+
+## Recursos Externos
+
+* [Página Oficial de UChile Robotics](http://robotica-uchile.amtc.cl/)
+* [Wiki de UChile Robotics @Home](https://github.com/uchile-robotics/uchile_system/wiki)
