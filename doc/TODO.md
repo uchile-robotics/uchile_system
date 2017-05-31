@@ -6,6 +6,8 @@
 
 * configuración recomendada de cache helper `old_git_credential_helper=$(git config --global --get credential.helper)`
 * assets/bender.machine, env/network-defs.sh and env/env-loader.sh
+* hay hooks no funcionando?
+* linters
 
 ##  Migración
 
