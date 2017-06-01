@@ -110,8 +110,20 @@ _uchile_ask_framework_path ()
     done
 }
 
-
+# calls _uchile_create_complete_ws_handler on an isolated env
 _uchile_create_complete_ws ()
+{
+    local ws_path
+    ws_path="$1"
+
+    # the "env -i bash --rcfile /etc/bash.bashrc" is required to run bash in a 
+    # clean environment, where ROS is not sourced.
+    env -i bash --rcfile /etc/bash.bashrc -c "source ${BASH_SOURCE}; _uchile_create_complete_ws_handler ${ws_path}"
+}
+
+
+# this requires ROS not to be sourced!
+_uchile_create_complete_ws_handler ()
 {
     local ws_path
     ws_path="$1"

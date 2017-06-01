@@ -105,16 +105,15 @@ mkdir -p "$framework_path"/ros/all
 
 ## ROS workspaces and overlays
 ## ---------------------------------------------
-# the "env -i bash --rcfile /etc/bash.bashrc" is required to run bash in a clean environment, i.e, where ROS is not sourced.
 
 # bender
-env -i bash --rcfile /etc/bash.bashrc -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/bender"
+_uchile_create_complete_ws "${framework_path}/ros/bender"
 
 # maqui
-env -i bash --rcfile /etc/bash.bashrc -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/maqui"
+_uchile_create_complete_ws "${framework_path}/ros/maqui"
 
 # all
-env -i bash --rcfile /etc/bash.bashrc -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/all"
+_uchile_create_complete_ws "${framework_path}/ros/all"
 
 
 ## ======================================================
@@ -168,9 +167,9 @@ _uchile_get_repository "misc/wiki" "https://github.com/uchile-robotics/uchile_sy
 # graveyard
 _uchile_get_repository "misc/graveyard/code_graveyard"    "https://github.com/uchile-robotics-graveyard/code_graveyard"
 _uchile_get_repository "misc/graveyard/uchile_embedded"   "https://github.com/uchile-robotics-graveyard/uchile_embedded"
-#_uchile_get_repository "misc/graveyard/old_page"          "https://github.com/uchile-robotics-graveyard/bender_page"
-#_uchile_get_repository "misc/graveyard/BenderCode"        "https://github.com/uchile-robotics/BenderCode"
-#_uchile_get_repository "misc/graveyard/BenderCode_Indigo" "https://github.com/uchile-robotics/BenderCode_Indigo"
+#_uchile_get_repository "misc/graveyard/old_page"          "https://github.com/uchile-robotics-graveyard/bender_page" # deprecated
+#_uchile_get_repository "misc/graveyard/BenderCode"        "https://github.com/uchile-robotics/BenderCode"            # big repo. just slows down installation
+#_uchile_get_repository "misc/graveyard/BenderCode_Indigo" "https://github.com/uchile-robotics/BenderCode_Indigo"     # big repo. just slows down installation
 
 # page
 _uchile_get_repository "misc/webpage" "https://github.com/uchile-robotics/uchile-robotics.github.io"
