@@ -199,9 +199,25 @@ fi
 # ---------------------------------------
 #
 # it's very very important to source the setup.sh files and not the setup.bash ones!
-# this way, the configuration is nor messed up when dealing with ssh.
+# this way, the configuration is not messed up when dealing with ssh.
 
-. "$UCHILE_ROS_WS"/high_ws/devel/setup.sh
+setup_file="$UCHILE_ROS_WS"/high_ws/devel/setup.sh
+if [ -e "${setup_file}" ]; then
+    . "${setup_file}"
+else
+    printf "[UChile ROS Framework]: Error: Missing setup.sh file on high_ws.\n"
+    printf " - Required file: %s\n" "${setup_file}"
+    printf " - My advice is to run the workspace installer script:\n"
+    printf "\n"
+    printf "    bash $UCHILE_SYSTEM/install/ws_installer.bash\n"
+    printf "\n"
+    printf "Then reopen the terminal and try again.\n"
+    printf "\n"
+    printf "ROS Will not be sourced.\n"
+    return 1
+fi
+unset setup_file
+
 
 
 ## UChile ROS Framework Tools
