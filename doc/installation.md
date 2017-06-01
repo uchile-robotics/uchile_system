@@ -51,8 +51,6 @@ sudo apt-get install git python-flake8 shellcheck libxml2-utils python-yaml cppc
 
 Procurar **ejecutar las veces que sea necesario**, pues puede fallar el clone de algún repositorio, por ejemplo, al introducir mal la clave.
 
-*AVISO:* El instalador requiere no tener sourceado ROS en la consola actual ni en el archivo de configuración de bash. Para esto, debes asegurarte de que el archivo `~/.bashrc` no contenga líneas que hagan source de ROS ni de uchile_ws.
-
 Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 
 ```bash

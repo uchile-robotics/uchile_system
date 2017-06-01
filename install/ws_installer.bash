@@ -48,12 +48,6 @@ if ! _uchile_check_rosindigo; then
     exit 1
 fi
 
-# ROS is not sourced
-if [ ! -z "$ROS_DISTRO" ]; then
-    printf "\n[FAIL] ROS must not be sourced on this shell!. Found ROS_DISTRO=%s\n" "$ROS_DISTRO"
-    exit 1
-fi
-
 
 ## ======================================================
 ## FRAMEWORK LOCATION
@@ -111,15 +105,16 @@ mkdir -p "$framework_path"/ros/all
 
 ## ROS workspaces and overlays
 ## ---------------------------------------------
+# the "env -i bash --rcfile /etc/bash.bashrc" is required to run bash in a clean environment, i.e, where ROS is not sourced.
 
 # bender
-bash -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/bender"
+env -i bash --rcfile /etc/bash.bashrc -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/bender"
 
 # maqui
-bash -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/maqui"
+env -i bash --rcfile /etc/bash.bashrc -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/maqui"
 
 # all
-bash -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/all"
+env -i bash --rcfile /etc/bash.bashrc -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/all"
 
 
 ## ======================================================
