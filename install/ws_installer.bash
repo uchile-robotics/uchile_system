@@ -168,9 +168,9 @@ _uchile_get_repository "misc/wiki" "https://github.com/uchile-robotics/uchile_sy
 # graveyard
 _uchile_get_repository "misc/graveyard/code_graveyard"    "https://github.com/uchile-robotics-graveyard/code_graveyard"
 _uchile_get_repository "misc/graveyard/uchile_embedded"   "https://github.com/uchile-robotics-graveyard/uchile_embedded"
-_uchile_get_repository "misc/graveyard/old_page"          "https://github.com/uchile-robotics-graveyard/bender_page"
-_uchile_get_repository "misc/graveyard/BenderCode"        "https://github.com/uchile-robotics/BenderCode"
-_uchile_get_repository "misc/graveyard/BenderCode_Indigo" "https://github.com/uchile-robotics/BenderCode_Indigo"
+#_uchile_get_repository "misc/graveyard/old_page"          "https://github.com/uchile-robotics-graveyard/bender_page"
+#_uchile_get_repository "misc/graveyard/BenderCode"        "https://github.com/uchile-robotics/BenderCode"
+#_uchile_get_repository "misc/graveyard/BenderCode_Indigo" "https://github.com/uchile-robotics/BenderCode_Indigo"
 
 # page
 _uchile_get_repository "misc/webpage" "https://github.com/uchile-robotics/uchile-robotics.github.io"
