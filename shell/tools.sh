@@ -5,7 +5,7 @@
 ###############################################################################
 # uchile_find_string        - finds string within uchile src space
 # uchile_cd                 - cd to a robot framework directory
-# cdb                       - the same as uchile_cd but faster to type. The "b"
+# cdb, cdu                  - the same as uchile_cd but faster to type. The "b"
 #                             stands for Bender and legacy users.
 # uchile_printenv           - prints all UCHILE_* environment variables
 # uchile_refresh_shell      - reexecutes a shell to resource the robot framework
@@ -52,6 +52,7 @@ if _uchile_check_if_bash_or_zsh ; then
 
     # the same as uchile_cd but faster to type 
     alias cdb="uchile_cd"
+    alias cdu="uchile_cd"
     alias bviz="roslaunch uchile_util rviz.launch"
     
 fi
