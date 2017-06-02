@@ -122,29 +122,34 @@ En el archivo `~/uchile.sh` se deben pueden configurar aspectos del framework co
 Al menos, debieras configurar la variable de entorno `UCHILE_ROBOT`, que por defecto es `bender`. Ésta permite seleccionar que overlay de workspaces ROS se utilizarán. Todos los overlays diponibles se encuentran en el directorio `$UCHILE_WS/ros/`. Según el valor escogido, el workspace ROS linkeado proveerá distintos packages, y por lo tanto, requerirá distintos pasos de instalación.
 
 
-### Configuraciones recomendadas
+### Configuraciones MUY recomendadas
 
 Estas configuraciones son opcionales, pero se recomiendan para facilitar el desarrollo. Leer con atención y sólo habilitar las realmente deseadas.
 
 Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 
 ```bash
-# Usuario de Git y ~/.gitconfig global
-# - provee usuario, mail, colores y aliases para comandos git.
-# - tras copiar el .gitconfig, al menos se debe configurar "name" y "email"!!!
+# Configuraciones globales de git.
+# 1.- colores y aliases para comandos git.
+# 2.- configurar nombre y mail para commits. (ojalá mail matchee con el de github!)
+# 3.- configurar caché para contraseña git a 1 día
 cp -bfS.bkp "$UCHILE_SYSTEM"/templates/default.gitconfig ~/.gitconfig
-gedit ~/.gitconfig
+git config --global user.name 'Replace Your Name Here'
+git config --global user.email 'replace.your.email.here@gmail.com'
+git config --global user.email 'matias.pavez.b@gmail.com'
+git config --global credential.helper 'cache --timeout=86400'
 
-# configurar ~/.bash_aliases: esto configura el prompt PS1 para git. 
+# Promt de bash muestra rama actual y estado del repositorio git.
 cp -bfS.bkp "$UCHILE_SYSTEM"/templates/bash_aliases ~/.bash_aliases
 
-# variable utilizada por "rosed" y algunos utilitarios de bender.
+# Variable utilizada por "rosed" y algunos utilitarios. 
+# Poner el nombre del ejecutable deseado. Ejemplo: "subl" para sublime.
 echo 'export EDITOR="gedit"' >> ~/.bashrc
 
 # En orden:
-# - agrega opción "abrir terminal" al click derecho
-# - shell más moderno. permite subdivisiones en cada pestaña.
-# - utilitario gráfico para git
+# 1.- Agregar opción "abrir terminal" al usar click derecho en una carpeta
+# 2.- Shell más moderno. Permite subdivisiones en cada pestaña.
+# 3.- Utilitario gráfico para git. Llamar usando "gitk" en la consola.
 sudo apt-get install nautilus-open-terminal terminator gitk
 
 # Trabajar en rama "develop" de cada repositorio
@@ -154,12 +159,18 @@ sudo apt-get install nautilus-open-terminal terminator gitk
 #   > cdb soft
 #   > git checkout develop
 bgit checkout develop
+```
 
+### Configuraciones Menos recomendadas
+
+Cuidado con las siguientes configuraciones!. Pueden ser útiles, pero no útiles para todos!.
+
+```bash
 # Herramienta meld para git diffs. (OBS!, puede ser molesta para algunos!)
-# - permite ver diffs más bellos.
-# - descomentar línea [diff] external del .gitconfig.
+# - permite ver diffs más bellos y hermosos.
 sudo apt-get install meld
 cp "$UCHILE_SYSTEM"/templates/gitconfig_meld_launcher.py ~/.gitconfig_meld_launcher.py
+git config --global diff.external  '~/.gitconfig_meld_launcher.py'
 ```
 
 

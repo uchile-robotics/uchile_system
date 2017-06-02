@@ -5,15 +5,6 @@
 # author: matias.pavez.b@gmail.com
 #
 
-; ; ; ; ; ; ; ; ; ; ; ; MODIFY THIS ; ; ; ; ; ; ; ; ; ; ; ; ; ;
-[user]
-	# your repository username
-	#name = Chuck Norris
-	# your username mail
-	#email = chuck.norris@punchmail.com
-; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ;
-
-
 [core]
 	# - - - - - - - - - - - - - - - - - - - - - - - - 
 	#  Do NOT modify the EOL checking it's important 
