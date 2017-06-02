@@ -5,7 +5,6 @@
 * [Instalación de UChile ROS Framework](#instalación-de-uchile-ros-framework)
 * [Configuraciones](#configuraciones)
 * [Compilación de workspaces](#compilación-de-workspaces)
-* [Actualizar la instalación](#actualizar-la-instalación)
 * [Configuración del simulador Gazebo](#configuración-del-simulador-gazebo)
 
 
@@ -66,6 +65,10 @@ rm -rf ~/tmp_repo
 
 ### Habilitar workspace para uso en consola
 
+Antes de ejecutar el siguiente paso, es necesario que revises el archivo de configuración correspondiente a tu consola `.bashrc` o `.zshrc`, para eliminar toda línea relacionada con ROS. Por ejemplo, debes comentar toda línea de la forma `source /opt/ros/indigo/setup.bash` o `source <mi-workspace-ros>.bash`.
+
+*Hint:* `.bashrc` y `.zshrc` se encuentran ocultos en `"$HOME"`. Puedes mostrar/ocultar éstos archivos utilizando <kbd>Ctrl</kbd> + <kbd>H</kbd>.
+
 En cada caso puedes copiar el bloque de código directo en la terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>).
 
 ### Sólo usuarios de bash
@@ -112,7 +115,7 @@ export UCHILE_SHELL_CFG="$HOME"/uchile.sh
 EOF
 ```
 
-Al terminar la instalación debes reabrir el terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>).
+Para continuar la instalación y que las configuraciones anteriores surtan efecto, es necesario abrir un nuevo terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>). De lo contrario, no existirán las variables de entorno ni funciones necesarias, como `UCHILE_SYSTEM`, `bgit` o `cdb`.
 
 
 ## Configuraciones
@@ -136,7 +139,6 @@ Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 cp -bfS.bkp "$UCHILE_SYSTEM"/templates/default.gitconfig ~/.gitconfig
 git config --global user.name 'Replace Your Name Here'
 git config --global user.email 'replace.your.email.here@gmail.com'
-git config --global user.email 'matias.pavez.b@gmail.com'
 git config --global credential.helper 'cache --timeout=86400'
 
 # Promt de bash muestra rama actual y estado del repositorio git.
@@ -290,13 +292,6 @@ cdb high && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 cdb high && cd .. && catkin_make
 ```
 
-## Actualizar la instalación
-
-En caso de querer descargar repositorios faltantes o actualizar la instalación, siempre se puede correr el instalador nuevamente, sin miedo a romper lo que ya está funcionando. El único efecto adverso podría ser que los repositorios queden en la rama default, o commit default para el caso de los forks. Para eso, correr en un terminal:
-```bash
-# recordar des sourcear ROS y UChile ROS Framework desde ~/.bashrc
-bash "$HOME"/uchile_ws/system/install/ws_installer.bash
-```
 
 ## Configuración del simulador Gazebo
 
