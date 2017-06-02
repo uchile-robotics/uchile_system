@@ -3,6 +3,7 @@
 
 ## Varios
 
+* Sobre como utilizar UChile Robotics junto a otro workspace ROS
 * assets/bender.machine, env/network-defs.sh and env/env-loader.sh
 * hay hooks no funcionando?
 * linters
