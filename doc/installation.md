@@ -152,7 +152,7 @@ echo 'export EDITOR="gedit"' >> ~/.bashrc
 # 1.- Agregar opción "abrir terminal" al usar click derecho en una carpeta
 # 2.- Shell más moderno. Permite subdivisiones en cada pestaña.
 # 3.- Utilitario gráfico para git. Llamar usando "gitk" en la consola.
-sudo apt-get install nautilus-open-terminal terminator gitk
+sudo apt-get update && sudo apt-get install nautilus-open-terminal terminator gitk
 
 # Trabajar en rama "develop" de cada repositorio
 # - si tras correr el comando algún repositorio no está en tal rama,
@@ -184,7 +184,14 @@ El sistema se divide en 5 workspaces, que en orden son: ROS, forks_ws, base_ws, 
 
 Los pasos a seguir dependerán del robot a utilizar, según la variable `$UCHILE_ROBOT`. En caso de querer utilizar ambos robots, seguir todas las instrucciones. Si sólo se instalará para uno de los robots, seguir las instrucciones correspondientes.
 
+*Hint:* Algunos de los scripts de instalación `install.sh` pueden mostrar errores en caso de que el hardware apropiado no esté conectado al ordenador. No te alarmes, puedes repetir la instalación de ese package en particular cuando desees ocupar el hardware real.
+
 Ejecutar lo siguiente en un nuevo terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
+
+```bash
+# Actualizar base de datos del repositorio de software.
+sudo apt-get update
+```
 
 ### Instalación de `forks_ws`
 
