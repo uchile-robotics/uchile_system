@@ -344,3 +344,46 @@ uchile_net_disable ()
     . "$HOME"/uchile.sh
 }
 
+
+uchile_clean_workspace ()
+{
+    # ask and clean !
+    if [ -d "${UCHILE_ROS_WS}" ]; then
+        if [ ! -z "$(ls -A ${UCHILE_ROS_WS})" ]; then
+
+            printf  " - Directory %s exists and is not empty!\n" "${UCHILE_ROS_WS}"
+            if _uchile_check_if_zsh ; then
+                read -q "REPLY?   Do you want to overwrite it? [Y/n]"
+                echo
+            else
+                read -p "   Do you want to overwrite it? [Y/n]" -r
+            fi
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                printf " - Deleting workspace overlay.\n"
+                rm -rf "${UCHILE_ROS_WS}"
+            else
+                printf " - Understood. Bye!.\n"
+                return 0
+            fi
+        fi
+    fi
+    mkdir -p "${UCHILE_ROS_WS}"
+
+    # remake workspaces
+    bash -c "source ${UCHILE_SYSTEM}/install/util/helpers.bash; _uchile_create_complete_ws ${UCHILE_ROS_WS}"
+
+    # link missing repositories
+    uchile_fix_links
+
+    return 0
+}
+
+
+uchile_fix_links ()
+{
+    # link missing repositories
+    printf  " - Creating missing links for %s repositories.\n" "${UCHILE_ROBOT}"
+    bash "${UCHILE_SYSTEM}"/install/link_repositories.bash "${UCHILE_WS}" "${UCHILE_ROBOT}"
+
+    return 0
+}

@@ -155,46 +155,26 @@ _uchile_create_ws ()
     ws_path="$1"
     user_path="$(pwd)"
 
-    mkdir -p "$ws_path"/src
-    cd "$ws_path"/src
-
-    if [ -e CMakeLists.txt ]; then
-        printf " - ... workspace at %s already exists.\n" "$ws_path"
-        source ../devel/setup.bash
-        return 0
+    if [ -e "$ws_path"/src/CMakeLists.txt ]; then
+        if [ -e "$ws_path"/devel/setup.bash ]; then
+            printf " - ... workspace at %s already exists.\n" "$ws_path"
+            source "$ws_path"/devel/setup.bash
+            return 0
+        fi
     fi
+    
+    rm -rf "${ws_path}" # delete everything.. just deleting links!
+    mkdir -p "${ws_path}"/src
 
-    rm -rf CMakeLists.txt
+    cd "${ws_path}"/src
     catkin_init_workspace
+
     cd ..
-    rm -rf build/
-    rm -rf devel/
-    rm -rf install/
     catkin_make
+
     source devel/setup.bash
     cd "$user_path"
 }
-
-# # resets completely a workspace!
-# # - anything roslike excepting src/ is deleted 
-# _uchile_reset_ws ()
-# {
-#     local ws_path user_path
-#     ws_path="$1"
-#     user_path="$(pwd)"
-
-#     mkdir -p "$ws_path"/src
-#     cd "$ws_path"/src
-#     rm -rf CMakeLists.txt
-#     catkin_init_workspace
-#     cd ..
-#     rm -rf build/
-#     rm -rf devel/
-#     rm -rf install/
-#     catkin_make
-#     source devel/setup.bash
-#     cd "$user_path"
-# }
 
 
 ## clones a repository from the given location
@@ -355,15 +335,15 @@ _uchile_enable_githook ()
     return 0
 }
 
-# requires the framework_path env variable to be set
 function _uchile_link_ ()
 {
-    local target dest full_target full_dest
-    target="$1"
-    dest="$2"
+    local target dest full_target full_dest ws_path
+    ws_path="$1" # equals to $UCHILE_WS
+    target="$2"
+    dest="$3"
 
-    full_target="$framework_path/pkgs/$target"
-    full_dest="$framework_path/ros/$dest"
+    full_target="$ws_path/pkgs/$target"
+    full_dest="$ws_path/ros/$dest"
 
     # target exists
     if [ ! -e "$full_target" ]; then
