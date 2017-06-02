@@ -21,3 +21,31 @@ function _uchilecomplete_NOT_COMPLETE
 	fi
     return 0
 }
+
+
+# _uchilecomplete_only_help
+# just provides -h and --help options
+function _uchilecomplete_only_help
+{
+    local cur opts prev
+
+    # available options
+    opts="-h --help"
+    if _uchile_check_if_bash ; then
+        # bash - complete
+        COMPREPLY=()
+
+        # current word
+        cur="${COMP_WORDS[COMP_CWORD]}"
+        if [[ $COMP_CWORD == 1 ]] ; then
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+        fi
+    else
+        # zsh - compctl
+        reply=()
+        if [[ ${CURRENT} == 2 ]]; then
+            reply=(${=opts})
+        fi
+    fi
+}

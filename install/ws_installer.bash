@@ -48,12 +48,6 @@ if ! _uchile_check_rosindigo; then
     exit 1
 fi
 
-# ROS is not sourced
-if [ ! -z "$ROS_DISTRO" ]; then
-    printf "\n[FAIL] ROS must not be sourced on this shell!. Found ROS_DISTRO=%s\n" "$ROS_DISTRO"
-    exit 1
-fi
-
 
 ## ======================================================
 ## FRAMEWORK LOCATION
@@ -113,13 +107,13 @@ mkdir -p "$framework_path"/ros/all
 ## ---------------------------------------------
 
 # bender
-bash -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/bender"
+_uchile_create_complete_ws "${framework_path}/ros/bender"
 
 # maqui
-bash -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/maqui"
+_uchile_create_complete_ws "${framework_path}/ros/maqui"
 
 # all
-bash -c "source $TMP_SYSTEM_DIR/install/util/helpers.bash; _uchile_create_complete_ws $framework_path/ros/all"
+_uchile_create_complete_ws "${framework_path}/ros/all"
 
 
 ## ======================================================
@@ -173,9 +167,9 @@ _uchile_get_repository "misc/wiki" "https://github.com/uchile-robotics/uchile_sy
 # graveyard
 _uchile_get_repository "misc/graveyard/code_graveyard"    "https://github.com/uchile-robotics-graveyard/code_graveyard"
 _uchile_get_repository "misc/graveyard/uchile_embedded"   "https://github.com/uchile-robotics-graveyard/uchile_embedded"
-_uchile_get_repository "misc/graveyard/old_page"          "https://github.com/uchile-robotics-graveyard/bender_page"
-_uchile_get_repository "misc/graveyard/BenderCode"        "https://github.com/uchile-robotics/BenderCode"
-_uchile_get_repository "misc/graveyard/BenderCode_Indigo" "https://github.com/uchile-robotics/BenderCode_Indigo"
+#_uchile_get_repository "misc/graveyard/old_page"          "https://github.com/uchile-robotics-graveyard/bender_page" # deprecated
+#_uchile_get_repository "misc/graveyard/BenderCode"        "https://github.com/uchile-robotics/BenderCode"            # big repo. just slows down installation
+#_uchile_get_repository "misc/graveyard/BenderCode_Indigo" "https://github.com/uchile-robotics/BenderCode_Indigo"     # big repo. just slows down installation
 
 # page
 _uchile_get_repository "misc/webpage" "https://github.com/uchile-robotics/uchile-robotics.github.io"
@@ -282,71 +276,9 @@ unset _hook_template
 
 printf "\n\n ============ Linking Workspaces ============ \n"
 
-function _uchile_link_common_ ()
-{
-	local target_ws
-	target_ws="$1"
-
-	printf "\n - Linking common repositories for %s workspace:\n" "$target_ws"
-	
-	# forks
-	_uchile_link_ "forks_ws/navigation"         "$target_ws/forks_ws/src/navigation"
-	#_uchile_link_ "forks_ws/open_ptrack"        "$target_ws/forks_ws/src/open_ptrack"
-
-	# base
-	_uchile_link_ "base_ws/uchile_common"       "$target_ws/base_ws/src/uchile_common"
-	_uchile_link_ "base_ws/uchile_knowledge"    "$target_ws/base_ws/src/uchile_knowledge"
-	_uchile_link_ "base_ws/uchile_tools"        "$target_ws/base_ws/src/uchile_tools"
-
-	# soft
-	_uchile_link_ "soft_ws/uchile_hri"          "$target_ws/soft_ws/src/uchile_hri"
-	_uchile_link_ "soft_ws/uchile_navigation"   "$target_ws/soft_ws/src/uchile_navigation"
-	_uchile_link_ "soft_ws/uchile_manipulation" "$target_ws/soft_ws/src/uchile_manipulation"
-	_uchile_link_ "soft_ws/uchile_perception"   "$target_ws/soft_ws/src/uchile_perception"
-
-	# high
-	_uchile_link_ "high_ws/uchile_high"         "$target_ws/high_ws/src/uchile_high"
-}
-
-# COMMON REPOSITORIES
-_uchile_link_common_ "bender"
-_uchile_link_common_ "maqui"
-_uchile_link_common_ "all"
-
-
-# BENDER ONLY REPOSITORIES
-printf "\n - Linking bender specific repositories:\n"
-#_uchile_link_ "forks_ws/open_ptrack"        "bender/forks_ws/src/open_ptrack"
-_uchile_link_ "forks_ws/rosaria"            "bender/forks_ws/src/rosaria"
-_uchile_link_ "forks_ws/dynamixel_motor"    "bender/forks_ws/src/dynamixel_motor"
-_uchile_link_ "forks_ws/urg_node"           "bender/forks_ws/src/urg_node"
-_uchile_link_ "forks_ws/usb_cam"            "bender/forks_ws/src/usb_cam"
-_uchile_link_ "base_ws/bender_core"         "bender/base_ws/src/bender_core"
-_uchile_link_ "high_ws/bender_bringup"      "bender/high_ws/src/bender_bringup"
-
-
-# MAQUI ONLY REPOSITORIES
-printf "\n - Linking maqui specific repositories:\n"
-_uchile_link_ "forks_ws/pepper"             "maqui/forks_ws/src/pepper"
-_uchile_link_ "base_ws/maqui_core"          "maqui/base_ws/src/maqui_core"
-_uchile_link_ "high_ws/maqui_bringup"       "maqui/high_ws/src/maqui_bringup"
-
-
-# REMAINING REPOS FOR ALL
-printf "\n - Linking remaining repos for the 'all' workspace:\n"
-#_uchile_link_ "forks_ws/open_ptrack"        "all/forks_ws/src/open_ptrack"
-_uchile_link_ "forks_ws/pepper"             "all/forks_ws/src/pepper"
-_uchile_link_ "forks_ws/rosaria"            "all/forks_ws/src/rosaria"
-_uchile_link_ "forks_ws/dynamixel_motor"    "all/forks_ws/src/dynamixel_motor"
-_uchile_link_ "forks_ws/urg_node"           "all/forks_ws/src/urg_node"
-_uchile_link_ "forks_ws/usb_cam"            "all/forks_ws/src/usb_cam"
-_uchile_link_ "base_ws/bender_core"         "all/base_ws/src/bender_core"
-_uchile_link_ "base_ws/maqui_core"          "all/base_ws/src/maqui_core"
-_uchile_link_ "high_ws/bender_bringup"      "all/high_ws/src/bender_bringup"
-_uchile_link_ "high_ws/maqui_bringup"       "all/high_ws/src/maqui_bringup"
-
-unset _uchile_link_
-unset _uchile_link_common_
+bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "bender"
+bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "maqui"
+bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "all"
 
 
 # END

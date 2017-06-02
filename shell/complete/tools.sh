@@ -89,7 +89,8 @@ function _uchilecomplete_uchile_cd
 if _uchile_check_if_bash ; then
 
     complete -F "_uchilecomplete_uchile_find_string" "uchile_find_string"
-    complete -F "_uchilecomplete_uchile_cd" "uchile_cd" "cdb"
+    complete -F "_uchilecomplete_uchile_cd" "uchile_cd" "cdb" "cdu"
+    complete -F "_uchilecomplete_only_help" "uchile_fix_links" "uchile_clean_workspace"
 
     # no completion
     complete -F "_uchilecomplete_NOT_COMPLETE" "uchile_printenv"
@@ -102,6 +103,7 @@ else
 
     compctl -Q -K "_uchilecomplete_uchile_find_string" "uchile_find_string"
     compctl -K "_uchilecomplete_uchile_cd" "uchile_cd"
+    compctl -K "_uchilecomplete_only_help" "uchile_fix_links" "uchile_clean_workspace"
 
     # no completion
     compctl -K "_uchilecomplete_NOT_COMPLETE" "uchile_printenv"

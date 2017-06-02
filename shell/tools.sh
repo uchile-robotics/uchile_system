@@ -5,7 +5,7 @@
 ###############################################################################
 # uchile_find_string        - finds string within uchile src space
 # uchile_cd                 - cd to a robot framework directory
-# cdb                       - the same as uchile_cd but faster to type. The "b"
+# cdb, cdu                  - the same as uchile_cd but faster to type. The "b"
 #                             stands for Bender and legacy users.
 # uchile_printenv           - prints all UCHILE_* environment variables
 # uchile_refresh_shell      - reexecutes a shell to resource the robot framework
@@ -52,6 +52,7 @@ if _uchile_check_if_bash_or_zsh ; then
 
     # the same as uchile_cd but faster to type 
     alias cdb="uchile_cd"
+    alias cdu="uchile_cd"
     alias bviz="roslaunch uchile_util rviz.launch"
     
 fi
@@ -343,3 +344,83 @@ uchile_net_disable ()
     . "$HOME"/uchile.sh
 }
 
+
+uchile_clean_workspace ()
+{
+    if [ "$#" != "0" ]; then
+        cat <<EOF
+Synopsis:                
+    uchile_clean_workspace [-h|--help]
+
+Description:
+    It deletes the current \${UCHILE_ROS_WS} directory, creates 
+    a new set ROS workspaces for forks_ws, base_ws, soft_ws
+    and high_ws. And then relinks the related packages.
+
+    After that, you will need to re make your workspaces!.
+
+    It can help fixing workspace sourcing problems.
+    
+EOF
+        _uchile_admin_goodbye
+        return 0  
+    fi
+
+
+    # ask and clean !
+    if [ -d "${UCHILE_ROS_WS}" ]; then
+        if [ ! -z "$(ls -A ${UCHILE_ROS_WS})" ]; then
+
+            printf  " - Directory %s exists and is not empty!\n" "${UCHILE_ROS_WS}"
+            if _uchile_check_if_zsh ; then
+                read -q "REPLY?   Do you want to overwrite it? [Y/n]"
+                echo
+            else
+                read -p "   Do you want to overwrite it? [Y/n]" -r
+            fi
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                printf " - Deleting workspace overlay.\n"
+                rm -rf "${UCHILE_ROS_WS}"
+            else
+                printf " - Understood. Bye!.\n"
+                return 0
+            fi
+        fi
+    fi
+    mkdir -p "${UCHILE_ROS_WS}"
+
+    # remake workspaces
+    bash -c "source ${UCHILE_SYSTEM}/install/util/helpers.bash; _uchile_create_complete_ws ${UCHILE_ROS_WS}"
+
+    # link missing repositories
+    uchile_fix_links
+
+    return 0
+}
+
+
+uchile_fix_links ()
+{
+    if [ "$#" != "0" ]; then
+        cat <<EOF
+Synopsis:                
+    uchile_fix_links [-h|--help]
+
+Description:
+    It creates the missing symbolink links between the
+    ros packages and the current ROS workspace, which is 
+    denoted by \${UCHILE_ROS_WS}.
+
+    It can help fixing workspace sourcing and compilation problems.
+
+EOF
+        _uchile_admin_goodbye
+        return 0  
+    fi
+
+    # link missing repositories
+    printf  " - Creating missing links for %s repositories.\n" "${UCHILE_ROBOT}"
+    bash "${UCHILE_SYSTEM}"/install/link_repositories.bash "${UCHILE_WS}" "${UCHILE_ROBOT}"
+
+    return 0
+}

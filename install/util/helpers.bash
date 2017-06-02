@@ -110,8 +110,20 @@ _uchile_ask_framework_path ()
     done
 }
 
-
+# calls _uchile_create_complete_ws_handler on an isolated env
 _uchile_create_complete_ws ()
+{
+    local ws_path
+    ws_path="$1"
+
+    # the "env -i bash --rcfile /etc/bash.bashrc" is required to run bash in a 
+    # clean environment, where ROS is not sourced.
+    env -i bash --rcfile /etc/bash.bashrc -c "source ${BASH_SOURCE}; _uchile_create_complete_ws_handler ${ws_path}"
+}
+
+
+# this requires ROS not to be sourced!
+_uchile_create_complete_ws_handler ()
 {
     local ws_path
     ws_path="$1"
@@ -143,46 +155,26 @@ _uchile_create_ws ()
     ws_path="$1"
     user_path="$(pwd)"
 
-    mkdir -p "$ws_path"/src
-    cd "$ws_path"/src
-
-    if [ -e CMakeLists.txt ]; then
-        printf " - ... workspace at %s already exists.\n" "$ws_path"
-        source ../devel/setup.bash
-        return 0
+    if [ -e "$ws_path"/src/CMakeLists.txt ]; then
+        if [ -e "$ws_path"/devel/setup.bash ]; then
+            printf " - ... workspace at %s already exists.\n" "$ws_path"
+            source "$ws_path"/devel/setup.bash
+            return 0
+        fi
     fi
+    
+    rm -rf "${ws_path}" # delete everything.. just deleting links!
+    mkdir -p "${ws_path}"/src
 
-    rm -rf CMakeLists.txt
+    cd "${ws_path}"/src
     catkin_init_workspace
+
     cd ..
-    rm -rf build/
-    rm -rf devel/
-    rm -rf install/
-    catkin_make
+    catkin_make > /dev/null 2>&1
+
     source devel/setup.bash
     cd "$user_path"
 }
-
-# # resets completely a workspace!
-# # - anything roslike excepting src/ is deleted 
-# _uchile_reset_ws ()
-# {
-#     local ws_path user_path
-#     ws_path="$1"
-#     user_path="$(pwd)"
-
-#     mkdir -p "$ws_path"/src
-#     cd "$ws_path"/src
-#     rm -rf CMakeLists.txt
-#     catkin_init_workspace
-#     cd ..
-#     rm -rf build/
-#     rm -rf devel/
-#     rm -rf install/
-#     catkin_make
-#     source devel/setup.bash
-#     cd "$user_path"
-# }
 
 
 ## clones a repository from the given location
@@ -343,32 +335,33 @@ _uchile_enable_githook ()
     return 0
 }
 
-# requires the framework_path env variable to be set
-function _uchile_link_ ()
+_uchile_link_ ()
 {
-    local target dest full_target full_dest
-    target="$1"
-    dest="$2"
+    local target dest full_target full_dest ws_path relative_target parent_dest
+    ws_path="$1" # equals to $UCHILE_WS
+    target="$2"
+    dest="$3"
 
-    full_target="$framework_path/pkgs/$target"
-    full_dest="$framework_path/ros/$dest"
+    full_target="${ws_path}/pkgs/${target}"
+    full_dest="${ws_path}/ros/${dest}"
 
     # target exists
-    if [ ! -e "$full_target" ]; then
-        printf "    - target not found: %s\n" "$full_target"
+    if [ ! -e "${full_target}" ]; then
+        printf "    - target not found: %s\n" "${full_target}"
         return 1
     fi
 
     # destination existence
-    if [ -e "$full_dest" ]; then
-        printf "    - (re)creating link to destination: %s\n" "$dest"
-        rm -f "$full_dest"
+    if [ -e "${full_dest}" ]; then
+        printf "    - (re)creating link to destination: %s\n" "${dest}"
+        rm -f "${full_dest}"
     else
-        printf "    - creating link to destination: %s\n" "$dest"
+        printf "    - creating link to destination: %s\n" "${dest}"
     fi
 
-    # symbolink link
-    ln -sf "$full_target" "$full_dest"
-
+    # relative symbolink link to the ws_path dir
+    parent_dest="$(dirname ${full_dest})"
+    relative_target="$(python -c "import os; print os.path.relpath('${full_target}', '${parent_dest}')")"
+    ln -sf "${relative_target}" "${full_dest}"
     return 0
 }
