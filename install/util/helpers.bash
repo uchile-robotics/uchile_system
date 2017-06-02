@@ -170,7 +170,7 @@ _uchile_create_ws ()
     catkin_init_workspace
 
     cd ..
-    catkin_make
+    catkin_make > /dev/null 2>&1
 
     source devel/setup.bash
     cd "$user_path"
