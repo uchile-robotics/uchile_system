@@ -335,32 +335,33 @@ _uchile_enable_githook ()
     return 0
 }
 
-function _uchile_link_ ()
+_uchile_link_ ()
 {
-    local target dest full_target full_dest ws_path
+    local target dest full_target full_dest ws_path relative_target parent_dest
     ws_path="$1" # equals to $UCHILE_WS
     target="$2"
     dest="$3"
 
-    full_target="$ws_path/pkgs/$target"
-    full_dest="$ws_path/ros/$dest"
+    full_target="${ws_path}/pkgs/${target}"
+    full_dest="${ws_path}/ros/${dest}"
 
     # target exists
-    if [ ! -e "$full_target" ]; then
-        printf "    - target not found: %s\n" "$full_target"
+    if [ ! -e "${full_target}" ]; then
+        printf "    - target not found: %s\n" "${full_target}"
         return 1
     fi
 
     # destination existence
-    if [ -e "$full_dest" ]; then
-        printf "    - (re)creating link to destination: %s\n" "$dest"
-        rm -f "$full_dest"
+    if [ -e "${full_dest}" ]; then
+        printf "    - (re)creating link to destination: %s\n" "${dest}"
+        rm -f "${full_dest}"
     else
-        printf "    - creating link to destination: %s\n" "$dest"
+        printf "    - creating link to destination: %s\n" "${dest}"
     fi
 
-    # symbolink link
-    ln -sf "$full_target" "$full_dest"
-
+    # relative symbolink link to the ws_path dir
+    parent_dest="$(dirname ${full_dest})"
+    relative_target="$(python -c "import os; print os.path.relpath('${full_target}', '${parent_dest}')")"
+    ln -sf "${relative_target}" "${full_dest}"
     return 0
 }
