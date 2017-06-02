@@ -15,7 +15,7 @@ Observaciones sobre el instalador:
 * El instalador descarga repositorios faltantes, instala hooks de git y crea/corrige links simbólicos.
 
 
-Debes correr el instalador nuevamente desde un terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>):
+Debes correr el instalador desde un terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>):
 
 ```bash
 # crear backup de uchile.sh, que será reemplazado
@@ -25,7 +25,7 @@ cp "$HOME"/uchile.sh{,.bkp}
 bash "$HOME"/uchile_ws/system/install/ws_installer.bash
 ```
 
-Recuerda actualizar tus configuraciones del archivo `uchile.sh`, pues tras actualizar contendrá las por defecto. Ojo que las antiguas quedan almacenadas en `uchile.sh.bkp`.
+Recuerda actualizar tus configuraciones del archivo `uchile.sh`, pues tras actualizar tendrá las por defecto. Ojo que las antiguas quedan almacenadas en `uchile.sh.bkp`.
 
 
 ## Mi consola no conoce los comandos del framework
@@ -35,11 +35,9 @@ Probablemente la configuración de la consola no es correcta!. Debes revisar que
 
 ## Arreglando problemas del workspace
 
-### uchile_fix_links
+El framework provee otras 2 herramientas útiles para corregir problemas en el workspace: `uchile_fix_links` y `uchile_clean_workspace`.
 
-Ver: `uchile_fix_links -h`
+`uchile_fix_links`: Regenera todos los links en el workspace ROS actual, ubicado en `$UCHILE_ROS_WS`. Es útil cuando se eliminaron por error algunos packages (links) del workspace. Más información en `uchile_fix_links --help`.
 
-### uchile_clean_workspace
-
-Ver: `uchile_clean_workspace -h`
+`uchile_clean_workspace`: Elimina completamente el workspace ROS actual, ubicado en `$UCHILE_ROS_WS`, para luego reconstruirlo completamente. Es útil cuando el overlay de workspaces ROS está fallando, se han perdido carpetas o hay cualquier fallo en los directorios de `$UCHILE_ROS_WS`. Más información en `uchile_clean_workspace --help`.
 

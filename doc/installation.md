@@ -50,6 +50,8 @@ sudo apt-get install git python-flake8 shellcheck libxml2-utils python-yaml cppc
 
 Procurar **ejecutar las veces que sea necesario**, pues puede fallar el clone de algún repositorio, por ejemplo, al introducir mal la clave.
 
+*Observacion:* Actualmente, hay dos repositorios que son privados y por lo tanto, pediran usuario y contraseña de GitHub al intentar descargarlos. Revisar la salida del instalador para ver que todo funcionó OK; También puedes revisar manualmente que `uchile_perception` y `uchile_high` se hayan descargado correctamente!. En caso de que haya algún error, ejecutar nuevamente la línea del instalador.
+
 Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 
 ```bash
@@ -62,6 +64,8 @@ bash "$HOME"/tmp_repo/install/ws_installer.bash
 # limpiar
 rm -rf ~/tmp_repo
 ```
+
+
 
 ### Habilitar workspace para uso en consola
 
