@@ -347,6 +347,26 @@ uchile_net_disable ()
 
 uchile_clean_workspace ()
 {
+    if [ "$#" != "0" ]; then
+        cat <<EOF
+Synopsis:                
+    uchile_clean_workspace [-h|--help]
+
+Description:
+    It deletes the current \${UCHILE_ROS_WS} directory, creates 
+    a new set ROS workspaces for forks_ws, base_ws, soft_ws
+    and high_ws. And then relinks the related packages.
+
+    After that, you will need to re make your workspaces!.
+
+    It can help fixing workspace sourcing problems.
+    
+EOF
+        _uchile_admin_goodbye
+        return 0  
+    fi
+
+
     # ask and clean !
     if [ -d "${UCHILE_ROS_WS}" ]; then
         if [ ! -z "$(ls -A ${UCHILE_ROS_WS})" ]; then
@@ -381,6 +401,23 @@ uchile_clean_workspace ()
 
 uchile_fix_links ()
 {
+    if [ "$#" != "0" ]; then
+        cat <<EOF
+Synopsis:                
+    uchile_fix_links [-h|--help]
+
+Description:
+    It creates the missing symbolink links between the
+    ros packages and the current ROS workspace, which is 
+    denoted by \${UCHILE_ROS_WS}.
+
+    It can help fixing workspace sourcing and compilation problems.
+
+EOF
+        _uchile_admin_goodbye
+        return 0  
+    fi
+
     # link missing repositories
     printf  " - Creating missing links for %s repositories.\n" "${UCHILE_ROBOT}"
     bash "${UCHILE_SYSTEM}"/install/link_repositories.bash "${UCHILE_WS}" "${UCHILE_ROBOT}"
