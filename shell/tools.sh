@@ -395,6 +395,18 @@ EOF
     # link missing repositories
     uchile_fix_links
 
+    cat <<EOF
+
+    - The workspace cleaning procedure has finished. Now you should
+    rebuild your workspaces one by one:
+
+       cdb forks && cd .. && catkin_make
+       cdb base && cd .. && catkin_make
+       cdb soft && cd .. && catkin_make
+       cdb high && cd .. && catkin_make
+
+EOF
+
     return 0
 }
 
