@@ -274,6 +274,9 @@ cdb uchile_speech_pocketsphinx && bash install/install.sh
 # instalar dependencias de bender_arm_planning
 cdb bender_arm_planning && bash install/install.sh
 
+# instalar dependencias de bender_perception
+cdb uchile_perception_utils && bash install/install_nite.sh
+
 # instalar dependencias para deep learning
 # [AVISO] puede tomar un par de horas !!
 # [WARNING] Sólo testeado en consola bash. Puede haber problemas con pip. Ver: https://bitbucket.org/uchile-robotics-die/bender_system/issues/9/importerror-no-module-named
