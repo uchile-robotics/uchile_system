@@ -175,7 +175,7 @@ do
         "bash" )
             BASH_FILES="$BASH_FILES $_fullfile" ;;
 
-        "xml" | "launch" | "urdf" | "xacro" | "sdf" )
+        "xml" | "launch" | "urdf" | "xacro" | "sdf" | "aiml" )
             XML_FILES="$XML_FILES $_fullfile" ;;
 
         "cpp" | "hpp" | "c" | "h" )
