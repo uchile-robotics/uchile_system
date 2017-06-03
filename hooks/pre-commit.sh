@@ -27,8 +27,13 @@ _uchile_git_hooks_revert_git ()
 _uchile_git_hooks_revert_stash ()
 {
     ## revert changes from stash
+    #
+    # obs: use >/dev/null 2>&1 to avoid displaying the git stash warning:
+    #    warning: unable to rmdir <some_dir>: El directorio no está vacío
+    # <some_dir> en este caso corresponde a un submodulo.
+    #
     git config apply.whitespace nowarn # prevent stupid warnings
-    git reset --hard -q && git stash apply --index -q && git stash drop -q
+    git reset --hard -q >/dev/null 2>&1 && git stash apply --index -q && git stash drop -q
     git config apply.whitespace ''     # enable the stupid warnings
 
     _uchile_git_hooks_revert_git
@@ -109,8 +114,13 @@ if ! $_is_initial_commit ; then
     # this way, we only consider changes on the staging area!!
     # .. see: http://stackoverflow.com/questions/20479794/how-do-i-properly-git-stash-pop-in-pre-commit-hooks-to-get-a-clean-working-tree
     # create local stash
+    #
+    # obs: use >/dev/null 2>&1 to avoid displaying the git stash warning:
+    #    warning: unable to rmdir <some_dir>: El directorio no está vacío
+    # <some_dir> en este caso corresponde a un submodulo.
+    #
     old_stash=$(git rev-parse -q --verify refs/stash)
-    git stash save -q --keep-index
+    git stash save -q --keep-index >/dev/null 2>&1 # avoid showing
     new_stash=$(git rev-parse -q --verify refs/stash)
 
     ## Set trap to ctrl+C (and others), in order to revert the stashed changes
@@ -138,6 +148,10 @@ fi
 FILES=$(git diff --cached --name-only --diff-filter=ACMR "$against")
 for file in $FILES
 do
+    # omit directories
+    if [ -d $file ]; then
+        continue
+    fi
 
     _basename=${file##*/}
     #_name=${_basename%.*}
@@ -250,7 +264,7 @@ if [ "$_FAILED" != "no" ]; then
  git admin.-
 
  Have some feedback?, please contact us:
- "$UCH_SYSTEM_ADMIN" - $UCH_EMAIL_DEVELOP
+ "$UCHILE_SYSTEM_ADMIN" - $UCHILE_EMAIL_DEVELOP
 
 EOF
 

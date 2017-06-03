@@ -2,14 +2,14 @@
 from __future__ import print_function
 
 import argparse
-import os.path
 import sys
+from termcolor import cprint
 
 CONFLICT_PATTERNS = [
     '<<<<<<<',
     '>>>>>>>'
 ]
-WARNING_MSG = ' -> merge conflict string "{0}" found in {1}:{2}'
+WARNING_MSG = '\n ----> found merge conflict string "{0}" on file:\n {1}, line {2}.\n'
 
 
 def detect_merge_conflict(argv=None):
@@ -23,9 +23,9 @@ def detect_merge_conflict(argv=None):
             for i, line in enumerate(inputfile):
                 for pattern in CONFLICT_PATTERNS:
                     if line.startswith(pattern):
-                        print(WARNING_MSG.format(
+                        cprint(WARNING_MSG.format(
                             pattern.decode(), filename, i + 1,
-                        ))
+                        ), 'red')
                         retcode = 1
 
     return retcode
