@@ -11,8 +11,11 @@
 # - _FAILED
 
 
-# check command existence
+# check python module existence
 if ! _uchile_git_hooks_pymodule_exists "argparse"; then
+    return 0
+fi
+if ! _uchile_git_hooks_pymodule_exists "termcolor"; then
     return 0
 fi
 
