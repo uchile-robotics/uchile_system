@@ -6,14 +6,37 @@
 # HOOK REQUIREMENTS: 
 # see 'pre-commit' file
 
+# fullpath to the repo or submodule we are working on.
+TOP_LEVEL=$(git rev-parse --show-toplevel)
 
+# tmp directory to store .git stuff.
+tmp_dir=$(mktemp -d)
+cp -r "${TOP_LEVEL}"/.git "${tmp_dir}"
+
+_uchile_git_hooks_revert_git ()
+{
+    # recover .git directory
+    cur_pwd=$(pwd)
+    cd "${TOP_LEVEL}"
+    rm -rf .git
+    mv "${tmp_dir}"/.git "${TOP_LEVEL}"/.git
+    cd "${cur_pwd}"
+    rm -r "${tmp_dir}"
+}
 
 _uchile_git_hooks_revert_stash ()
 {
     ## revert changes from stash
+    #
+    # obs: use >/dev/null 2>&1 to avoid displaying the git stash warning:
+    #    warning: unable to rmdir <some_dir>: El directorio no está vacío
+    # <some_dir> en este caso corresponde a un submodulo.
+    #
     git config apply.whitespace nowarn # prevent stupid warnings
-    git reset --hard -q && git stash apply --index -q && git stash drop -q
+    git reset --hard -q >/dev/null 2>&1 && git stash apply --index -q && git stash drop -q
     git config apply.whitespace ''     # enable the stupid warnings
+
+    _uchile_git_hooks_revert_git
 }
 
 # this function is called when Ctrl-C is sent
@@ -31,7 +54,7 @@ _uchile_git_hooks_trap_ctrlc ()
 }
 
 # last commit
-_is_initial_commit="no"
+_is_initial_commit=false
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
     against=HEAD
@@ -39,7 +62,7 @@ else
     # Initial commit: diff against an empty tree object (magic git hash!)
     against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 
-    _is_initial_commit="yes"
+    _is_initial_commit=true
 fi
 
 # Redirect output to stderr.
@@ -81,7 +104,7 @@ UNKNOWN_FILES=""
 
 
 # stash requires initial commit
-if [ "$_is_initial_commit" != "yes" ]; then
+if ! $_is_initial_commit ; then
 
     #echo "Stashing changes"
 
@@ -90,8 +113,14 @@ if [ "$_is_initial_commit" != "yes" ]; then
     # then unstash changes to the working tree that we had stashed
     # this way, we only consider changes on the staging area!!
     # .. see: http://stackoverflow.com/questions/20479794/how-do-i-properly-git-stash-pop-in-pre-commit-hooks-to-get-a-clean-working-tree
+    # create local stash
+    #
+    # obs: use >/dev/null 2>&1 to avoid displaying the git stash warning:
+    #    warning: unable to rmdir <some_dir>: El directorio no está vacío
+    # <some_dir> en este caso corresponde a un submodulo.
+    #
     old_stash=$(git rev-parse -q --verify refs/stash)
-    git stash save -q --keep-index
+    git stash save -q --keep-index >/dev/null 2>&1 # avoid showing
     new_stash=$(git rev-parse -q --verify refs/stash)
 
     ## Set trap to ctrl+C (and others), in order to revert the stashed changes
@@ -109,16 +138,20 @@ if [ "$_is_initial_commit" != "yes" ]; then
         
         #_uchile_git_hooks_revert_stash
 
+        _uchile_git_hooks_revert_git
         exit 0
     fi
 fi
 
 
-# fullpath to the repo or submodule we are working on.
-TOP_LEVEL=$(git rev-parse --show-toplevel)
+# select files
 FILES=$(git diff --cached --name-only --diff-filter=ACMR "$against")
 for file in $FILES
 do
+    # omit directories
+    if [ -d $file ]; then
+        continue
+    fi
 
     _basename=${file##*/}
     #_name=${_basename%.*}
@@ -142,7 +175,7 @@ do
         "bash" )
             BASH_FILES="$BASH_FILES $_fullfile" ;;
 
-        "xml" | "launch" | "urdf" | "xacro" | "sdf" )
+        "xml" | "launch" | "urdf" | "xacro" | "sdf" | "aiml" )
             XML_FILES="$XML_FILES $_fullfile" ;;
 
         "cpp" | "hpp" | "c" | "h" )
@@ -210,7 +243,7 @@ _FAILED="no"
 ########################################################
 
 # stash requires initial commit
-if [ "$_is_initial_commit" != "yes" ]; then
+if ! $_is_initial_commit ; then
 
     #echo "Reverting changes from stash"
     _uchile_git_hooks_revert_stash
@@ -231,7 +264,7 @@ if [ "$_FAILED" != "no" ]; then
  git admin.-
 
  Have some feedback?, please contact us:
- "$UCH_SYSTEM_ADMIN" - $UCH_EMAIL_DEVELOP
+ "$UCHILE_SYSTEM_ADMIN" - $UCHILE_EMAIL_DEVELOP
 
 EOF
 

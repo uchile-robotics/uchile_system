@@ -84,13 +84,41 @@ function _uchilecomplete_uchile_cd
     fi
 }
 
+# _uchilecomplete_uchile_make
+# single option completion: forks base soft high
+function _uchilecomplete_uchile_make
+{
+    local cur opts prev
 
+    # available options
+    opts="-h --help"
+    opts="${opts} forks base soft high"
+
+    if _uchile_check_if_bash ; then
+        # bash - complete
+        COMPREPLY=()
+
+        # current word
+        cur="${COMP_WORDS[COMP_CWORD]}"
+        if [[ $COMP_CWORD == 1 ]] ; then
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+        fi
+    else
+        # zsh - compctl
+        reply=()
+        if [[ ${CURRENT} == 2 ]]; then
+            reply=(${=opts})
+        fi
+    fi
+}
 
 if _uchile_check_if_bash ; then
 
     complete -F "_uchilecomplete_uchile_find_string" "uchile_find_string"
     complete -F "_uchilecomplete_uchile_cd" "uchile_cd" "cdb" "cdu"
     complete -F "_uchilecomplete_only_help" "uchile_fix_links" "uchile_clean_workspace"
+    complete -F "_uchilecomplete_uchile_make" "uchile_make"
 
     # no completion
     complete -F "_uchilecomplete_NOT_COMPLETE" "uchile_printenv"
@@ -104,6 +132,7 @@ else
     compctl -Q -K "_uchilecomplete_uchile_find_string" "uchile_find_string"
     compctl -K "_uchilecomplete_uchile_cd" "uchile_cd"
     compctl -K "_uchilecomplete_only_help" "uchile_fix_links" "uchile_clean_workspace"
+    compctl -K "_uchilecomplete_uchile_make" "uchile_make"
 
     # no completion
     compctl -K "_uchilecomplete_NOT_COMPLETE" "uchile_printenv"

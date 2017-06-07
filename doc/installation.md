@@ -5,7 +5,6 @@
 * [Instalación de UChile ROS Framework](#instalación-de-uchile-ros-framework)
 * [Configuraciones](#configuraciones)
 * [Compilación de workspaces](#compilación-de-workspaces)
-* [Actualizar la instalación](#actualizar-la-instalación)
 * [Configuración del simulador Gazebo](#configuración-del-simulador-gazebo)
 
 
@@ -43,13 +42,15 @@ Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 
 ```bash
 sudo apt-get update
-sudo apt-get install git python-flake8 shellcheck libxml2-utils python-yaml cppcheck curl openssl pv python-rosinstall python-pip openssh-client openssh-server python-rosdep
+sudo apt-get install git python-flake8 shellcheck libxml2-utils python-yaml cppcheck curl openssl pv python-rosinstall python-pip openssh-client python-termcolor openssh-server python-rosdep
 ```
 
 
 ## Instalación de UChile ROS Framework
 
 Procurar **ejecutar las veces que sea necesario**, pues puede fallar el clone de algún repositorio, por ejemplo, al introducir mal la clave.
+
+*Observacion:* Actualmente, hay dos repositorios que son privados y por lo tanto, pediran usuario y contraseña de GitHub al intentar descargarlos. Revisar la salida del instalador para ver que todo funcionó OK; También puedes revisar manualmente que `uchile_perception` y `uchile_high` se hayan descargado correctamente!. En caso de que haya algún error, ejecutar nuevamente la línea del instalador.
 
 Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 
@@ -64,7 +65,13 @@ bash "$HOME"/tmp_repo/install/ws_installer.bash
 rm -rf ~/tmp_repo
 ```
 
+
+
 ### Habilitar workspace para uso en consola
+
+Antes de ejecutar el siguiente paso, es necesario que revises el archivo de configuración correspondiente a tu consola `.bashrc` o `.zshrc`, para eliminar toda línea relacionada con ROS. Por ejemplo, debes comentar toda línea de la forma `source /opt/ros/indigo/setup.bash` o `source <mi-workspace-ros>.bash`.
+
+*Hint:* `.bashrc` y `.zshrc` se encuentran ocultos en `"$HOME"`. Puedes mostrar/ocultar éstos archivos utilizando <kbd>Ctrl</kbd> + <kbd>H</kbd>.
 
 En cada caso puedes copiar el bloque de código directo en la terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>).
 
@@ -112,7 +119,7 @@ export UCHILE_SHELL_CFG="$HOME"/uchile.sh
 EOF
 ```
 
-Al terminar la instalación debes reabrir el terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>).
+Para continuar la instalación y que las configuraciones anteriores surtan efecto, es necesario abrir un nuevo terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>). De lo contrario, no existirán las variables de entorno ni funciones necesarias, como `UCHILE_SYSTEM`, `bgit` o `cdb`.
 
 
 ## Configuraciones
@@ -136,7 +143,6 @@ Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 cp -bfS.bkp "$UCHILE_SYSTEM"/templates/default.gitconfig ~/.gitconfig
 git config --global user.name 'Replace Your Name Here'
 git config --global user.email 'replace.your.email.here@gmail.com'
-git config --global user.email 'matias.pavez.b@gmail.com'
 git config --global credential.helper 'cache --timeout=86400'
 
 # Promt de bash muestra rama actual y estado del repositorio git.
@@ -150,7 +156,7 @@ echo 'export EDITOR="gedit"' >> ~/.bashrc
 # 1.- Agregar opción "abrir terminal" al usar click derecho en una carpeta
 # 2.- Shell más moderno. Permite subdivisiones en cada pestaña.
 # 3.- Utilitario gráfico para git. Llamar usando "gitk" en la consola.
-sudo apt-get install nautilus-open-terminal terminator gitk
+sudo apt-get update && sudo apt-get install nautilus-open-terminal terminator gitk
 
 # Trabajar en rama "develop" de cada repositorio
 # - si tras correr el comando algún repositorio no está en tal rama,
@@ -182,7 +188,14 @@ El sistema se divide en 5 workspaces, que en orden son: ROS, forks_ws, base_ws, 
 
 Los pasos a seguir dependerán del robot a utilizar, según la variable `$UCHILE_ROBOT`. En caso de querer utilizar ambos robots, seguir todas las instrucciones. Si sólo se instalará para uno de los robots, seguir las instrucciones correspondientes.
 
+*Hint:* Algunos de los scripts de instalación `install.sh` pueden mostrar errores en caso de que el hardware apropiado no esté conectado al ordenador. No te alarmes, puedes repetir la instalación de ese package en particular cuando desees ocupar el hardware real.
+
 Ejecutar lo siguiente en un nuevo terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
+
+```bash
+# Actualizar base de datos del repositorio de software.
+sudo apt-get update
+```
 
 ### Instalación de `forks_ws`
 
@@ -261,6 +274,9 @@ cdb uchile_speech_pocketsphinx && bash install/install.sh
 # instalar dependencias de bender_arm_planning
 cdb bender_arm_planning && bash install/install.sh
 
+# instalar dependencias de bender_perception
+cdb uchile_perception_utils && bash install/install_nite.sh
+
 # instalar dependencias para deep learning
 # [AVISO] puede tomar un par de horas !!
 # [WARNING] Sólo testeado en consola bash. Puede haber problemas con pip. Ver: https://bitbucket.org/uchile-robotics-die/bender_system/issues/9/importerror-no-module-named
@@ -290,13 +306,6 @@ cdb high && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 cdb high && cd .. && catkin_make
 ```
 
-## Actualizar la instalación
-
-En caso de querer descargar repositorios faltantes o actualizar la instalación, siempre se puede correr el instalador nuevamente, sin miedo a romper lo que ya está funcionando. El único efecto adverso podría ser que los repositorios queden en la rama default, o commit default para el caso de los forks. Para eso, correr en un terminal:
-```bash
-# recordar des sourcear ROS y UChile ROS Framework desde ~/.bashrc
-bash "$HOME"/uchile_ws/system/install/ws_installer.bash
-```
 
 ## Configuración del simulador Gazebo
 

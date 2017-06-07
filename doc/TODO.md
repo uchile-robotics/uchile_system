@@ -3,9 +3,10 @@
 
 ## Varios
 
+* Sobre como utilizar UChile Robotics junto a otro workspace ROS
 * assets/bender.machine, env/network-defs.sh and env/env-loader.sh
-* hay hooks no funcionando?
 * linters
+* actualizar instalador del joystick... pide que esté conectado.. es realmente necesario?
 
 ##  Migración
 
