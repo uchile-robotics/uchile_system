@@ -54,9 +54,51 @@ if _uchile_check_if_bash_or_zsh ; then
     alias cdb="uchile_cd"
     alias cdu="uchile_cd"
     alias bviz="roslaunch uchile_util rviz.launch"
-    
 fi
 
+uchile_make ()
+{
+    local user_path ws workspaces show_help a_ws match
+    ws="$1"
+
+    show_help=false
+    if [ -z "$ws" ]; then
+        show_help=true
+    else
+        
+        # look for matching strings
+        match=false
+        workspaces=(forks base soft high)
+        for a_ws in "${workspaces[@]}"; do
+            if [[ $a_ws = "$ws" ]]; then
+                match=true
+                break
+            fi
+        done
+
+        # compile
+        if $match; then
+            user_path=$(pwd)
+            cdb "$ws" && cd .. && catkin_make
+            cd "${user_path}"
+        else
+            show_help=true
+        fi
+    fi
+
+    if $show_help; then
+        cat <<EOF
+Synopsis:                
+    uchile_make <forks|base|soft|high>
+
+Description:
+    Attempts to run catkin_make on the selected workspace.
+    
+EOF
+        _uchile_admin_goodbye
+        return 1
+    fi
+}
 
 uchile_open_config ()
 {
