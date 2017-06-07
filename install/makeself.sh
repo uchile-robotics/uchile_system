@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # https://github.com/megastep/makeself
-# TODO: links simbolicos relativos en bender!
 
 # pre checks
 # ===========================================
@@ -51,6 +50,32 @@ fi
 # ===========================================
 cd "$HOME"
 
+
+# problemas por mover el workspace:
+# ok: ros
+# ok: pkgs
+# ok: system
+# fail: deps   ... ni idea... reinstalar
+# 
+# - fix_links tras migrar?.. porsia
+# - reconstruir workspaces al migrar?
+#   .. puede no ser necesario, en el caso de pepper
+#   .. opcional?
+#
+# - eliminar marcas de instalacion de repos
+#   ... herramienta comun para eso
+#
+# - borrar todos los pyc en pkgs
+#      find . -name "*.pyc" -exec rm -f {} \;
+#
+# - modificar el crear uchile.sh v2, si es que ya existe
+# .. algo así.
+# .. modificar UCHILE_WS path
+#
+# 
+
+
 # makeself.sh [args] archive_dir file_name label startup_script [script_args]
 #sh "${makeself_dir}/makeself.sh" --notemp "${targetdir}" "${targetfile}" "${targetlabel}" echo "Migrated"
 #touch "${targetfile}"
+
