@@ -201,7 +201,7 @@ sudo apt-get update
 
 ```bash
 # instalar dependencias
-cdb forks && cd .. && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+cdb forks && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
 
 # Compilar
 cdb forks && cd .. && catkin_make
