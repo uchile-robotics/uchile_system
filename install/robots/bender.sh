@@ -12,6 +12,7 @@ repositories=(
     "forks_ws/dynamixel_motor"
     "forks_ws/urg_node"
     "forks_ws/usb_cam"
+    "forks_ws/hark_sound_localization"
     #"forks_ws/open_ptrack"
 
     # base

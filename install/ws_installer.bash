@@ -234,6 +234,9 @@ _uchile_get_repository "pkgs/forks_ws/urg_node" "https://github.com/uchile-robot
 # fork: navigation
 _uchile_get_repository "pkgs/forks_ws/navigation" "https://github.com/uchile-robotics-forks/navigation" "kinetic-devel"
 
+#fork: hark sound localization
+_uchile_get_repository "pkgs/forks_ws/hark_sound_localization" "https://github.com/uchile-robotics-forks/hark_sound_localization.git" "master"
+
 # fork: open_ptrack
 #_uchile_get_repository "pkgs/forks_ws/open_ptrack" "https://github.com/uchile-robotics-forks/open_ptrack" "master"
 

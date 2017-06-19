@@ -301,7 +301,8 @@ cdb soft && cd .. && catkin_make
 ```bash
 # instalar dependencias
 cdb high && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
-
+sudo apt-get install python-aiml
+ 
 # Compilar
 cdb high && cd .. && catkin_make
 ```
