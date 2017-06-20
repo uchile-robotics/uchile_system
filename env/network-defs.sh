@@ -14,20 +14,23 @@
 #                   resources on this network
 ###########################################################
  
-export UCHILE_NET_IP_BENDER_CHEST="192.168.0.10"
-export UCHILE_NET_IP_BENDER_VISION="192.168.0.20"
-export UCHILE_NET_IP_BENDER_NAV="192.168.0.30"
+export UCHILE_NET_IP_BENDER_RED="192.168.0.10"
+export UCHILE_NET_IP_BENDER_BLUE="192.168.0.20"
+export UCHILE_NET_IP_BENDER_GREEN="192.168.0.30"
+export UCHILE_NET_IP_BENDER_GRAY="192.168.0.40"
 
 _uchile_net_parse_ip ()
 {
 	local ipname
 	ipname="$1"
-	if [ "$ipname" = "chest" ]; then
-		printf "%s" "$UCHILE_NET_IP_BENDER_CHEST"
-	elif [ "$ipname" = "vision" ]; then
-		printf "%s" "$UCHILE_NET_IP_BENDER_VISION"
-	elif [ "$ipname" = "nav" ]; then
-		printf "%s" "$UCHILE_NET_IP_BENDER_NAV"
+	if [ "$ipname" = "gray" ]; then
+		printf "%s" "$UCHILE_NET_IP_BENDER_GRAY"
+	elif [ "$ipname" = "blue" ]; then
+		printf "%s" "$UCHILE_NET_IP_BENDER_BLUE"
+	elif [ "$ipname" = "green" ]; then
+		printf "%s" "$UCHILE_NET_IP_BENDER_GREEN"
+	elif [ "$ipname" = "red" ]; then
+		printf "%s" "$UCHILE_NET_IP_BENDER_RED"
 	elif [ "$ipname" = "localhost" ]; then
 		printf "%s" "127.0.0.1"
 	else

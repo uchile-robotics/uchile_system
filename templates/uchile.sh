@@ -33,13 +33,13 @@ export UCHILE_ROBOT="bender"
 # networking settings
 # -------------------------------------------
 # available IP names are:
-# - chest / nav / vision
+# - red / green / blue / gray
 
 # Your IP address or name
 export UCHILE_NET_IP="SET-THIS-VALUE"
 
 # ROS MASTER IP address or name
-export UCHILE_NET_MASTER="chest"
+export UCHILE_NET_MASTER="red"
 
 # Enable ROS networking (true/false)
 export UCHILE_NET_ENABLE=false
