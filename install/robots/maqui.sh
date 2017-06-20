@@ -6,8 +6,11 @@
 
 repositories=(
 
-    # forks
     "forks_ws/navigation"
+    "forks_ws/rosaria"
+    "forks_ws/dynamixel_motor"
+    "forks_ws/urg_node"
+    "forks_ws/usb_cam"
     "forks_ws/pepper"
     #"forks_ws/open_ptrack"
 
@@ -15,7 +18,7 @@ repositories=(
     "base_ws/uchile_common"
     "base_ws/uchile_knowledge"
     "base_ws/uchile_tools"
-    "base_ws/maqui_core"
+    "base_ws/bender_core"
 
     # soft
     "soft_ws/uchile_hri"
@@ -25,5 +28,6 @@ repositories=(
 
     # high
     "high_ws/uchile_high"
+    "high_ws/bender_bringup"
     "high_ws/maqui_bringup"
 )
