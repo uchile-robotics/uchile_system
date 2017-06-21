@@ -389,6 +389,8 @@ uchile_net_disable ()
 
 uchile_clean_workspace ()
 {
+    local user_path
+
     if [ "$#" != "0" ]; then
         cat <<EOF
 Synopsis:                
@@ -408,6 +410,9 @@ EOF
         return 0  
     fi
 
+    # this is required to if the deleted folder 
+    user_path=$(pwd)
+    cd "$HOME"
 
     # ask and clean !
     if [ -d "${UCHILE_ROS_WS}" ]; then
@@ -415,16 +420,17 @@ EOF
 
             printf  " - Directory %s exists and is not empty!\n" "${UCHILE_ROS_WS}"
             if _uchile_check_if_zsh ; then
-                read -q "REPLY?   Do you want to overwrite it? [Y/n]"
+                read -q "REPLY?   Do you want to overwrite it? [y/N]"
                 echo
             else
-                read -p "   Do you want to overwrite it? [Y/n]" -r
+                read -p "   Do you want to overwrite it? [y/N]" -r
             fi
             if [[ $REPLY =~ ^[Yy]$ ]]; then
                 printf " - Deleting workspace overlay.\n"
                 rm -rf "${UCHILE_ROS_WS}"
             else
                 printf " - Understood. Bye!.\n"
+                cd "$user_path"
                 return 0
             fi
         fi
@@ -434,6 +440,8 @@ EOF
     # remake workspaces
     bash -c "source ${UCHILE_SYSTEM}/install/util/helpers.bash; _uchile_create_complete_ws ${UCHILE_ROS_WS}"
 
+    cd "$user_path"
+
     # link missing repositories
     uchile_fix_links
 
@@ -442,10 +450,10 @@ EOF
     - The workspace cleaning procedure has finished. Now you should
     rebuild your workspaces one by one:
 
-       cdb forks && cd .. && catkin_make
-       cdb base && cd .. && catkin_make
-       cdb soft && cd .. && catkin_make
-       cdb high && cd .. && catkin_make
+       uchile_make forks
+       uchile_make base
+       uchile_make soft
+       uchile_make high
 
 EOF
 
