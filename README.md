@@ -12,6 +12,7 @@
 
 * [Descripción](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/description.md) 
 * [Instalación](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/installation.md)
+* [Configuración del PC](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/pcteamconfiguration.md)
 * [Troubleshooting](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/troubleshooting.md)
 * [Herramientas bash-zsh](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/tools.md) 
 * [Hooks para repositorios git](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/githooks.md) 

@@ -25,6 +25,27 @@ When the lid is closed : Do nothing
 
 Add Spanish dictionary
 
+### Time synchronzatin between pcs
+
+Install `chrony` on all machines:
+
+```bash
+# Install NTP server on 
+sudo apt-get update
+sudo apt-get install chrony
+```
+
+Then, configure each slave machine to listen the master. This assumes the ROS master machine is located at `192.168.0.10`. Modify the chrony `/etc/chrony/chrony.conf` on each slave. Add the following line among the other configured servers (after the `server 3.debian.pool.ntp.org offline minpoll 8` line)
+
+```
+server 192.168.0.10 minpoll 0 maxpoll 5 maxdelay .05
+```
+
+The master must not be modified.
+
+See also [ROS Network Setup Guide](http://wiki.ros.org/ROS/NetworkSetup#Timing_issues.2C_TF_complaining_about_extrapolation_into_the_future.3F) for information on how to setup chrony.
+
+
 ##Tests before continuing
 
 sudo apt-get install synaptic audacity
