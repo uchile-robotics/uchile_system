@@ -7,19 +7,41 @@ PC-Name : bender-green / bender-navi / bender-chest
 
 ## Computer Configuration
 
-Unlock from launcher : libre office, libre excel, libre powerpoint, amazon
+```bash
 sudo add-apt-repository ppa:webupd8team/sublime-text-2
 sudo apt-get update
-sudo apt-get install sublime-text nautilus-open-terminal terminator vim 
-Lock to launcher: terminator sublime 
+sudo apt-get install sublime-text nautilus-open-terminal terminator vim unity-tweak-tool gitk 
+```
 
+Lock to launcher: terminator sublime 
+Unlock from launcher : libre office, libre excel, libre powerpoint, amazon
 Allow files to be opened by default on sublime : .launch .xml .py .cpp .h .txt 
 
-Change workspace
+## Change workspace
+
 sudo apt-get install compizconfig-settings-manager
 General Options -> Desktop size -> 3x3
+Open unity-tweak-tool and set 3x3 workspaces. Set Home icon on desktop
 
-Time settings
+
+## Network Configuration
+
+Create ETHERNET network connection with the following params:
+
+- name: `bender_core`
+- IPV4 Settings:
+	- Method: Manual
+	- Add Address:
+		- Address: 192.168.0.MACHINE_NUMBER
+		- Netmask: 255.255.255.0
+		- Gateway: 192.168.0.1
+	- Routes: Check the `Use this connection only for resources on its network`.
+
+The Routes configuration is important, because it allows to use ROS by ethernet AND also use the WiFi!!
+
+
+## Time settings
+
 Suspend when inactive for : Don't suspend
 When the lid is closed : Do nothing
 
@@ -46,7 +68,7 @@ The master must not be modified.
 See also [ROS Network Setup Guide](http://wiki.ros.org/ROS/NetworkSetup#Timing_issues.2C_TF_complaining_about_extrapolation_into_the_future.3F) for information on how to setup chrony.
 
 
-##Tests before continuing
+## Tests before continuing
 
 sudo apt-get install synaptic audacity
 Test Microphone sounds in audacity
@@ -86,5 +108,5 @@ uchile_db/db
 
 Gazebo simulator with the corresponding robot
 
-##Download DBs
+## Download DBs
 cdb uchile_db && cd db && ./download.sh 
