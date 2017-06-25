@@ -119,6 +119,8 @@ Bookmark
 - uchile_common
 - uchile_db/db
 
+Setup github credentials for bender.devel@gmail.com
+
 ## Test 
 
 Gazebo simulator with the corresponding robot
