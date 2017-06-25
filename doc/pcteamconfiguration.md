@@ -1,25 +1,32 @@
 ## Configuraciones Instalación Ubuntu 
-Idioma : English
 
-User : bender
-Password : benderrobot
-PC-Name : bender-green / bender-navi / bender-chest
+- Idioma : English
+- User : bender
+- Password : benderrobot
+- PC-Name : bender-green / bender-navi / bender-chest
 
 ## Computer Configuration
 
 ```bash
 sudo add-apt-repository ppa:webupd8team/sublime-text-2
 sudo apt-get update
-sudo apt-get install sublime-text nautilus-open-terminal terminator vim unity-tweak-tool gitk 
+sudo apt-get install sublime-text nautilus-open-terminal terminator vim gitk 
 ```
 
-Lock to launcher: terminator sublime 
+Lock to launcher: terminator sublime
+
 Unlock from launcher : libre office, libre excel, libre powerpoint, amazon
-Allow files to be opened by default on sublime : .launch .xml .py .cpp .h .txt 
+
+Allow files to be opened by default on sublime : .launch, .xml, .py, .cpp, .h, .txt, .md
+
+Add Spanish dictionary
 
 ## Change workspace
 
-sudo apt-get install compizconfig-settings-manager
+```bash
+sudo apt-get install compizconfig-settings-manager unity-tweak-tool
+```
+
 General Options -> Desktop size -> 3x3
 Open unity-tweak-tool and set 3x3 workspaces. Set Home icon on desktop
 
@@ -42,12 +49,11 @@ The Routes configuration is important, because it allows to use ROS by ethernet 
 
 ## Time settings
 
-Suspend when inactive for : Don't suspend
-When the lid is closed : Do nothing
+- Suspend when inactive for : Don't suspend
+- When the lid is closed : Do nothing
 
-Add Spanish dictionary
 
-### Time synchronzatin between pcs
+### Time synchronization between pcs
 
 Install `chrony` on all machines:
 
@@ -70,43 +76,55 @@ See also [ROS Network Setup Guide](http://wiki.ros.org/ROS/NetworkSetup#Timing_i
 
 ## Tests before continuing
 
+```bash
 sudo apt-get install synaptic audacity
+```
+
 Test Microphone sounds in audacity
 
 
 ## Install ros and bender/maqui
 
-* Follow the install steps
+- Follow the install steps
 
 ### Recommendations
+
+```bash
 cp -bfS.bkp "$UCHILE_SYSTEM"/templates/default.gitconfig ~/.gitconfig
 git config --global user.name 'benderuchile'
 git config --global user.email 'bender.devel@gmail.com'
 git config --global credential.helper 'cache --timeout=86400'
+```
 
-
+```
 echo 'export EDITOR="subl"' >> ~/.bashrc
+```
 
 Do not add ''' Configuraciones Menos recomendadas '''
 
 Configurar uchile.sh
 
 HARK :
-
 http://www.hark.jp/wiki.cgi?page=HARK+Installation+Instructions
 http://www.hark.jp/wiki.cgi?page=HARK-ROS+Installation+Instructions
 
-Bookmark:
-uchile_robocup
-uchile_states
-bender_skills
-uchile_perception
-uchile_common
-uchile_db/db
+### Firefox
+
+Bookmark
+
+- uchile_robocup
+- uchile_states
+- bender_skills
+- uchile_perception
+- uchile_common
+- uchile_db/db
 
 ## Test 
 
 Gazebo simulator with the corresponding robot
 
 ## Download DBs
+
+```
 cdb uchile_db && cd db && ./download.sh 
+```
