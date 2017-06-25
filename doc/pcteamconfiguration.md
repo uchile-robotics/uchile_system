@@ -13,13 +13,41 @@ sudo apt-get update
 sudo apt-get install sublime-text nautilus-open-terminal terminator vim gitk 
 ```
 
-Lock to launcher: terminator sublime
 
-Unlock from launcher : libre office, libre excel, libre powerpoint, amazon
+- Software & Updates:
+	- Ubuntu Software:
+		- Keep default
+	- Other Software: Default Config
+	- Updates:
+		- Automatically Check for updates: Never
+		- Notify me of new Ubuntu version: Never
+	- Authentication: Keep default
+	- Additional Drivers:
+		- Do not INSTALL GPU
+- Brightness and Lock: 
+	- Turn Scren off: Never
+	- Lock: OFF
+	- Require my password when waking from suspend: Uncheck
+- Lock to launcher: terminator sublime
+- Unlock from launcher : libre office, libre excel, libre powerpoint, amazon
+- Allow files to be opened by default on sublime : .launch, .xml, .py, .cpp, .h, .txt, .md
+- Add Spanish dictionary
+- Power:
+	- Suspend when inactive for : Don't suspend
+	- When the lid is closed : Do nothing
+	- Show Battery Status in the Menu Bar: When the battery is present
+- Security And Privacy
+	- Files and Applications:
+		- Record file and application usage: UNCHECK
+	- Search:
+		- When Searching in the dash: UNCHECK include online search results
+	- Diagnostics:
+		- UNCHECK: Send error reports to canonical
+		- UNCKECK: Send occacional system information to canonical
+- Bluetooth: Disable
+- Backups: DISABLE BACKUPS
 
-Allow files to be opened by default on sublime : .launch, .xml, .py, .cpp, .h, .txt, .md
 
-Add Spanish dictionary
 
 ## Change workspace
 
@@ -27,8 +55,8 @@ Add Spanish dictionary
 sudo apt-get install compizconfig-settings-manager unity-tweak-tool
 ```
 
-General Options -> Desktop size -> 3x3
-Open unity-tweak-tool and set 3x3 workspaces. Set Home icon on desktop
+- General Options -> Desktop size -> 3x3
+- Open unity-tweak-tool and set 3x3 workspaces. Set Home icon on desktop.
 
 
 ## Network Configuration
@@ -49,8 +77,11 @@ The Routes configuration is important, because it allows to use ROS by ethernet 
 
 ## Time settings
 
-- Suspend when inactive for : Don't suspend
-- When the lid is closed : Do nothing
+### Time & Date
+
+- Location: Santiago
+- Set the time: Automatically from the internet
+
 
 
 ### Time synchronization between pcs
