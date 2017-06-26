@@ -74,6 +74,21 @@ Create ETHERNET network connection with the following params:
 
 The Routes configuration is important, because it allows to use ROS by ethernet AND also use the WiFi!!
 
+### Access from other PCs to ROS master or other
+
+Run the following commands with all notebooks on the bender-core network.
+```bash
+# access to RED
+nautilus sftp://bender-navi@192.168.0.10:22
+
+# access to blue and green
+nautilus sftp://bender@192.168.0.20:22
+nautilus sftp://bender@192.168.0.30:22
+```
+
+- Set the password to be remembered forever
+- Bookmark each filesystem onto the nautilus bookmarks panel.
+
 
 ## Time settings
 
