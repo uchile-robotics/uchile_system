@@ -240,6 +240,8 @@ _uchile_get_repository "pkgs/forks_ws/hark_sound_localization" "https://github.c
 # fork: open_ptrack
 #_uchile_get_repository "pkgs/forks_ws/open_ptrack" "https://github.com/uchile-robotics-forks/open_ptrack" "master"
 
+#fork: hark sound localization
+_uchile_get_repository "pkgs/forks_ws/moveit_python" "https://github.com/uchile-robotics-forks/moveit_python.git" "master"
 
 # unset credential helper if needed
 if $_unset_helper; then

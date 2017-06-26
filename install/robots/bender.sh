@@ -13,6 +13,7 @@ repositories=(
     "forks_ws/urg_node"
     "forks_ws/usb_cam"
     "forks_ws/hark_sound_localization"
+    "forks_ws/moveit_python"
     #"forks_ws/open_ptrack"
 
     # base
