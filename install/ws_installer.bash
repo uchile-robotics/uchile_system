@@ -126,6 +126,7 @@ printf " ============ Setting up uchile.sh ============ \n"
 # -----------------------------
 printf " - setting up file: %s\n" "$HOME/uchile.sh"
 template="$TMP_SYSTEM_DIR"/templates/uchile.sh
+cp -f "$HOME"/uchile.sh "${HOME}/uchile.bkp.$(date +"%Y.%m.%d_%H.%M.%S").sh"
 cp -f "$template" "$HOME"/uchile.sh
 unset template
 
@@ -258,19 +259,19 @@ printf "\n\n ============ Installing Git Hooks ============ \n"
 
 # where to copy the git hook from
 _hook_template="$TMP_SYSTEM_DIR"/hooks/pre-commit
-_uchile_enable_githook "system" "$_hook_template"
-_uchile_enable_githook "pkgs/base_ws/uchile_common"       "$_hook_template"
-_uchile_enable_githook "pkgs/base_ws/uchile_knowledge"    "$_hook_template"
-_uchile_enable_githook "pkgs/base_ws/uchile_tools"        "$_hook_template"
-_uchile_enable_githook "pkgs/base_ws/bender_core"         "$_hook_template"
-_uchile_enable_githook "pkgs/base_ws/maqui_core"          "$_hook_template"
-_uchile_enable_githook "pkgs/soft_ws/uchile_hri"          "$_hook_template"
-_uchile_enable_githook "pkgs/soft_ws/uchile_navigation"   "$_hook_template"
-_uchile_enable_githook "pkgs/soft_ws/uchile_manipulation" "$_hook_template"
-_uchile_enable_githook "pkgs/soft_ws/uchile_perception"   "$_hook_template"
-_uchile_enable_githook "pkgs/high_ws/uchile_high"         "$_hook_template"
-_uchile_enable_githook "pkgs/high_ws/maqui_bringup"       "$_hook_template"
-_uchile_enable_githook "pkgs/high_ws/bender_bringup"      "$_hook_template"
+_uchile_enable_githook "system" "${_hook_template}"
+_uchile_enable_githook "pkgs/base_ws/uchile_common"       "${_hook_template}"
+_uchile_enable_githook "pkgs/base_ws/uchile_knowledge"    "${_hook_template}"
+_uchile_enable_githook "pkgs/base_ws/uchile_tools"        "${_hook_template}"
+_uchile_enable_githook "pkgs/base_ws/bender_core"         "${_hook_template}"
+_uchile_enable_githook "pkgs/base_ws/maqui_core"          "${_hook_template}"
+_uchile_enable_githook "pkgs/soft_ws/uchile_hri"          "${_hook_template}"
+_uchile_enable_githook "pkgs/soft_ws/uchile_navigation"   "${_hook_template}"
+_uchile_enable_githook "pkgs/soft_ws/uchile_manipulation" "${_hook_template}"
+_uchile_enable_githook "pkgs/soft_ws/uchile_perception"   "${_hook_template}"
+_uchile_enable_githook "pkgs/high_ws/uchile_high"         "${_hook_template}"
+_uchile_enable_githook "pkgs/high_ws/maqui_bringup"       "${_hook_template}"
+_uchile_enable_githook "pkgs/high_ws/bender_bringup"      "${_hook_template}"
 
 unset _hook_template
 
