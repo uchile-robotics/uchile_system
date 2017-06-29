@@ -230,12 +230,13 @@ _uchile_get_repository "pkgs/forks_ws/dynamixel_motor" "https://github.com/uchil
 _uchile_get_repository "pkgs/forks_ws/usb_cam" "https://github.com/uchile-robotics-forks/usb_cam" "0.3.4"
 
 # fork: urg_node
-_uchile_get_repository "pkgs/forks_ws/urg_node" "https://github.com/uchile-robotics-forks/urg_node" "0.1.9"
+_uchile_get_repository "pkgs/forks_ws/urg_node" "https://github.com/uchile-robotics-forks/urg_node" "uchile-devel"
 
 # fork: navigation
 _uchile_get_repository "pkgs/forks_ws/navigation" "https://github.com/uchile-robotics-forks/navigation" "kinetic-devel"
 
 #fork: hark sound localization
+# TODO: hark_sound_source_localization: Cannot locate rosdep definition for [hark-ros-hydro]
 _uchile_get_repository "pkgs/forks_ws/hark_sound_localization" "https://github.com/uchile-robotics-forks/hark_sound_localization.git" "master"
 
 # fork: open_ptrack
