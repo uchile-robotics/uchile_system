@@ -14,7 +14,7 @@
 
 ### Instalar ROS indigo
 
-*AVISO: Esta sección se puede ignorar si es que ROS indigo ya está instalado en la máquina. En tal caso, asegurate de tener instalado `python-{rosinstall, pip, rosdep}`.*
+*AVISO: Esta sección se puede ignorar si es que ROS indigo ya está instalado en la máquina. En tal caso, asegurate de tener instalado rosdep: `sudo apt-get install python-{rosinstall,pip,rosdep}`.*
 
 Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 
