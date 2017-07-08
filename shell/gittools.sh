@@ -26,7 +26,7 @@ UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/high_ws/maqui_bringup"
 # - shows a short status of common bender repositiries (see $UCHILE_REPOSITORIES)
 _uchile_git_status ()
 {
-    local _user_path _repo_path _repo_path_cropped
+    local _user_path _repo_path _repo_path_cropped _stash_size
     _user_path="$(pwd)"
 
 	# parse the string array in a bash like manner
@@ -44,8 +44,14 @@ _uchile_git_status ()
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
             printf " - - - \n"
-            printf "Repository: %s\n" "$_repo_path_cropped"
+            printf "Repository: %s" "$_repo_path_cropped"
+            _stash_size=$( (git stash list 2> /dev/null || :) | wc -l )
+            if [ ${_stash_size} -gt 0 ]; then
+                printf " \033[0;33m(stash  +%s)\033[0m" "${_stash_size}"
+            fi
+            printf "\n"
             git status --short --branch --untracked-files=no
+
         else
             printf " - - - \n"
             printf "Repository: %s\n" "$_repo_path_cropped"
