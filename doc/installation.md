@@ -140,10 +140,12 @@ Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 # 1.- colores y aliases para comandos git.
 # 2.- configurar nombre y mail para commits. (ojalá mail matchee con el de github!)
 # 3.- configurar caché para contraseña git a 1 día
+# 4.- por defecto sólo pushear la rama actual. Evita subir commits que pueden no estar listos.
 cp -bfS.bkp "$UCHILE_SYSTEM"/templates/default.gitconfig ~/.gitconfig
 git config --global user.name 'Replace Your Name Here'
 git config --global user.email 'replace.your.email.here@gmail.com'
 git config --global credential.helper 'cache --timeout=86400'
+git config --global push.default simple
 
 # Promt de bash muestra rama actual y estado del repositorio git.
 cp -bfS.bkp "$UCHILE_SYSTEM"/templates/bash_aliases ~/.bash_aliases
