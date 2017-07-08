@@ -8,7 +8,7 @@
 
 - Nombres en `underscore_case`: minúsculas y separados por espacios.
 - Usar prefijo `feat-` para nuevas funcionalidades.
-- No usar prefijo `rc-` para pruebas específicas de la robocup.
+- Usar prefijo `rc-` sólo para pruebas específicas de la robocup.
 
 ### Merges y otros comandos no recomendados
 
