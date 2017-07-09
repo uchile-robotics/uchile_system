@@ -26,10 +26,11 @@ UCHILE_REPOSITORIES="$UCHILE_REPOSITORIES $UCHILE_PKGS_WS/high_ws/maqui_bringup"
 # - shows a short status of common bender repositiries (see $UCHILE_REPOSITORIES)
 _uchile_git_status ()
 {
-    local _user_path _repo_path _repo_path_cropped _stash_size
+    local _user_path _repo_path _repo_path_cropped 
+    local _stash_size _curr_branch _diff_count _ahead_count _behind_count
     _user_path="$(pwd)"
 
-	# parse the string array in a bash like manner
+    # parse the string array in a bash like manner
     if _uchile_check_if_zsh ; then
         setopt local_options shwordsplit
     fi
@@ -43,14 +44,29 @@ _uchile_git_status ()
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
+            _curr_branch="$(git rev-parse --abbrev-ref HEAD)"
+            _stash_size=$( (git stash list 2> /dev/null || :) | wc -l )
+            _diff_count="$(git rev-list --left-right --count origin/develop...${_curr_branch})"
+            _behind_count="$(echo "${_diff_count}" | cut -f1)"
+            _ahead_count="$(echo "${_diff_count}" | cut -f2)"
+            
             printf " - - - \n"
             printf "Repository: %s" "$_repo_path_cropped"
-            _stash_size=$( (git stash list 2> /dev/null || :) | wc -l )
+
+            # stash size
             if [ ${_stash_size} -gt 0 ]; then
                 printf " \033[0;33m(stash  +%s)\033[0m" "${_stash_size}"
             fi
+
+            # only display if not in develop and diff exists 
+            if [ ! "$_curr_branch" = "develop" ]; then
+                if [ ${_behind_count} -gt 0 ] || [ ${_ahead_count} -gt 0 ]; then
+                    printf " \033[0;34m[commits to develop -%s/+%s]\033[0m" "${_behind_count}" "${_ahead_count}"
+                fi
+            fi
+
             printf "\n"
-            git status --short --branch --untracked-files=no
+            LC_ALL=en_US git status --short --branch --untracked-files=no
 
         else
             printf " - - - \n"
@@ -90,7 +106,7 @@ _uchile_git_checkout ()
 
         if [ -e "$_repo_path/.git" ]; then
             cd "$_repo_path"
-            _curr_branch="$(git branch --no-color | grep "\*" | sed "s/\* //")"
+            _curr_branch="$(git rev-parse --abbrev-ref HEAD)"
 
             printf " - - - \n"
             printf "Repository: %s (%s)\n" "$_repo_path_cropped" "$_curr_branch"
@@ -145,7 +161,7 @@ _uchile_git_ls_files ()
             ;;
     esac
 
-	# parse the string array in a bash like manner
+    # parse the string array in a bash like manner
     if _uchile_check_if_zsh ; then
         setopt local_options shwordsplit
     fi
