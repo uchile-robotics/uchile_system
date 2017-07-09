@@ -216,9 +216,6 @@ cdb forks && cd .. && catkin_make
 ```bash
 # instalar dependencias
 cdb base && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
-
-# install uchile_turning_base
-cdb uchile_turning_base  && bash install/install.sh
 ```
 
 #### base_ws (sólo bender)
@@ -245,6 +242,9 @@ cdb bender_fieldbus && bash install/install.sh
 
 # install bender_sensors
 cdb bender_sensors && bash install/install.sh
+
+# install uchile_turning_base
+cdb bender_turning_base && bash install/install.sh
 ```
 
 #### base_ws (sólo maqui)
