@@ -2,7 +2,7 @@
 
 - Idioma : English
 - User : bender
-- Password : benderrobot
+- Password : benderrobot  ######**TOP_SECRET**######
 - PC-Name : bender-green / bender-navi / bender-chest
 
 ## Computer Configuration
@@ -17,11 +17,13 @@ sudo apt-get install sublime-text nautilus-open-terminal terminator vim gitk
 - Software & Updates:
 	- Ubuntu Software:
 		- Keep default
-	- Other Software: Default Config
+	- Other Software: 
+		- Default Config
 	- Updates:
 		- Automatically Check for updates: Never
 		- Notify me of new Ubuntu version: Never
-	- Authentication: Keep default
+	- Authentication: 
+		- Keep default
 	- Additional Drivers:
 		- Do not INSTALL GPU
 - Brightness and Lock: 
@@ -52,10 +54,9 @@ sudo apt-get install sublime-text nautilus-open-terminal terminator vim gitk
 ## Change workspace
 
 ```bash
-sudo apt-get install compizconfig-settings-manager unity-tweak-tool
+sudo apt-get install unity-tweak-tool
 ```
 
-- General Options -> Desktop size -> 3x3
 - Open unity-tweak-tool and set 3x3 workspaces. Set Home icon on desktop.
 
 
