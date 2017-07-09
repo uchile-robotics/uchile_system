@@ -85,7 +85,9 @@ nautilus sftp://bender-navi@192.168.0.10:22
 # access to blue and green
 nautilus sftp://bender@192.168.0.20:22
 nautilus sftp://bender@192.168.0.30:22
-```
+
+# access to maqui
+nautilus sftp://nao@192.168.0.126:22
 
 - Set the password to be remembered forever
 - Bookmark each filesystem onto the nautilus bookmarks panel.
