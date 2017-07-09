@@ -192,7 +192,7 @@ Los pasos a seguir dependerán del robot a utilizar, según la variable `$UCHILE
 
 *Hint:* Algunos de los scripts de instalación `install.sh` pueden mostrar errores en caso de que el hardware apropiado no esté conectado al ordenador. No te alarmes, puedes repetir la instalación de ese package en particular cuando desees ocupar el hardware real.
 
-*Obs:* A veces ocurren problemas con la generación de archivos para dynamic reconfigure durante la compilación (al usar `catkin_make`). Revisa la sección correspondiente de la página [throubleshooting](throubleshooting).
+*Obs:* A veces ocurren problemas con la generación de archivos para dynamic reconfigure durante la compilación (al usar `catkin_make`). Revisa la sección correspondiente de la página [throubleshooting](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/troubleshooting.md).
 
 Ejecutar lo siguiente en un nuevo terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 
