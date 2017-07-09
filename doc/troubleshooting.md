@@ -39,3 +39,18 @@ El framework provee otras 2 herramientas útiles para corregir problemas en el w
 
 `uchile_clean_workspace`: Elimina completamente el workspace ROS actual, ubicado en `$UCHILE_ROS_WS`, para luego reconstruirlo completamente. Es útil cuando el overlay de workspaces ROS está fallando, se han perdido carpetas o hay cualquier fallo en los directorios de `$UCHILE_ROS_WS`. Más información en `uchile_clean_workspace --help`.
 
+
+## Compilación falla porque no se generan archivos para dynamic_reconfigure
+
+En algunos casos *no reproducibles* la compilación falla con errores similares a lo que sigue:
+
+```
+[ 43%] Generating Python code from SRV uchile_srvs/PointCloud2
+The bug is not reproducible, so it is likely a hardware or OS problem.
+make[2]: * [uchile_common/uchile_tf/CMakeFiles/dynamic_robot_state_publisher.dir/src/dynamic_robot_state_publisher.cpp.o] Error 1
+make[1]: * [uchile_common/uchile_tf/CMakeFiles/dynamic_robot_state_publisher.dir/all] Error 2
+make[1]: * Waiting for unfinished jobs....
+[ 43%] [ 44%] Generating Python code from SRV uchile_srvs/TableDetector
+```
+
+Puedes repetir el comando de compilación hasta que funcione. Nada interesante que hacer.
