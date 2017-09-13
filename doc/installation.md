@@ -89,7 +89,7 @@ export UCHILE_WS="$HOME"/uchile_ws
 # settings file location
 export UCHILE_SHELL_CFG="$HOME"/uchile.sh
 
-# UChile Robotics Framework for ZSH
+# UChile Robotics Framework for BASH
 # comment this line to prevent sourcing the framework
 . "$UCHILE_WS"/system/setup.bash
 ## -----------------------------------------------
