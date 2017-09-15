@@ -1,5 +1,7 @@
 # Lista de Cambios
 
+Todos los repositorios del equipo trabajan con [semantic versioning](http://semver.org/) v2.0.0.
+
 ## Principales cambios desde la versión 1.9 y tras la migración
 
 Hasta la versión 1.9, todo el código estaba hosteado en bitbucket de manera privada y diseñado para sólo 1 robot, bender.
