@@ -8,13 +8,13 @@
 if grep -Fxq "$UCHILE_NET_IP_BENDER_RED:/home/bender/uchile_ws /home/bender/uchile_ws nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" /etc/fstab
 then
     printf " #######################################\n"
-	printf " ALL SET \n"
-	printf " #######################################\n"
+    printf " ALL SET \n"
+    printf " #######################################\n"
 else
     printf " #######################################\n"
-	printf " NFS MASTER IP NOT SET IN THE FSTAB \n"
-	printf " #######################################\n"
-	printf " SETTING IP $UCHILE_NET_IP_BENDER_RED \n"
+    printf " NFS MASTER IP NOT SET IN THE FSTAB \n"
+    printf " #######################################\n"
+    printf " SETTING IP" "$UCHILE_NET_IP_BENDER_RED" "\n"
     sudo printf " \n" | sudo tee --append /etc/fstab > /dev/null
     sudo echo "$UCHILE_NET_IP_BENDER_RED:/home/bender/uchile_ws /home/bender/uchile_ws nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee --append /etc/fstab > /dev/null
     printf " ALL SET \n"

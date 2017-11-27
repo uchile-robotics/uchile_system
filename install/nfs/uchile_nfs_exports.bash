@@ -12,7 +12,7 @@ else
     printf " #######################################\n"
 	printf " IP BLUE NOT SET \n"
 	printf " #######################################\n"
-	printf " SETTING IP $UCHILE_NET_IP_BENDER_BLUE \n"
+	printf " SETTING IP" "$UCHILE_NET_IP_BENDER_BLUE" "\n"
     printf " \n" | sudo tee --append /etc/exports > /dev/null
     echo "/home/bender/uchile_ws $UCHILE_NET_IP_BENDER_BLUE(rw,sync,no_root_squash,no_subtree_check)" | sudo tee --append /etc/exports > /dev/null
     printf " BLUE SET \n"
@@ -27,7 +27,7 @@ else
     printf " #######################################\n"
 	printf " IP GREEN NOT SET \n"
 	printf " #######################################\n"
-	printf " SETTING IP $UCHILE_NET_IP_BENDER_GREEN \n"
+	printf " SETTING IP" "$UCHILE_NET_IP_BENDER_GREEN" "\n"
     echo "/home/bender/uchile_ws $UCHILE_NET_IP_BENDER_GREEN(rw,sync,no_root_squash,no_subtree_check)" | sudo tee --append /etc/exports > /dev/null
     printf " GREEN SET \n"
 fi
@@ -41,7 +41,7 @@ else
     printf " #######################################\n"
 	printf " IP GRAY NOT SET \n"
 	printf " #######################################\n"
-	printf " SETTING IP $UCHILE_NET_IP_BENDER_GRAY \n"
+	printf " SETTING IP" "$UCHILE_NET_IP_BENDER_GRAY" "\n"
     echo "/home/bender/uchile_ws $UCHILE_NET_IP_BENDER_GRAY(rw,sync,no_root_squash,no_subtree_check)" | sudo tee --append /etc/exports > /dev/null
     printf " GRAY SET \n"
 fi
