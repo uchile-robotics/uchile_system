@@ -13,6 +13,8 @@ repositories=(
     "forks_ws/usb_cam"
     "forks_ws/pepper"
     #"forks_ws/open_ptrack"
+    "forks_ws/ChatterBot"
+    "forks_ws/chatterbot-corpus"
 
     # base
     "base_ws/uchile_common"

@@ -245,6 +245,10 @@ _uchile_get_repository "pkgs/forks_ws/hark_sound_localization" "https://github.c
 #fork: hark sound localization
 _uchile_get_repository "pkgs/forks_ws/moveit_python" "https://github.com/uchile-robotics-forks/moveit_python.git" "master"
 
+# fork: ChatterBot
+_uchile_get_repository "pkgs/forks_ws/ChatterBot" "https://github.com/uchile-robotics-forks/ChatterBot" "master"
+_uchile_get_repository "pkgs/forks_ws/chatter-corpus" "https://github.com/uchile-robotics-forks/chatterbot-corpus" "master"
+
 # unset credential helper if needed
 if $_unset_helper; then
 	git config --global --unset credential.helper
