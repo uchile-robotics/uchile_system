@@ -3,6 +3,18 @@
 #TODO: revisar la ip del master para evitar montar su disco sobre el mismo.
 #TODO: hacer un metodo para que quede mas simple esto.
 #TODO: Documentar instalador.
+if "$UCHILE_NET_ENABLE"
+then
+	printf " #######################################\n"
+else
+	printf " #######################################\n"
+	printf " UCHILE_NET_ENABLE NOT SET IN TRUE \n"
+	printf " CHANGE THE UCHILE.SH \n"
+	printf " AND RUN THIS SCRIPT AGAIN \n"
+	printf " #######################################\n"
+	exit 2
+fi
+
 if grep -Fxq "/home/bender/uchile_ws $UCHILE_NET_IP_BENDER_BLUE(rw,sync,no_root_squash,no_subtree_check)" /etc/exports
 then
     printf " #######################################\n"
