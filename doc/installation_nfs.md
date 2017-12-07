@@ -78,6 +78,11 @@ rosdep update    # NO EJECUTAR CON SUDO!
 Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 
 ```bash
+ssh <color>
+```
+Lo cual se logea via ssh en el cliente luego se procede a seguir los siguentes comandos para instalar ros
+
+```bash
 sudo apt-get update
 sudo apt-get install git python-flake8 shellcheck libxml2-utils python-yaml cppcheck curl openssl pv python-rosinstall python-pip openssh-client python-termcolor openssh-server python-rosdep
 ```
