@@ -13,6 +13,7 @@
 * [Descripción](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/description.md) 
 * [Recomendaciones](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/guidelines.md)
 * [Instalación](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/installation.md)
+* [Instalación clientes de NFS](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/installation_nfs.md)
 * [Configuración del PC](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/pcteamconfiguration.md)
 * [Troubleshooting](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/troubleshooting.md)
 * [Herramientas bash-zsh](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/tools.md) 
