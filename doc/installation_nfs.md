@@ -41,21 +41,24 @@ Esto guardara los distintos host de bender (green, blue y gray) bajo las siguent
 ```
 
 ### Configuracion keys ssh
-Para la configuracion de keys en
+Para la configuracion de keys para almacenar las claves de ssh se ejecuta en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 ```bash
 bash $UCHILE_WS/system/install/uchile_hosts_config.bash
 ```
 
-### Instalar ROS indigo
-
-*AVISO: Esta sección se puede ignorar si es que ROS indigo ya está instalado en la máquina. En tal caso, asegurate de tener instalado rosdep: `sudo apt-get install python-{rosinstall,pip,rosdep}`.*
+### Instalar ROS kinetic en los pcs clientes
 
 Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 
 ```bash
+ssh <color>
+```
+Lo cual se logea via ssh en el cliente luego se procede a seguir los siguentes comandos para instalar ros
+
+```bash
 # ROS Keys
-# Evite instalar la versión full (sudo apt-get install ros-indigo-desktop-full) o alguna de las otras variantes.
-# ver: http://wiki.ros.org/indigo/Installation/Ubuntu
+# Evite instalar la versión full (sudo apt-get install ros-kinetic-desktop-full) o alguna de las otras variantes.
+# ver: http://wiki.ros.org/kinetic/Installation/Ubuntu
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
 
@@ -63,7 +66,7 @@ sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C
 sudo apt-get update
 
 # instalar ROS base
-sudo apt-get install ros-indigo-ros-base curl openssl pv python-rosinstall python-pip python-rosdep
+sudo apt-get install ros-kinetic-ros-base curl openssl pv python-rosinstall python-pip python-rosdep
 
 # inicializar rosdep
 sudo rosdep init # ignorar si es que falla con "ERROR: default sources list file already exists:..."
