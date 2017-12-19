@@ -9,7 +9,21 @@
 * [Configuración del simulador Gazebo](#configuración-del-simulador-gazebo)
 
 ## Prerrequisitos
-TODO: poner lo de las ips y colores de los pc y las variables de ambiente.
+
+### Sistemas operativos
+
+Los prerrequisitos del sistema son tener un pc con ubuntu 16.04 desktop el cual sera utilizado como el master del sistema nfs y en el que el desarrollador tiene contacto fisico directo, para esta instalacion este pc se llamara red. Además se debe tener 1 o mas computadores con ubuntu 16.04 server para evitar consumo de recursos en idle debido a la interfaz grafica en el caso de este tutorial estos pcs seran green y blue.
+
+### Conexión lan
+Para el desarrollo de esta instalacion es vital que los pcs tengan conexion via ethernet directa mediante ethernet, Las ips ocupadas en la configuracion serán:
+```text
+192.168.0.20 blue
+192.168.0.30 green
+192.168.0.40 gray
+```
+Para setear una Ip estatica mediante consola leer la seccion (Ip estatica mediante consola.
+
+Las cuales se deben encontrar en la variable de ambiente de ``UCHILE_NET_IP_BENDER_<pc_name>`` la cuales se encuentran en el archivo ``$UCHILE_WS/system/env/network-defs.sh`` y para que se lancen al sourcear el workspace es necesario que la variable ``$UCHILE_NET_ENABLE`` que se encuentra en uchile.sh este seteada en true. 
 
 
 ## Configuraciones de red
