@@ -134,6 +134,169 @@ sudo shutdown -r now
 
 
 ## Instalación de UChile ROS Framework
-Una vez realizada la instalacion del Framework en el pc maestro [Si no se a realizado click aqui](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/description.md).
+Una vez realizada la instalacion del Framework en el pc maestro si no se a realizado [click aqui](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/description.md).
 
-### Configuracion de NFS
+### Habilitar workspace para uso en consola
+En cada caso puedes copiar el bloque de código directo en la terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>).
+
+### Sólo usuarios de bash
+```bash
+ssh <color>
+
+cat >> ~/.bashrc <<"EOF"
+
+#!/bin/sh
+#
+# Shell settings for the uchile ROS framework.
+#
+# Do not source this file into your *rc files.
+# This file is automagically sourced whenever a new shell is opened.
+#
+#
+# To enable the UChile ROS Framework, you must setup the following on your rc file:
+# 
+# # UChile workspace location
+# export UCHILE_WS=<FRAMEWORK_PATH>
+#
+# # workspace configuration file
+# export UCHILE_SHELL_CFG="$HOME"/uchile.sh
+#
+# # source the setup file
+# . "$UCHILE_WS"/system/setup.bash  # (on .bashrc : bash only)
+# . "$UCHILE_WS"/system/setup.zsh   # (on .zshrc  : zsh only )
+#
+#
+
+## UCHILE ROS FRAMEWORK SETTINGS
+## ==========================================
+
+# robot settings
+# ------------------------------------------- 
+
+# available: bender, maqui, all
+export UCHILE_ROBOT="bender"
+
+
+# networking settings
+# -------------------------------------------
+# available IP names are:
+# - red / green / blue / gray
+
+# Your IP address or name
+export UCHILE_NET_IP="<color>"
+
+# ROS MASTER IP address or name
+export UCHILE_NET_MASTER="red"
+
+# Enable ROS networking (true/false)
+export UCHILE_NET_ENABLE=true
+
+# (dis)plays a warning when working in offline mode (true/false)
+export UCHILE_NET_WARN=true
+
+
+EOF
+
+cat >> ~/.bashrc <<"EOF"
+
+## -----------------------------------------------
+## UCHILE ROS FRAMEWORK Settings
+
+# workspace location
+export UCHILE_WS="$HOME"/uchile_ws
+
+# settings file location
+export UCHILE_SHELL_CFG="$HOME"/uchile.sh
+
+# UChile Robotics Framework for BASH
+# comment this line to prevent sourcing the framework
+. "$UCHILE_WS"/system/setup.bash
+## -----------------------------------------------
+
+EOF
+```
+
+Ejecutar lo siguiente en un nuevo terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
+
+
+### Instalación de `forks_ws`
+
+```bash
+ssh <color>
+# instalar dependencias
+cdb forks && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+
+```
+
+### Instalación de `base_ws`
+
+#### base_ws (común)
+
+```bash
+ssh <color>
+# instalar dependencias
+cdb base && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+
+# install bender_description
+cdb bender_description && bash install/install.sh
+cdb bender_description && bash scripts/update_models.sh
+
+# install bender_base
+cdb bender_base && bash install/install.sh
+
+# install bender_head
+cdb bender_head && bash install/install.sh
+
+# install bender_joy
+cdb bender_joy && bash install/install.sh
+
+# install bender_tts
+cdb bender_tts && bash install/install.sh
+
+# install bender_fieldbus
+cdb bender_fieldbus && bash install/install.sh
+
+# install bender_sensors
+cdb bender_sensors && bash install/install.sh
+
+# install uchile_turning_base
+cdb bender_turning_base && bash install/install.sh
+```
+
+### Instalación de `soft_ws`
+
+#### soft_ws
+
+```bash
+ssh <color>
+# instalar dependencias
+cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+
+# instalar dependencias de speech
+cdb uchile_speech_pocketsphinx && bash install/install.sh
+sudo apt-get install python-alsaaudio
+
+# instalar dependencias de bender_arm_planning
+cdb bender_arm_planning && bash install/install.sh
+
+# instalar dependencias de bender_perception
+cdb uchile_perception_utils && bash install/install_nite.sh
+
+# instalar dependencias para deep learning
+# [AVISO] puede tomar un par de horas !!
+# [WARNING] Sólo testeado en consola bash. Puede haber problemas con pip. Ver: https://bitbucket.org/uchile-robotics-die/bender_system/issues/9/importerror-no-module-named
+# [NOTA] No instalar no afecta en compilar bender
+cdb uchile_perception_utils && bash install/install.sh
+```
+
+### Instalación de `high_ws`
+
+#### high_ws (común)
+
+```bash
+ssh <color>
+# instalar dependencias
+cdb high && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+sudo apt-get install python-aiml
+
+```
