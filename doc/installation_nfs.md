@@ -57,17 +57,30 @@ Esto guardara los distintos host de bender (green, blue y gray) bajo las siguent
 ### Configuracion keys ssh
 Para la configuracion de keys para almacenar las claves de ssh se ejecuta en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 ```bash
-bash $UCHILE_WS/system/install/uchile_hosts_config.bash
+ssh-keygen -f ~/.ssh/bender -t rsa #creacion de key bender de tipo rsa
+ssh-copy-id -i ~/.ssh/bender bender@UCHILE_NET_IP_<PC_COLOR> #copiar clave de la maquina remota en la key bender.
 ```
-
-### Instalar ROS kinetic en los pcs clientes
-
-Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
-
+Se debe modificar el archivo de hosts de ssh el cual se encuentra en el directorio  ~/.ssh/config se debe agregar los siguente
+```text
+Host <pc_color>
+        Hostname <pc_color>
+        User bender
+        IdentityFile ~/.ssh/bender
+```
+Una vez realizados toda esta configuracion se debe probar si todo funciona correctamente por lo cual se debe abrit un terminal <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>) y ejecutar el siguente comando:
 ```bash
 ssh <color>
 ```
-Lo cual se logea via ssh en el cliente luego se procede a seguir los siguentes comandos para instalar ros
+El cual si conecta al usuario bender del pc <color> sin pedir contraseña significa que todo funciona correctamente.
+
+### Instalar ROS kinetic en los pcs clientes
+
+Ejecutar en terminal del master (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
+
+```bash
+ssh <color> #logea via ssh en el cliente
+```
+Luego se procede a seguir los siguentes comandos para instalar ros
 
 ```bash
 # ROS Keys
@@ -92,31 +105,35 @@ rosdep update    # NO EJECUTAR CON SUDO!
 Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 
 ```bash
-ssh <color>
+ssh <color> #logea via ssh en el cliente
 ```
-Lo cual se logea via ssh en el cliente luego se procede a seguir los siguentes comandos para instalar ros
+Luego se procede a seguir los siguentes comandos para instalar dependencias.
 
 ```bash
 sudo apt-get update
 sudo apt-get install git python-flake8 shellcheck libxml2-utils python-yaml cppcheck curl openssl pv python-rosinstall python-pip openssh-client python-termcolor openssh-server python-rosdep
 ```
+## Configuracion de NFS
+
+### Instalacion de NFS
+En el master ejecutar en el terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
+
+```bash
+sudo apt-get update
+sudo apt-get install nfs-kernel-server
+```
+El proceso para instalar en los clientes es similar: 
+```bash
+ssh <color>
+sudo apt-get update
+sudo apt-get install nfs-common
+
+#Se debe reinicar para probar que todo funcione correctamente
+sudo shutdown -r now
+```
 
 
 ## Instalación de UChile ROS Framework
+Una vez realizada la instalacion del Framework en el pc maestro [Si no se a realizado click aqui](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/description.md).
 
-Procurar **ejecutar las veces que sea necesario**, pues puede fallar el clone de algún repositorio, por ejemplo, al introducir mal la clave.
-
-*Observacion:* Actualmente, hay dos repositorios que son privados y por lo tanto, pediran usuario y contraseña de GitHub al intentar descargarlos. Revisar la salida del instalador para ver que todo funcionó OK; También puedes revisar manualmente que `uchile_perception` y `uchile_high` se hayan descargado correctamente!. En caso de que haya algún error, ejecutar nuevamente la línea del instalador.
-
-Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
-
-```bash
-# descargar uch_system
-git clone https://github.com/uchile-robotics/uchile_system.git ~/tmp_repo
-
-# Obtener repositorios y crear workspaces
-bash "$HOME"/tmp_repo/install/ws_installer.bash
-
-# limpiar
-rm -rf ~/tmp_repo
-```
+### Configuracion de NFS
