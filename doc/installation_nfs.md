@@ -4,9 +4,7 @@
 * [Prerrequisitos](#Prerrequisitos)
 * [Configuracion de red](#Configuracion-de-red)
 * [Instalación de UChile ROS Framework](#instalación-de-uchile-ros-framework)
-* [Configuraciones](#configuraciones)
-* [Compilación de workspaces](#compilación-de-workspaces)
-* [Configuración del simulador Gazebo](#configuración-del-simulador-gazebo)
+
 
 ## Prerrequisitos
 
@@ -194,6 +192,7 @@ export UCHILE_NET_ENABLE=true
 # (dis)plays a warning when working in offline mode (true/false)
 export UCHILE_NET_WARN=true
 
+export CLIENT=true
 
 EOF
 
