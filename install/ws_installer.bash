@@ -173,7 +173,7 @@ _uchile_get_repository "misc/graveyard/uchile_embedded"   "https://github.com/uc
 #_uchile_get_repository "misc/graveyard/BenderCode_Indigo" "https://github.com/uchile-robotics/BenderCode_Indigo"     # big repo. just slows down installation
 
 # page
-_uchile_get_repository "misc/webpage" "https://github.com/uchile-robotics/uchile-robotics.github.io"
+#_uchile_get_repository "misc/webpage" "https://github.com/uchile-robotics/uchile-robotics.github.io"
 
 # maqui_system
 _uchile_get_repository "misc/maqui_system" "https://github.com/uchile-robotics/maqui_system"
