@@ -316,3 +316,7 @@ cdb high && cd .. && catkin_make
 ## Configuración del simulador Gazebo
 
 Para configurar una versión adecuada del simulador Gazebo debes seguir la documentación del package [bender_gazebo](https://github.com/uchile-robotics/uchile_system/wiki/bender_gazebo).
+
+## Configuración para trabajar en Maqui
+
+* [Configuración Maqui](https://github.com/uchile-robotics/uchile_system/blob/develop/doc/maqui.md)
