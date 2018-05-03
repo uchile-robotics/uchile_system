@@ -551,3 +551,15 @@ proxy_off(){
    echo -e "\nProxy-related environment variables removed."
 }
 
+_matias(){
+   bash $UCHILE_SYSTEM/shell/mati.bash
+}
+
+_benderface(){
+   bash $UCHILE_SYSTEM/shell/bender_face.bash
+}
+
+_pepperface(){
+   bash $UCHILE_SYSTEM/shell/pepper_face.bash
+}
+
