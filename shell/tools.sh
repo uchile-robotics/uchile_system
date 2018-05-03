@@ -486,3 +486,68 @@ EOF
 
     return 0
 }
+
+
+proxy_on(){
+   # assumes $USERDOMAIN, $USERNAME, $USERDNSDOMAIN
+   # are existing Windows system-level environment variables
+
+   # assumes $PASSWORD, $PROXY_SERVER, $PROXY_PORT
+   # are existing Windows current user-level environment variables (your user)
+   export PROXY_IP="172.17.40.9"
+   export PROXY_PORT="8000"
+   # environment variables are UPPERCASE even in git bash
+   export HTTP_PROXY="$PROXY_IP:$PROXY_PORT"
+   export HTTPS_PROXY=$HTTP_PROXY
+   export FTP_PROXY=$HTTP_PROXY
+   export SOCKS_PROXY=$HTTP_PROXY
+
+   export NO_PROXY="localhost,127.0.0.1,$USERDNSDOMAIN"
+
+   # Update git and npm to use the proxy
+   sudo git config --global http.proxy $HTTP_PROXY
+   sudo git config --system http.sslcainfo /bin/curl-ca-bundle.crt
+   sudo git config --global http.sslcainfo /bin/curl-ca-bundle.crt
+   # npm config set proxy $HTTP_PROXY
+   # npm config set https-proxy $HTTP_PROXY
+   # npm config set strict-ssl false
+   # npm config set registry "http://registry.npmjs.org/"
+
+
+   gsettings set org.gnome.system.proxy mode manual
+   gsettings set org.gnome.system.proxy.http host "$PROXY_IP" 
+   gsettings set org.gnome.system.proxy.http port "$PROXY_PORT"
+   gsettings set org.gnome.system.proxy.https host "$PROXY_IP"
+   gsettings set org.gnome.system.proxy.https port "$PROXY_PORT"
+
+
+   # optional for debugging
+   export GIT_CURL_VERBOSE=1
+
+   # optional Self Signed SSL certs and
+   # internal CA certificate in an corporate environment
+   export GIT_SSL_NO_VERIFY=1
+
+
+   env | grep -e _PROXY -e GIT_ | sort
+   echo -e "\nProxy-related environment variables set."
+
+   # clear
+}
+
+proxy_off(){
+   variables=( \
+      "HTTP_PROXY" "HTTPS_PROXY" "FTP_PROXY" "SOCKS_PROXY" \
+      "NO_PROXY" "GIT_CURL_VERBOSE" "GIT_SSL_NO_VERIFY" \
+   )
+
+   for i in "${variables[@]}"
+   do
+      unset $i
+   done
+
+   gsettings set org.gnome.system.proxy mode none
+   env | grep -e _PROXY -e GIT_ | sort
+   echo -e "\nProxy-related environment variables removed."
+}
+
