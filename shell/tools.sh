@@ -521,12 +521,6 @@ proxy_on(){
    gsettings set org.gnome.system.proxy.https port "$PROXY_PORT"
 
 
-   # optional for debugging
-   export GIT_CURL_VERBOSE=1
-
-   # optional Self Signed SSL certs and
-   # internal CA certificate in an corporate environment
-   export GIT_SSL_NO_VERIFY=1
 
 
    env | grep -e _PROXY -e GIT_ | sort
