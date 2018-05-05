@@ -506,8 +506,6 @@ proxy_on(){
 
    # Update git and npm to use the proxy
    sudo git config --global http.proxy $HTTP_PROXY
-   sudo git config --system http.sslcainfo /bin/curl-ca-bundle.crt
-   sudo git config --global http.sslcainfo /bin/curl-ca-bundle.crt
    # npm config set proxy $HTTP_PROXY
    # npm config set https-proxy $HTTP_PROXY
    # npm config set strict-ssl false
@@ -520,6 +518,7 @@ proxy_on(){
    gsettings set org.gnome.system.proxy.https host "$PROXY_IP"
    gsettings set org.gnome.system.proxy.https port "$PROXY_PORT"
 
+   export GIT_SSL_NO_VERIFY=0
 
 
 
@@ -534,19 +533,18 @@ proxy_off(){
       "HTTP_PROXY" "HTTPS_PROXY" "FTP_PROXY" "SOCKS_PROXY" \
       "NO_PROXY" "GIT_CURL_VERBOSE" "GIT_SSL_NO_VERIFY" \
    )
+   git config --global --unset http.proxy
 
    for i in "${variables[@]}"
    do
       unset $i
    done
 
+   export GIT_SSL_NO_VERIFY=0
+
    gsettings set org.gnome.system.proxy mode none
    env | grep -e _PROXY -e GIT_ | sort
    echo -e "\nProxy-related environment variables removed."
-}
-
-_matias(){
-   bash $UCHILE_SYSTEM/shell/mati.bash
 }
 
 _benderface(){
