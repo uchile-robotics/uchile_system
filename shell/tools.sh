@@ -519,6 +519,9 @@ proxy_on(){
    gsettings set org.gnome.system.proxy.https port "$PROXY_PORT"
 
    export GIT_SSL_NO_VERIFY=0
+   
+   #shutdown docker 0 interface.
+   sudo ifconfig docker0 down
 
 
 
