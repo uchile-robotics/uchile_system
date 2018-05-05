@@ -519,9 +519,7 @@ proxy_on(){
    gsettings set org.gnome.system.proxy.https port "$PROXY_PORT"
 
    export GIT_SSL_NO_VERIFY=0
-   
-   #shutdown docker 0 interface.
-   sudo ifconfig docker0 down
+
 
 
 
@@ -548,6 +546,11 @@ proxy_off(){
    gsettings set org.gnome.system.proxy mode none
    env | grep -e _PROXY -e GIT_ | sort
    echo -e "\nProxy-related environment variables removed."
+}
+
+_dockerdown(){  
+   #shutdown docker 0 interface.
+   sudo ifconfig docker0 down
 }
 
 _benderface(){
