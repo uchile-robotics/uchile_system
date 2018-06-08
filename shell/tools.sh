@@ -504,6 +504,9 @@ proxy_on(){
 
    export NO_PROXY="localhost,127.0.0.1,$USERDNSDOMAIN"
 
+   alias apt-get="https_proxy=https://172.17.40.9:8000 http_proxy=http://172.17.40.9:8000 apt-get" 
+   alias apt="https_proxy=https://172.17.40.9:8000 http_proxy=http://172.17.40.9:8000 apt" 
+
    # Update git and npm to use the proxy
    sudo git config --global http.proxy $HTTP_PROXY
    # npm config set proxy $HTTP_PROXY
@@ -540,6 +543,9 @@ proxy_off(){
    do
       unset $i
    done
+
+   alias apt-get="apt-get" 
+   alias apt="apt"
 
    export GIT_SSL_NO_VERIFY=0
 
