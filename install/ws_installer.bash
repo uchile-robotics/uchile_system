@@ -3,7 +3,7 @@
 # For complete installation instructions see README.md 
 #
 # tl;dr: 
-# 1.- Install ROS Indigo
+# 1.- Install ROS kinetic
 # 2.- Unsource ROS
 # 3.- Clone and run this script
 #     $ chmod +x ws_installer.bash
@@ -43,8 +43,8 @@ ask_framework_path=false
 printf "\n"
 
 # ROS is installed
-if ! _uchile_check_rosindigo; then
-    printf "\n[FAIL] Please, install ROS Indigo (ros-indigo-ros-base) before proceeding.\n"
+if ! _uchile_check_roskinetic; then
+    printf "\n[FAIL] Please, install ROS kinetic (ros-kinetic-ros-base) before proceeding.\n"
     exit 1
 fi
 
@@ -71,7 +71,7 @@ printf " - Using path: %s\n" "$framework_path"
 # at this point:
 # - framework_path contains the fullpath to a (existent) folder
 # - framework_path should be a non empty directory
-# - ROS indigo is installed under /opt/ros/indigo
+# - ROS kinetic is installed under /opt/ros/kinetic
 #
 printf "\n"
 printf " ============ Workspace Layout Generation: ============ \n"

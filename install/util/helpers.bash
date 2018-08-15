@@ -2,23 +2,23 @@
 
 
 # checks whether ROS INDIGO baseline is installed or no
-_uchile_check_rosindigo ()
+_uchile_check_roskinetic ()
 {
     # ros-base is installed?
-    dpkg -s ros-indigo-ros-base >/dev/null 2>/dev/null
+    dpkg -s ros-kinetic-ros-base >/dev/null 2>/dev/null
     local rc="$?"
     if [ "$rc" = "1" ]; then
-        printf " - [FAIL] ros-indigo-ros-base is not installed.\n"
+        printf " - [FAIL] ros-kinetic-ros-base is not installed.\n"
         return 1
     fi
-    printf " - [OK] ROS indigo is installed (ros-indigo-ros-base)\n"
+    printf " - [OK] ROS kinetic is installed (ros-kinetic-ros-base)\n"
     
     # ROS setup.bash exists?
-    if [ ! -e /opt/ros/indigo/setup.bash ]; then
-        printf " - [FAIL] File not found: /opt/ros/indigo/setup.bash \n"
+    if [ ! -e /opt/ros/kinetic/setup.bash ]; then
+        printf " - [FAIL] File not found: /opt/ros/kinetic/setup.bash \n"
         return 1
     fi
-    printf " - [OK] indigo setup.bash exists\n"
+    printf " - [OK] kinetic setup.bash exists\n"
 
     return 0
 }
@@ -131,7 +131,7 @@ _uchile_create_complete_ws_handler ()
     printf " - Building overlayed ROS workspaces at %s. (Delete CMakeLists.txt files to force rebuilds)\n" "$ws_path"
 
     # ROS sourcing
-    source /opt/ros/indigo/setup.bash
+    source /opt/ros/kinetic/setup.bash
 
     # forks_ws overlays ROS baseline
     _uchile_create_ws "$ws_path"/forks_ws

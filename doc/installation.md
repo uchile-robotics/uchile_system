@@ -1,5 +1,5 @@
 
-# Instalación del sistema
+# Instalación del sistema (kinetic)
 
 * [Prerrequisitos](#prerrequisitos)
 * [Instalación de UChile ROS Framework](#instalación-de-uchile-ros-framework)
@@ -12,16 +12,18 @@
 
 ## Prerrequisitos
 
-### Instalar ROS indigo
+Esta guía ha sido probada en Ubuntu 16.04.
 
-*AVISO: Esta sección se puede ignorar si es que ROS indigo ya está instalado en la máquina. En tal caso, asegurate de tener instalado rosdep: `sudo apt-get install python-{rosinstall,pip,rosdep}`.*
+### Instalar ROS kinetic
+
+*AVISO: Esta sección se puede ignorar si es que ROS ya está instalado en la máquina. En tal caso, asegurate de tener instalado rosdep: `sudo apt-get install python-{rosinstall,pip,rosdep}`.*
 
 Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 
 ```bash
 # ROS Keys
-# Evite instalar la versión full (sudo apt-get install ros-indigo-desktop-full) o alguna de las otras variantes.
-# ver: http://wiki.ros.org/indigo/Installation/Ubuntu
+# Evite instalar la versión full (sudo apt-get install ros-kinetic-desktop-full) o alguna de las otras variantes.
+# ver: http://wiki.ros.org/kinetic/Installation/Ubuntu
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
 
@@ -29,7 +31,7 @@ sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C
 sudo apt-get update
 
 # instalar ROS base
-sudo apt-get install ros-indigo-ros-base curl openssl pv python-rosinstall python-pip python-rosdep
+sudo apt-get install ros-kinetic-ros-base curl openssl pv python-rosinstall python-pip python-rosdep
 
 # inicializar rosdep
 sudo rosdep init # ignorar si es que falla con "ERROR: default sources list file already exists:..."
@@ -69,7 +71,7 @@ rm -rf ~/tmp_repo
 
 ### Habilitar workspace para uso en consola
 
-Antes de ejecutar el siguiente paso, es necesario que revises el archivo de configuración correspondiente a tu consola `.bashrc` o `.zshrc`, para eliminar toda línea relacionada con ROS. Por ejemplo, debes comentar toda línea de la forma `source /opt/ros/indigo/setup.bash` o `source <mi-workspace-ros>.bash`.
+Antes de ejecutar el siguiente paso, es necesario que revises el archivo de configuración correspondiente a tu consola `.bashrc` o `.zshrc`, para eliminar toda línea relacionada con ROS. Por ejemplo, debes comentar toda línea de la forma `source /opt/ros/kinetic/setup.bash` o `source <mi-workspace-ros>.bash`.
 
 *Hint:* `.bashrc` y `.zshrc` se encuentran ocultos en `"$HOME"`. Puedes mostrar/ocultar éstos archivos utilizando <kbd>Ctrl</kbd> + <kbd>H</kbd>.
 
@@ -205,7 +207,7 @@ sudo apt-get update
 
 ```bash
 # instalar dependencias
-cdb forks && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+cdb forks && rosdep install --from-paths . --ignore-src --rosdistro=kinetic -y
 
 # Compilar
 cdb forks && cd .. && catkin_make
@@ -217,7 +219,7 @@ cdb forks && cd .. && catkin_make
 
 ```bash
 # instalar dependencias
-cdb base && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+cdb base && rosdep install --from-paths . --ignore-src --rosdistro=kinetic -y
 ```
 
 #### base_ws (sólo bender)
@@ -266,7 +268,7 @@ cdb base && cd .. && catkin_make
 
 ```bash
 # instalar dependencias
-cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=kinetic -y
 
 # instalar dependencias de speech
 cdb uchile_speech_pocketsphinx && bash install/install.sh
@@ -305,7 +307,7 @@ cdb soft && cd .. && catkin_make
 
 ```bash
 # instalar dependencias
-cdb high && rosdep install --from-paths . --ignore-src --rosdistro=indigo -y
+cdb high && rosdep install --from-paths . --ignore-src --rosdistro=kinetic -y
 sudo apt-get install python-aiml
  
 # Compilar
