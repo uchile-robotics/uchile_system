@@ -22,6 +22,7 @@ repositories=(
     "base_ws/uchile_knowledge"
     "base_ws/uchile_tools"
     "base_ws/bender_core"
+    "base_ws/maqui_core"
 
     # soft
     "soft_ws/uchile_hri"
