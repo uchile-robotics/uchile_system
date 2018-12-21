@@ -7,6 +7,7 @@
 repositories=(
 
     # forks
+    "forks_ws/ltm_suite"
     "forks_ws/navigation"
     "forks_ws/rosaria"
     "forks_ws/dynamixel_motor"
