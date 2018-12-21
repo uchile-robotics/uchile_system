@@ -210,10 +210,10 @@ _uchile_get_repository "pkgs/high_ws/bender_ltm"          "https://github.com/uc
 ## ----------------------------------------------------------------------------
 
 # forks:
-_uchile_get_repository "pkgs/forks_ws/ltm_suite/ltm" "https://github.com/mpavezb/ltm" "master"
-_uchile_get_repository "pkgs/forks_ws/ltm_suite/ltm_db" "https://github.com/mpavezb/ltm_db" "master"
-_uchile_get_repository "pkgs/forks_ws/ltm_suite/ltm_addons" "https://github.com/mpavezb/ltm_addons" "master"
-_uchile_get_repository "pkgs/forks_ws/ltm_suite/ltm_samples" "https://github.com/mpavezb/ltm_samples" "master"
+_uchile_get_repository "pkgs/forks_ws/ltm_suite/ltm" "https://github.com/uchile-robotics-forks/ltm" "master"
+_uchile_get_repository "pkgs/forks_ws/ltm_suite/ltm_db" "https://github.com/uchile-robotics-forks/ltm_db" "master"
+_uchile_get_repository "pkgs/forks_ws/ltm_suite/ltm_addons" "https://github.com/uchile-robotics-forks/ltm_addons" "master"
+_uchile_get_repository "pkgs/forks_ws/ltm_suite/ltm_samples" "https://github.com/uchile-robotics-forks/ltm_samples" "master"
 
 # pepper stuff
 _uchile_get_repository "pkgs/forks_ws/pepper/nao_robot"            "https://github.com/uchile-robotics-forks/nao_robot"            "develop"
