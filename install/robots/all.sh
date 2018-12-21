@@ -36,5 +36,6 @@ repositories=(
     "high_ws/uchile_high"
     "high_ws/bender_bringup"
     "high_ws/maqui_bringup"
+    "high_ws/bender_ltm"
 )
 

@@ -203,6 +203,7 @@ _uchile_get_repository "pkgs/soft_ws/uchile_perception"   "https://github.com/uc
 _uchile_get_repository "pkgs/high_ws/uchile_high"         "https://github.com/uchile-robotics/uchile_high"
 _uchile_get_repository "pkgs/high_ws/maqui_bringup"       "https://github.com/uchile-robotics/maqui_bringup"
 _uchile_get_repository "pkgs/high_ws/bender_bringup"      "https://github.com/uchile-robotics/bender_bringup"
+_uchile_get_repository "pkgs/high_ws/bender_ltm"          "https://github.com/uchile-robotics/bender_ltm"
 
 
 ## forks
@@ -286,6 +287,7 @@ _uchile_enable_githook "pkgs/soft_ws/uchile_perception"   "${_hook_template}"
 _uchile_enable_githook "pkgs/high_ws/uchile_high"         "${_hook_template}"
 _uchile_enable_githook "pkgs/high_ws/maqui_bringup"       "${_hook_template}"
 _uchile_enable_githook "pkgs/high_ws/bender_bringup"      "${_hook_template}"
+_uchile_enable_githook "pkgs/high_ws/bender_ltm"          "${_hook_template}"
 
 unset _hook_template
 
