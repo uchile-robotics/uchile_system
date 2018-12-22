@@ -209,6 +209,9 @@ sudo apt-get update
 # instalar dependencias
 cdb forks && rosdep install --from-paths . --ignore-src --rosdistro=kinetic -y
 
+# install ltm_suite
+roscd ltm && bash install/install.bash
+
 # Compilar
 cdb forks && cd .. && catkin_make
 ```
