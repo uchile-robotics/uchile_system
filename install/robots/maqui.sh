@@ -15,6 +15,7 @@ repositories=(
     #"forks_ws/open_ptrack"
     "forks_ws/ChatterBot"
     "forks_ws/chatterbot-corpus"
+    "forks_ws/roboticsgroup_gazebo_plugins"
 
     # base
     "base_ws/uchile_common"
