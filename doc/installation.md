@@ -162,13 +162,14 @@ echo 'export EDITOR="gedit"' >> ~/.bashrc
 # 3.- Utilitario gráfico para git. Llamar usando "gitk" en la consola.
 sudo apt-get update && sudo apt-get install nautilus-open-terminal terminator gitk
 
-# Trabajar en rama "develop" de cada repositorio
+# Trabajar la misma 'rama' de cada repositorio
 # - si tras correr el comando algún repositorio no está en tal rama,
 #   debes cambiarlo manualmente.
 #   ej:
+#   # Queremos usar develop
 #   > cdb soft
 #   > git checkout develop
-bgit checkout develop
+# bgit checkout 'rama'
 ```
 
 ### Configuraciones Menos recomendadas
