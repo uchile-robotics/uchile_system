@@ -15,6 +15,7 @@ repositories=(
     #"forks_ws/open_ptrack"
     "forks_ws/ChatterBot"
     "forks_ws/chatterbot-corpus"
+    "forks_ws/yolov3-detector"
 
     # base
     "base_ws/uchile_common"
