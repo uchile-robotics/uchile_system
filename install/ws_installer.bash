@@ -252,6 +252,9 @@ _uchile_get_repository "pkgs/forks_ws/chatter-corpus" "https://github.com/uchile
 _uchile_get_repository "pkgs/forks_ws/yolov3-detector" "https://github.com/uchile-robotics-forks/yolov3-detector" "master"
 
 
+#fork: roboticsgroup gazebo plugin for pepper gazeo
+_uchile_get_repository "pkgs/forks_ws/roboticsgroup_gazebo_plugins" "https://github.com/uchile-robotics-forks/roboticsgroup_gazebo_plugins"
+
 # unset credential helper if needed
 if $_unset_helper; then
 	git config --global --unset credential.helper
