@@ -248,6 +248,9 @@ _uchile_get_repository "pkgs/forks_ws/moveit_python" "https://github.com/uchile-
 # fork: ChatterBot
 _uchile_get_repository "pkgs/forks_ws/ChatterBot" "https://github.com/uchile-robotics-forks/ChatterBot" "master"
 _uchile_get_repository "pkgs/forks_ws/chatter-corpus" "https://github.com/uchile-robotics-forks/chatterbot-corpus" "master"
+# fork : YoloV3 Detector
+_uchile_get_repository "pkgs/forks_ws/yolov3-detector" "https://github.com/uchile-robotics-forks/yolov3-detector" "master"
+
 
 #fork: roboticsgroup gazebo plugin for pepper gazeo
 _uchile_get_repository "pkgs/forks_ws/roboticsgroup_gazebo_plugins" "https://github.com/uchile-robotics-forks/roboticsgroup_gazebo_plugins"

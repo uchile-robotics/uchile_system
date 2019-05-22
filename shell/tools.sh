@@ -560,10 +560,13 @@ _dockerdown(){
 }
 
 _benderface(){
-   bash $UCHILE_SYSTEM/shell/bender_face.bash
+   bash "${UCHILE_SYSTEM}"/shell/extra/bender_face.bash
 }
 
 _pepperface(){
-   bash $UCHILE_SYSTEM/shell/pepper_face.bash
+   bash "${UCHILE_SYSTEM}"/shell/extra/pepper_face.bash
 }
 
+_uchilerobots(){
+   bash "${UCHILE_SYSTEM}"/shell/extra/uch_robots.bash
+}

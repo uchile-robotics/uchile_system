@@ -13,6 +13,7 @@ repositories=(
     "forks_ws/urg_node"
     "forks_ws/usb_cam"
     "forks_ws/pepper"
+    "forks_ws/yolov3-detector"
     #"forks_ws/open_ptrack"
     "forks_ws/ChatterBot"
     "forks_ws/chatterbot-corpus"
