@@ -160,7 +160,7 @@ echo 'export EDITOR="gedit"' >> ~/.bashrc
 # 1.- Agregar opción "abrir terminal" al usar click derecho en una carpeta
 # 2.- Shell más moderno. Permite subdivisiones en cada pestaña.
 # 3.- Utilitario gráfico para git. Llamar usando "gitk" en la consola.
-sudo apt-get update && sudo apt-get install nautilus-open-terminal terminator gitk
+sudo apt-get update && sudo apt-get install terminator gitk
 
 # Trabajar en rama "develop" de cada repositorio
 # - si tras correr el comando algún repositorio no está en tal rama,
