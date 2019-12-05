@@ -71,7 +71,7 @@ ssh <color>
 ```
 El cual si conecta al usuario bender del pc <color> sin pedir contraseña significa que todo funciona correctamente.
 
-### Instalar ROS kinetic en los pcs clientes
+### Instalar ROS melodic en los pcs clientes
 
 Ejecutar en terminal del master (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 
@@ -82,8 +82,8 @@ Luego se procede a seguir los siguentes comandos para instalar ros
 
 ```bash
 # ROS Keys
-# Evite instalar la versión full (sudo apt-get install ros-kinetic-desktop-full) o alguna de las otras variantes.
-# ver: http://wiki.ros.org/kinetic/Installation/Ubuntu
+# Evite instalar la versión full (sudo apt-get install ros-melodic-desktop-full) o alguna de las otras variantes.
+# ver: http://wiki.ros.org/melodic/Installation/Ubuntu
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
 
@@ -91,7 +91,7 @@ sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C
 sudo apt-get update
 
 # instalar ROS base
-sudo apt-get install ros-kinetic-ros-base curl openssl pv python-rosinstall python-pip python-rosdep
+sudo apt-get install ros-melodic-ros-base curl openssl pv python-rosinstall python-pip python-rosdep
 
 # inicializar rosdep
 sudo rosdep init # ignorar si es que falla con "ERROR: default sources list file already exists:..."

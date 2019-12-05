@@ -3,7 +3,7 @@
 # For complete installation instructions see README.md 
 #
 # tl;dr: 
-# 1.- Install ROS kinetic
+# 1.- Install ROS melodic
 # 2.- Unsource ROS
 # 3.- Clone and run this script
 #     $ chmod +x ws_installer.bash
@@ -43,8 +43,8 @@ ask_framework_path=false
 printf "\n"
 
 # ROS is installed
-if ! _uchile_check_roskinetic; then
-    printf "\n[FAIL] Please, install ROS kinetic (ros-kinetic-ros-base) before proceeding.\n"
+if ! _uchile_check_rosmelodic; then
+    printf "\n[FAIL] Please, install ROS melodic (ros-melodic-ros-base) before proceeding.\n"
     exit 1
 fi
 
@@ -71,7 +71,7 @@ printf " - Using path: %s\n" "$framework_path"
 # at this point:
 # - framework_path contains the fullpath to a (existent) folder
 # - framework_path should be a non empty directory
-# - ROS kinetic is installed under /opt/ros/kinetic
+# - ROS melodic is installed under /opt/ros/melodic
 #
 printf "\n"
 printf " ============ Workspace Layout Generation: ============ \n"
@@ -107,13 +107,13 @@ mkdir -p "$framework_path"/ros/all
 ## ---------------------------------------------
 
 # bender
-_uchile_create_complete_ws "${framework_path}/ros/bender"
+# _uchile_create_complete_ws "${framework_path}/ros/bender"
 
-# maqui
-_uchile_create_complete_ws "${framework_path}/ros/maqui"
+# # maqui
+# _uchile_create_complete_ws "${framework_path}/ros/maqui"
 
-# all
-_uchile_create_complete_ws "${framework_path}/ros/all"
+# # all
+# _uchile_create_complete_ws "${framework_path}/ros/all"
 
 
 ## ======================================================
@@ -123,16 +123,16 @@ printf "\n"
 printf " ============ Setting up uchile.sh ============ \n"
 
 # uchile.sh
-# -----------------------------
-printf " - setting up file: %s\n" "$HOME/uchile.sh"
-template="$TMP_SYSTEM_DIR"/templates/uchile.sh
-cp -f "$HOME"/uchile.sh "${HOME}/uchile.bkp.$(date +"%Y.%m.%d_%H.%M.%S").sh"
-cp -f "$template" "$HOME"/uchile.sh
-unset template
+# # -----------------------------
+# printf " - setting up file: %s\n" "$HOME/uchile.sh"
+# template="$TMP_SYSTEM_DIR"/templates/uchile.sh
+# cp -f "$HOME"/uchile.sh "${HOME}/uchile.bkp.$(date +"%Y.%m.%d_%H.%M.%S").sh"
+# cp -f "$template" "$HOME"/uchile.sh
+# unset template
 
-# replace tags
-sed -i "s'<FRAMEWORK_PATH>'${framework_path}'" "$HOME"/uchile.sh
-printf " - file %s is ready...\n\n" "$HOME/uchile.sh"
+# # replace tags
+# sed -i "s'<FRAMEWORK_PATH>'${framework_path}'" "$HOME"/uchile.sh
+# printf " - file %s is ready...\n\n" "$HOME/uchile.sh"
 
 
 ## ======================================================
@@ -142,21 +142,21 @@ printf " - file %s is ready...\n\n" "$HOME/uchile.sh"
 printf "\n\n ============ Retrieving Repositories ============ \n"
 cd "$framework_path"
 
-# 15 min cache
-_unset_helper=false
-_credential_helper=$(git config credential.helper)
-if [ $? -eq 0 ]; then
-	printf " - A global git config credential.helper configuration was found:\n"
-	printf "   ... '$ git config credential.helper' returned '%s'\n" "$_credential_helper"
-else
-	printf " - A global git config credential.helper configuration was not found.\n"
-	printf " - Setting up a 15 min git credential cache:\n"
-	printf "   ... $ git config --global credential.helper 'cache --timeout=900'\n"
-	printf "   ... It is recommended to set a larger cache, e.g. 1 day: timeout=86400\n"
-	git config --global credential.helper 'cache --timeout=900'
-	_unset_helper=true
-fi
-unset _credential_helper
+# # 15 min cache
+# _unset_helper=false
+# _credential_helper=$(git config credential.helper)
+# if [ $? -eq 0 ]; then
+# 	printf " - A global git config credential.helper configuration was found:\n"
+# 	printf "   ... '$ git config credential.helper' returned '%s'\n" "$_credential_helper"
+# else
+# 	printf " - A global git config credential.helper configuration was not found.\n"
+# 	printf " - Setting up a 15 min git credential cache:\n"
+# 	printf "   ... $ git config --global credential.helper 'cache --timeout=900'\n"
+# 	printf "   ... It is recommended to set a larger cache, e.g. 1 day: timeout=86400\n"
+# 	git config --global credential.helper 'cache --timeout=900'
+# 	_unset_helper=true
+# fi
+# unset _credential_helper
 
 
 ## MISC
@@ -189,77 +189,77 @@ _uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_syste
 ## layers
 ## ----------------------------------------------------------------------------
 
-_uchile_get_repository "pkgs/base_ws/uchile_common"       "https://github.com/uchile-robotics/uchile_common"
-_uchile_get_repository "pkgs/base_ws/uchile_knowledge"    "https://github.com/uchile-robotics/uchile_knowledge"
-_uchile_get_repository "pkgs/base_ws/uchile_tools"        "https://github.com/uchile-robotics/uchile_tools"
-_uchile_get_repository "pkgs/base_ws/bender_core"         "https://github.com/uchile-robotics/bender_core"
-_uchile_get_repository "pkgs/base_ws/maqui_core"          "https://github.com/uchile-robotics/maqui_core"
+# _uchile_get_repository "pkgs/base_ws/uchile_common"       "https://github.com/uchile-robotics/uchile_common"
+# _uchile_get_repository "pkgs/base_ws/uchile_knowledge"    "https://github.com/uchile-robotics/uchile_knowledge"
+# _uchile_get_repository "pkgs/base_ws/uchile_tools"        "https://github.com/uchile-robotics/uchile_tools"
+# _uchile_get_repository "pkgs/base_ws/bender_core"         "https://github.com/uchile-robotics/bender_core"
+# _uchile_get_repository "pkgs/base_ws/maqui_core"          "https://github.com/uchile-robotics/maqui_core"
 
-_uchile_get_repository "pkgs/soft_ws/uchile_hri"          "https://github.com/uchile-robotics/uchile_hri"
-_uchile_get_repository "pkgs/soft_ws/uchile_navigation"   "https://github.com/uchile-robotics/uchile_navigation"
-_uchile_get_repository "pkgs/soft_ws/uchile_manipulation" "https://github.com/uchile-robotics/uchile_manipulation"
-_uchile_get_repository "pkgs/soft_ws/uchile_perception"   "https://github.com/uchile-robotics/uchile_perception"
+# _uchile_get_repository "pkgs/soft_ws/uchile_hri"          "https://github.com/uchile-robotics/uchile_hri"
+# _uchile_get_repository "pkgs/soft_ws/uchile_navigation"   "https://github.com/uchile-robotics/uchile_navigation"
+# _uchile_get_repository "pkgs/soft_ws/uchile_manipulation" "https://github.com/uchile-robotics/uchile_manipulation"
+# _uchile_get_repository "pkgs/soft_ws/uchile_perception"   "https://github.com/uchile-robotics/uchile_perception"
 
-_uchile_get_repository "pkgs/high_ws/uchile_high"         "https://github.com/uchile-robotics/uchile_high"
-_uchile_get_repository "pkgs/high_ws/maqui_bringup"       "https://github.com/uchile-robotics/maqui_bringup"
-_uchile_get_repository "pkgs/high_ws/bender_bringup"      "https://github.com/uchile-robotics/bender_bringup"
+# _uchile_get_repository "pkgs/high_ws/uchile_high"         "https://github.com/uchile-robotics/uchile_high"
+# _uchile_get_repository "pkgs/high_ws/maqui_bringup"       "https://github.com/uchile-robotics/maqui_bringup"
+# _uchile_get_repository "pkgs/high_ws/bender_bringup"      "https://github.com/uchile-robotics/bender_bringup"
 
 
 ## forks
 ## ----------------------------------------------------------------------------
 
 # pepper stuff
-_uchile_get_repository "pkgs/forks_ws/pepper/nao_robot"            "https://github.com/uchile-robotics-forks/nao_robot"            "develop"
-_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge"         "https://github.com/uchile-robotics-forks/naoqi_bridge"         "develop"
-_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge_msgs"    "https://github.com/uchile-robotics-forks/naoqi_bridge_msgs"    "develop"
-_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_dcm_driver"     "https://github.com/uchile-robotics-forks/naoqi_dcm_driver"     "develop"
-_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_driver"         "https://github.com/uchile-robotics-forks/naoqi_driver"         "develop"
-_uchile_get_repository "pkgs/forks_ws/pepper/pepper_dcm_robot"     "https://github.com/uchile-robotics-forks/pepper_dcm_robot"     "develop"
-_uchile_get_repository "pkgs/forks_ws/pepper/pepper_meshes"        "https://github.com/uchile-robotics-forks/pepper_meshes"        "develop"
-_uchile_get_repository "pkgs/forks_ws/pepper/pepper_moveit_config" "https://github.com/uchile-robotics-forks/pepper_moveit_config" "develop"
-_uchile_get_repository "pkgs/forks_ws/pepper/pepper_robot"         "https://github.com/uchile-robotics-forks/pepper_robot"         "develop"
-_uchile_get_repository "pkgs/forks_ws/pepper/pepper_virtual"       "https://github.com/uchile-robotics-forks/pepper_virtual"       "develop"
+# _uchile_get_repository "pkgs/forks_ws/pepper/nao_robot"            "https://github.com/uchile-robotics-forks/nao_robot"            "develop"
+# _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge"         "https://github.com/uchile-robotics-forks/naoqi_bridge"         "develop"
+# _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge_msgs"    "https://github.com/uchile-robotics-forks/naoqi_bridge_msgs"    "develop"
+# _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_dcm_driver"     "https://github.com/uchile-robotics-forks/naoqi_dcm_driver"     "develop"
+# _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_driver"         "https://github.com/uchile-robotics-forks/naoqi_driver"         "develop"
+# _uchile_get_repository "pkgs/forks_ws/pepper/pepper_dcm_robot"     "https://github.com/uchile-robotics-forks/pepper_dcm_robot"     "develop"
+# _uchile_get_repository "pkgs/forks_ws/pepper/pepper_meshes"        "https://github.com/uchile-robotics-forks/pepper_meshes"        "develop"
+# _uchile_get_repository "pkgs/forks_ws/pepper/pepper_moveit_config" "https://github.com/uchile-robotics-forks/pepper_moveit_config" "develop"
+# _uchile_get_repository "pkgs/forks_ws/pepper/pepper_robot"         "https://github.com/uchile-robotics-forks/pepper_robot"         "develop"
+# _uchile_get_repository "pkgs/forks_ws/pepper/pepper_virtual"       "https://github.com/uchile-robotics-forks/pepper_virtual"       "develop"
 
-# forks: rosaria
-_uchile_get_repository "pkgs/forks_ws/rosaria" "https://github.com/uchile-robotics-forks/rosaria" "master"
+# # forks: rosaria
+# _uchile_get_repository "pkgs/forks_ws/rosaria" "https://github.com/uchile-robotics-forks/rosaria" "master"
 
-# fork: dynamixel_motor
-_uchile_get_repository "pkgs/forks_ws/dynamixel_motor" "https://github.com/uchile-robotics-forks/dynamixel_motor" "develop"
+# # fork: dynamixel_motor
+# _uchile_get_repository "pkgs/forks_ws/dynamixel_motor" "https://github.com/uchile-robotics-forks/dynamixel_motor" "develop"
 
-# fork: usb_cam
-_uchile_get_repository "pkgs/forks_ws/usb_cam" "https://github.com/uchile-robotics-forks/usb_cam" "0.3.4"
+# # fork: usb_cam
+# _uchile_get_repository "pkgs/forks_ws/usb_cam" "https://github.com/uchile-robotics-forks/usb_cam" "0.3.4"
 
-# fork: urg_node
-_uchile_get_repository "pkgs/forks_ws/urg_node" "https://github.com/uchile-robotics-forks/urg_node" "uchile-devel"
+# # fork: urg_node
+# _uchile_get_repository "pkgs/forks_ws/urg_node" "https://github.com/uchile-robotics-forks/urg_node" "uchile-devel"
 
-# fork: navigation
-_uchile_get_repository "pkgs/forks_ws/navigation" "https://github.com/uchile-robotics-forks/navigation" "kinetic-devel"
+# # fork: navigation
+# _uchile_get_repository "pkgs/forks_ws/navigation" "https://github.com/uchile-robotics-forks/navigation" "melodic-devel"
 
-#fork: hark sound localization
-# TODO: hark_sound_source_localization: Cannot locate rosdep definition for [hark-ros-hydro]
-_uchile_get_repository "pkgs/forks_ws/hark_sound_localization" "https://github.com/uchile-robotics-forks/hark_sound_localization.git" "master"
+# #fork: hark sound localization
+# # TODO: hark_sound_source_localization: Cannot locate rosdep definition for [hark-ros-hydro]
+# _uchile_get_repository "pkgs/forks_ws/hark_sound_localization" "https://github.com/uchile-robotics-forks/hark_sound_localization.git" "master"
 
-# fork: open_ptrack
-#_uchile_get_repository "pkgs/forks_ws/open_ptrack" "https://github.com/uchile-robotics-forks/open_ptrack" "master"
+# # fork: open_ptrack
+# #_uchile_get_repository "pkgs/forks_ws/open_ptrack" "https://github.com/uchile-robotics-forks/open_ptrack" "master"
 
-#fork: hark sound localization
-_uchile_get_repository "pkgs/forks_ws/moveit_python" "https://github.com/uchile-robotics-forks/moveit_python.git" "master"
+# #fork: hark sound localization
+# _uchile_get_repository "pkgs/forks_ws/moveit_python" "https://github.com/uchile-robotics-forks/moveit_python.git" "master"
 
-# fork: ChatterBot
-_uchile_get_repository "pkgs/forks_ws/ChatterBot" "https://github.com/uchile-robotics-forks/ChatterBot" "master"
-_uchile_get_repository "pkgs/forks_ws/chatter-corpus" "https://github.com/uchile-robotics-forks/chatterbot-corpus" "master"
-# fork : YoloV3 Detector
-_uchile_get_repository "pkgs/forks_ws/yolov3-detector" "https://github.com/uchile-robotics-forks/yolov3-detector" "master"
+# # fork: ChatterBot
+# _uchile_get_repository "pkgs/forks_ws/ChatterBot" "https://github.com/uchile-robotics-forks/ChatterBot" "master"
+# _uchile_get_repository "pkgs/forks_ws/chatter-corpus" "https://github.com/uchile-robotics-forks/chatterbot-corpus" "master"
+# # fork : YoloV3 Detector
+# _uchile_get_repository "pkgs/forks_ws/yolov3-detector" "https://github.com/uchile-robotics-forks/yolov3-detector" "master"
 
 
-#fork: roboticsgroup gazebo plugin for pepper gazeo
-_uchile_get_repository "pkgs/forks_ws/roboticsgroup_gazebo_plugins" "https://github.com/uchile-robotics-forks/roboticsgroup_gazebo_plugins"
+# #fork: roboticsgroup gazebo plugin for pepper gazeo
+# _uchile_get_repository "pkgs/forks_ws/roboticsgroup_gazebo_plugins" "https://github.com/uchile-robotics-forks/roboticsgroup_gazebo_plugins"
 
-# unset credential helper if needed
-if $_unset_helper; then
-	git config --global --unset credential.helper
-fi
-unset _unset_helper
+# # unset credential helper if needed
+# if $_unset_helper; then
+# 	git config --global --unset credential.helper
+# fi
+# unset _unset_helper
 
 
 ## ======================================================
@@ -269,22 +269,22 @@ unset _unset_helper
 printf "\n\n ============ Installing Git Hooks ============ \n"
 
 # where to copy the git hook from
-_hook_template="$TMP_SYSTEM_DIR"/hooks/pre-commit
-_uchile_enable_githook "system" "${_hook_template}"
-_uchile_enable_githook "pkgs/base_ws/uchile_common"       "${_hook_template}"
-_uchile_enable_githook "pkgs/base_ws/uchile_knowledge"    "${_hook_template}"
-_uchile_enable_githook "pkgs/base_ws/uchile_tools"        "${_hook_template}"
-_uchile_enable_githook "pkgs/base_ws/bender_core"         "${_hook_template}"
-_uchile_enable_githook "pkgs/base_ws/maqui_core"          "${_hook_template}"
-_uchile_enable_githook "pkgs/soft_ws/uchile_hri"          "${_hook_template}"
-_uchile_enable_githook "pkgs/soft_ws/uchile_navigation"   "${_hook_template}"
-_uchile_enable_githook "pkgs/soft_ws/uchile_manipulation" "${_hook_template}"
-_uchile_enable_githook "pkgs/soft_ws/uchile_perception"   "${_hook_template}"
-_uchile_enable_githook "pkgs/high_ws/uchile_high"         "${_hook_template}"
-_uchile_enable_githook "pkgs/high_ws/maqui_bringup"       "${_hook_template}"
-_uchile_enable_githook "pkgs/high_ws/bender_bringup"      "${_hook_template}"
+# _hook_template="$TMP_SYSTEM_DIR"/hooks/pre-commit
+# _uchile_enable_githook "system" "${_hook_template}"
+# _uchile_enable_githook "pkgs/base_ws/uchile_common"       "${_hook_template}"
+# _uchile_enable_githook "pkgs/base_ws/uchile_knowledge"    "${_hook_template}"
+# _uchile_enable_githook "pkgs/base_ws/uchile_tools"        "${_hook_template}"
+# _uchile_enable_githook "pkgs/base_ws/bender_core"         "${_hook_template}"
+# _uchile_enable_githook "pkgs/base_ws/maqui_core"          "${_hook_template}"
+# _uchile_enable_githook "pkgs/soft_ws/uchile_hri"          "${_hook_template}"
+# _uchile_enable_githook "pkgs/soft_ws/uchile_navigation"   "${_hook_template}"
+# _uchile_enable_githook "pkgs/soft_ws/uchile_manipulation" "${_hook_template}"
+# _uchile_enable_githook "pkgs/soft_ws/uchile_perception"   "${_hook_template}"
+# _uchile_enable_githook "pkgs/high_ws/uchile_high"         "${_hook_template}"
+# _uchile_enable_githook "pkgs/high_ws/maqui_bringup"       "${_hook_template}"
+# _uchile_enable_githook "pkgs/high_ws/bender_bringup"      "${_hook_template}"
 
-unset _hook_template
+# unset _hook_template
 
 
 ## ======================================================
@@ -293,9 +293,9 @@ unset _hook_template
 
 printf "\n\n ============ Linking Workspaces ============ \n"
 
-bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "bender"
-bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "maqui"
-bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "all"
+# bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "bender"
+# bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "maqui"
+# bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "all"
 
 
 # END
