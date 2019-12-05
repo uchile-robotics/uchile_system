@@ -107,13 +107,13 @@ mkdir -p "$framework_path"/ros/all
 ## ---------------------------------------------
 
 # bender
-# _uchile_create_complete_ws "${framework_path}/ros/bender"
+_uchile_create_complete_ws "${framework_path}/ros/bender"
 
-# # maqui
-# _uchile_create_complete_ws "${framework_path}/ros/maqui"
+# maqui
+_uchile_create_complete_ws "${framework_path}/ros/maqui"
 
-# # all
-# _uchile_create_complete_ws "${framework_path}/ros/all"
+# all
+_uchile_create_complete_ws "${framework_path}/ros/all"
 
 
 ## ======================================================
@@ -123,16 +123,16 @@ printf "\n"
 printf " ============ Setting up uchile.sh ============ \n"
 
 # uchile.sh
-# # -----------------------------
-# printf " - setting up file: %s\n" "$HOME/uchile.sh"
-# template="$TMP_SYSTEM_DIR"/templates/uchile.sh
-# cp -f "$HOME"/uchile.sh "${HOME}/uchile.bkp.$(date +"%Y.%m.%d_%H.%M.%S").sh"
-# cp -f "$template" "$HOME"/uchile.sh
-# unset template
+# -----------------------------
+printf " - setting up file: %s\n" "$HOME/uchile.sh"
+template="$TMP_SYSTEM_DIR"/templates/uchile.sh
+cp -f "$HOME"/uchile.sh "${HOME}/uchile.bkp.$(date +"%Y.%m.%d_%H.%M.%S").sh"
+cp -f "$template" "$HOME"/uchile.sh
+unset template
 
-# # replace tags
-# sed -i "s'<FRAMEWORK_PATH>'${framework_path}'" "$HOME"/uchile.sh
-# printf " - file %s is ready...\n\n" "$HOME/uchile.sh"
+# replace tags
+sed -i "s'<FRAMEWORK_PATH>'${framework_path}'" "$HOME"/uchile.sh
+printf " - file %s is ready...\n\n" "$HOME/uchile.sh"
 
 
 ## ======================================================
@@ -142,21 +142,21 @@ printf " ============ Setting up uchile.sh ============ \n"
 printf "\n\n ============ Retrieving Repositories ============ \n"
 cd "$framework_path"
 
-# # 15 min cache
-# _unset_helper=false
-# _credential_helper=$(git config credential.helper)
-# if [ $? -eq 0 ]; then
-# 	printf " - A global git config credential.helper configuration was found:\n"
-# 	printf "   ... '$ git config credential.helper' returned '%s'\n" "$_credential_helper"
-# else
-# 	printf " - A global git config credential.helper configuration was not found.\n"
-# 	printf " - Setting up a 15 min git credential cache:\n"
-# 	printf "   ... $ git config --global credential.helper 'cache --timeout=900'\n"
-# 	printf "   ... It is recommended to set a larger cache, e.g. 1 day: timeout=86400\n"
-# 	git config --global credential.helper 'cache --timeout=900'
-# 	_unset_helper=true
-# fi
-# unset _credential_helper
+# 15 min cache
+_unset_helper=false
+_credential_helper=$(git config credential.helper)
+if [ $? -eq 0 ]; then
+	printf " - A global git config credential.helper configuration was found:\n"
+	printf "   ... '$ git config credential.helper' returned '%s'\n" "$_credential_helper"
+else
+	printf " - A global git config credential.helper configuration was not found.\n"
+	printf " - Setting up a 15 min git credential cache:\n"
+	printf "   ... $ git config --global credential.helper 'cache --timeout=900'\n"
+	printf "   ... It is recommended to set a larger cache, e.g. 1 day: timeout=86400\n"
+	git config --global credential.helper 'cache --timeout=900'
+	_unset_helper=true
+fi
+unset _credential_helper
 
 
 ## MISC
@@ -269,22 +269,22 @@ _uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_syste
 printf "\n\n ============ Installing Git Hooks ============ \n"
 
 # where to copy the git hook from
-# _hook_template="$TMP_SYSTEM_DIR"/hooks/pre-commit
-# _uchile_enable_githook "system" "${_hook_template}"
-# _uchile_enable_githook "pkgs/base_ws/uchile_common"       "${_hook_template}"
-# _uchile_enable_githook "pkgs/base_ws/uchile_knowledge"    "${_hook_template}"
-# _uchile_enable_githook "pkgs/base_ws/uchile_tools"        "${_hook_template}"
-# _uchile_enable_githook "pkgs/base_ws/bender_core"         "${_hook_template}"
-# _uchile_enable_githook "pkgs/base_ws/maqui_core"          "${_hook_template}"
-# _uchile_enable_githook "pkgs/soft_ws/uchile_hri"          "${_hook_template}"
-# _uchile_enable_githook "pkgs/soft_ws/uchile_navigation"   "${_hook_template}"
-# _uchile_enable_githook "pkgs/soft_ws/uchile_manipulation" "${_hook_template}"
-# _uchile_enable_githook "pkgs/soft_ws/uchile_perception"   "${_hook_template}"
-# _uchile_enable_githook "pkgs/high_ws/uchile_high"         "${_hook_template}"
-# _uchile_enable_githook "pkgs/high_ws/maqui_bringup"       "${_hook_template}"
-# _uchile_enable_githook "pkgs/high_ws/bender_bringup"      "${_hook_template}"
+_hook_template="$TMP_SYSTEM_DIR"/hooks/pre-commit
+_uchile_enable_githook "system" "${_hook_template}"
+_uchile_enable_githook "pkgs/base_ws/uchile_common"       "${_hook_template}"
+_uchile_enable_githook "pkgs/base_ws/uchile_knowledge"    "${_hook_template}"
+_uchile_enable_githook "pkgs/base_ws/uchile_tools"        "${_hook_template}"
+_uchile_enable_githook "pkgs/base_ws/bender_core"         "${_hook_template}"
+_uchile_enable_githook "pkgs/base_ws/maqui_core"          "${_hook_template}"
+_uchile_enable_githook "pkgs/soft_ws/uchile_hri"          "${_hook_template}"
+_uchile_enable_githook "pkgs/soft_ws/uchile_navigation"   "${_hook_template}"
+_uchile_enable_githook "pkgs/soft_ws/uchile_manipulation" "${_hook_template}"
+_uchile_enable_githook "pkgs/soft_ws/uchile_perception"   "${_hook_template}"
+_uchile_enable_githook "pkgs/high_ws/uchile_high"         "${_hook_template}"
+_uchile_enable_githook "pkgs/high_ws/maqui_bringup"       "${_hook_template}"
+_uchile_enable_githook "pkgs/high_ws/bender_bringup"      "${_hook_template}"
 
-# unset _hook_template
+unset _hook_template
 
 
 ## ======================================================
