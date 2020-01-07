@@ -189,7 +189,7 @@ _uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_syste
 ## layers
 ## ----------------------------------------------------------------------------
 
-# _uchile_get_repository "pkgs/base_ws/uchile_common"       "https://github.com/uchile-robotics/uchile_common"
+_uchile_get_repository "pkgs/base_ws/uchile_common"       "https://github.com/uchile-robotics/uchile_common"
 # _uchile_get_repository "pkgs/base_ws/uchile_knowledge"    "https://github.com/uchile-robotics/uchile_knowledge"
 # _uchile_get_repository "pkgs/base_ws/uchile_tools"        "https://github.com/uchile-robotics/uchile_tools"
 # _uchile_get_repository "pkgs/base_ws/bender_core"         "https://github.com/uchile-robotics/bender_core"
@@ -198,9 +198,9 @@ _uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_syste
 # _uchile_get_repository "pkgs/soft_ws/uchile_hri"          "https://github.com/uchile-robotics/uchile_hri"
 # _uchile_get_repository "pkgs/soft_ws/uchile_navigation"   "https://github.com/uchile-robotics/uchile_navigation"
 # _uchile_get_repository "pkgs/soft_ws/uchile_manipulation" "https://github.com/uchile-robotics/uchile_manipulation"
-# _uchile_get_repository "pkgs/soft_ws/uchile_perception"   "https://github.com/uchile-robotics/uchile_perception"
+_uchile_get_repository "pkgs/soft_ws/uchile_perception"   "https://github.com/uchile-robotics/uchile_perception"
 
-# _uchile_get_repository "pkgs/high_ws/uchile_high"         "https://github.com/uchile-robotics/uchile_high"
+_uchile_get_repository "pkgs/high_ws/uchile_high"         "https://github.com/uchile-robotics/uchile_high"
 # _uchile_get_repository "pkgs/high_ws/maqui_bringup"       "https://github.com/uchile-robotics/maqui_bringup"
 # _uchile_get_repository "pkgs/high_ws/bender_bringup"      "https://github.com/uchile-robotics/bender_bringup"
 
@@ -224,7 +224,7 @@ _uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_syste
 # _uchile_get_repository "pkgs/forks_ws/rosaria" "https://github.com/uchile-robotics-forks/rosaria" "master"
 
 # # fork: dynamixel_motor
-# _uchile_get_repository "pkgs/forks_ws/dynamixel_motor" "https://github.com/uchile-robotics-forks/dynamixel_motor" "develop"
+_uchile_get_repository "pkgs/forks_ws/dynamixel_motor" "https://github.com/uchile-robotics-forks/dynamixel_motor" "develop"
 
 # # fork: usb_cam
 # _uchile_get_repository "pkgs/forks_ws/usb_cam" "https://github.com/uchile-robotics-forks/usb_cam" "0.3.4"
@@ -243,13 +243,13 @@ _uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_syste
 # #_uchile_get_repository "pkgs/forks_ws/open_ptrack" "https://github.com/uchile-robotics-forks/open_ptrack" "master"
 
 # #fork: hark sound localization
-# _uchile_get_repository "pkgs/forks_ws/moveit_python" "https://github.com/uchile-robotics-forks/moveit_python.git" "master"
+_uchile_get_repository "pkgs/forks_ws/moveit_python" "https://github.com/uchile-robotics-forks/moveit_python.git" "master"
 
 # # fork: ChatterBot
 # _uchile_get_repository "pkgs/forks_ws/ChatterBot" "https://github.com/uchile-robotics-forks/ChatterBot" "master"
 # _uchile_get_repository "pkgs/forks_ws/chatter-corpus" "https://github.com/uchile-robotics-forks/chatterbot-corpus" "master"
 # # fork : YoloV3 Detector
-# _uchile_get_repository "pkgs/forks_ws/yolov3-detector" "https://github.com/uchile-robotics-forks/yolov3-detector" "master"
+_uchile_get_repository "pkgs/forks_ws/yolov3-detector" "https://github.com/uchile-robotics-forks/yolov3-detector" "master"
 
 
 # #fork: roboticsgroup gazebo plugin for pepper gazeo
@@ -293,9 +293,9 @@ unset _hook_template
 
 printf "\n\n ============ Linking Workspaces ============ \n"
 
-# bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "bender"
-# bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "maqui"
-# bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "all"
+bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "bender"
+bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "maqui"
+bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "all"
 
 
 # END
