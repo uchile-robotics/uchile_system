@@ -265,12 +265,18 @@ cdb base && cd .. && catkin_make
 ### Instalación de `soft_ws`
 
 #### soft_ws (común)
- 
+
+```bash
+# instalar dependencias
+cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
+``` 
+
+<!-- 
 ```bash
 # instalar dependencias
 cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
 
-<!--
+
 # instalar dependencias de speech
 cdb uchile_speech_pocketsphinx && bash install/install.sh
 sudo apt-get install python-alsaaudio
