@@ -204,23 +204,23 @@ sudo apt-get update
 ```
 
 ### Instalación de `forks_ws`
-<!-- 
+ 
 ```bash
 # instalar dependencias
 cdb forks && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
 
 # Compilar
 cdb forks && cd .. && catkin_make
-``` -->
+```
 
 ### Instalación de `base_ws`
 
 #### base_ws (común)
-<!-- 
+ 
 ```bash
 # instalar dependencias
 cdb base && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
-``` -->
+``` 
 
 #### base_ws (sólo bender)
 <!-- 
@@ -256,19 +256,26 @@ cdb bender_turning_base && bash install/install.sh
 Nada que instalar aún!
 
 #### base_ws (compilación - común)
-<!-- 
+ 
 ```bash
 cdb base && cd .. && catkin_make
-``` -->
+``` 
 
 
 ### Instalación de `soft_ws`
 
 #### soft_ws (común)
+
+```bash
+# instalar dependencias
+cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
+``` 
+
 <!-- 
 ```bash
 # instalar dependencias
 cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
+
 
 # instalar dependencias de speech
 cdb uchile_speech_pocketsphinx && bash install/install.sh
@@ -296,15 +303,15 @@ cdb uchile_perception_utils && bash install/install_nite.sh
 Nada que instalar.
 
 #### soft_ws (compilación - común)
-<!--  
+  
 ```bash
 cdb soft && cd .. && catkin_make
-``` -->
+``` 
 
 ### Instalación de `high_ws`
 
 #### high_ws (común)
-<!-- 
+ 
 ```bash
 # instalar dependencias
 cdb high && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
@@ -313,7 +320,6 @@ sudo apt-get install python-aiml
 # Compilar
 cdb high && cd .. && catkin_make
 ```
- -->
 
 ## Configuración del simulador Gazebo
 
