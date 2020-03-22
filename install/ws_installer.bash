@@ -208,17 +208,22 @@ _uchile_get_repository "pkgs/high_ws/uchile_high"         "https://github.com/uc
 ## forks
 ## ----------------------------------------------------------------------------
 
+# transitory stuff
+# This package is due the fact that is not relased on ros melodic yet
+_uchile_get_repository "pkgs/forks_ws/humanoid_msgs"      "https://github.com/ahornung/humanoid_msgs"					   "develop"
+
+
 # pepper stuff
-# _uchile_get_repository "pkgs/forks_ws/pepper/nao_robot"            "https://github.com/uchile-robotics-forks/nao_robot"            "develop"
-# _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge"         "https://github.com/uchile-robotics-forks/naoqi_bridge"         "develop"
-# _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge_msgs"    "https://github.com/uchile-robotics-forks/naoqi_bridge_msgs"    "develop"
-# _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_dcm_driver"     "https://github.com/uchile-robotics-forks/naoqi_dcm_driver"     "develop"
-# _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_driver"         "https://github.com/uchile-robotics-forks/naoqi_driver"         "develop"
-# _uchile_get_repository "pkgs/forks_ws/pepper/pepper_dcm_robot"     "https://github.com/uchile-robotics-forks/pepper_dcm_robot"     "develop"
-# _uchile_get_repository "pkgs/forks_ws/pepper/pepper_meshes"        "https://github.com/uchile-robotics-forks/pepper_meshes"        "develop"
-# _uchile_get_repository "pkgs/forks_ws/pepper/pepper_moveit_config" "https://github.com/uchile-robotics-forks/pepper_moveit_config" "develop"
-# _uchile_get_repository "pkgs/forks_ws/pepper/pepper_robot"         "https://github.com/uchile-robotics-forks/pepper_robot"         "develop"
-# _uchile_get_repository "pkgs/forks_ws/pepper/pepper_virtual"       "https://github.com/uchile-robotics-forks/pepper_virtual"       "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/nao_robot"            "https://github.com/uchile-robotics-forks/nao_robot"            "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge"         "https://github.com/uchile-robotics-forks/naoqi_bridge"         "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge_msgs"    "https://github.com/uchile-robotics-forks/naoqi_bridge_msgs"    "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_dcm_driver"     "https://github.com/uchile-robotics-forks/naoqi_dcm_driver"     "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_driver"         "https://github.com/uchile-robotics-forks/naoqi_driver"         "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/pepper_dcm_robot"     "https://github.com/uchile-robotics-forks/pepper_dcm_robot"     "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/pepper_meshes"        "https://github.com/uchile-robotics-forks/pepper_meshes"        "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/pepper_moveit_config" "https://github.com/uchile-robotics-forks/pepper_moveit_config" "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/pepper_robot"         "https://github.com/uchile-robotics-forks/pepper_robot"         "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/pepper_virtual"       "https://github.com/uchile-robotics-forks/pepper_virtual"       "feat-melodic"
 
 # # forks: rosaria
 _uchile_get_repository "pkgs/forks_ws/rosaria" "https://github.com/uchile-robotics-forks/rosaria" "master"
@@ -227,13 +232,13 @@ _uchile_get_repository "pkgs/forks_ws/rosaria" "https://github.com/uchile-roboti
 _uchile_get_repository "pkgs/forks_ws/dynamixel_motor" "https://github.com/uchile-robotics-forks/dynamixel_motor" "develop"
 
 # # fork: usb_cam
-# _uchile_get_repository "pkgs/forks_ws/usb_cam" "https://github.com/uchile-robotics-forks/usb_cam" "0.3.4"
+_uchile_get_repository "pkgs/forks_ws/usb_cam" "https://github.com/uchile-robotics-forks/usb_cam" "develop"
 
 # # fork: urg_node
 _uchile_get_repository "pkgs/forks_ws/urg_node" "https://github.com/uchile-robotics-forks/urg_node" "uchile-devel"
 
 # # fork: navigation
-# _uchile_get_repository "pkgs/forks_ws/navigation" "https://github.com/uchile-robotics-forks/navigation" "melodic-devel"
+_uchile_get_repository "pkgs/forks_ws/navigation" "https://github.com/uchile-robotics-forks/navigation" "melodic-devel"
 
 # #fork: hark sound localization
 # # TODO: hark_sound_source_localization: Cannot locate rosdep definition for [hark-ros-hydro]
@@ -246,14 +251,14 @@ _uchile_get_repository "pkgs/forks_ws/urg_node" "https://github.com/uchile-robot
 _uchile_get_repository "pkgs/forks_ws/moveit_python" "https://github.com/uchile-robotics-forks/moveit_python.git" "master"
 
 # # fork: ChatterBot
-# _uchile_get_repository "pkgs/forks_ws/ChatterBot" "https://github.com/uchile-robotics-forks/ChatterBot" "master"
-# _uchile_get_repository "pkgs/forks_ws/chatter-corpus" "https://github.com/uchile-robotics-forks/chatterbot-corpus" "master"
+_uchile_get_repository "pkgs/forks_ws/ChatterBot" "https://github.com/uchile-robotics-forks/ChatterBot" "master"
+_uchile_get_repository "pkgs/forks_ws/chatter-corpus" "https://github.com/uchile-robotics-forks/chatterbot-corpus" "master"
 # # fork : YoloV3 Detector
 _uchile_get_repository "pkgs/forks_ws/yolov3-detector" "https://github.com/uchile-robotics-forks/yolov3-detector" "master"
 
 
 # #fork: roboticsgroup gazebo plugin for pepper gazeo
-# _uchile_get_repository "pkgs/forks_ws/roboticsgroup_gazebo_plugins" "https://github.com/uchile-robotics-forks/roboticsgroup_gazebo_plugins"
+_uchile_get_repository "pkgs/forks_ws/roboticsgroup_gazebo_plugins" "https://github.com/uchile-robotics-forks/roboticsgroup_gazebo_plugins"
 
 # # unset credential helper if needed
 if $_unset_helper; then
