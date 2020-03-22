@@ -12,7 +12,7 @@
 
 ## Prerrequisitos
 
-Esta guía ha sido probada en Ubuntu 16.04.
+Esta guía ha sido probada en Ubuntu 18.04.
 
 ### Instalar ROS melodic
 

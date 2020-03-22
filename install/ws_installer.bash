@@ -242,7 +242,7 @@ _uchile_get_repository "pkgs/forks_ws/urg_node" "https://github.com/uchile-robot
 # # fork: open_ptrack
 # #_uchile_get_repository "pkgs/forks_ws/open_ptrack" "https://github.com/uchile-robotics-forks/open_ptrack" "master"
 
-# #fork: hark sound localization
+# #fork: moveit python
 _uchile_get_repository "pkgs/forks_ws/moveit_python" "https://github.com/uchile-robotics-forks/moveit_python.git" "master"
 
 # # fork: ChatterBot
@@ -256,10 +256,10 @@ _uchile_get_repository "pkgs/forks_ws/yolov3-detector" "https://github.com/uchil
 # _uchile_get_repository "pkgs/forks_ws/roboticsgroup_gazebo_plugins" "https://github.com/uchile-robotics-forks/roboticsgroup_gazebo_plugins"
 
 # # unset credential helper if needed
-# if $_unset_helper; then
-# 	git config --global --unset credential.helper
-# fi
-# unset _unset_helper
+if $_unset_helper; then
+	git config --global --unset credential.helper
+fi
+unset _unset_helper
 
 
 ## ======================================================
