@@ -218,7 +218,7 @@ _uchile_get_repository "pkgs/forks_ws/pepper/nao_robot"            "https://gith
 _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge"         "https://github.com/uchile-robotics-forks/naoqi_bridge"         "develop"
 _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge_msgs"    "https://github.com/uchile-robotics-forks/naoqi_bridge_msgs"    "develop"
 _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_dcm_driver"     "https://github.com/uchile-robotics-forks/naoqi_dcm_driver"     "develop"
-_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_driver"         "https://github.com/uchile-robotics-forks/naoqi_driver"         "develop"
+_uchile_get_repository "pkgs/forks_ws/pepper/naoqi_driver"         "https://github.com/uchile-robotics-forks/naoqi_driver"         "melodic-devel"
 _uchile_get_repository "pkgs/forks_ws/pepper/pepper_dcm_robot"     "https://github.com/uchile-robotics-forks/pepper_dcm_robot"     "develop"
 _uchile_get_repository "pkgs/forks_ws/pepper/pepper_meshes"        "https://github.com/uchile-robotics-forks/pepper_meshes"        "develop"
 _uchile_get_repository "pkgs/forks_ws/pepper/pepper_moveit_config" "https://github.com/uchile-robotics-forks/pepper_moveit_config" "develop"
