@@ -40,7 +40,7 @@ _checkfile() {
     
     _file="$1"
     
-    cppcheck --error-exitcode=1 --enable=warning --quiet --verbose "$_file"
+    cppcheck --error-exitcode=1 --enable=warning --language=c++  --quiet --verbose "$_file"
 
     _rc="$?"
     #echo "$_rc"
