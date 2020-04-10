@@ -87,6 +87,7 @@ mkdir -p "$framework_path"/misc/graveyard
 # for dependencies installation
 mkdir -p "$framework_path"/deps
 mkdir -p "$framework_path"/deps/maqui
+mkdir -p "$framework_path"/deps/jaime
 mkdir -p "$framework_path"/deps/bender
 mkdir -p "$framework_path"/deps/common
 
@@ -99,6 +100,7 @@ mkdir -p "$framework_path"/pkgs/high_ws
 # available ROS workspaces
 mkdir -p "$framework_path"/ros
 mkdir -p "$framework_path"/ros/bender
+mkdir -p "$framework_path"/ros/jaime
 mkdir -p "$framework_path"/ros/maqui
 mkdir -p "$framework_path"/ros/all
 
@@ -111,6 +113,9 @@ _uchile_create_complete_ws "${framework_path}/ros/bender"
 
 # maqui
 _uchile_create_complete_ws "${framework_path}/ros/maqui"
+
+# jaime
+_uchile_create_complete_ws "${framework_path}/ros/jaime"
 
 # all
 _uchile_create_complete_ws "${framework_path}/ros/all"
@@ -194,15 +199,17 @@ _uchile_get_repository "pkgs/base_ws/uchile_knowledge"    "https://github.com/uc
 _uchile_get_repository "pkgs/base_ws/uchile_tools"        "https://github.com/uchile-robotics/uchile_tools"
 _uchile_get_repository "pkgs/base_ws/bender_core"         "https://github.com/uchile-robotics/bender_core"
 _uchile_get_repository "pkgs/base_ws/maqui_core"          "https://github.com/uchile-robotics/maqui_core"
+_uchile_get_repository "pkgs/base_ws/jaime_core"          "https://github.com/uchile-robotics/jaime_core"
 
-# _uchile_get_repository "pkgs/soft_ws/uchile_hri"          "https://github.com/uchile-robotics/uchile_hri"
-# _uchile_get_repository "pkgs/soft_ws/uchile_navigation"   "https://github.com/uchile-robotics/uchile_navigation"
-# _uchile_get_repository "pkgs/soft_ws/uchile_manipulation" "https://github.com/uchile-robotics/uchile_manipulation"
+_uchile_get_repository "pkgs/soft_ws/uchile_hri"          "https://github.com/uchile-robotics/uchile_hri"
+_uchile_get_repository "pkgs/soft_ws/uchile_navigation"   "https://github.com/uchile-robotics/uchile_navigation"
+_uchile_get_repository "pkgs/soft_ws/uchile_manipulation" "https://github.com/uchile-robotics/uchile_manipulation"
 _uchile_get_repository "pkgs/soft_ws/uchile_perception"   "https://github.com/uchile-robotics/uchile_perception"
 
 _uchile_get_repository "pkgs/high_ws/uchile_high"         "https://github.com/uchile-robotics/uchile_high"
-# _uchile_get_repository "pkgs/high_ws/maqui_bringup"       "https://github.com/uchile-robotics/maqui_bringup"
-# _uchile_get_repository "pkgs/high_ws/bender_bringup"      "https://github.com/uchile-robotics/bender_bringup"
+_uchile_get_repository "pkgs/high_ws/maqui_bringup"       "https://github.com/uchile-robotics/maqui_bringup"
+_uchile_get_repository "pkgs/high_ws/bender_bringup"      "https://github.com/uchile-robotics/bender_bringup"
+_uchile_get_repository "pkgs/high_ws/jaime_bringup"      "https://github.com/uchile-robotics/jaime_bringup"
 
 
 ## forks
@@ -224,6 +231,21 @@ _uchile_get_repository "pkgs/forks_ws/pepper/pepper_meshes"        "https://gith
 _uchile_get_repository "pkgs/forks_ws/pepper/pepper_moveit_config" "https://github.com/uchile-robotics-forks/pepper_moveit_config" "develop"
 _uchile_get_repository "pkgs/forks_ws/pepper/pepper_robot"         "https://github.com/uchile-robotics-forks/pepper_robot"         "melodic-devel"
 _uchile_get_repository "pkgs/forks_ws/pepper/pepper_virtual"       "https://github.com/uchile-robotics-forks/pepper_virtual"       "melodic-devel"
+
+# Kobuki stuff for Jaime
+_uchile_get_repository "pkgs/forks_ws/jaime/capabilities"          "https://github.com/uchile-robotics-forks/capabilities"         "master"
+_uchile_get_repository "pkgs/forks_ws/jaime/kobuki"                "https://github.com/uchile-robotics-forks/kobuki"               "melodic"
+_uchile_get_repository "pkgs/forks_ws/jaime/kobuki_core"           "https://github.com/uchile-robotics-forks/kobuki_core"          "melodic"
+_uchile_get_repository "pkgs/forks_ws/jaime/kobuki_msgs"           "https://github.com/uchile-robotics-forks/kobuki_msgs"          "release/0.7-melodic"
+_uchile_get_repository "pkgs/forks_ws/jaime/rocon_app_platform"    "https://github.com/uchile-robotics-forks/rocon_app_platform"   "devel"
+_uchile_get_repository "pkgs/forks_ws/jaime/rocon_msgs"            "https://github.com/uchile-robotics-forks/rocon_msgs"           "devel"
+_uchile_get_repository "pkgs/forks_ws/jaime/rocon_tools"           "https://github.com/uchile-robotics-forks/rocon_tools"          "devel"
+_uchile_get_repository "pkgs/forks_ws/jaime/std_capabilities"      "https://github.com/uchile-robotics-forks/std_capabilities"     "master"
+_uchile_get_repository "pkgs/forks_ws/jaime/yocs_msgs"             "https://github.com/uchile-robotics-forks/yocs_msgs"            "devel"
+_uchile_get_repository "pkgs/forks_ws/jaime/yujin_ocs"             "https://github.com/uchile-robotics-forks/yujin_ocs"            "devel"
+_uchile_get_repository "pkgs/forks_ws/jaime/kobuki_desktop"        "https://github.com/uchile-robotics-forks/kobuki_desktop"       "melodic"
+
+
 
 # # forks: rosaria
 _uchile_get_repository "pkgs/forks_ws/rosaria" "https://github.com/uchile-robotics-forks/rosaria" "master"
@@ -281,6 +303,7 @@ _uchile_enable_githook "pkgs/base_ws/uchile_knowledge"    "${_hook_template}"
 _uchile_enable_githook "pkgs/base_ws/uchile_tools"        "${_hook_template}"
 _uchile_enable_githook "pkgs/base_ws/bender_core"         "${_hook_template}"
 _uchile_enable_githook "pkgs/base_ws/maqui_core"          "${_hook_template}"
+_uchile_enable_githook "pkgs/base_ws/jaime_core"          "${_hook_template}"
 _uchile_enable_githook "pkgs/soft_ws/uchile_hri"          "${_hook_template}"
 _uchile_enable_githook "pkgs/soft_ws/uchile_navigation"   "${_hook_template}"
 _uchile_enable_githook "pkgs/soft_ws/uchile_manipulation" "${_hook_template}"
@@ -288,6 +311,7 @@ _uchile_enable_githook "pkgs/soft_ws/uchile_perception"   "${_hook_template}"
 _uchile_enable_githook "pkgs/high_ws/uchile_high"         "${_hook_template}"
 _uchile_enable_githook "pkgs/high_ws/maqui_bringup"       "${_hook_template}"
 _uchile_enable_githook "pkgs/high_ws/bender_bringup"      "${_hook_template}"
+_uchile_enable_githook "pkgs/high_ws/jaime_bringup"       "${_hook_template}"
 
 unset _hook_template
 
@@ -300,6 +324,7 @@ printf "\n\n ============ Linking Workspaces ============ \n"
 
 bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "bender"
 bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "maqui"
+bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "jaime"
 bash "${TMP_SYSTEM_DIR}"/install/link_repositories.bash "${framework_path}" "all"
 
 
