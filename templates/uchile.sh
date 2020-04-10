@@ -26,8 +26,8 @@
 # robot settings
 # ------------------------------------------- 
 
-# available: bender, maqui, all
-export UCHILE_ROBOT="bender"
+# available: bender, maqui , jaime, all 
+export UCHILE_ROBOT="all"
 
 
 # networking settings
