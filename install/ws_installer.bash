@@ -188,7 +188,7 @@ _uchile_get_repository "misc/maqui_system" "https://github.com/uchile-robotics/m
 ## ----------------------------------------------------------------------------
 
 # system
-_uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_system"
+_uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_system"		"feat-jaime"
 
 
 ## layers
@@ -196,7 +196,7 @@ _uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_syste
 
 _uchile_get_repository "pkgs/base_ws/uchile_common"       "https://github.com/uchile-robotics/uchile_common"
 _uchile_get_repository "pkgs/base_ws/uchile_knowledge"    "https://github.com/uchile-robotics/uchile_knowledge"
-_uchile_get_repository "pkgs/base_ws/uchile_tools"        "https://github.com/uchile-robotics/uchile_tools"
+_uchile_get_repository "pkgs/base_ws/uchile_tools"        "https://github.com/uchile-robotics/uchile_tools"				"feat-melodic"
 _uchile_get_repository "pkgs/base_ws/bender_core"         "https://github.com/uchile-robotics/bender_core"
 _uchile_get_repository "pkgs/base_ws/maqui_core"          "https://github.com/uchile-robotics/maqui_core"
 _uchile_get_repository "pkgs/base_ws/jaime_core"          "https://github.com/uchile-robotics/jaime_core"
