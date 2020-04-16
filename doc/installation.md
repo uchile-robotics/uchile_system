@@ -59,7 +59,7 @@ Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 ```bash
 # descargar uch_system
 git clone https://github.com/uchile-robotics/uchile_system.git ~/tmp_repo
-cd "$HOME"/tmp_repo && git checkout feat-melodic
+cd "$HOME"/tmp_repo && git checkout feat-jaime
 # Obtener repositorios y crear workspaces
 bash "$HOME"/tmp_repo/install/ws_installer.bash
 
