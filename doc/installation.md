@@ -271,16 +271,15 @@ cdb base && cd .. && catkin_make
 cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
 ``` 
 
-<!-- 
-```bash
+ ```bash
 # instalar dependencias
-cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
+cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y -r
 
 
 # instalar dependencias de speech
 cdb uchile_speech_pocketsphinx && bash install/install.sh
 sudo apt-get install python-alsaaudio
-``` -->
+```
 
 #### soft_ws (sólo bender)
 <!-- 
