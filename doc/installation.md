@@ -162,13 +162,14 @@ echo 'export EDITOR="gedit"' >> ~/.bashrc
 # 3.- Utilitario gráfico para git. Llamar usando "gitk" en la consola.
 sudo apt-get update && sudo apt-get install terminator gitk
 
+# De momento omitir debido a que se encuentra trabajando en un proyecto en desarrollo
 # Trabajar en rama "develop" de cada repositorio
 # - si tras correr el comando algún repositorio no está en tal rama,
 #   debes cambiarlo manualmente.
 #   ej:
 #   > cdb soft
 #   > git checkout develop
-bgit checkout develop
+# bgit checkout develop
 ```
 
 ### Configuraciones Menos recomendadas
@@ -220,6 +221,8 @@ cdb forks && cd .. && catkin_make
 ```bash
 # instalar dependencias
 cdb base && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
+
+cdb uchile_gazebo && bash install/install_models.sh
 ``` 
 
 #### base_ws (sólo bender)
