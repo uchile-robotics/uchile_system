@@ -18,6 +18,7 @@ repositories=(
     "forks_ws/ChatterBot"
     "forks_ws/chatterbot-corpus"
     "forks_ws/roboticsgroup_gazebo_plugins"
+    "forks_ws/jaime"
 
     # base
     "base_ws/uchile_common"
@@ -25,6 +26,7 @@ repositories=(
     "base_ws/uchile_tools"
     "base_ws/bender_core"
     "base_ws/maqui_core"
+    "base_ws/jaime_core"
 
     # soft
     "soft_ws/uchile_hri"
@@ -36,5 +38,6 @@ repositories=(
     "high_ws/uchile_high"
     "high_ws/bender_bringup"
     "high_ws/maqui_bringup"
+    "high_ws/jaime_bringup"
 )
 
