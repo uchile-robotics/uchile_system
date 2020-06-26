@@ -232,6 +232,9 @@ _uchile_get_repository "pkgs/forks_ws/pepper/pepper_moveit_config" "https://gith
 _uchile_get_repository "pkgs/forks_ws/pepper/pepper_robot"         "https://github.com/uchile-robotics-forks/pepper_robot"         "melodic-devel"
 _uchile_get_repository "pkgs/forks_ws/pepper/pepper_virtual"       "https://github.com/uchile-robotics-forks/pepper_virtual"       "melodic-devel"
 
+#Gazebo plugin from awesomebytes
+_uchile_get_repository "pkgs/forks_ws/pepper/gazebo_model_velocity_plugin" "https://github.com/uchile-robotics-forks/gazebo_model_velocity_plugin"  "master"
+
 # Kobuki stuff for Jaime
 _uchile_get_repository "pkgs/forks_ws/jaime/capabilities"          "https://github.com/uchile-robotics-forks/capabilities"         "master"
 _uchile_get_repository "pkgs/forks_ws/jaime/kobuki"                "https://github.com/uchile-robotics-forks/kobuki"               "melodic"
