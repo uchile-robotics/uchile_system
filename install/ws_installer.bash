@@ -249,6 +249,11 @@ _uchile_get_repository "pkgs/forks_ws/jaime/yujin_ocs"             "https://gith
 _uchile_get_repository "pkgs/forks_ws/jaime/kobuki_desktop"        "https://github.com/uchile-robotics-forks/kobuki_desktop"       "melodic"
 
 
+# # forks: realsense-ros
+_uchile_get_repository "pkgs/forks_ws/realsense_ros" "https://github.com/uchile-robotics-forks/realsense-ros" "development"
+
+# # forks: shared_autonomy_manipulation
+_uchile_get_repository "pkgs/forks_ws/shared_autonomy_manipulation" "https://github.com/uchile-robotics-forks/shared_autonomy_manipulation" "hydro-level"
 
 # # forks: rosaria
 _uchile_get_repository "pkgs/forks_ws/rosaria" "https://github.com/uchile-robotics-forks/rosaria" "master"

@@ -11,6 +11,8 @@ repositories=(
     "forks_ws/dynamixel_motor"
     "forks_ws/usb_cam"
     "forks_ws/jaime"
+    "forks_ws/realsense-ros"
+    "forks_ws/shared_autonomy_manipulation"
     #"forks_ws/open_ptrack"
 
     # base
