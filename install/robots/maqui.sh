@@ -17,6 +17,7 @@ repositories=(
     "forks_ws/chatterbot-corpus"
     "forks_ws/yolov3-detector"
     "forks_ws/roboticsgroup_gazebo_plugins"
+    "forks_ws/CenterNet"
 
     # base
     "base_ws/uchile_common"

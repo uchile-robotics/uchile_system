@@ -14,11 +14,13 @@ repositories=(
     "forks_ws/usb_cam"
     "forks_ws/pepper"
     "forks_ws/yolov3-detector"
+    #"forks_ws/realsense_ros"
     #"forks_ws/open_ptrack"
     "forks_ws/ChatterBot"
     "forks_ws/chatterbot-corpus"
     "forks_ws/roboticsgroup_gazebo_plugins"
     "forks_ws/jaime"
+    "forks_ws/CenterNet"
 
     # base
     "base_ws/uchile_common"
