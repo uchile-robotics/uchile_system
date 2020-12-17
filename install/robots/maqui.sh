@@ -18,6 +18,7 @@ repositories=(
     "forks_ws/yolov3-detector"
     "forks_ws/roboticsgroup_gazebo_plugins"
     "forks_ws/CenterNet"
+    "forks_ws/humanoid_msgs"
 
     # base
     "base_ws/uchile_common"
