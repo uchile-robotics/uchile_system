@@ -59,7 +59,7 @@ Ejecutar en terminal (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>)
 ```bash
 # descargar uch_system
 git clone https://github.com/uchile-robotics/uchile_system.git ~/tmp_repo
-cd "$HOME"/tmp_repo && git checkout feat-jaime
+cd "$HOME"/tmp_repo && git checkout feat-melodic
 # Obtener repositorios y crear workspaces
 bash "$HOME"/tmp_repo/install/ws_installer.bash
 
@@ -208,7 +208,7 @@ sudo apt-get update
  
 ```bash
 # instalar dependencias
-cdb forks && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
+cdb forks && rosdep install --from-paths . --ignore-src --rosdistro=melodic -r
 
 # Compilar
 cdb forks && cd .. && catkin_make
@@ -220,7 +220,7 @@ cdb forks && cd .. && catkin_make
  
 ```bash
 # instalar dependencias
-cdb base && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
+cdb base && rosdep install --from-paths . --ignore-src --rosdistro=melodic -r
 
 cdb uchile_gazebo && bash install/install_models.sh
 ``` 
@@ -269,18 +269,12 @@ cdb base && cd .. && catkin_make
 
 #### soft_ws (común)
 
-```bash
-# instalar dependencias
-cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
-``` 
-
  ```bash
 # instalar dependencias
 cdb soft && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y -r
 
 
 # instalar dependencias de speech
-cdb uchile_speech_pocketsphinx && bash install/install.sh
 sudo apt-get install python-alsaaudio
 ```
 
@@ -316,7 +310,7 @@ cdb soft && cd .. && catkin_make
  
 ```bash
 # instalar dependencias
-cdb high && rosdep install --from-paths . --ignore-src --rosdistro=melodic -y
+cdb high && rosdep install --from-paths . --ignore-src --rosdistro=melodic -r
 sudo apt-get install python-aiml
  
 # Compilar
