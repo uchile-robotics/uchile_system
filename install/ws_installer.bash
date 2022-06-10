@@ -296,7 +296,8 @@ _uchile_get_repository "pkgs/forks_ws/rocon_multimaster"         "https://github
 _uchile_get_repository "pkgs/forks_ws/zeroconf_avahi_suite"      "https://github.com/uchile-robotics-forks/zeroconf_avahi_suite.git" "indigo"
 
 # # fork : Humanoid_msgs
-_uchile_get_repository "pkgs/forks_ws/humanoid_msgs"             "https://github.com/uchile-robotics-forks/humanoid_msgs"		 "master"
+_uchile_get_repository "pkgs/forks_ws/humanoid_msgs"             "https://github.com/uchile-robotics-forks/humanoid_msgs"		"master"
+_uchile_get_repository "pkgs/forks_ws/pepper/nao_robot/humanoid_msgs"   "https://github.com/uchile-robotics-forks/humanoid_msgs"	"master"
 
 # #fork: roboticsgroup gazebo plugin for pepper gazeo
 _uchile_get_repository "pkgs/forks_ws/roboticsgroup_gazebo_plugins" "https://github.com/uchile-robotics-forks/roboticsgroup_gazebo_plugins"
