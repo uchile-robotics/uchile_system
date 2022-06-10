@@ -290,13 +290,13 @@ _uchile_get_repository "pkgs/forks_ws/yolov3-detector" "https://github.com/uchil
 _uchile_get_repository "pkgs/forks_ws/CenterNet" "https://github.com/uchile-robotics-forks/CenterNet" "master"
 
 # # fork : Rocon Hub
-_uchile_get_repository "pkgs/forks_ws/rocon_multimaster"         "https://github.com/robotics-in-concert/rocon_multimaster.git"  "devel"
+_uchile_get_repository "pkgs/forks_ws/rocon_multimaster"         "https://github.com/uchile-robotics-forks/rocon_multimaster"  "devel"
 
 # # fork : Avahi Suite
 _uchile_get_repository "pkgs/forks_ws/zeroconf_avahi_suite"      "https://github.com/uchile-robotics-forks/zeroconf_avahi_suite.git" "indigo"
 
 # # fork : Humanoid_msgs
-_uchile_get_repository "pkgs/forks_ws/humanoid_msgs"             "https://github.com/ahornung/humanoid_msgs.git"		 "master"
+_uchile_get_repository "pkgs/forks_ws/humanoid_msgs"             "https://github.com/uchile-robotics-forks/humanoid_msgs"		 "master"
 
 # #fork: roboticsgroup gazebo plugin for pepper gazeo
 _uchile_get_repository "pkgs/forks_ws/roboticsgroup_gazebo_plugins" "https://github.com/uchile-robotics-forks/roboticsgroup_gazebo_plugins"
