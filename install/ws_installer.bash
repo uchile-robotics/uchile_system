@@ -219,7 +219,7 @@ _uchile_get_repository "pkgs/high_ws/jaime_bringup"       "https://github.com/uc
 # This package is due the fact that is not relased on ros melodic yet
 
 
-# pepper stuff
+# pepper stuff"h
 _uchile_get_repository "pkgs/forks_ws/pepper/nao_robot"            "https://github.com/uchile-robotics-forks/nao_robot"            "develop"
 _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge"         "https://github.com/uchile-robotics-forks/naoqi_bridge"         "develop"
 _uchile_get_repository "pkgs/forks_ws/pepper/naoqi_bridge_msgs"    "https://github.com/uchile-robotics-forks/naoqi_bridge_msgs"    "develop"
@@ -258,7 +258,7 @@ _uchile_get_repository "pkgs/forks_ws/shared_autonomy_manipulation" "https://git
 _uchile_get_repository "pkgs/forks_ws/rosaria" "https://github.com/uchile-robotics-forks/rosaria" "master"
 
 # # fork: dynamixel_motor
-_uchile_get_repository "pkgs/forks_ws/dynamixel_motor" "https://github.com/uchile-robotics-forks/dynamixel_"hmotor" "develop"
+_uchile_get_repository "pkgs/forks_ws/dynamixel_motor" "https://github.com/uchile-robotics-forks/dynamixel_motor" "develop"
 
 # # fork: usb_cam
 _uchile_get_repository "pkgs/forks_ws/usb_cam" "https://github.com/uchile-robotics-forks/usb_cam" "develop"
