@@ -217,7 +217,6 @@ _uchile_get_repository "pkgs/high_ws/jaime_bringup"       "https://github.com/uc
 
 # transitory stuff
 # This package is due the fact that is not relased on ros melodic yet
-_uchile_get_repository "pkgs/forks_ws/humanoid_msgs"      "https://github.com/ahornung/humanoid_msgs.git"			   "master"
 
 
 # pepper stuff
@@ -259,7 +258,7 @@ _uchile_get_repository "pkgs/forks_ws/shared_autonomy_manipulation" "https://git
 _uchile_get_repository "pkgs/forks_ws/rosaria" "https://github.com/uchile-robotics-forks/rosaria" "master"
 
 # # fork: dynamixel_motor
-_uchile_get_repository "pkgs/forks_ws/dynamixel_motor" "https://github.com/uchile-robotics-forks/dynamixel_motor" "develop"
+_uchile_get_repository "pkgs/forks_ws/dynamixel_motor" "https://github.com/uchile-robotics-forks/dynamixel_"hmotor" "develop"
 
 # # fork: usb_cam
 _uchile_get_repository "pkgs/forks_ws/usb_cam" "https://github.com/uchile-robotics-forks/usb_cam" "develop"
@@ -294,9 +293,10 @@ _uchile_get_repository "pkgs/forks_ws/CenterNet" "https://github.com/uchile-robo
 _uchile_get_repository "pkgs/forks_ws/rocon_multimaster"         "https://github.com/robotics-in-concert/rocon_multimaster.git"  "devel"
 
 # # fork : Avahi Suite
-_uchile_get_repository "pkgs/forks_ws/zeroconf_avahi_suite"      "https://github.com/uchile-robotics-forks/zeroconf_avahi_suite" "indigo"
+_uchile_get_repository "pkgs/forks_ws/zeroconf_avahi_suite"      "https://github.com/uchile-robotics-forks/zeroconf_avahi_suite.git" "indigo"
 
-# # fork : 
+# # fork : Humanoid_msgs
+_uchile_get_repository "pkgs/forks_ws/humanoid_msgs"             "https://github.com/ahornung/humanoid_msgs.git"		 "master"
 
 # #fork: roboticsgroup gazebo plugin for pepper gazeo
 _uchile_get_repository "pkgs/forks_ws/roboticsgroup_gazebo_plugins" "https://github.com/uchile-robotics-forks/roboticsgroup_gazebo_plugins"
