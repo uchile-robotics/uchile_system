@@ -291,9 +291,11 @@ _uchile_get_repository "pkgs/forks_ws/CenterNet" "https://github.com/uchile-robo
 
 # # fork : Rocon Hub
 _uchile_get_repository "pkgs/forks_ws/rocon_multimaster"         "https://github.com/uchile-robotics-forks/rocon_multimaster"  "devel"
+_uchile_get_repository "pkgs/forks_ws/jaime/rocon_multimaster"         "https://github.com/uchile-robotics-forks/rocon_multimaster"  "devel"
 
 # # fork : Avahi Suite
 _uchile_get_repository "pkgs/forks_ws/zeroconf_avahi_suite"      "https://github.com/uchile-robotics-forks/zeroconf_avahi_suite.git" "indigo"
+_uchile_get_repository "pkgs/forks_ws/jaime/zeroconf_avahi_suite"      "https://github.com/uchile-robotics-forks/zeroconf_avahi_suite.git" "indigo"
 
 # # fork : Humanoid_msgs
 _uchile_get_repository "pkgs/forks_ws/humanoid_msgs"             "https://github.com/uchile-robotics-forks/humanoid_msgs"		"master"
