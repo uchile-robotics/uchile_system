@@ -188,7 +188,7 @@ _uchile_get_repository "misc/maqui_system" "https://github.com/uchile-robotics/m
 ## ----------------------------------------------------------------------------
 
 # system
-_uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_system"		"feat-jaime"
+_uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_system"		"maqui-fix-2022"
 
 
 ## layers
@@ -202,7 +202,7 @@ _uchile_get_repository "pkgs/base_ws/maqui_core"          "https://github.com/uc
 _uchile_get_repository "pkgs/base_ws/jaime_core"          "https://github.com/uchile-robotics/jaime_core"
 
 _uchile_get_repository "pkgs/soft_ws/uchile_hri"          "https://github.com/uchile-robotics/uchile_hri"
-#_uchile_get_repository "pkgs/soft_ws/uchile_navigation"   "https://github.com/uchile-robotics/uchile_navigation"        "feat-melodic"
+_uchile_get_repository "pkgs/soft_ws/uchile_navigation"   "https://github.com/uchile-robotics/uchile_navigation"        "feat-melodic-twist-recovery"
 #_uchile_get_repository "pkgs/soft_ws/uchile_manipulation" "https://github.com/uchile-robotics/uchile_manipulation"
 _uchile_get_repository "pkgs/soft_ws/uchile_perception"   "https://github.com/uchile-robotics/uchile_perception" "maqui-fix-2022"
 
