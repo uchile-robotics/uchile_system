@@ -210,6 +210,10 @@ sudo apt-get update
  
 ```bash
 # instalar dependencias
+
+sudo apt install ros-melodic-yocs-msgs
+sudo apt install ros-melodic-naoqi-bridge-msgs
+
 cdb forks && rosdep install --from-paths . --ignore-src --rosdistro=melodic -r
 
 # Compilar
