@@ -262,13 +262,16 @@ cdb bender_turning_base && bash install/install.sh
 
 #### base_ws (sólo maqui)
 
-Nada que instalar aún!
+Entrar a uchile_ws/ros/base_ws/src/bender_core
+Cortar bender_sensors y bender_joy, después pegarlos en uchile_ws/ros/base_ws/src y borrar bender_core
 
-#### base_ws (compilación - común)
- 
 ```bash
 cdb base && cd .. && catkin_make
 ``` 
+
+#### base_ws (compilación - común)
+ 
+
 
 
 ### Instalación de `soft_ws`
