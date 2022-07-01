@@ -187,6 +187,8 @@ git config --global diff.external  '~/.gitconfig_meld_launcher.py'
 
 ## Compilación de workspaces
 
+Esta rama está focalizada en compilar para maqui, por lo tanto se debe modificar el archivo "uchile.sh", específicamente, cambiar en la línea de UCHILE_ROBOT "all" por "maqui".
+
 En esta fase es importante el orden de compilación.
 
 El sistema se divide en 5 workspaces, que en orden son: ROS, forks_ws, base_ws, soft_ws y high_ws.
