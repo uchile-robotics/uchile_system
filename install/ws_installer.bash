@@ -197,9 +197,9 @@ _uchile_get_repository "system" "https://github.com/uchile-robotics/uchile_syste
 _uchile_get_repository "pkgs/base_ws/uchile_common"       "https://github.com/uchile-robotics/uchile_common"            "feat-melodic"
 _uchile_get_repository "pkgs/base_ws/uchile_knowledge"    "https://github.com/uchile-robotics/uchile_knowledge"
 _uchile_get_repository "pkgs/base_ws/uchile_tools"        "https://github.com/uchile-robotics/uchile_tools"             "feat-melodic"
-_uchile_get_repository "pkgs/base_ws/bender_core"         "https://github.com/uchile-robotics/bender_core"
+_uchile_get_repository "pkgs/base_ws/bender_core"         "https://github.com/uchile-robotics/bender_core"		"feat-new-bender"
 _uchile_get_repository "pkgs/base_ws/maqui_core"          "https://github.com/uchile-robotics/maqui_core"
-_uchile_get_repository "pkgs/base_ws/jaime_core"          "https://github.com/uchile-robotics/jaime_core"
+_uchile_get_repository "pkgs/base_ws/jaime_core"          "https://github.com/uchile-robotics/jaime_core"		"feat-jaimito"
 
 _uchile_get_repository "pkgs/soft_ws/uchile_hri"          "https://github.com/uchile-robotics/uchile_hri"
 _uchile_get_repository "pkgs/soft_ws/uchile_navigation"   "https://github.com/uchile-robotics/uchile_navigation"        "feat-melodic-twist-recovery"
