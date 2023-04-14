@@ -262,7 +262,6 @@ cdb bender_turning_base && bash install/install.sh
 
 #### base_ws (sólo maqui)
 
-Entrar a uchile_ws/ros/maqui/base_ws/src/bender_core, copiar (o cortar) bender_sensors y bender_joy, después pegarlos en uchile_ws/ros/maqui/base_ws/src y borrar bender_core
 
 ```bash
 cdb base && cd .. && catkin_make
