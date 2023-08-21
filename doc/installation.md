@@ -35,7 +35,7 @@ sudo apt-get install ros-melodic-ros-base curl openssl pv python-rosinstall pyth
 
 # inicializar rosdep
 sudo rosdep init # ignorar si es que falla con "ERROR: default sources list file already exists:..."
-rosdep update    # NO EJECUTAR CON SUDO!
+rosdep update --include-eol-distros   # NO EJECUTAR CON SUDO!
 ```
 
 ### Instalar dependencias para system
