@@ -35,7 +35,7 @@ sudo apt-get install ros-melodic-ros-base curl openssl pv python-rosinstall pyth
 
 # inicializar rosdep
 sudo rosdep init # ignorar si es que falla con "ERROR: default sources list file already exists:..."
-rosdep update    # NO EJECUTAR CON SUDO!
+rosdep update --rosdistro=melodic   # NO EJECUTAR CON SUDO!
 ```
 
 ### Instalar dependencias para system
@@ -215,6 +215,8 @@ sudo apt install ros-melodic-yocs-msgs
 sudo apt install ros-melodic-naoqi-bridge-msgs
 
 cdb forks && rosdep install --from-paths . --ignore-src --rosdistro=melodic -r
+# Si al ejecutar el comando anterior aparecen muchos errores de dependencias prueba usar el siguiente comando y vuelve a ejecutar el comando anterior
+rosdep update --rosdistro=melodic
 
 # Compilar
 cdb forks && cd .. && catkin_make
