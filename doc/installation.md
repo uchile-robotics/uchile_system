@@ -311,7 +311,7 @@ Nada que instalar.
 #### soft_ws (compilación - común)
   
 ```bash
-cdb soft && cd .. && catkin_make
+cdb soft && cd .. && catkin_make -j2
 ``` 
 
 ### Instalación de `high_ws`
