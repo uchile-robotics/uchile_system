@@ -1,0 +1,21 @@
+services:
+  rosaria2_container:
+    image: rosaria2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rosaria2_container
+    network_mode: host
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyACM0:/dev/ttyACM0
+    volumes:
+      - ~/bender_jazzy/bender_nav2:/home/bender_jazzy/bender_nav2
+      - ~/bender_bringup:/home/base_controller/src/bender_bringup
+      - ~/bender_description:/home/base_controller/src/bender_description
+      - ~/.docker-github-netrc:/root/.netrc:ro
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=file:///cyclonedds.xml
+    stdin_open: true
+    tty: true
