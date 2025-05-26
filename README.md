@@ -45,30 +45,15 @@ sudo chmod 400 ~/.docker-github-netrc
 Now you will build the docker image
 
 ```bash
-mkdir bender_jazzy && cd bender_jazzy
-git clone https://github.com/uchile-robotics/bender_nav2.git
-cd ~/bender_nav2/dockerfile/rosaria2
+git clone https://github.com/uchile-robotics/uchile_system.git
+cd ~/uchile_system/bender_nav2
 sudo docker compose build rosaria2_container
 ```
 ## How to run
 
-Then you must wait for the docker image to build. After that step, check if Bender's base is connected to your PC via USB (and the hokuyo)
+To run any piece of code you must look up the respective robot package in the organization.
 
-```bash
-cd dockerfile/rosaria2
-sudo docker compose up -d --remove-orphans
-sudo docker exec -it rosaria2_container /bin/bash
-```
+- [Bender Bringup](https://github.com/uchile-robotics/bender_bringup)
+<!-- - [Jaime Bringup](N/A)  -->
 
-In the same terminal that you ran the last command, after connecting bender's base and lidar you must run:
-
-```bash
-colcon build --symlink-install
-source install/setup.bash
-ros2 launch bender_bringup bender_basic.launch.py
-
-```
-
-
-
-
+<!-- (TODO: Create jaime_bringup repository) -->
