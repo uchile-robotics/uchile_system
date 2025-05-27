@@ -46,7 +46,7 @@ Now you will build the docker image
 
 ```bash
 git clone https://github.com/uchile-robotics/uchile_system.git
-cd ~/uchile_system/bender_nav2
+cd ~/uchile_system/bender_nav2 # For instance building the bender_nav2 container
 sudo docker compose build rosaria2_container
 ```
 ## How to run
