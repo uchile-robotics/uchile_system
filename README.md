@@ -54,6 +54,6 @@ sudo docker compose build rosaria2_container
 To run any piece of code you must look up the respective robot package in the organization.
 
 - [Bender Bringup](https://github.com/uchile-robotics/bender_bringup)
-<!-- - [Jaime Bringup](N/A)  -->
+- [Jaime Bringup](https://github.com/uchile-robotics/jaime_bringup)
 
-<!-- (TODO: Create jaime_bringup repository) -->
+<!-- (TODO: update jaime_bringup repository) -->
