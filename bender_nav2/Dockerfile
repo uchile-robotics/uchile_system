@@ -60,7 +60,8 @@ RUN mkdir -p base_controller/src
 WORKDIR /home/base_controller/src
 RUN git clone https://github.com/reedhedges/AriaCoda.git && \ 
     git clone https://github.com/ruipaulorocha/rosaria2.git && \
-    git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git
+    git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
+    git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git
 WORKDIR /home/base_controller/src/AriaCoda
 RUN make -j 
 RUN make install
@@ -73,7 +74,7 @@ RUN rosdep init && \
     rosdep update
 
 
-RUN rosdep install -i --from-paths urg_node2 rosaria2 --rosdistro=jazzy -y
+RUN rosdep install -i --from-paths urg_node2 rosaria2 rplidar_ros --rosdistro=jazzy -y
 
 RUN sed -i 's/params_ether.yaml/params_serial.yaml/' urg_node2/launch/urg_node2.launch.py
 WORKDIR /home/base_controller
