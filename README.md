@@ -51,7 +51,7 @@ sudo docker compose build rosaria2_container
 ```
 ## How to run
 
-To run any piece of code you must look up the respective robot package in the organization.
+To run any piece of code you must look up the respective robot package in the organization. Independent of the packages you want to run, everything must be ran inside the docker container you just built. To run any command inside the container: `docker exec -it <container_name> /bin/bash`
 
 - [Bender Bringup](https://github.com/uchile-robotics/bender_bringup)
 - [Jaime Bringup](https://github.com/uchile-robotics/jaime_bringup)
