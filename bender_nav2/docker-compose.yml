@@ -7,12 +7,13 @@ services:
     container_name: rosaria2_container
     network_mode: host
     devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0
-      - /dev/ttyACM0:/dev/ttyACM0
+      - /dev/ttyUSB0:/dev/rplidar
+      # - /dev/ttyACM0:/dev/ttyACM0
+      - /dev/ttyUSB1:/dev/pioneer
     volumes:
       - ~/bender_jazzy/bender_nav2:/home/bender_jazzy/bender_nav2
       - ~/bender_bringup:/home/base_controller/src/bender_bringup
-      - ~/bender_description:/home/base_controller/src/bender_description
+      - ~/bender_core:/home/base_controller/src/bender_core
       - ~/.docker-github-netrc:/root/.netrc:ro
     environment:
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
