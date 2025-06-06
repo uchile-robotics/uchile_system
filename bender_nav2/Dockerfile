@@ -52,7 +52,7 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-nav2-bringup \
     ros-jazzy-twist-mux \
     ros-jazzy-cartographer-ros \
-    ros-jazzy-laser-filters
+    ros-jazzy-tf-transformations
     
 
 
