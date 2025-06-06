@@ -13,7 +13,7 @@ services:
     volumes:
       - ~/uchile_system:/home/uchile_system
       - ~/bender_bringup:/home/base_controller/src/bender_bringup
-      - ~/bender_core:/home/base_controller/src/bender_core
+      - ~/bender_description:/home/base_controller/src/bender_description
       - ~/.docker-github-netrc:/root/.netrc:ro
     environment:
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
