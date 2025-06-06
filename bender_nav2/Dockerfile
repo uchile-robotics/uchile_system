@@ -22,8 +22,9 @@ RUN apt-get install -y git wget dbus-x11 lxqt-core tigervnc-standalone-server op
 
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository universe
-RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null
+RUN export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F\" '{print $4}')
+RUN curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo $VERSION_CODENAME)_all.deb"
+RUN apt install /tmp/ros2-apt-source.deb
 
 RUN apt-get update && apt-get -y full-upgrade
 RUN apt update --fix-missing
@@ -52,7 +53,8 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-nav2-bringup \
     ros-jazzy-twist-mux \
     ros-jazzy-cartographer-ros \
-    ros-jazzy-laser-filters
+    ros-jazzy-laser-filters \
+    ros-jazzy-tf-transformations
     
 
 
@@ -86,6 +88,7 @@ RUN echo "alias c='clear'" >> /root/.bashrc
 # Config files for cartographer
 COPY config/cyclonedds.xml /
 COPY config/cartographer_config.lua /opt/ros/jazzy/share/cartographer/configuration_files 
+RUN sed -i 's/ttyUSB0/pioneer/' src/rosaria2/launch/rosaria2.launch.py
 # authorize SSH connection with root account
 RUN sed -i 's/#PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config
 

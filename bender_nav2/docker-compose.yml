@@ -7,11 +7,11 @@ services:
     container_name: rosaria2_container
     network_mode: host
     devices:
-      - /dev/ttyUSB0:/dev/rplidar
+      - /dev/rplidar:/dev/rplidar
       # - /dev/ttyACM0:/dev/ttyACM0
-      - /dev/ttyUSB1:/dev/pioneer
+      - /dev/pioneer:/dev/pioneer
     volumes:
-      - ~/bender_jazzy/bender_nav2:/home/bender_jazzy/bender_nav2
+      - ~/uchile_system:/home/uchile_system
       - ~/bender_bringup:/home/base_controller/src/bender_bringup
       - ~/bender_core:/home/base_controller/src/bender_core
       - ~/.docker-github-netrc:/root/.netrc:ro
