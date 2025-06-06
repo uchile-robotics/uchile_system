@@ -7,7 +7,6 @@
   - [Requirements](#requirements)
   - [Instalation](#instalation)
     - [Steps to create the `.netrc` file](#steps-to-create-the-netrc-file)
-    - [Udev rules](#udev-rules)
     - [Image building](#image-building)
   - [How to run](#how-to-run)
   
@@ -42,20 +41,11 @@ printf "machine raw.githubusercontent.com\nlogin GITHUB_TOKEN\npassword <your_gi
 sudo chmod 400 ~/.docker-github-netrc
 ```
 
-### Udev rules
-
-To keep consistency with the devices used by Bender and to avoid that the devices won't let the docker container go up. 
-
-```bash
-source ~/uchile_system/bender_nav2/config/create_udev_rules.sh
-```
-
 ### Image building
-
 Now you will build the docker image
 
 ```bash
-git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_system.git
+git clone https://github.com/uchile-robotics/uchile_system.git
 cd ~/uchile_system/bender_nav2 # For instance building the bender_nav2 container
 sudo docker compose build rosaria2_container
 ```
