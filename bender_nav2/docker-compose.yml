@@ -6,9 +6,6 @@ services:
       dockerfile: devel.Dockerfile
     container_name: bender_container
     network_mode: host
-    dns:
-      - 8.8.8.8
-      - 1.1.1.1
     devices:
       - /dev/rplidar:/dev/rplidar
       - /dev/pioneer:/dev/pioneer
