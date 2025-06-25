@@ -3,12 +3,13 @@ services:
     image: rosaria2
     build:
       context: .
-      dockerfile: devel.Dockerfile
+      dockerfile: Dockerfile
     container_name: bender_container
     network_mode: host
     devices:
       - /dev/rplidar:/dev/rplidar
       - /dev/pioneer:/dev/pioneer
+      - /dev/js0:/dev/js0
     volumes:
       - ~/bender_bringup:/home/base_controller/src/bender_bringup
       - ~/bender_core:/home/base_controller/src/bender_core
