@@ -1,0 +1,4 @@
+# set the udev rule , make the device_port be fixed by bender's base
+#
+SUBSYSTEM=="input", KERNEL=="js*", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0719", SYMLINK+="joy", MODE:="0666"
+SUBSYSTEM=="input", KERNEL=="event*", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0719", SYMLINK+="event_joy", MODE:="0666"

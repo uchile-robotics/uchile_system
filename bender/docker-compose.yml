@@ -9,11 +9,12 @@ services:
     devices:
       - /dev/rplidar:/dev/rplidar
       - /dev/pioneer:/dev/pioneer
-      - /dev/input/js0:/dev/input/js0
-      - /dev/input/event258:/dev/input/event258
+      - /dev/joy:/dev/input/js0
+      - /dev/event_joy:/dev/input/event23
     volumes:
-      - ~/bender_bringup:/home/base_controller/src/bender_bringup
-      - ~/bender_core:/home/base_controller/src/bender_core
+      - ~/uchile_robotics/bender_bringup:/home/base_controller/src/bender_bringup
+      - ~/uchile_robotics/bender_core:/home/base_controller/src/bender_core
+      - ~/uchile_robotics/uchile_navigation:/home/base_controller/src/uchile_navigation
       - ~/.docker-github-netrc:/root/.netrc:ro
     environment:
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp

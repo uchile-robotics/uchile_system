@@ -4,6 +4,7 @@ echo "Deleting the remappings of rplidar and the pioneer"
 echo "sudo rm /etc/udev/rules.d/rplidar.rules"
 sudo rm /etc/udev/rules.d/rplidar.rules
 sudo rm /etc/udev/rules/pioneer.rules
+sudo rm /etc/udev/rules/joy.rules
 echo ""
 echo "Restarting udev"
 echo ""
