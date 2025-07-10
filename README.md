@@ -48,7 +48,7 @@ sudo chmod 400 ~/.docker-github-netrc
 To keep consistency with the devices used by Bender and to avoid that the devices won't let the docker container go up. 
 
 ```bash
-source ~/uchile_robotics/uchile_system/bender/config/create_udev_rules.sh
+source ~/uchile_robotics/uchile_system/bender/config/udev_scripts/create_udev_rules.sh
 ```
 
 ### Image building
