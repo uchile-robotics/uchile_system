@@ -56,9 +56,8 @@ source ~/uchile_robotics/uchile_system/bender/config/udev_scripts/create_udev_ru
 Now you will build the docker image
 
 ```bash
-git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_system.git
-cd ~/uchile_system/bender_nav2 # For instance building the bender_nav2 container
-sudo docker compose build rosaria2_container
+cd ~/uchile_system/bender # For instance building the bender_nav2 container
+sudo docker compose build bender_container
 ```
 
 ## How to run
