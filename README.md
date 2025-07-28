@@ -29,6 +29,7 @@ mkdir uchile_robotics
 cd uchile_robotics
 git clone -b feat-jazzy https://github.com/uchile-robotics/bender_bringup.git
 git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_system.git
+git clone -b feat-jazzy https://github.com/uchile-robotics/bender_core.git
 ```
 
 To prevent rate limit errors (HTTP 429) when running the `rosdep` command inside the Docker container, you need to authenticate requests to GitHub by creating a `.netrc` file.
@@ -39,13 +40,15 @@ To prevent rate limit errors (HTTP 429) when running the `rosdep` command inside
 2. Create the `.netrc` file with the following content, replacing `<your_github_token>` with your generated token.
 
 ```bash
-printf "machine raw.githubusercontent.com\nlogin GITHUB_TOKEN\npassword <your_github_token>" > ~/.docker-github-netrc
+export YOUR_GITHUB_TOKEN=<your_github_token>
+printf "machine raw.githubusercontent.com\nlogin GITHUB_TOKEN\npassword ${YOUR_GITHUB_TOKEN}" > ~/.docker-github-netrc
+sudo chown root:root ~/.docker-github-netrc
 sudo chmod 400 ~/.docker-github-netrc
 ```
 
 ### Udev rules
 
-To keep consistency with the devices used by Bender and to avoid that the devices won't let the docker container go up. 
+To keep consistency with the devices used by Bender and to avoid that the devices won't let the docker container go up.
 
 ```bash
 source ~/uchile_robotics/uchile_system/bender/config/udev_scripts/create_udev_rules.sh
