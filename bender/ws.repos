@@ -1,0 +1,17 @@
+repositories:
+  bender_bringup:
+    type: git
+    url: https://github.com/uchile-robotics/bender_bringup.git
+    version: feat-jazzy
+  bender_core:
+    type: git
+    url: https://github.com/uchile-robotics/bender_core.git
+    version: feat-jazzy
+  uchile_high:
+    type: git
+    url: https://github.com/uchile-robotics/uchile_high.git
+    version: feat-jazzy
+  uchile_navigation:
+    type: git
+    url: https://github.com/uchile-robotics/uchile_navigation.git
+    version: feat-jazzy
