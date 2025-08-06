@@ -27,7 +27,12 @@ RUN add-apt-repository universe && \
         ros-jazzy-tf-transformations \
         ros-dev-tools \
         ros-jazzy-teleop-twist-joy \
-        ros-jazzy-joy
+        ros-jazzy-joy \
+        ros-jazzy-py-trees \
+        ros-jazzy-py-trees-ros-interfaces \
+        ros-jazzy-py-trees-ros \
+        ros-jazzy-py-trees-ros-tutorials \
+        ros-jazzy-py-trees-ros-viewer
 
 WORKDIR /home/bender_ws/src
 RUN git clone https://github.com/reedhedges/AriaCoda.git && \
