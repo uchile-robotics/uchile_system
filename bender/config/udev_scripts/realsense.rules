@@ -1,4 +1,0 @@
-# set the udev rule , make the device_port be fixed by bender's base
-#
-SUBSYSTEM=="video4linux", ATTRS{idVendor}=="8086", ATTRS{idProduct}=="0b3a", SYMLINK+="realsense-depth"
-
