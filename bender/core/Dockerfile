@@ -17,7 +17,7 @@ RUN add-apt-repository universe && \
     curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | \
     tee /etc/apt/sources.list.d/ros2.list > /dev/null && \
-    apt-get update && apt-get install -y --no-install-recommends \
+    apt-get update && apt-get install -y --no-install-recommends --fix-missing \
         ros-jazzy-ros-base \
         ros-jazzy-rmw-cyclonedds-cpp \
         ros-jazzy-navigation2 \
@@ -65,7 +65,6 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 COPY config/cyclonedds.xml /
-COPY config/cartographer_config.lua /opt/ros/jazzy/share/cartographer/configuration_files
 
 RUN sed -i 's/#PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     echo "root:docker"|chpasswd

@@ -2,6 +2,4 @@
 
 ## Table of contents
 
-
 ## Installation
-
