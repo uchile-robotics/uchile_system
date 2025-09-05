@@ -1,24 +1,14 @@
-ARG BASE_OS=ubuntu:24.04
+ARG BASE_OS=ros:jazzy-ros-base
 FROM ${BASE_OS}
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG=en_US.UTF-8
 RUN apt-get update && apt-get full-upgrade -y && \
     apt-get install -y --no-install-recommends \
-        locales \
         git wget openssh-server vim curl nano python3-pip \
         software-properties-common \
         doxygen \
-        libboost-dev && \
-    locale-gen en_US en_US.UTF-8 && \
-    update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 
-
-RUN add-apt-repository universe && \
-    curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | \
-    tee /etc/apt/sources.list.d/ros2.list > /dev/null && \
-    apt-get update && apt-get install -y --no-install-recommends --fix-missing \
-        ros-jazzy-ros-base \
+        libboost-dev \
         ros-jazzy-rmw-cyclonedds-cpp \
         ros-jazzy-navigation2 \
         ros-jazzy-nav2-bringup \
@@ -27,12 +17,7 @@ RUN add-apt-repository universe && \
         ros-jazzy-tf-transformations \
         ros-dev-tools \
         ros-jazzy-teleop-twist-joy \
-        ros-jazzy-joy \
-        ros-jazzy-py-trees \
-        ros-jazzy-py-trees-ros-interfaces \
-        ros-jazzy-py-trees-ros \
-        ros-jazzy-py-trees-ros-tutorials \
-        ros-jazzy-py-trees-ros-viewer
+        ros-jazzy-joy 
 
 WORKDIR /home/bender_ws/src
 RUN git clone https://github.com/reedhedges/AriaCoda.git && \
@@ -49,10 +34,7 @@ RUN make -j && make install && cd .. && rm -rf AriaCoda
 
 
 WORKDIR /home/bender_ws/src
-RUN rosdep init && \
-    rosdep update && \
-    rosdep fix-permissions && \
-    rosdep install -i --from-paths . --rosdistro=jazzy -y
+RUN rosdep install -i --from-paths . --rosdistro=jazzy -y
 
 RUN sed -i 's/params_ether.yaml/params_serial.yaml/' /home/bender_ws/src/urg_node2/launch/urg_node2.launch.py
 

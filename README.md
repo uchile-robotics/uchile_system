@@ -1,13 +1,14 @@
 # Uchile System
 
 ## Table of contents
+
 - [Uchile System](#uchile-system)
   - [Table of contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Requirements](#requirements)
   - [Installation](#installation)
-    - [Udev rules](#udev-rules)
     - [Image building](#image-building)
+  - [Troubleshooting](#troubleshooting)
   - [How to run](#how-to-run)
   - [Development](#development)
     - [Directory structure](#directory-structure)
@@ -33,20 +34,6 @@ cd uchile_robotics
 git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_system.git
 ```
 
-### Udev rules
-
-To ensure consistency in the devices used by any robot, and to avoid issues when starting the Docker container, install the udev rules:
-
-```bash
-source ~/uchile_robotics/uchile_system/<robot_name>/config/udev_scripts/create_udev_rules.sh
-```
-
-To remove these device symlinks, run:
-
-```bash
-source ~/uchile_robotics/uchile_system/<robot_name>/config/udev_scripts/delete_udev_rules.sh
-```
-
 ### Image building
 
 Build the Docker image with:
@@ -61,6 +48,13 @@ If the image has already been built, you can skip the `--build` flag:
 ```bash
 sudo docker compose up -d --remove-orphans
 ```
+
+## Troubleshooting
+
+It might happen that you get an error along the lines of `Error response from daemon: error gathering device information while adding custom device "/dev/rplidar": no such file or directory`.
+
+1. Connect all the devices to the machine.
+2. If it still doesn't work, the udev rules might not have been set up yet. Run `source ~/uchile_robotics/uchile_system/<robot_name>/config/config.sh`, replacing `<robot_name>` with the robot that you want to use (like `bender` or `jaime`).
 
 ## How to run
 
