@@ -84,22 +84,28 @@ When creating a new robot Docker image, follow this directory structure:
 ```bash
 uchile_system
 ├── robot_1
-│   ├── core
-│   │   ├── config
-│   │   │   ├── cyclonedds.xml # for communicating ros2 topics
-│   │   │   └── udev_scripts # consistent device naming, if needed
-│   │   │       ├── 99-robot.rules
-│   │   │       ├── create_udev_rules.sh
-│   │   │       └── delete_udev_rules.sh
-│   │   ├── docker-compose.yml
-│   │   └── Dockerfile
-│   ├── docker-compose.yml
+│   ├── config
+│   │   └── config.sh
+│   ├── core
+│   │   ├── config
+│   │   │   ├── config.sh
+│   │   │   ├── cyclonedds.xml
+│   │   │   └── udev_scripts
+│   │   │       ├── 99-bender.rules
+│   │   │       ├── create_udev_rules.sh
+│   │   │       └── delete_udev_rules.sh
+│   │   ├── docker-compose.yml
+│   │   ├── Dockerfile
+│   │   └── README.md
+│   ├── docker-compose.yml
+│   └── skills
+│       ├── config
+│       │   ├── config.sh
+│       │   └── cyclonedds.xml
+│       ├── docker-compose.yml
+│       └── Dockerfile
+├── robot_2
 ...
-│   └── skills
-│       ├── config
-│       │   └── cyclonedds.xml
-│       ├── docker-compose.yml
-│       └── Dockerfile
 └── README.md
 ```
 
