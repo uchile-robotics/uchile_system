@@ -16,6 +16,7 @@ services:
       - ~/uchile_robotics/bender_core:/home/bender_ws/src/bender_core
       - ~/uchile_robotics/uchile_navigation:/home/bender_ws/src/uchile_navigation
       - ~/uchile_robotics/uchile_high:/home/bender_ws/src/uchile_high
+    working_dir: /home/bender_ws
     environment:
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
       - CYCLONEDDS_URI=file:///cyclonedds.xml
@@ -28,11 +29,20 @@ services:
       dockerfile: Dockerfile
     container_name: skills
     network_mode: host
+    working_dir: /home/bender_ws
+    volumes:
+      - ~/uchile_robotics/bender_knowledge:/home/bender_ws/src/bender_knowledge
+      - ~/uchile_robotics/uchile_common:/home/bender_ws/src/uchile_common
+      - /tmp/.X11-unix:/tmp/.X11-unix
     stdin_open: true
     tty: true
     environment:
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
       - CYCLONEDDS_URI=file:///cyclonedds.xml
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    devices:
+      - /dev/dri:/dev/dri
     deploy:
       resources:
         reservations:
