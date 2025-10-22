@@ -33,6 +33,7 @@ services:
     volumes:
       - ~/uchile_robotics/bender_knowledge:/home/bender_ws/src/bender_knowledge
       - ~/uchile_robotics/uchile_common:/home/bender_ws/src/uchile_common
+      - ~/uchile_robotics/uchile_high:/home/bender_ws/src/uchile_high
       - /tmp/.X11-unix:/tmp/.X11-unix
     stdin_open: true
     tty: true

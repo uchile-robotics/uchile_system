@@ -17,7 +17,7 @@
   
 ## Introduction
 
-The goal of *UChile System* is to provide a solid infrastructure that standardizes the platform where robot software is executed. To achieve this, the system relies on Docker as the main tool for containerization and environment management.
+The goal of *UChile System* is to provide a solid infrastructure that standardizes the platform where robot software is executed. To achieve this, the system relies on Docker as the main tool for containerization and environment management. If you are still confused on "Why docker?" we recommend that you watch [this video](https://youtu.be/XcJzOYe3E6M?si=Yp4HpKURfwYUSOCh) from "Articulated Robotics".
 
 ## Requirements
 
@@ -74,8 +74,8 @@ Each robot is divided into two main components:
 
 For detailed information, see:
 
-- [Core README](./core/README.md)
-- [Skills README](./skills/README.md)
+- [Bender Core README](./bender/core/README.md)
+- [Bender Skills README](./bender/skills/README.md)
 
 ### Directory structure
 
