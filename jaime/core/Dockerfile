@@ -20,8 +20,7 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-joy 
 
 WORKDIR /home/jaime_ws/src
-RUN git clone https://github.com/IntelligentRoboticsLabs/kobuki.git  -b jazzy && \
-    git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
+RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
     git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git && \ 
         # Uchile dependencies
     git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_bringup.git && \
@@ -47,7 +46,8 @@ RUN sudo cp src/ThirdParty/ros_astra_camera/astra_camera/scripts/56-orbbec-usb.r
     sudo udevadm control --reload-rules && sudo udevadm trigger
 
 WORKDIR /home/jaime_ws
-RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --symlink-install" 
+RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --symlink-install" &&\
+    git clone https://github.com/IntelligentRoboticsLabs/kobuki.git  -b jazzy && \
 
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     echo "source /home/jaime_ws/install/setup.bash" >> /root/.bashrc && \
