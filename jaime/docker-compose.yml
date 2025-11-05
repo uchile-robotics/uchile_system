@@ -1,0 +1,58 @@
+services:
+  jaime_core:
+    image: uchile_robotics/jaime_core
+    build:
+      context: ./core/
+      dockerfile: Dockerfile
+    container_name: jaime_core
+    network_mode: host
+    #ver que hacer con la parte d pioneer . hay que poner lo mismo pero diciendo kobuki???
+    devices:
+      - /dev/rplidar:/dev/rplidar
+      - /dev/pioneer:/dev/pioneer
+      - /dev/joy:/dev/joy
+      - /dev/event_joy:/dev/event_joy
+    volumes:
+      - ~/uchile_robotics/jaime_bringup:/home/jaime_ws/src/jaime_bringup
+      - ~/uchile_robotics/jaime_core:/home/jaime_ws/src/jaime_core
+      - ~/uchile_robotics/uchile_navigation:/home/jaime_ws/src/uchile_navigation
+      - ~/uchile_robotics/uchile_high:/home/jaime_ws/src/uchile_high
+    working_dir: /home/jaime_ws
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=file:///cyclonedds.xml
+    stdin_open: true
+    tty: true
+  skills:
+    image: uchile_robotics/skills
+    build:
+      context: ./skills/
+      dockerfile: Dockerfile
+    container_name: skills
+    network_mode: host
+    working_dir: /home/jaime_ws
+    volumes:
+      - ~/uchile_robotics/jaime_knowledge:/home/jaime_ws/src/jaime_knowledge
+      - ~/uchile_robotics/uchile_common:/home/jaime_ws/src/uchile_common
+      - ~/uchile_robotics/uchile_high:/home/jaime_ws/src/uchile_high
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    stdin_open: true
+    tty: true
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=file:///cyclonedds.xml
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    devices:
+      - /dev/dri:/dev/dri
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+    # devices:
+      # - host:container
+    # volumes:
+      # - hostPath:containerPath:ro
+    

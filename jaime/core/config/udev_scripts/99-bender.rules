@@ -1,0 +1,11 @@
+# --- Joystick (Xbox 360 wireless adapter) ---
+
+SUBSYSTEM=="input", KERNEL=="js*", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0719", SYMLINK+="joy", MODE:="0666"
+SUBSYSTEM=="input", KERNEL=="event*", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0719", SYMLINK+="event_joy", MODE:="0666"
+
+# --- Pioneer robot (USB serial) ---
+KERNEL=="ttyUSB*", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", SYMLINK+="pioneer", MODE:="0666"
+
+# --- RPLIDAR (USB serial) ---
+KERNEL=="ttyUSB*", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="rplidar", MODE:="0666"
+
