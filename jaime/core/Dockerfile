@@ -47,8 +47,8 @@ RUN sudo cp src/ThirdParty/ros_astra_camera/astra_camera/scripts/56-orbbec-usb.r
 
 WORKDIR /home/jaime_ws
 RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --symlink-install" &&\
-    git clone https://github.com/IntelligentRoboticsLabs/kobuki.git  -b jazzy && \
-
+    git clone https://github.com/IntelligentRoboticsLabs/kobuki.git  -b jazzy 
+    
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     echo "source /home/jaime_ws/install/setup.bash" >> /root/.bashrc && \
     echo "alias c='clear'" >> /root/.bashrc && \
