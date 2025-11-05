@@ -60,4 +60,4 @@ RUN sed -i 's/#PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config && 
     echo "root:docker"|chpasswd
 
 EXPOSE 22
-ENTRYPOINT ["bash", "-c", "service ssh restart && exec bash"]
+ENTRYPOINT ["bash", "-c", "service ssh restart && exec bash", "-b"]
