@@ -36,7 +36,7 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     apt clean && rm -rf /var/lib/apt/lists/*+
 
 WORKDIR /home/jaime_ws/src
-RUN vcs import < kobuki/thirdparty.repos &&\
+RUN vcs import < kobuki/thirdparty.repos
 
 
 WORKDIR /home/jaime_ws
