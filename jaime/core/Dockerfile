@@ -37,9 +37,8 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
 
 WORKDIR /home/jaime_ws/src
 RUN vcs import < kobuki/thirdparty.repos &&\
-    sudo apt install libusb-1.0-0-dev libftdi1-dev libuvc-dev -y
 
-    
+
 WORKDIR /home/jaime_ws
 RUN rosdep install --from-paths src --ignore-src -r -y &&\
     colcon build --symlink-install 
