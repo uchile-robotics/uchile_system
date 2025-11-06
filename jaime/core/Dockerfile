@@ -38,7 +38,6 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
 WORKDIR /home/jaime_ws/src
 RUN vcs import < kobuki/thirdparty.repos &&\
     sudo apt install libusb-1.0-0-dev libftdi1-dev libuvc-dev -y &&\
-    sudo cp src/ThirdParty/ros_astra_camera/astra_camera/scripts/56-orbbec-usb.rules /etc/udev/rules.d/ &&\
     sudo cp src/ThirdParty/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/ &&\
     sudo cp src/ThirdParty/kobuki_ros/60-kobuki.rules /etc/udev/rules.d/ &&\ 
     sudo udevadm control --reload-rules && sudo udevadm trigger
