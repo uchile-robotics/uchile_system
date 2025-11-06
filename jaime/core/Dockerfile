@@ -26,7 +26,7 @@ RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
     git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_bringup.git && \
     git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_core.git && \
     git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_navigation.git &&\
-    git clone -b feat-jazzy https://github.com/IntelligentRoboticsLabs/kobuki.git
+    git clone -b jazzy https://github.com/IntelligentRoboticsLabs/kobuki.git
     
 
 WORKDIR /home/jaime_ws
