@@ -28,23 +28,6 @@ RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
     git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_navigation.git
     
 
-WORKDIR /home/jaime_ws/src
-RUN rosdep install -i --from-paths . --rosdistro=jazzy -y
-
-RUN sed -i 's/params_ether.yaml/params_serial.yaml/' /home/jaime_ws/src/urg_node2/launch/urg_node2.launch.py
-
-WORKDIR /home/jaime_ws/src
-RUN vcs import < kobuki/thirdparty.repos
-
-WORKDIR /home
-RUN sudo apt install libusb-1.0-0-dev libftdi1-dev libuvc-dev
-#en teoria deberia instalar kobuki
-WORKDIR /home/jaime_ws
-RUN sudo cp src/ThirdParty/ros_astra_camera/astra_camera/scripts/56-orbbec-usb.rules /etc/udev/rules.d/ && \
-    sudo cp src/ThirdParty/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/ && \
-    sudo cp src/ThirdParty/kobuki_ros/60-kobuki.rules /etc/udev/rules.d/ && \
-    sudo udevadm control --reload-rules && sudo udevadm trigger
-
 WORKDIR /home/jaime_ws
 RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --symlink-install" &&\
     git clone https://github.com/IntelligentRoboticsLabs/kobuki.git  -b jazzy 
