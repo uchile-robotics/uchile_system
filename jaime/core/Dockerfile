@@ -18,7 +18,8 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-dev-tools \
         ros-jazzy-teleop-twist-joy \
         ros-jazzy-joy \
-        ros-jazzy-kobuki-ros-interfaces
+        ros-jazzy-kobuki-ros-interfaces \
+        ros-jazzy-ros-gz
 
 WORKDIR /home/jaime_ws/src
 RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
