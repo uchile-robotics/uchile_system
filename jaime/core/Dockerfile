@@ -39,7 +39,11 @@ WORKDIR /home/jaime_ws/src
 RUN git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-bookstore-world.git &&\
     git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-racetrack-world.git &&\
     git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-small-house-world &&\
-    git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-small-warehouse-world.git
+    git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-small-warehouse-world.git &&\
+    git clone -b ros2 https://github.com/ros-drivers/openni2_camera.git &&\
+    git clone -b rolling https://github.com/Juancams/ros_astra_camera.git &&\
+    git clone -b ros2 https://github.com/Juancams/rplidar_ros.git
+
 
 WORKDIR /home/jaime_ws
 RUN rosdep install --from-paths src --ignore-src -r -y &&\
