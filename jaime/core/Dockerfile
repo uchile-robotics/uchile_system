@@ -45,7 +45,7 @@ RUN git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-bookstore-
     git clone -b rolling https://github.com/Juancams/ros_astra_camera.git
 
 WORKDIR /home/jaime_ws/src
-RUN rosdep install -i --from-paths . --skip-keys gazebo_plugins gazebo_ros_pkgs --rosdistro=jazzy -y
+RUN rosdep install -i --from-paths . --skip-keys gazebo_plugins --rosdistro=jazzy -y
 
 WORKDIR /home/jaime_ws
 RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --packages-ignore aws_robomaker_small_house_world --symlink-install"
