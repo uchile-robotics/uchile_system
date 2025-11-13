@@ -26,17 +26,9 @@ RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
     git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_bringup.git && \
     git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_core.git && \
     git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_navigation.git &&\
-    git clone -b jazzy https://github.com/IntelligentRoboticsLabs/kobuki.git
-    
-
-WORKDIR /home/jaime_ws
-RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
-    echo "source /home/jaime_ws/install/setup.bash" >> /root/.bashrc && \
-    echo "alias c='clear'" >> /root/.bashrc && \
-    apt clean && rm -rf /var/lib/apt/lists/*+
-
-WORKDIR /home/jaime_ws/src
-RUN vcs import < kobuki/thirdparty.repos
+    git clone -b jazzy https://github.com/IntelligentRoboticsLabs/kobuki.git &&\
+    git clone -b devel https://github.com/kobuki-base/kobuki_core.git &&\
+    git clone -b jazzy-devel https://github.com/Juancams/kobuki_ros.git
 
 
 WORKDIR /home/jaime_ws
