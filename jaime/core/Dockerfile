@@ -48,16 +48,13 @@ WORKDIR /home/jaime_ws/src
 RUN rosdep install -i --from-paths . --rosdistro=jazzy -y
 
 WORKDIR /home/jaime_ws
-RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --symlink-install"
+RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --symlink-install --packages-ignore aws-robomaker-small-house-world aws-robomaker-small-warehouse-world"
 
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     echo "source /home/jaime_ws/install/setup.bash" >> /root/.bashrc && \
     echo "alias c='clear'" >> /root/.bashrc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /home/jaime_ws
-RUN rosdep install --from-paths src --ignore-src -r -y &&\
-    colcon build --symlink-install 
 
 COPY config/cyclonedds.xml /
 
