@@ -17,7 +17,8 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-tf-transformations \
         ros-dev-tools \
         ros-jazzy-teleop-twist-joy \
-        ros-jazzy-joy 
+        ros-jazzy-joy \
+        ros-jazzy-kobuki-ros-interfaces
 
 WORKDIR /home/jaime_ws/src
 RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
@@ -43,6 +44,9 @@ RUN git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-bookstore-
     git clone -b ros2 https://github.com/ros-drivers/openni2_camera.git &&\
     git clone -b rolling https://github.com/Juancams/ros_astra_camera.git
 
+WORKDIR /home/jaime_ws/src
+RUN rosdep install -i --from-paths . --rosdistro=jazzy -y
+
 WORKDIR /home/jaime_ws
 RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --symlink-install"
 
@@ -50,9 +54,6 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     echo "source /home/jaime_ws/install/setup.bash" >> /root/.bashrc && \
     echo "alias c='clear'" >> /root/.bashrc && \
     apt clean && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /home/jaime_ws/src
-RUN rosdep install -i --from-paths . --rosdistro=jazzy -y
 
 WORKDIR /home/jaime_ws
 RUN rosdep install --from-paths src --ignore-src -r -y &&\
