@@ -43,9 +43,8 @@ RUN git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-bookstore-
     git clone -b ros2 https://github.com/ros-drivers/openni2_camera.git &&\
     git clone -b rolling https://github.com/Juancams/ros_astra_camera.git 
 
-#Se SUPONE que esto se instala solo con el ros pero parece q por algun motivo no lo esta haciendo ojala funcione
-WORKDIR /home/jaime_ws
-RUN         sudo apt install ros-jazzy-ament-cmake-ros
+WORKDIR /home/jaime_ws/src
+RUN rosdep install -i --from-paths . --rosdistro=jazzy -y
 
 WORKDIR /home/jaime_ws
 RUN rosdep install --from-paths src --ignore-src -r -y &&\
