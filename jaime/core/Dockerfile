@@ -48,7 +48,7 @@ WORKDIR /home/jaime_ws/src
 RUN rosdep install -i --from-paths . --rosdistro=jazzy -y
 
 WORKDIR /home/jaime_ws
-RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --symlink-install --packages-ignore aws-robomaker-small-house-world aws-robomaker-small-warehouse-world"
+RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --packages-ignore aws-robomaker-bookstore-world aws-robomaker-racetrack-world. aws-robomaker-small-house-world aws-robomaker-small-warehouse-world --symlink-install"
 
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     echo "source /home/jaime_ws/install/setup.bash" >> /root/.bashrc && \
