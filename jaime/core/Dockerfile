@@ -39,13 +39,13 @@ RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
 WORKDIR /home/jaime_ws/src
 RUN git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-bookstore-world.git &&\
     git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-racetrack-world.git &&\
-    git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-small-house-world &&\
+    git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-small-house-world.git &&\
     git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-small-warehouse-world.git &&\
     git clone -b ros2 https://github.com/ros-drivers/openni2_camera.git &&\
     git clone -b rolling https://github.com/Juancams/ros_astra_camera.git
 
 WORKDIR /home/jaime_ws/src
-RUN rosdep install -i --from-paths . --skip-keys gazebo_plugins gazebo --rosdistro=jazzy -y
+RUN rosdep install -i --from-paths . --skip-keys gazebo_plugins --rosdistro=jazzy -y
 
 WORKDIR /home/jaime_ws
 RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --packages-ignore aws-robomaker-bookstore-world aws-robomaker-racetrack-world. aws-robomaker-small-house-world aws-robomaker-small-warehouse-world --symlink-install"
