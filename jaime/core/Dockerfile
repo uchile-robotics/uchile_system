@@ -28,8 +28,10 @@ RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
     git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_navigation.git &&\
     git clone -b jazzy https://github.com/IntelligentRoboticsLabs/kobuki.git &&\
     git clone -b devel https://github.com/kobuki-base/kobuki_core.git &&\
-    git clone -b jazzy-devel https://github.com/Juancams/kobuki_ros.git
-
+    git clone -b jazzy-devel https://github.com/Juancams/kobuki_ros.git &&\
+    git clone -b -devel url: https://github.com/Juancams/ecl_core.git &&\
+    git clone -b ros2-jazzy url: https://github.com/Juancams/ecl_lite.git
+    
 
 WORKDIR /home/jaime_ws
 RUN rosdep install --from-paths src --ignore-src -r -y &&\
