@@ -19,17 +19,10 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-dev-tools \
         ros-jazzy-teleop-twist-joy \
         ros-jazzy-joy \
-        ros-jazzy-kobuki-ros-interfaces 
+        ros-jazzy-kobuki-ros-interfaces \
+        ros-jazzy-ros-gz
 
 
-#intento instalar gazebo ###########
-
-RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' \
-     && wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add - \
-     && sudo apt-get update -qq \
-     && sudo apt-get install gazebo11 libgazebo11-dev -y
-
-####################################
 WORKDIR /home/jaime_ws/src
 RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
     git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git && \ 
