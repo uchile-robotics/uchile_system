@@ -20,6 +20,7 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-teleop-twist-joy \
         ros-jazzy-joy \
         ros-jazzy-kobuki-ros-interfaces \
+        ros-jazzy-ros-gz \
         curl lsb-release gnupg
 
 RUN sudo curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg &&\
