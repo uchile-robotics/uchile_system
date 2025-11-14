@@ -27,7 +27,7 @@ RUN apt-get update && apt-get full-upgrade -y && \
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' \
      && wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add - \
      && sudo apt-get update -qq \
-     && sudo apt-get install gazebo9 libgazebo9-dev -y
+     && sudo apt-get install gazebo11 libgazebo11-dev -y
 
 ####################################
 WORKDIR /home/jaime_ws/src
