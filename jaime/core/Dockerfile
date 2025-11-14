@@ -59,7 +59,7 @@ RUN rosdep innit || true &&\
     rosdep install -i --from-paths . --skip-keys="gazebo_plugins gazebo_ros gazebo_msgs aws_robomaker_small_house_world gazebo" --rosdistro=jazzy -y
 
 WORKDIR /home/jaime_ws
-RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --packages-ignore aws_robomaker_small_house_world jaime_testing --symlink-install"
+RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --packages-ignore aws_robomaker_small_house_world jaime_testing astra_camera --symlink-install"
 
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     echo "source /home/jaime_ws/install/setup.bash" >> /root/.bashrc && \
