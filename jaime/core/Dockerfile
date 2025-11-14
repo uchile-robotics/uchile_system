@@ -1,5 +1,5 @@
 ARG BASE_OS=ros:jazzy-ros-base
-ARG BASE_GZ=gazebo:gzsever8
+ARG BASE_GZ=gazebo:latest
 FROM ${BASE_OS}
 
 ARG DEBIAN_FRONTEND=noninteractive
