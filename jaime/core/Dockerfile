@@ -21,7 +21,8 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-joy \
         ros-jazzy-kobuki-ros-interfaces \
         ros-jazzy-ros-gz \
-        curl lsb-release gnupg
+        curl lsb-release gnupg \
+        rosdep
 
 RUN sudo curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg &&\
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] https://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null &&\
@@ -30,11 +31,11 @@ RUN sudo curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/
 
 
 WORKDIR /home/jaime_ws/src
-RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
-    git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git && \ 
+RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git &&\
+    git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git &&\ 
         # Uchile dependencies
-    git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_bringup.git && \
-    git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_core.git && \
+    git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_bringup.git &&\
+    git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_core.git &&\
     git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_navigation.git &&\
     git clone -b jazzy https://github.com/IntelligentRoboticsLabs/kobuki.git &&\
     git clone -b devel https://github.com/Juancams/ecl_core.git &&\
@@ -54,7 +55,7 @@ RUN git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-bookstore-
     git clone -b rolling https://github.com/Juancams/ros_astra_camera.git
 
 WORKDIR /home/jaime_ws/src
-RUN rosdep install -i --from-paths . --rosdistro=jazzy -y
+RUN rosdep install -i --from-paths . --skip-keys="gazebo_plugins gazebo_ros gazebo_msgs aws_robomaker_small_house_world" --rosdistro=jazzy -y
 
 WORKDIR /home/jaime_ws
 RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --packages-ignore aws_robomaker_small_house_world --symlink-install"
