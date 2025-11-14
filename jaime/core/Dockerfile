@@ -1,7 +1,5 @@
 ARG BASE_OS=ros:jazzy-ros-base
-ARG BASE_GZ=gazebo:latest
 FROM ${BASE_OS}
-FROM ${BASE_GZ}
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG=en_US.UTF-8
@@ -11,6 +9,7 @@ RUN apt-get update && apt-get full-upgrade -y && \
         software-properties-common \
         doxygen \
         libboost-dev \
+        libgazebo11-dev=11.0.0-2* \
         ros-jazzy-rmw-cyclonedds-cpp \
         ros-jazzy-navigation2 \
         ros-jazzy-nav2-bringup \
