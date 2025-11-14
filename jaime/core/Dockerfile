@@ -32,7 +32,7 @@ RUN curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyri
 
 WORKDIR /home/jaime_ws/src
 RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git &&\
-    git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git &&\
+    git clone -b ros2 https://github.com/Juancams/rplidar_ros.git &&\
     git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_bringup.git &&\
     git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_core.git &&\
     git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_navigation.git &&\

@@ -8,7 +8,7 @@ services:
     network_mode: host
     devices:
       - /dev/rplidar:/dev/rplidar
-      - /dev/pioneer:/dev/pioneer
+      - /dev/kobuki:/dev/kobuki
       - /dev/input/js0:/dev/input/js0
       - /dev/input/event28:/dev/input/event28
     volumes:

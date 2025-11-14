@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     ros-dev-tools \
     ros-jazzy-teleop-twist-joy \
     ros-jazzy-joy \
+    ros-jazzy-joy-linux \
     && rm -rf /var/lib/apt/lists/*
 
 # Locale
