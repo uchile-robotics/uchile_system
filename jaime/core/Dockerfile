@@ -1,6 +1,7 @@
 ARG BASE_OS=ros:jazzy-ros-base
 ARG BASE_GZ=gazebo:latest
 FROM ${BASE_OS}
+FROM ${BASE_GZ}
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG=en_US.UTF-8
