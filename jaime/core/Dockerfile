@@ -1,8 +1,3 @@
-
-
-##########
-
-
 ARG BASE_OS=ros:jazzy-ros-base
 FROM ${BASE_OS}
 
@@ -27,7 +22,14 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-kobuki-ros-interfaces 
 
 
-#COPY
+#intento instalar gazebo ###########
+
+RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' \
+     && wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add - \
+     && sudo apt-get update -qq \
+     && sudo apt-get install gazebo9 libgazebo9-dev -y
+
+####################################
 WORKDIR /home/jaime_ws/src
 RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
     git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git && \ 
