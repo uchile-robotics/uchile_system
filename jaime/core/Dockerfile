@@ -25,15 +25,14 @@ RUN apt-get update && apt-get full-upgrade -y && \
         
 
 RUN curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg &&\
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] https://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null &&\
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] https://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null &&\
     apt-get update &&\
     apt-get install gz-harmonic -y
 
 
 WORKDIR /home/jaime_ws/src
 RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git &&\
-    git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git &&\ 
-        # Uchile dependencies
+    git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git &&\
     git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_bringup.git &&\
     git clone -b feat-jazzy https://github.com/uchile-robotics/jaime_core.git &&\
     git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_navigation.git &&\
@@ -55,7 +54,9 @@ RUN git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-bookstore-
     git clone -b rolling https://github.com/Juancams/ros_astra_camera.git
 
 WORKDIR /home/jaime_ws/src
-RUN rosdep install -i --from-paths . --skip-keys="gazebo_plugins gazebo_ros gazebo_msgs aws_robomaker_small_house_world" --rosdistro=jazzy -y
+RUN rosdep innit || true &&\
+    rosdep update &&\
+    rosdep install -i --from-paths . --skip-keys="gazebo_plugins gazebo_ros gazebo_msgs aws_robomaker_small_house_world gazebo" --rosdistro=jazzy -y
 
 WORKDIR /home/jaime_ws
 RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --packages-ignore aws_robomaker_small_house_world --symlink-install"
@@ -63,7 +64,7 @@ RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --packages-ig
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     echo "source /home/jaime_ws/install/setup.bash" >> /root/.bashrc && \
     echo "alias c='clear'" >> /root/.bashrc && \
-    apt clean && rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 COPY config/cyclonedds.xml /
