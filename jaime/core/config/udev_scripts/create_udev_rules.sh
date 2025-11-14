@@ -1,5 +1,5 @@
 #!/bin/bash
-RULES=~/uchile_robotics/uchile_system/bender/core/config/udev_scripts/99-bender.rules
+RULES=~/uchile_robotics/uchile_system/jaime/core/config/udev_scripts/99-jaime.rules
 
 echo "Installing udev rules from $RULES"
 sudo cp "$RULES" /etc/udev/rules.d/

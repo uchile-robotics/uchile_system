@@ -1,5 +1,11 @@
+
+
+##########
+
+
 ARG BASE_OS=ros:jazzy-ros-base
 FROM ${BASE_OS}
+
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG=en_US.UTF-8
@@ -9,7 +15,6 @@ RUN apt-get update && apt-get full-upgrade -y && \
         software-properties-common \
         doxygen \
         libboost-dev \
-        libgazebo11-dev=11.0.0-2* \
         ros-jazzy-rmw-cyclonedds-cpp \
         ros-jazzy-navigation2 \
         ros-jazzy-nav2-bringup \
@@ -21,6 +26,8 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-joy \
         ros-jazzy-kobuki-ros-interfaces 
 
+
+#COPY
 WORKDIR /home/jaime_ws/src
 RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
     git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git && \ 
