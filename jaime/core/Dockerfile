@@ -21,6 +21,7 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-joy \
         ros-jazzy-kobuki-ros-interfaces \
         ros-jazzy-ros-gz \
+        ros-jazzy-ecl-build\
         curl lsb-release gnupg 
         
 
