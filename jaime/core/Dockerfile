@@ -47,10 +47,7 @@ RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git &&\
 #cosas que son para simular nomas pero si no colapsa cuando se instala el docker
 
 WORKDIR /home/jaime_ws/src
-RUN git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-bookstore-world.git &&\
-    git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-racetrack-world.git &&\
-    git clone -b ros2-jazzy https://github.com/Juancams/aws-robomaker-small-warehouse-world.git &&\
-    git clone -b ros2 https://github.com/ros-drivers/openni2_camera.git 
+RUN git clone -b ros2 https://github.com/ros-drivers/openni2_camera.git 
 
 WORKDIR /home/jaime_ws/src
 RUN rosdep innit || true &&\
