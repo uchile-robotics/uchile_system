@@ -52,7 +52,9 @@ RUN git clone -b ros2 https://github.com/ros-drivers/openni2_camera.git
 WORKDIR /home/jaime_ws/src
 RUN rosdep innit || true &&\
     rosdep update &&\
-    rosdep install -i --from-paths . --skip-keys="gazebo_plugins gazebo_ros gazebo_msgs aws_robomaker_small_house_world gazebo aws-robomaker-bookstore-world aws-robomaker-racetrack-world aws-robomaker-small-warehouse-world astra_camera astra_camera_msgs" -r --rosdistro=jazzy -y
+    rosdep install -i --from-paths . \
+    --skip-keys="gazebo_plugins gazebo_ros gazebo_msgs aws_robomaker_small_house_world gazebo aws-robomaker-bookstore-world aws-robomaker-racetrack-world aws-robomaker-small-warehouse-world astra_camera astra_camera_msgs \
+    ros-jazzy-aws-robomaker-small-warehouse-world ros-jazzy-aws-robomaker-bookstore-world ros-jazzy-aws-robomaker-racetrack-world ros-jazzy-aws-robomaker-small-warehouse-world" -r --rosdistro=jazzy -y
 
 WORKDIR /home/jaime_ws
 RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --packages-ignore aws_robomaker_small_house_world jaime_testing astra_camera aws-robomaker-bookstore-world aws-robomaker-racetrack-world aws-robomaker-small-warehouse-world --symlink-install"
