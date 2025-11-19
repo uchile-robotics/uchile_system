@@ -22,6 +22,7 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-kobuki-ros-interfaces \
         ros-jazzy-ros-gz \
         ros-jazzy-ecl-build\
+        ros-jazzy-kobuki-velocity-smoother\
         curl lsb-release gnupg 
         
 
