@@ -54,7 +54,7 @@ WORKDIR /home/jaime_ws/src
 RUN rosdep innit || true &&\
     rosdep update &&\
     rosdep install -i --from-paths . \
-    --skip-keys="gazebo_plugins gazebo_ros gazebo_msgs aws_robomaker_small_house_world gazebo aws-robomaker-bookstore-world aws-robomaker-racetrack-world aws-robomaker-small-warehouse-world astra_camera astra_camera_msgs \
+    --skip-keys="gazebo_plugins gazebo_ros gazebo_msgs aws_robomaker_small_house_world gazebo aws_robomaker_bookstore_world aws_robomaker_racetrack_world aws_robomaker_small_warehouse_world astra_camera astra_camera_msgs \
     ros-jazzy-aws-robomaker-small-warehouse-world ros-jazzy-aws-robomaker-bookstore-world ros-jazzy-aws-robomaker-racetrack-world ros-jazzy-aws-robomaker-small-warehouse-world" -r --rosdistro=jazzy -y
 
 WORKDIR /home/jaime_ws
