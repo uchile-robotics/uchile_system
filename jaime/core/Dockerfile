@@ -19,6 +19,7 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-dev-tools \
         ros-jazzy-teleop-twist-joy \
         ros-jazzy-joy \
+        ros-jazzy-joy-linux \
         ros-jazzy-kobuki-ros-interfaces \
         ros-jazzy-ros-gz \
         ros-jazzy-ecl-build\
