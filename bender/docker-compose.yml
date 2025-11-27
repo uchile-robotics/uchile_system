@@ -4,10 +4,9 @@ services:
     build:
       context: ./core/
       dockerfile: Dockerfile
-    container_name: bender_core
     network_mode: host
+    container_name: bender_core
     devices:
-      - /dev/rplidar:/dev/rplidar
       - /dev/pioneer:/dev/pioneer
       - /dev/joy:/dev/joy
       - /dev/event_joy:/dev/event_joy
@@ -22,6 +21,7 @@ services:
       - CYCLONEDDS_URI=file:///cyclonedds.xml
     stdin_open: true
     tty: true
+
   skills:
     image: uchile_robotics/skills
     build:

@@ -33,7 +33,6 @@ RUN git clone https://github.com/reedhedges/AriaCoda.git && \
 WORKDIR /home/bender_ws/src/AriaCoda
 RUN make -j && make install && cd .. && rm -rf AriaCoda
 
-
 WORKDIR /home/bender_ws/src
 RUN rosdep install -i --from-paths . --rosdistro=jazzy -y
 
@@ -46,6 +45,8 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     echo "source /home/bender_ws/install/setup.bash" >> /root/.bashrc && \
     echo "alias c='clear'" >> /root/.bashrc && \
     apt clean && rm -rf /var/lib/apt/lists/*
+
+RUN pip install "setuptools<80" --break-system-packages
 
 COPY config/cyclonedds.xml /
 

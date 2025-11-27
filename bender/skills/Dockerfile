@@ -15,9 +15,7 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-joy \
     && rm -rf /var/lib/apt/lists/*
 
-# Fix for setuptools --editable issue (PEP 660 support)
-RUN pip install -U pip setuptools wheel --break-system-packages --ignore-installed
-ENV PYTHONPATH=/usr/local/lib/python3.12/dist-packages:$PYTHONPATH
+
 
 # Locale configuration
 RUN apt-get update && apt-get install -y locales \
@@ -34,8 +32,6 @@ RUN echo "source /home/bender_ws/install/setup.bash" >> /root/.bashrc && \
     echo "alias c='clear'" >> /root/.bashrc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
-# Default shell and ROS environment
-SHELL ["/bin/bash", "-c"]
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+RUN pip install "setuptools<80" --break-system-packages
 
-ENTRYPOINT ["/bin/bash"]
