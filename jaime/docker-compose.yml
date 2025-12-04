@@ -8,14 +8,13 @@ services:
     network_mode: host
    
     devices:
-      # - /dev/rplidar:/dev/rplidar
+      - /dev/rplidar:/dev/rplidar
       - /dev/kobuki:/dev/kobuki
       - /dev/joy:/dev/joy
       - /dev/event_joy:/dev/event_joy
     volumes:
-      # - ~/uchile_robotics/jaime_bringup:/home/jaime_ws/src/jaime_bringup
-      # - ~/uchile_robotics/jaime_core:/home/jaime_ws/src/jaime_core
-      - ~/uchile_robotics/uchile_navigation:/home/jaime_ws/src/uchile_navigation
+      - ~/uchile_robotics/jaime_bringup:/home/jaime_ws/src/jaime_bringup
+      - ~/uchile_robotics/jaime_core:/home/jaime_ws/src/jaime_core
       - ~/uchile_robotics/uchile_high:/home/jaime_ws/src/uchile_high
     working_dir: /home/jaime_ws
     environment:
