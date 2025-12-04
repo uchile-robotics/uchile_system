@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y locales \
 ENV LANG en_US.UTF-8
 
 # PyTorch + OpenCV (with GPU)
-RUN pip3 install transforms3d torch torchvision torchaudio opencv-python termcolor --break-system-packages --ignore-installed
+RUN pip3 install transforms3d torch torchvision torchaudio opencv-python termcolor shapely --break-system-packages --ignore-installed
 
 # CycloneDDS config and basic shell setup
 COPY config/cyclonedds.xml /
