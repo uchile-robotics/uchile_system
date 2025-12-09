@@ -1,0 +1,24 @@
+services:
+  skills:
+      image: uchile_robotics/skills
+      build:
+        context: ./skills/
+        dockerfile: Dockerfile
+      container_name: skills
+      network_mode: host
+      stdin_open: true
+      tty: true
+      environment:
+        - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+        - CYCLONEDDS_URI=file:///cyclonedds.xml
+      deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                capabilities: [gpu]
+      # devices:
+        # - host:container
+      # volumes:
+        # - hostPath:containerPath:ro
+   

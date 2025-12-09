@@ -1,0 +1,28 @@
+services:
+  skills:
+    image: uchile_robotics/skills
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: skills
+    network_mode: host
+    working_dir: /home/bender_ws
+    volumes:
+      - ~/uchile_robotics/uchile_common:/home/bender_ws/src/uchile_common
+      - ~/uchile_robotics/uchile_high:/home/bender_ws/src/uchile_high
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    stdin_open: true
+    tty: true
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=file:///cyclonedds.xml
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    devices:
+      - /dev/dri:/dev/dri
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]

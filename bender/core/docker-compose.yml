@@ -1,0 +1,22 @@
+services:
+  bender_core:
+    image: uchile_robotics/bender_core
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bender_core
+    network_mode: host
+    devices:
+      - /dev/rplidar:/dev/rplidar
+      - /dev/pioneer:/dev/pioneer
+      - /dev/input/js0:/dev/input/js0
+      - /dev/input/event28:/dev/input/event28
+    volumes:
+      - ~/uchile_robotics/bender_bringup:/home/bender_ws/src/bender_bringup
+      - ~/uchile_robotics/bender_core:/home/bender_ws/src/bender_core
+      - ~/uchile_robotics/uchile_high:/home/bender_ws/src/uchile_high
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=file:///cyclonedds.xml
+    stdin_open: true
+    tty: true
