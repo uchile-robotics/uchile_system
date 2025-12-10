@@ -12,14 +12,19 @@ services:
       - /dev/kobuki:/dev/kobuki
       - /dev/joy:/dev/joy
       - /dev/event_joy:/dev/event_joy
+      - /dev/dri:/dev/dri
     volumes:
       - ~/uchile_robotics/jaime_bringup:/home/jaime_ws/src/jaime_bringup
       - ~/uchile_robotics/jaime_core:/home/jaime_ws/src/jaime_core
       - ~/uchile_robotics/uchile_high:/home/jaime_ws/src/uchile_high
+      - /tmp/.X11-unix:/tmp/.X11-unix
+
     working_dir: /home/jaime_ws
     environment:
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
       - CYCLONEDDS_URI=file:///cyclonedds.xml
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
     stdin_open: true
     tty: true
   skills:
