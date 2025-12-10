@@ -25,7 +25,7 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-ecl-build\
         ros-jazzy-kobuki-velocity-smoother\
         curl lsb-release gnupg\
-        ros-jazzy-joint-state.publisher-gui
+        ros-jazzy-joint-state-publisher-gui
         
 
 RUN curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg &&\
