@@ -11,6 +11,8 @@ services:
       - /dev/pioneer:/dev/pioneer
       - /dev/joy:/dev/joy
       - /dev/event_joy:/dev/event_joy
+      - /dev/head_ino:/dev/head_ino
+      - /dev/cuello:/dev/cuello
     volumes:
       - ~/uchile_robotics/bender_bringup:/home/bender_ws/src/bender_bringup
       - ~/uchile_robotics/bender_core:/home/bender_ws/src/bender_core

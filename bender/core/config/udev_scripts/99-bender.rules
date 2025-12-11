@@ -9,3 +9,8 @@ KERNEL=="ttyUSB*", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", SYMLINK+="
 # --- RPLIDAR (USB serial) ---
 KERNEL=="ttyUSB*", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="rplidar", MODE:="0666"
 
+# --- Head arduino (USB serial) ---
+KERNEL=="ttyUSB*", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="head_ino", MODE:="0666"
+
+# --- Neck adapter (USB serial) ---
+KERNEL=="ttyUSB*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="0000", SYMLINK+="cuello", MODE:="0666"
