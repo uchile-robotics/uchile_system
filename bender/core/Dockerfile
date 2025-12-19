@@ -18,7 +18,8 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-dev-tools \
         ros-jazzy-teleop-twist-joy \
         ros-jazzy-joy \
-        ros-jazzy-joy-linux 
+        ros-jazzy-joy-linux \
+        ros-jazzy-dynamixel-sdk
 
 WORKDIR /home/bender_ws/src
 RUN git clone https://github.com/reedhedges/AriaCoda.git && \
@@ -28,7 +29,7 @@ RUN git clone https://github.com/reedhedges/AriaCoda.git && \
     # Uchile dependencies
     git clone -b feat-jazzy https://github.com/uchile-robotics/bender_bringup.git && \
     git clone -b feat-jazzy https://github.com/uchile-robotics/bender_core.git && \
-    git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_navigation.git
+    git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_common.git
 
 WORKDIR /home/bender_ws/src/AriaCoda
 RUN make -j && make install && cd .. && rm -rf AriaCoda
@@ -46,7 +47,7 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     echo "alias c='clear'" >> /root/.bashrc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
-RUN pip install "setuptools<80" --break-system-packages
+RUN pip install "setuptools<80" pyserial --break-system-packages
 
 COPY config/cyclonedds.xml /
 
