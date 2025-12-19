@@ -73,5 +73,23 @@ COPY config/cyclonedds.xml /
 RUN sed -i 's/#PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     echo "root:docker"|chpasswd
 
+RUN apt-get update && apt-get install -y \
+    x11-apps \
+    libx11-6 \
+    libx11-xcb1 \
+    libxcb1 \
+    libxcb-render0 \
+    libxcb-render-util0 \
+    libxcb-shape0 \
+    libxcb-xfixes0 \
+    libxcb-xinerama0 \
+    libxcb-randr0 \
+    libxcb-image0 \
+    libxcb-keysyms1 \
+    libxkbcommon-x11-0 \
+    qt5-default \
+    qtwayland5
+
+
 EXPOSE 22
 ENTRYPOINT ["bash", "-c", "service ssh restart && exec bash"]
