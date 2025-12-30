@@ -11,7 +11,10 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-tf-transformations \
     ros-dev-tools \
     ros-jazzy-teleop-twist-joy \
-    ros-jazzy-joy \
+    ros-jazzy-py-trees \
+    ros-jazzy-py-trees-ros \
+    ros-jazzy-py-trees-ros-interfaces \
+    ros-jazzy-py-trees-ros-viewer \
     && rm -rf /var/lib/apt/lists/*
 
 
