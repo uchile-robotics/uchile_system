@@ -36,17 +36,18 @@ git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_system.git
 
 ### Image building
 
+> **_NOTE:_**  If you haven't run the [linux postinstall for docker](https://docs.docker.com/engine/install/linux-postinstall), the following command **WILL** fail. Follow the instructions in the previous link .
+> 
 Build the Docker image with:
-
 ```bash
 cd ~/uchile_system/bender
-sudo docker compose up -d --build --remove-orphans
+docker compose up -d --build --remove-orphans
 ```
 
 If the image has already been built, you can skip the `--build` flag:
 
 ```bash
-sudo docker compose up -d --remove-orphans
+docker compose up -d --remove-orphans
 ```
 
 ## Troubleshooting
