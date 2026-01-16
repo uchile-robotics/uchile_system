@@ -21,7 +21,7 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-joy \
         ros-jazzy-joy-linux \
         ros-jazzy-kobuki-ros-interfaces \
-        ros-jazzy-ros-gz \
+        ros-jazzy-ros-gz-harmonic \
         ros-jazzy-ecl-build\
         ros-jazzy-kobuki-velocity-smoother\
         curl lsb-release gnupg\
@@ -53,7 +53,7 @@ WORKDIR /home/jaime_ws/src
 RUN git clone -b ros2 https://github.com/ros-drivers/openni2_camera.git 
 
 WORKDIR /home/jaime_ws/src
-RUN rosdep innit || true &&\
+RUN rosdep init || true &&\
     rosdep update &&\
     rosdep install -i --from-paths . \
     --skip-keys="gazebo_plugins gazebo_ros gazebo_msgs aws_robomaker_small_house_world gazebo aws_robomaker_bookstore_world aws_robomaker_racetrack_world aws_robomaker_small_warehouse_world astra_camera astra_camera_msgs \
