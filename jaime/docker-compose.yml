@@ -13,7 +13,7 @@ services:
       - /dev/joy:/dev/joy
       - /dev/event_joy:/dev/event_joy
       - /dev/dri:/dev/dri
-      - /dev/ttyACM0:/dev/ttyACM0
+      - /dev/tablet:/dev/tablet
     volumes:
       - ~/uchile_robotics/jaime_bringup:/home/jaime_ws/src/jaime_bringup
       - ~/uchile_robotics/jaime_core:/home/jaime_ws/src/jaime_core
