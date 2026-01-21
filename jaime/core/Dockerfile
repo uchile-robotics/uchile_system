@@ -21,7 +21,7 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-joy \
         ros-jazzy-joy-linux \
         ros-jazzy-kobuki-ros-interfaces \
-        ros-jazzy-ros-gz-harmonic \
+        ros-jazzy-ros-gz \
         ros-jazzy-ecl-build\
         ros-jazzy-kobuki-velocity-smoother\
         curl lsb-release gnupg\
@@ -84,5 +84,7 @@ RUN apt-get update && apt-get install -y \
     qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools \
     qtwayland5
 
-EXPOSE 22
+    
+    EXPOSE 22
 ENTRYPOINT ["bash", "-c", "service ssh restart && exec bash"]
+ 
