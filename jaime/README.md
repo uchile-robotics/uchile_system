@@ -10,6 +10,7 @@
 ## Installation
 
 For the installation please read [this readme](../README.md)
+nota: a veces falla el colcon build, en este caso se debe eliminar log/, build/ e install/ de jaime_ws y jaime_core, luego realizar nuevamente colcon build
 
 ## Container startup
 

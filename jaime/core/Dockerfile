@@ -22,10 +22,13 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-joy-linux \
         ros-jazzy-kobuki-ros-interfaces \
         ros-jazzy-ros-gz \
-        ros-jazzy-ecl-build\
-        ros-jazzy-kobuki-velocity-smoother\
-        curl lsb-release gnupg\
-        ros-jazzy-joint-state-publisher-gui
+        ros-jazzy-ecl-build \
+        ros-jazzy-kobuki-velocity-smoother \
+        curl lsb-release gnupg \
+        ros-jazzy-joint-state-publisher-gui \
+        android-tools-adb \
+        android-tools-fastboot 
+
         
 
 RUN curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg &&\
@@ -33,6 +36,7 @@ RUN curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyri
     apt-get update &&\
     apt-get install gz-harmonic -y
 
+RUN pip3 install --no-cache-dir imutils
 
 WORKDIR /home/jaime_ws/src
 RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git &&\
@@ -85,6 +89,6 @@ RUN apt-get update && apt-get install -y \
     qtwayland5
 
     
-    EXPOSE 22
+EXPOSE 22
 ENTRYPOINT ["bash", "-c", "service ssh restart && exec bash"]
  
