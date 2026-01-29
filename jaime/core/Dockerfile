@@ -4,6 +4,7 @@ FROM ${BASE_OS}
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG=en_US.UTF-8
+
 RUN apt-get update && apt-get full-upgrade -y && \
     apt-get install -y --no-install-recommends \
         git wget openssh-server vim curl nano python3-pip \
@@ -24,19 +25,22 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-ros-gz \
         ros-jazzy-ecl-build \
         ros-jazzy-kobuki-velocity-smoother \
-        curl lsb-release gnupg \
         ros-jazzy-joint-state-publisher-gui \
+        ros-jazzy-cv-bridge \
+        curl lsb-release gnupg \
         android-tools-adb \
-        android-tools-fastboot 
+        android-tools-fastboot \
+        python3-pip \
+        python3-requests
 
-        
+RUN pip3 install imutils --break-system-packages
+
 
 RUN curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg &&\
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] https://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null &&\
     apt-get update &&\
     apt-get install gz-harmonic -y
 
-RUN pip3 install --no-cache-dir imutils
 
 WORKDIR /home/jaime_ws/src
 RUN git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git &&\
