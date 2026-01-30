@@ -6,7 +6,6 @@ services:
       dockerfile: Dockerfile
     container_name: jaime_core
     network_mode: host
-   
     devices:
       - /dev/rplidar:/dev/rplidar
       - /dev/kobuki:/dev/kobuki
@@ -19,6 +18,7 @@ services:
       - ~/uchile_robotics/jaime_core:/home/jaime_ws/src/jaime_core
       - ~/uchile_robotics/uchile_high:/home/jaime_ws/src/uchile_high
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME/.Xauthority:/root/.Xauthority:ro
 
     working_dir: /home/jaime_ws
     environment:
@@ -26,6 +26,7 @@ services:
       - CYCLONEDDS_URI=file:///cyclonedds.xml
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/root/.Xauthority
     stdin_open: true
     tty: true
   skills:
@@ -41,6 +42,7 @@ services:
       - ~/uchile_robotics/uchile_common:/home/jaime_ws/src/uchile_common
       - ~/uchile_robotics/uchile_high:/home/jaime_ws/src/uchile_high
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME/.Xauthority:/root/.Xauthority:ro
     stdin_open: true
     tty: true
     environment:
@@ -48,6 +50,7 @@ services:
       - CYCLONEDDS_URI=file:///cyclonedds.xml
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/root/.Xauthority
     devices:
       - /dev/dri:/dev/dri
    # devices:
