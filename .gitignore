@@ -2,3 +2,6 @@
 *gz
 *zip
 .vscode
+build/
+install/
+log/
