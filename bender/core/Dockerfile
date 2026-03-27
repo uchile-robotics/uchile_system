@@ -19,7 +19,12 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-teleop-twist-joy \
         ros-jazzy-joy \
         ros-jazzy-joy-linux \
-        ros-jazzy-dynamixel-sdk
+        ros-jazzy-dynamixel-sdk \
+        ros-jazzy-moveit
+
+# ======================================
+# TODO: MUST INSTALL ODRIVE DRIVERS!!!
+# ======================================
 
 WORKDIR /home/bender_ws/src
 RUN git clone https://github.com/reedhedges/AriaCoda.git && \

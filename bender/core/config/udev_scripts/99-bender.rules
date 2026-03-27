@@ -12,5 +12,8 @@ KERNEL=="ttyUSB*", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="
 # --- Head arduino (USB serial) ---
 KERNEL=="ttyUSB*", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="head_ino", MODE:="0666"
 
-# --- Neck adapter (USB serial) ---
-KERNEL=="ttyUSB*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="0000", SYMLINK+="cuello", MODE:="0666"
+# --- dynamixel adapter (USB serial) ---
+KERNEL=="ttyUSB*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="dynamixel", MODE:="0666"
+
+# --- odrive ---
+KERNEL=="ttyUSB*", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="0d32", SYMLINK+="odrive", MODE:="0666"

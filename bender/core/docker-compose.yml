@@ -9,8 +9,10 @@ services:
     devices:
       - /dev/rplidar:/dev/rplidar
       - /dev/pioneer:/dev/pioneer
-      - /dev/input/js0:/dev/input/js0
-      - /dev/input/event28:/dev/input/event28
+      - /dev/joy:/dev/joy
+      - /dev/event_joy:/dev/event_joy
+      - /dev/odrive:/dev/odrive
+      - /dev/dynamixel:/dev/dynamixel
     volumes:
       - ~/uchile_robotics/bender_bringup:/home/bender_ws/src/bender_bringup
       - ~/uchile_robotics/bender_core:/home/bender_ws/src/bender_core
