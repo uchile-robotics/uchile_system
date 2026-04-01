@@ -22,9 +22,6 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-dynamixel-sdk \
         ros-jazzy-moveit
 
-# ======================================
-# TODO: MUST INSTALL ODRIVE DRIVERS!!!
-# ======================================
 
 WORKDIR /home/bender_ws/src
 RUN git clone https://github.com/reedhedges/AriaCoda.git && \
@@ -33,7 +30,7 @@ RUN git clone https://github.com/reedhedges/AriaCoda.git && \
     git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git && \
     # Uchile dependencies
     git clone -b feat-jazzy https://github.com/uchile-robotics/bender_bringup.git && \
-    git clone -b feat-jazzy https://github.com/uchile-robotics/bender_core.git && \
+    # git clone -b feat-jazzy https://github.com/uchile-robotics/bender_core.git && \
     git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_common.git
 
 WORKDIR /home/bender_ws/src/AriaCoda
@@ -52,7 +49,7 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     echo "alias c='clear'" >> /root/.bashrc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
-RUN pip install "setuptools<80" pyserial --break-system-packages
+RUN pip install --upgrade "setuptools<80" pyserial odrive --break-system-packages
 
 COPY config/cyclonedds.xml /
 

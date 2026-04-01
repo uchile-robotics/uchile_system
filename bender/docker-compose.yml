@@ -8,21 +8,27 @@ services:
     container_name: bender_core
     devices:
       # - /dev/rplidar:/dev/rplidar
-      - /dev/pioneer:/dev/pioneer
-      - /dev/joy:/dev/joy
-      - /dev/event_joy:/dev/event_joy
-        # - /dev/head_ino:/dev/head_ino
-        # - /dev/cuello:/dev/cuello
+      # - /dev/pioneer:/dev/pioneer
+      # - /dev/joy:/dev/joy
+      # - /dev/event_joy:/dev/event_joy
+
+      - /dev/dynamixel:/dev/dynamixel
+      # - /dev/encoders:/dev/encoders
+      - /dev/bus/usb:/dev/bus/usb   
+      - /dev/dri:/dev/dri
     volumes:
       - ~/uchile_robotics/bender_bringup:/home/bender_ws/src/bender_bringup
       - ~/uchile_robotics/bender_core:/home/bender_ws/src/bender_core
       - ~/uchile_robotics/uchile_navigation:/home/bender_ws/src/uchile_navigation
       - ~/uchile_robotics/uchile_common:/home/bender_ws/src/uchile_common
       - ~/uchile_robotics/uchile_high:/home/bender_ws/src/uchile_high
+      - /tmp/.X11-unix:/tmp/.X11-unix
     working_dir: /home/bender_ws
     environment:
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
       - CYCLONEDDS_URI=file:///cyclonedds.xml
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
     stdin_open: true
     tty: true
 
@@ -57,4 +63,3 @@ services:
       # - host:container
     # volumes:
       # - hostPath:containerPath:ro
-    
