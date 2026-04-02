@@ -20,7 +20,9 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-joy \
         ros-jazzy-joy-linux \
         ros-jazzy-dynamixel-sdk \
-        ros-jazzy-moveit
+        ros-jazzy-moveit \
+        ros-jazzy-ros2-control \
+        ros-jazzy-ros2-controllers
 
 
 WORKDIR /home/bender_ws/src

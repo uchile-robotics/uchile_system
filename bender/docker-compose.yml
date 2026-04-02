@@ -13,7 +13,7 @@ services:
       # - /dev/event_joy:/dev/event_joy
 
       - /dev/dynamixel:/dev/dynamixel
-      # - /dev/encoders:/dev/encoders
+      - /dev/encoders:/dev/encoders
       - /dev/bus/usb:/dev/bus/usb   
       - /dev/dri:/dev/dri
     volumes:
