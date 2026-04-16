@@ -7,10 +7,10 @@ services:
     network_mode: host
     container_name: bender_core
     devices:
-      # - /dev/rplidar:/dev/rplidar
-      # - /dev/pioneer:/dev/pioneer
-      # - /dev/joy:/dev/joy
-      # - /dev/event_joy:/dev/event_joy
+      - /dev/rplidar:/dev/rplidar
+      - /dev/pioneer:/dev/pioneer
+      - /dev/joy:/dev/joy
+      - /dev/event_joy:/dev/event_joy
 
       - /dev/dynamixel:/dev/dynamixel
       - /dev/encoders:/dev/encoders
