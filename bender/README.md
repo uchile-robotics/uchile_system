@@ -14,5 +14,5 @@ For the installation please read [this readme](../README.md)
 ## Container startup
 
 ```bash
-sudo docker compose up -d --build --remove-orphans # if you have already built the image you can skip the --build flag
+docker compose up -d --build --remove-orphans # if you have already built the image you can skip the --build flag
 ```
