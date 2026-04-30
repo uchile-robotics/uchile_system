@@ -22,7 +22,8 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-dynamixel-sdk \
         ros-jazzy-moveit \
         ros-jazzy-ros2-control \
-        ros-jazzy-ros2-controllers
+        ros-jazzy-ros2-controllers \
+	ros-jazzy-octomap-server
 
 WORKDIR /home/bender_ws/src
 RUN git clone https://github.com/reedhedges/AriaCoda.git && \
