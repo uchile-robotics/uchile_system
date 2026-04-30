@@ -31,7 +31,7 @@ Before running this project, you must install:
 cd $HOME
 mkdir uchile_robotics
 cd uchile_robotics
-git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_system.git
+git clone https://github.com/uchile-robotics/uchile_system.git
 ```
 
 ### Image building
