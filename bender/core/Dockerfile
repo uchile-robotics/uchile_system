@@ -24,7 +24,6 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-ros2-control \
         ros-jazzy-ros2-controllers
 
-
 WORKDIR /home/bender_ws/src
 RUN git clone https://github.com/reedhedges/AriaCoda.git && \
     git clone https://github.com/ruipaulorocha/rosaria2.git && \
@@ -51,7 +50,8 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     echo "alias c='clear'" >> /root/.bashrc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --upgrade "setuptools<80" pyserial odrive --break-system-packages
+RUN rm -rf /usr/lib/python3/dist-packages/psutil* /usr/lib/python3/dist-packages/setuptools*
+RUN pip install --upgrade --ignore-installed "setuptools<80" pyserial odrive --break-system-packages
 
 COPY config/cyclonedds.xml /
 
