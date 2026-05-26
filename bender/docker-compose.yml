@@ -6,21 +6,31 @@ services:
       dockerfile: Dockerfile
     network_mode: host
     container_name: bender_core
+    device_cgroup_rules:
+      - 'c 189:* rmw'
+    # for greater throughput for ros2 control
+    cap_add:
+      - SYS_NICE
+    ulimits:
+      rtprio: 99
+      memlock: -1
     devices:
-      - /dev/rplidar:/dev/rplidar
-      - /dev/pioneer:/dev/pioneer
-      - /dev/joy:/dev/joy
-      - /dev/event_joy:/dev/event_joy
-      - /dev/dynamixel:/dev/dynamixel
-      - /dev/encoders:/dev/encoders
-      - /dev/bus/usb:/dev/bus/usb # odrive
+      # - /dev/rplidar:/dev/rplidar
+      # - /dev/pioneer:/dev/pioneer
+      # - /dev/joy:/dev/joy
+      # - /dev/event_joy:/dev/event_joy
+      # - /dev/dynamixel:/dev/dynamixel
+      # - /dev/encoders:/dev/encoders
       - /dev/dri:/dev/dri
     volumes:
+      - /dev/bus/usb:/dev/bus/usb:rslave # odrive
+      - /run/udev:/run/udev:ro
       - ~/uchile_robotics/bender_bringup:/home/bender_ws/src/bender_bringup
       - ~/uchile_robotics/bender_core:/home/bender_ws/src/bender_core
       - ~/uchile_robotics/uchile_navigation:/home/bender_ws/src/uchile_navigation
       - ~/uchile_robotics/uchile_common:/home/bender_ws/src/uchile_common
       - ~/uchile_robotics/uchile_high:/home/bender_ws/src/uchile_high
+      - ~/uchile_robotics/odrive_ros2_control:/home/bender_ws/src/odrive_ros2_control
       - /tmp/.X11-unix:/tmp/.X11-unix
     working_dir: /home/bender_ws
     environment:

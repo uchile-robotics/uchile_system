@@ -23,20 +23,24 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-moveit \
         ros-jazzy-ros2-control \
         ros-jazzy-ros2-controllers \
-	ros-jazzy-octomap-server
+    	ros-jazzy-octomap-server \
+        ros-jazzy-xacro \
+        libusb-1.0-0-dev
 
 WORKDIR /home/bender_ws/src
 RUN git clone https://github.com/reedhedges/AriaCoda.git && \
     git clone https://github.com/ruipaulorocha/rosaria2.git && \
     git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
     git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git && \
+    git clone -b jazzy https://github.com/ROBOTIS-GIT/dynamixel_hardware_interface.git && \
+    git clone -b jazzy https://github.com/ROBOTIS-GIT/dynamixel_interfaces.git && \
     # Uchile dependencies
     git clone -b feat-jazzy https://github.com/uchile-robotics/bender_bringup.git && \
     # git clone -b feat-jazzy https://github.com/uchile-robotics/bender_core.git && \
     git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_common.git
 
 WORKDIR /home/bender_ws/src/AriaCoda
-RUN make -j && make install && cd .. && rm -rf AriaCoda
+RUN make -j$(nproc) && make install && cd .. && rm -rf AriaCoda
 
 WORKDIR /home/bender_ws/src
 RUN rosdep install -i --from-paths . --rosdistro=jazzy -y
@@ -52,7 +56,7 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 RUN rm -rf /usr/lib/python3/dist-packages/psutil* /usr/lib/python3/dist-packages/setuptools*
-RUN pip install --upgrade --ignore-installed "setuptools<80" pyserial odrive --break-system-packages
+RUN pip install --upgrade --ignore-installed "setuptools<80" pyserial odrive==0.5.4 --break-system-packages
 
 COPY config/cyclonedds.xml /
 
