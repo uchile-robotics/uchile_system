@@ -27,13 +27,14 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-xacro \
         libusb-1.0-0-dev
 
+RUN echo "ola"
 WORKDIR /home/bender_ws/src
 RUN git clone https://github.com/reedhedges/AriaCoda.git && \
     git clone https://github.com/ruipaulorocha/rosaria2.git && \
     git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
     git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git && \
-    git clone -b jazzy https://github.com/ROBOTIS-GIT/dynamixel_hardware_interface.git && \
-    git clone -b jazzy https://github.com/ROBOTIS-GIT/dynamixel_interfaces.git && \
+    git clone https://github.com/uchile-robotics/dynamixel_hardware_interface.git && \
+    git clone https://github.com/ROBOTIS-GIT/dynamixel_interfaces.git && \
     # Uchile dependencies
     git clone -b feat-jazzy https://github.com/uchile-robotics/bender_bringup.git && \
     # git clone -b feat-jazzy https://github.com/uchile-robotics/bender_core.git && \
