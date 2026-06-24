@@ -27,7 +27,6 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-xacro \
         libusb-1.0-0-dev
 
-RUN echo "ola"
 WORKDIR /home/bender_ws/src
 RUN git clone https://github.com/reedhedges/AriaCoda.git && \
     git clone https://github.com/ruipaulorocha/rosaria2.git && \
@@ -44,7 +43,9 @@ WORKDIR /home/bender_ws/src/AriaCoda
 RUN make -j$(nproc) && make install && cd .. && rm -rf AriaCoda
 
 WORKDIR /home/bender_ws/src
-RUN rosdep install -i --from-paths . --rosdistro=jazzy -y
+RUN apt-get update && \
+    rosdep update && \
+    rosdep install -i --from-paths . --rosdistro=jazzy -y
 
 RUN sed -i 's/params_ether.yaml/params_serial.yaml/' /home/bender_ws/src/urg_node2/launch/urg_node2.launch.py
 
