@@ -30,8 +30,6 @@ services:
       - ~/uchile_robotics/uchile_navigation:/home/bender_ws/src/uchile_navigation
       - ~/uchile_robotics/uchile_common:/home/bender_ws/src/uchile_common
       - ~/uchile_robotics/uchile_high:/home/bender_ws/src/uchile_high
-      - ~/uchile_robotics/odrive_ros2_control:/home/bender_ws/src/odrive_ros2_control
-      - ~/uchile_robotics/dynamixel_hardware_interface:/home/bender_ws/src/dynamixel_hardware_interface
       - /tmp/.X11-unix:/tmp/.X11-unix
     working_dir: /home/bender_ws
     environment:
