@@ -62,6 +62,9 @@ RUN pip install --upgrade --ignore-installed "setuptools<80" pyserial odrive==0.
 
 COPY config/cyclonedds.xml /
 
+
+RUN echo "alias cumpile='colcon build --symlink-install'" >> /root/.bashrc
+
 RUN sed -i 's/#PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     echo "root:docker"|chpasswd
 
