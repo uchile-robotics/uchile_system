@@ -40,7 +40,7 @@ git clone https://github.com/uchile-robotics/uchile_system.git
 > 
 Build the Docker image with:
 ```bash
-cd ~/uchile_system/bender
+cd uchile_system/bender
 docker compose up -d --build --remove-orphans
 ```
 
