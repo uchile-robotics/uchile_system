@@ -23,8 +23,11 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-moveit \
         ros-jazzy-ros2-control \
         ros-jazzy-ros2-controllers \
-    	ros-jazzy-octomap-server \
+        ros-jazzy-octomap-server \
         ros-jazzy-xacro \
+        ros-jazzy-realsense2-camera \
+        ros-jazzy-realsense2-description \
+        ros-jazzy-moveit-py \
         libusb-1.0-0-dev
 
 WORKDIR /home/bender_ws/src
@@ -58,7 +61,7 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 RUN rm -rf /usr/lib/python3/dist-packages/psutil* /usr/lib/python3/dist-packages/setuptools*
-RUN pip install --upgrade --ignore-installed "setuptools<80" pyserial odrive==0.5.4 --break-system-packages
+RUN pip install --upgrade --ignore-installed "setuptools<80" "numpy<2" pyserial odrive==0.5.4 --break-system-packages
 
 COPY config/cyclonedds.xml /
 
