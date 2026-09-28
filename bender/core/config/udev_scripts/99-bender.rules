@@ -15,8 +15,10 @@ KERNEL=="ttyUSB*", ATTRS{idVendor}=="15d1", ATTRS{idProduct}=="0000", SYMLINK+="
 # --- Head arduino (USB serial) ---
 KERNEL=="ttyUSB*", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="head_ino", MODE:="0666"
 
-# --- dynamixel adapter (USB serial) ---
-KERNEL=="ttyUSB*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="dynamixel", MODE:="0666", ATTR{latency_timer}="1"
+# --- dynamixel adapters (USB serial) ---
+# Both adapters share VID/PID/serial, so they are told apart by physical USB port (KERNELS)
+KERNEL=="ttyUSB*", KERNELS=="*-2:1.0", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="dynamixel_right", MODE:="0666", ATTR{latency_timer}="1"
+KERNEL=="ttyUSB*", KERNELS=="*-4:1.0", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="dynamixel_left", MODE:="0666", ATTR{latency_timer}="1"
 
 # --- odrive config ---
 SUBSYSTEM=="usb", ATTR{idVendor}=="1209", ATTR{idProduct}=="0d3[0-9]", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
