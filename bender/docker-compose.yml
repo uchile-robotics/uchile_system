@@ -20,7 +20,8 @@ services:
         # - /dev/pioneer:/dev/pioneer
         # - /dev/joy:/dev/joy
         # - /dev/event_joy:/dev/event_joy
-        - /dev/dynamixel:/dev/dynamixel
+        - /dev/dynamixel_right:/dev/dynamixel_right
+        - /dev/dynamixel_left:/dev/dynamixel_left
         - /dev/encoders:/dev/encoders
         - /dev/dri:/dev/dri # odrive and realsense
         volumes:
