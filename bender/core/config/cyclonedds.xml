@@ -9,6 +9,7 @@
      <MaxAutoParticipantIndex>100</MaxAutoParticipantIndex>
      <Peers>
        <Peer Address="localhost" />
+         <!--<Peer Address="192.168.1.143" />-->
      </Peers>
    </Discovery>
  </Domain>
