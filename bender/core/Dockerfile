@@ -28,6 +28,8 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-realsense2-camera \
         ros-jazzy-realsense2-description \
         ros-jazzy-moveit-py \
+        ros-jazzy-gz-ros2-control \
+        ros-jazzy-gz-ros2-control-demos \
         libusb-1.0-0-dev
 
 WORKDIR /home/bender_ws/src
