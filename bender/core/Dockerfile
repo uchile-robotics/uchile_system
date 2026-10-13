@@ -32,17 +32,17 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-gz-ros2-control-demos \
         libusb-1.0-0-dev
 
+
 WORKDIR /home/bender_ws/src
 RUN git clone https://github.com/reedhedges/AriaCoda.git && \
-    git clone https://github.com/ruipaulorocha/rosaria2.git && \
     git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git && \
     git clone -b ros2 https://github.com/Slamtec/rplidar_ros.git && \
     git clone https://github.com/uchile-robotics/dynamixel_hardware_interface.git && \
     git clone https://github.com/ROBOTIS-GIT/dynamixel_interfaces.git && \
     # Uchile dependencies
     git clone -b feat-jazzy https://github.com/uchile-robotics/bender_bringup.git && \
-    # git clone -b feat-jazzy https://github.com/uchile-robotics/bender_core.git && \
-    git clone -b feat-jazzy https://github.com/uchile-robotics/uchile_common.git
+    git clone https://github.com/uchile-robotics/bender_core.git && \
+    git clone https://github.com/uchile-robotics/uchile_common.git
 
 WORKDIR /home/bender_ws/src/AriaCoda
 RUN make -j$(nproc) && make install && cd .. && rm -rf AriaCoda
