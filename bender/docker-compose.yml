@@ -16,7 +16,7 @@ services:
             rtprio: 99
             memlock: -1
         devices:
-        # - /dev/rplidar:/dev/rplidar
+        - /dev/hokuyo:/dev/hokuyo
         # - /dev/pioneer:/dev/pioneer
         # - /dev/joy:/dev/joy
         # - /dev/event_joy:/dev/event_joy
