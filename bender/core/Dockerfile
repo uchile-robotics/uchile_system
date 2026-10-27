@@ -10,6 +10,7 @@ RUN apt-get update && apt-get full-upgrade -y && \
         doxygen \
         libboost-dev \
         ros-jazzy-rmw-cyclonedds-cpp \
+        libnss-mdns \
         ros-jazzy-navigation2 \
         ros-jazzy-nav2-bringup \
         ros-jazzy-twist-mux \
