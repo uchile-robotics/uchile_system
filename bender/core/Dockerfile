@@ -28,6 +28,7 @@ RUN apt-get update && apt-get full-upgrade -y && \
         ros-jazzy-xacro \
         ros-jazzy-realsense2-camera \
         ros-jazzy-realsense2-description \
+        ros-jazzy-usb-cam \
         ros-jazzy-moveit-py \
         ros-jazzy-gz-ros2-control \
         ros-jazzy-gz-ros2-control-demos \
