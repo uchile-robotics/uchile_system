@@ -15,15 +15,17 @@ services:
         ulimits:
             rtprio: 99
             memlock: -1
-        devices:
-        - /dev/hokuyo:/dev/hokuyo
+        devices: # which usb devices (or other types) are allowed to access the container
+          # - /dev/hokuyo:/dev/hokuyo
         - /dev/pioneer:/dev/pioneer
-        - /dev/joy:/dev/joy
-        - /dev/event_joy:/dev/event_joy
-        - /dev/dynamixel_right:/dev/dynamixel_right
+#        - /dev/joy:/dev/joy
+#        - /dev/event_joy:/dev/event_joy
+#        - /dev/dynamixel_right:/dev/dynamixel_right
         - /dev/dynamixel_left:/dev/dynamixel_left
         - /dev/encoders:/dev/encoders
+        - /dev/usb_cam:/dev/usb_cam
         - /dev/dri:/dev/dri # odrive and realsense
+        - /dev/bms:/dev/bms #BMS
         volumes:
         - /dev:/dev
         - /dev/bus/usb:/dev/bus/usb
