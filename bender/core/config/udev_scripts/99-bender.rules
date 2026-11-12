@@ -35,3 +35,6 @@ SUBSYSTEM=="iio", ATTRS{idVendor}=="8086", MODE:="0666"
 # --- USB camera (Microsoft LifeCam Cinema) ---
 # index 0 is the video stream; index 1 is metadata only
 SUBSYSTEM=="video4linux", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="075d", ATTR{index}=="0", SYMLINK+="usb_cam", MODE:="0666"
+
+# --- BMS (USB serial) ---
+KERNEL=="ttyACM*", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d3", SYMLINK+="bms", MODE:="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
