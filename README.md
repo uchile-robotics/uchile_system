@@ -63,6 +63,7 @@ To run any piece of code you must look up the respective robot package in the or
 
 - [Bender Bringup](https://github.com/uchile-robotics/bender_bringup)
 - [Jaime Bringup](https://github.com/uchile-robotics/jaime_bringup)
+- [NERO arm (AgileX)](./nero/README.md): self-contained, see its README for CAN setup and usage
 
 <!-- (TODO: update jaime_bringup repository and add any other robot that is missing in this list) -->
 

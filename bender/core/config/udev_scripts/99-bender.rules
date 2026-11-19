@@ -38,3 +38,7 @@ SUBSYSTEM=="video4linux", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="075d", ATT
 
 # --- BMS (USB serial) ---
 KERNEL=="ttyACM*", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d3", SYMLINK+="bms", MODE:="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+
+# --- nero arm ---
+
+KERNEL=="ttyACM*", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="606f", SYMLINK+="bms", MODE:="0666", ENV{ID_MM_DEVICE_IGNORE}="1"

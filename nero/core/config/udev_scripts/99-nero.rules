@@ -1,0 +1,19 @@
+# =============================================================================
+#  AgileX NERO arm - USB-CAN module (gs_usb / candleLight, VID:PID 1d50:606f)
+#
+#  The CAN module is NOT a /dev/tty device: it appears as a SocketCAN network
+#  interface (can0, can1, ...). This rule:
+#    1. renames it to a stable name: can_nero
+#    2. configures the bitrate (1 Mbit/s, required by the arm) and brings it up
+#  so the container (network_mode: host) always finds `can_nero` ready to use.
+#
+#  Verify the IDs of your module with:  lsusb | grep -i 1d50
+#
+#  !! If more than one gs_usb CAN adapter is connected to this PC (e.g. a second
+#  !! AgileX arm), every one of them would match and try to become `can_nero`.
+#  !! In that case pin the rule to the module's serial number:
+#  !!   udevadm info -a -p /sys/class/net/can0 | grep -m1 'ATTRS{serial}'
+#  !! and add  ATTRS{serial}=="<serial>"  to the rule below.
+# =============================================================================
+
+SUBSYSTEM=="net", ACTION=="add", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="606f", NAME="can_nero", RUN+="/bin/sh -c '/sbin/ip link set can_nero down; /sbin/ip link set can_nero type can bitrate 1000000 && /sbin/ip link set can_nero up'"
