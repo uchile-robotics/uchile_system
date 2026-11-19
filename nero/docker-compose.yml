@@ -1,0 +1,39 @@
+services:
+  nero_core:
+    image: uchile_robotics/nero_core
+    build:
+      context: ./core/
+      dockerfile: Dockerfile
+      # args:                       # pin upstream versions for reproducible deploys
+      #   AGX_ARM_ROS_REF: ros2     # branch / tag / commit of agx_arm_ros
+      #   PYAGXARM_REF: master      # branch / tag / commit of pyAgxArm
+    container_name: nero_core
+    # host network: required so the container sees the host SocketCAN
+    # interface (can_nero) and for DDS discovery with the other robot containers
+    network_mode: host
+    devices:
+      - /dev/dri:/dev/dri           # GPU for rviz2
+    # With network_mode host the container already sees can_nero. NET_ADMIN also lets it
+    # (re)configure the interface from inside (`nero_can_up`), as a fallback to the udev rule.
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME/.Xauthority:/root/.Xauthority:ro
+      # Development: uncomment to edit the driver from the host (see README, "Development")
+      # - ~/uchile_robotics/agx_arm_ros:/home/nero_ws/src/agx_arm_ros
+    working_dir: /home/nero_ws
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=file:///cyclonedds.xml
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/root/.Xauthority
+      # Arm configuration used by the nero_* shortcuts (see core/config/nero_aliases.sh)
+      - NERO_CAN_PORT=can_nero
+      - NERO_EFFECTOR=none          # none | agx_gripper | revo2 | revo2_pro | revo2_touch
+      - NERO_REVO2_SIDE=left        # left | right (revo2* only)
+      - NERO_SPEED_PERCENT=0        # 1-100, 0 = SDK default
+      - NERO_TCP_OFFSET=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    stdin_open: true
+    tty: true

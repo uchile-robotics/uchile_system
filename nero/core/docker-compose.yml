@@ -1,0 +1,26 @@
+services:
+  nero_core:
+    image: uchile_robotics/nero_core
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nero_core
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME/.Xauthority:/root/.Xauthority:ro
+    working_dir: /home/nero_ws
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=file:///cyclonedds.xml
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/root/.Xauthority
+      - NERO_CAN_PORT=can_nero
+      - NERO_EFFECTOR=none
+    stdin_open: true
+    tty: true
