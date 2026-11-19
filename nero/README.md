@@ -184,6 +184,7 @@ Defined in `core/config/nero_aliases.sh`. Extra `name:=value` arguments are pass
 | `nero_estop` | Emergency stop (hold current position) |
 | `nero_candump` | Dump raw CAN frames from `$NERO_CAN_PORT` |
 | `nero_can_up [iface] [bitrate]` | (Re)activate the CAN interface from inside the container (uses `NET_ADMIN`). Normally not needed: the host udev rule does it |
+| `nero_follower_mode [iface]` | Switch the arm to follower mode (normal single-arm control on firmware ≥ 1.12). Use it if the arm was left in leader mode (see Troubleshooting). Does not move the arm |
 
 ### Launch files (full form)
 
@@ -262,6 +263,7 @@ Your own packages (e.g. a NERO bringup or a Bender integration package) can be m
 | `can_nero` missing | `lsusb \| grep 1d50` (module detected?), `lsmod \| grep gs_usb` (driver loaded?), re-plug the module, or run `can_scripts/can_up.sh` |
 | Interface exists but is `DOWN` / wrong bitrate | `bash can_scripts/can_up.sh` on the host, or `nero_can_up` in the container |
 | `candump can_nero` shows nothing | The arm is not powered, the CAN cable is loose, or CAN H/L are swapped |
+| Driver: `Timed out waiting for low-speed feedback` / `Failed to get firmware version`, but `candump` shows data | The arm is in **leader** (teaching) mode: `candump` only shows IDs `151 155 156 157 159 170` and no `2A*`/`25*`/`26*` feedback. Run `nero_follower_mode` (applies immediately, persists across power cycles). On firmware ≥ 1.12 `set_normal_mode()` is a no-op, follower **is** the single-arm mode |
 | Driver times out enabling the arm | Check `/feedback/arm_status`, power-cycle the arm, and increase `enable_timeout:=10.0` |
 | Driver: `Network is down` / `No such device` | The interface went down on the host after the container started. Bring it up again on the host (no container restart needed) |
 | RViz: `could not connect to display` | Run `xhost +local:root` on the host before `docker compose up`, and check `echo $DISPLAY` |

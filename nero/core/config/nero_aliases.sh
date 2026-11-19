@@ -41,5 +41,21 @@ nero_can_up() {
     ip -details -br link show "$iface"
 }
 
+# Switch the arm to follower mode = normal single-arm control (firmware >= 1.12).
+# Needed if the arm was left in leader (teaching) mode: candump then shows only
+# 0x151/0x155-0x159/0x170 command frames and the driver times out waiting for feedback.
+# Config frame only, does not move the arm. Takes effect immediately and persists.
+nero_follower_mode() {
+    python3 - "${1:-$NERO_CAN_PORT}" <<'PY'
+import sys, time
+from pyAgxArm import create_agx_arm_config, AgxArmFactory, NeroFW
+arm = AgxArmFactory.create_arm(create_agx_arm_config(
+    robot="nero", comm="can", channel=sys.argv[1], firmeware_version=NeroFW.V112))
+arm.connect(); time.sleep(0.3)
+arm.set_follower_mode(); time.sleep(0.5)
+print("Follower mode sent. Check: candump " + sys.argv[1] + " should show 0x2A*/0x25*/0x26* feedback frames")
+PY
+}
+
 # Quick CAN sanity check (should print a continuous stream of frames)
 nero_candump() { candump "${NERO_CAN_PORT}" "$@"; }
