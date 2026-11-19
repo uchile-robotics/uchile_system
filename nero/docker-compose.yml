@@ -31,7 +31,7 @@ services:
       - XAUTHORITY=/root/.Xauthority
       # Arm configuration used by the nero_* shortcuts (see core/config/nero_aliases.sh)
       - NERO_CAN_PORT=can_nero
-      - NERO_EFFECTOR=none          # none | agx_gripper | revo2 | revo2_pro | revo2_touch
+      - NERO_EFFECTOR=agx_gripper          # none | agx_gripper | revo2 | revo2_pro | revo2_touch
       - NERO_REVO2_SIDE=left        # left | right (revo2* only)
       - NERO_SPEED_PERCENT=0        # 1-100, 0 = SDK default
       - NERO_TCP_OFFSET=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
